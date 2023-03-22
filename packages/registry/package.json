@@ -1,0 +1,23 @@
+{
+  "name": "@poap-xyz/registry",
+  "version": "0.0.1",
+  "description": "Registry module for the poap.js library",
+  "main": "src/index.ts",
+  "peerDependencies": {
+    "graphql-request": "^5.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/poap-xyz/poap.js.git"
+  },
+  "author": "Your Name",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/poap-xyz/poap.js/issues"
+  },
+  "homepage": "https://github.com/poap-xyz/poap.js#readme",
+  "dependencies": {
+    "graphql": "^16.6.0",
+    "graphql-request": "^5.2.0"
+  }
+}

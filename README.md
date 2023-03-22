@@ -1,1 +1,1 @@
-# poap-sdk
+# poap.js
