@@ -1,8 +1,8 @@
 import {
   Attribute,
   FetchAttributeInput,
-  FetchVersionPaginatedDropAttributeInput,
-  PaginatedAttributeInput,
+  FetchVersionDropAttributeInput,
+  FetchAttributesInput,
   VersionedAttribute,
 } from './types';
 import { PaginatedResult } from './utils/types';
@@ -12,15 +12,15 @@ export class Registry {
   constructor(private regsitryProvider: RegisrtyProvider) {}
 
   async fetchVersionPaginatedDropAttribute(
-    input: FetchVersionPaginatedDropAttributeInput,
+    input: FetchVersionDropAttributeInput,
   ): Promise<PaginatedResult<VersionedAttribute>> {
-    return this.regsitryProvider.fetchVersionPaginatedDropAttribute(input);
+    return this.regsitryProvider.fetchVersionDropAttribute(input);
   }
 
-  async paginatedAttribute(
-    input: PaginatedAttributeInput,
+  async fetchAttributes(
+    input: FetchAttributesInput,
   ): Promise<PaginatedResult<Attribute>> {
-    return this.regsitryProvider.paginatedAttribute(input);
+    return this.regsitryProvider.fetchAttributes(input);
   }
 
   async fetchAttribute(input: FetchAttributeInput): Promise<Attribute | null> {

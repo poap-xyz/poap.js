@@ -1,10 +1,10 @@
-export interface FetchVersionPaginatedDropAttributeInput {
+export interface FetchVersionDropAttributeInput {
   limit: number;
   offset: number;
   dropId: number;
 }
 
-export interface PaginatedAttributeInput {
+export interface FetchAttributesInput {
   limit: number;
   offset: number;
   order: string;

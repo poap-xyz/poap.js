@@ -1,24 +1,22 @@
-import {
-  FetchAttributeInput,
-  FetchVersionPaginatedDropAttributeInput,
-} from './../types/input';
 import { PaginatedResult } from '../utils/types';
 import {
   Attribute,
-  PaginatedAttributeInput,
+  FetchAttributesInput,
   VersionedAttribute,
+  FetchAttributeInput,
+  FetchVersionDropAttributeInput,
 } from '../types';
 
 export interface RegisrtyProvider {
-  paginatedAttribute(
-    PaginatedAttributeInput: PaginatedAttributeInput,
+  fetchAttributes(
+    PaginatedAttributeInput: FetchAttributesInput,
   ): Promise<PaginatedResult<Attribute>>;
 
   fetchAttribute(
     FetchAttributeInput: FetchAttributeInput,
   ): Promise<Attribute | null>;
 
-  fetchVersionPaginatedDropAttribute(
-    FetchVersionPaginatedDropAttributeInput: FetchVersionPaginatedDropAttributeInput,
+  fetchVersionDropAttribute(
+    FetchVersionDropAttributeInput: FetchVersionDropAttributeInput,
   ): Promise<PaginatedResult<VersionedAttribute>>;
 }

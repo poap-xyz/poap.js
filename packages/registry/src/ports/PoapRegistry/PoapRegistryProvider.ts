@@ -1,12 +1,10 @@
 import { HttpProvider } from './HttpProvider';
-import {
-  FetchAttributeInput,
-  FetchVersionPaginatedDropAttributeInput,
-} from '../../types/input';
 import { PaginatedResult } from '../../utils/types';
 import {
   Attribute,
-  PaginatedAttributeInput,
+  FetchAttributeInput,
+  FetchVersionDropAttributeInput,
+  FetchAttributesInput,
   VersionedAttribute,
 } from '../../types';
 import { RegisrtyProvider } from '../RegistryProvider';
@@ -33,13 +31,13 @@ export class PoapRegistryProvider implements RegisrtyProvider {
     );
   }
 
-  async paginatedAttribute({
+  async fetchAttributes({
     limit,
     offset,
     order,
     key,
     value,
-  }: PaginatedAttributeInput): Promise<PaginatedResult<Attribute>> {
+  }: FetchAttributesInput): Promise<PaginatedResult<Attribute>> {
     const where: WhereAttribute = {};
 
     if (key) {
@@ -82,11 +80,11 @@ export class PoapRegistryProvider implements RegisrtyProvider {
     return attributes[0] ?? null;
   }
 
-  async fetchVersionPaginatedDropAttribute({
+  async fetchVersionDropAttribute({
     limit,
     offset,
     dropId,
-  }: FetchVersionPaginatedDropAttributeInput): Promise<
+  }: FetchVersionDropAttributeInput): Promise<
     PaginatedResult<VersionedAttribute>
   > {
     const { attributes } =
