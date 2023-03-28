@@ -1,6 +1,4 @@
-import { gql } from 'graphql-request';
-
-const CORE_ATTRIBUTE_FIELDS_FRAGMENT = gql`
+const CORE_ATTRIBUTE_FIELDS_FRAGMENT = `
   fragment CoreAttributeFields on attributes {
     drop_id
     id
@@ -11,17 +9,18 @@ const CORE_ATTRIBUTE_FIELDS_FRAGMENT = gql`
   }
 `;
 
-export const METADATA_QUERY = gql`
+export const Attribute_QUERY = `
   ${CORE_ATTRIBUTE_FIELDS_FRAGMENT}
-  query getMetadataQuery($attribute: attributes_bool_exp) {
+  query getAttributeQuery($attribute: attributes_bool_exp) {
     attributes(where: $attribute) {
       ...CoreAttributeFields
     }
   }
 `;
-export const PAGINATED_METADATA_QUERY = gql`
+
+export const PAGINATED_Attribute_QUERY = `
   ${CORE_ATTRIBUTE_FIELDS_FRAGMENT}
-  query PaginatedMetadata(
+  query PaginatedAttribute(
     $limit: Int!
     $offset: Int!
     $order_by: [attributes_order_by!]
@@ -43,8 +42,8 @@ export const PAGINATED_METADATA_QUERY = gql`
   }
 `;
 
-export const VERSION_METADATA_BY_DROP_QUERY = gql`
-  query PaginatedVersionMetadataByDropQuery(
+export const VERSION_Attribute_BY_DROP_QUERY = `
+  query PaginatedVersionAttributeByDropQuery(
     $limit: Int!
     $offset: Int!
     $dropId: bigint!
@@ -88,7 +87,7 @@ export const VERSION_METADATA_BY_DROP_QUERY = gql`
   }
 `;
 
-export const PAGINATED_DROPS_QUERY = gql`
+export const PAGINATED_DROPS_QUERY = `
   query PaginatedDrops(
     $limit: Int!
     $offset: Int!

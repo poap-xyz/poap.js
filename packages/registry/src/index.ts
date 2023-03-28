@@ -1,32 +1,5 @@
-import {
-  fetchVersionPaginatedDropMetadata,
-  paginatedMetadata,
-  fetchMetadata,
-} from './functions';
-import {
-  FetchMetadataInput,
-  FetchVersionPaginatedDropMetadataInput,
-  PaginatedMetadataInput,
-} from './types';
+import { RegisrtyProvider } from './ports/RegistryProvider';
+import { PoapRegistryProvider } from './ports/PoapRegistryProvider';
+import { Registry } from './Registry';
 
-export class RegistryApiClient {
-  constructor(apiKey: string) {}
-
-  async fetchVersionPaginatedDropMetadata(
-    input: FetchVersionPaginatedDropMetadataInput
-  ): Promise<any> {
-    return fetchVersionPaginatedDropMetadata(input);
-  }
-
-  async paginatedMetadata(
-    input: PaginatedMetadataInput
-  ): Promise<any> {
-    return paginatedMetadata(input);
-  }
-
-  async fetchMetadata(
-    input: FetchMetadataInput
-  ): Promise<any> {
-    return fetchMetadata(input);
-  }
-}
+export { Registry, PoapRegistryProvider, RegisrtyProvider };

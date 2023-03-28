@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "module": "ES2015",
+    "moduleResolution": "node",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "target": "es2020",
+    "sourceMap": true,
+    "baseUrl": "./packages",
+    "paths": {
+      "moments": ["moments/src"],
+      "registry": ["registry/src"],
+      "drops": ["drops/src"]
+    }
+  },
+  "references": [
+    { "path": "./packages/moments" },
+    { "path": "./packages/drops" },
+    { "path": "./packages/registry" }
+  ]
+}

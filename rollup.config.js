@@ -2,6 +2,7 @@ import typescript from 'rollup-plugin-typescript2';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
+import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 
 const packages = ['moments', 'registry', 'drops'];
 
@@ -20,11 +21,12 @@ const configs = packages.map((pkg) => ({
     },
   ],
   plugins: [
+    peerDepsExternal(), // Automatically externalize dependencies
     typescript({
       tsconfig: `packages/${pkg}/tsconfig.json`,
     }),
     resolve({
-      preferBuiltins: true,
+      preferBuiltins: false,
     }),
     commonjs(),
     json(),
