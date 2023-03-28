@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export interface ApiProvider {
+export interface HttpProvider {
   request(requestInput: {
     endpoint: string;
     method: string;

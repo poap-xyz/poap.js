@@ -1,9 +1,3 @@
-export class DropsApiClient {
-  private apiKey: string;
+// import { Drops } from './Drops';
 
-  constructor(apiKey: string) {
-    this.apiKey = apiKey;
-  }
-
-  // Your module methods here
-}
+// export { Drops };

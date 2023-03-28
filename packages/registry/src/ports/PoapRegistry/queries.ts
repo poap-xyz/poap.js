@@ -32,9 +32,6 @@ export const PAGINATED_Attribute_QUERY = `
       order_by: $order_by
       where: $where
     ) {
-      aggregate {
-        count
-      }
       nodes {
         ...CoreAttributeFields
       }
@@ -80,32 +77,6 @@ export const VERSION_Attribute_BY_DROP_QUERY = `
       where: { drop_id: { _eq: $dropId } }
       distinct_on: key
     ) {
-      aggregate {
-        count
-      }
-    }
-  }
-`;
-
-export const PAGINATED_DROPS_QUERY = `
-  query PaginatedDrops(
-    $limit: Int!
-    $offset: Int!
-    $orderBy: [drops_order_by!]
-    $where: drops_bool_exp
-  ) {
-    drops(limit: $limit, offset: $offset, order_by: $orderBy, where: $where) {
-      name
-      image_url
-      id
-      created_date
-      attributes_aggregate {
-        aggregate {
-          count
-        }
-      }
-    }
-    drops_aggregate(where: $where) {
       aggregate {
         count
       }

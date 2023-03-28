@@ -1,4 +1,3 @@
-import { AttributeService } from './Attribute/Attribute.service';
 import {
   Attribute,
   FetchAttributeInput,
@@ -10,25 +9,21 @@ import { PaginatedResult } from './utils/types';
 import { RegisrtyProvider } from './ports/RegistryProvider';
 
 export class Registry {
-  private AttributeService: AttributeService;
-
-  constructor(regsitryProvider: RegisrtyProvider) {
-    this.AttributeService = new AttributeService(regsitryProvider);
-  }
+  constructor(private regsitryProvider: RegisrtyProvider) {}
 
   async fetchVersionPaginatedDropAttribute(
     input: FetchVersionPaginatedDropAttributeInput,
   ): Promise<PaginatedResult<VersionedAttribute>> {
-    return this.AttributeService.fetchVersionPaginatedDropAttribute(input);
+    return this.regsitryProvider.fetchVersionPaginatedDropAttribute(input);
   }
 
   async paginatedAttribute(
     input: PaginatedAttributeInput,
   ): Promise<PaginatedResult<Attribute>> {
-    return this.AttributeService.paginatedAttribute(input);
+    return this.regsitryProvider.paginatedAttribute(input);
   }
 
   async fetchAttribute(input: FetchAttributeInput): Promise<Attribute | null> {
-    return this.AttributeService.fetchAttribute(input);
+    return this.regsitryProvider.fetchAttribute(input);
   }
 }

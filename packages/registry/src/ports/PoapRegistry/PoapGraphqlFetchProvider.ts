@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ApiProvider } from './ApiProvider';
-export class ApiService {
-  constructor(private apiKey: string, private ApiProvider: ApiProvider) {}
+import { HttpProvider } from './HttpProvider';
+export class PoapGraphqlFetchProvider {
+  constructor(private apiKey: string, private ApiProvider: HttpProvider) {}
 
   async fetchGraphQL(query: string, variables: any = {}): Promise<any> {
     const endpoint = 'https://explorer.poap.tech/v1/graphql';

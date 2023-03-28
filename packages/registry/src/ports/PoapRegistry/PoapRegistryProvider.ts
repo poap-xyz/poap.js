@@ -1,31 +1,36 @@
-import { ApiProvider } from './../api/ApiProvider';
+import { HttpProvider } from './HttpProvider';
 import {
   FetchAttributeInput,
   FetchVersionPaginatedDropAttributeInput,
-} from '../types/input';
-import { PaginatedResult } from '../utils/types';
+} from '../../types/input';
+import { PaginatedResult } from '../../utils/types';
 import {
   Attribute,
-  AttributesQueryResponse,
-  AttributeQueryResponse,
   PaginatedAttributeInput,
   VersionedAttribute,
-  VersionedAttributeQueryResponse,
-  WhereAttribute,
-} from '../types';
-import { RegisrtyProvider } from './RegistryProvider';
-import { ApiService } from '../api/api.service';
+} from '../../types';
+import { RegisrtyProvider } from '../RegistryProvider';
+import { PoapGraphqlFetchProvider } from './PoapGraphqlFetchProvider';
 import {
   Attribute_QUERY,
   PAGINATED_Attribute_QUERY,
   VERSION_Attribute_BY_DROP_QUERY,
-} from '../Attribute/queries';
+} from './queries';
+import { WhereAttribute } from './types/filter';
+import {
+  AttributeQueryResponse,
+  AttributesQueryResponse,
+  VersionedAttributeQueryResponse,
+} from './types/response';
 
 export class PoapRegistryProvider implements RegisrtyProvider {
-  private apiService: ApiService;
+  private PoapGraphqlFetchProvider: PoapGraphqlFetchProvider;
 
-  constructor(apiKey: string, ApiProvider: ApiProvider) {
-    this.apiService = new ApiService(apiKey, ApiProvider);
+  constructor(apiKey: string, HttpProvider: HttpProvider) {
+    this.PoapGraphqlFetchProvider = new PoapGraphqlFetchProvider(
+      apiKey,
+      HttpProvider,
+    );
   }
 
   async paginatedAttribute({
@@ -46,7 +51,7 @@ export class PoapRegistryProvider implements RegisrtyProvider {
     }
 
     const { attributes_aggregate } =
-      await this.apiService.request<AttributesQueryResponse>(
+      await this.PoapGraphqlFetchProvider.request<AttributesQueryResponse>(
         PAGINATED_Attribute_QUERY,
         {
           limit,
@@ -68,9 +73,12 @@ export class PoapRegistryProvider implements RegisrtyProvider {
 
   async fetchAttribute({ id }: FetchAttributeInput): Promise<Attribute | null> {
     const { attributes } =
-      await this.apiService.request<AttributeQueryResponse>(Attribute_QUERY, {
-        attribute: { id: { _eq: id } },
-      });
+      await this.PoapGraphqlFetchProvider.request<AttributeQueryResponse>(
+        Attribute_QUERY,
+        {
+          attribute: { id: { _eq: id } },
+        },
+      );
     return attributes[0] ?? null;
   }
 
@@ -82,7 +90,7 @@ export class PoapRegistryProvider implements RegisrtyProvider {
     PaginatedResult<VersionedAttribute>
   > {
     const { attributes } =
-      await this.apiService.request<VersionedAttributeQueryResponse>(
+      await this.PoapGraphqlFetchProvider.request<VersionedAttributeQueryResponse>(
         VERSION_Attribute_BY_DROP_QUERY,
         {
           limit,
