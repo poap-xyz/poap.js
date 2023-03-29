@@ -1,8 +1,9 @@
 name: Publish to NPM
 
 on:
-  release:
-    types: [published]
+  push:
+    branches:
+      - main
 
 jobs:
   build_and_publish:
@@ -13,18 +14,28 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Set up Node.js
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v3
       with:
-        node-version: 14
+        node-version: '16.x'
         registry-url: 'https://registry.npmjs.org'
 
     - name: Install dependencies
-      run: yarn install
+      run: yarn
+  
+    - name: Check package versions
+      run: |
+        for pkg in $(find packages/* -maxdepth 0 -type d); do
+          pkg_name=$(jq -r '.name' $pkg/package.json)
+          current_version=$(jq -r '.version' $pkg/package.json)
+          remote_version=$(npm view $pkg_name version)
 
-    - name: Build
-      run: yarn workspaces run build
-
-    - name: Publish to NPM
-      run: yarn workspaces foreach -ptv run publish
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          if [ "$current_version" != "$remote_version" ]; then
+            echo "Detected version change in $pkg: $remote_version -> $current_version"
+            yarn workspace $pkg_name build
+            yarn workspace $pkg_name publish --access public
+          else
+            echo "No version change detected in $pkg"
+          fi
+        done
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

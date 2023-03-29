@@ -1,17 +1,11 @@
-// export class Drops {
-//   private DropsService: DropsService;
+import { DropsProvider } from './Drop/DropsProvider';
+import { Drop, FetchDropsInput } from './types';
+import { PaginatedResult } from './utils/types';
 
-//   constructor(DropsProvider: DropsProvider) {
-//     this.DropsService = new DropsService(DropsProvider);
-//   }
+export class Drops {
+  constructor(private DropsProvider: DropsProvider) {}
 
-//   async paginatedDrops(
-//     input: PaginatedDropsInput,
-//   ): Promise<PaginatedResult<Drop>> {
-//     return this.DropsService.paginatedDrops(input);
-//   }
-
-//   async fetchDrop(input: FetchDropInput): Promise<Drop | null> {
-//     return this.DropsService.fetchDrop(input);
-//   }
-// }
+  async fetchDrops(input: FetchDropsInput): Promise<PaginatedResult<Drop>> {
+    return this.DropsProvider.fetchDrops(input);
+  }
+}

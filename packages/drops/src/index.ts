@@ -1,3 +1,3 @@
-// import { Drops } from './Drops';
+import { Drops } from './Drops';
 
-// export { Drops };
+export { Drops };

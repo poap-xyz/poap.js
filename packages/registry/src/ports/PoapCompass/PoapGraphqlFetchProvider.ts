@@ -4,7 +4,7 @@ import { HttpProvider } from './HttpProvider';
 export class PoapGraphqlFetchProvider {
   constructor(private apiKey: string, private ApiProvider: HttpProvider) {}
 
-  async fetchGraphQL(query: string, variables: any = {}): Promise<any> {
+  async fetchGraphQL<R = any>(query: string, variables: any = {}): Promise<R> {
     const endpoint = 'https://explorer.poap.tech/v1/graphql';
 
     try {
@@ -41,8 +41,8 @@ export class PoapGraphqlFetchProvider {
 
   async request<T>(query: string, variables: any): Promise<T> {
     try {
-      const data = await this.fetchGraphQL(query, variables);
-      return data as T;
+      const data = await this.fetchGraphQL<T>(query, variables);
+      return data;
     } catch (error) {
       console.error('Error:', error);
       throw error;

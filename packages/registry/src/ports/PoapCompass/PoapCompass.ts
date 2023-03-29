@@ -1,13 +1,12 @@
 import { HttpProvider } from './HttpProvider';
 import { PaginatedResult } from '../../utils/types';
 import {
-  Attribute,
   FetchAttributeInput,
   FetchVersionDropAttributeInput,
   FetchAttributesInput,
   VersionedAttribute,
 } from '../../types';
-import { RegisrtyProvider } from '../RegistryProvider';
+import { CompassApiProvider } from '../CompassApiProvider';
 import { PoapGraphqlFetchProvider } from './PoapGraphqlFetchProvider';
 import {
   Attribute_QUERY,
@@ -20,8 +19,9 @@ import {
   AttributesQueryResponse,
   VersionedAttributeQueryResponse,
 } from './types/response';
+import { Attribute } from '../../domain/Attribute';
 
-export class PoapRegistryProvider implements RegisrtyProvider {
+export class PoapCompass implements CompassApiProvider {
   private PoapGraphqlFetchProvider: PoapGraphqlFetchProvider;
 
   constructor(apiKey: string, HttpProvider: HttpProvider) {
@@ -59,8 +59,21 @@ export class PoapRegistryProvider implements RegisrtyProvider {
         },
       );
 
+    const attributes: Attribute[] = attributes_aggregate.nodes.map(
+      (attribute) => {
+        return new Attribute(
+          attribute.id,
+          attribute.dropId,
+          attribute.key,
+          attribute.value,
+          new Date(attribute.timestamp),
+          attribute.tokenId ?? 0,
+        );
+      },
+    );
+
     const result = new PaginatedResult<Attribute>(
-      attributes_aggregate.nodes,
+      attributes,
       attributes_aggregate.nodes.length > 0
         ? limit + 1 + attributes_aggregate.nodes.length
         : null,
@@ -77,7 +90,16 @@ export class PoapRegistryProvider implements RegisrtyProvider {
           attribute: { id: { _eq: id } },
         },
       );
-    return attributes[0] ?? null;
+    return attributes[0]
+      ? new Attribute(
+          attributes[0].id,
+          attributes[0].dropId,
+          attributes[0].key,
+          attributes[0].value,
+          new Date(attributes[0].timestamp),
+          attributes[0].tokenId ?? 0,
+        )
+      : null;
   }
 
   async fetchVersionDropAttribute({
