@@ -1,5 +1,5 @@
 {
-  "name": "@poap-xyz/drops",
+  "name": "@rlajous/drops",
   "version": "0.0.1",
   "description": "Drops module for the poap.js library",
   "main": "src/index.ts",

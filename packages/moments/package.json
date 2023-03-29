@@ -1,5 +1,5 @@
 {
-  "name": "@poap-xyz/moments",
+  "name": "@rlajous/moments",
   "version": "0.0.1",
   "description": "Moments module for the poap.js library",
   "main": "src/index.ts",
