@@ -1,13 +1,14 @@
 import { PaginatedResult } from '../utils/types';
 import {
-  Attribute,
   FetchAttributesInput,
   VersionedAttribute,
   FetchAttributeInput,
   FetchVersionDropAttributeInput,
 } from '../types';
 
-export interface RegistryProvider {
+import { Attribute } from '../domain/Attribute';
+
+export interface CompassApiProvider {
   fetchAttributes(
     PaginatedAttributeInput: FetchAttributesInput,
   ): Promise<PaginatedResult<Attribute>>;

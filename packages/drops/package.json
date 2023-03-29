@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "Drops module for the poap.js library",
   "main": "src/index.ts",
+  "private": "false",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/poap-xyz/poap.js.git"

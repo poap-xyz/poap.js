@@ -1,6 +1,4 @@
-export { RegistryProvider } from './ports/RegistryProvider';
-export { PoapRegistryProvider } from './ports/PoapRegistry/PoapRegistryProvider';
-export { Registry } from './Registry';
+export { CompassApiProvider } from './ports/CompassApiProvider';
+export { PoapCompass } from './ports/PoapCompass/PoapCompass';
 export * as Types from './types';
-export { HttpProvider } from './ports/PoapRegistry/HttpProvider';
-export { RegistryFactory } from './RegistryFactory';
+export { HttpProvider } from './ports/PoapCompass/HttpProvider';

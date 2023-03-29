@@ -1,8 +1,9 @@
 name: Publish to NPM
 
 on:
-  release:
-    types: [published]
+  push:
+    branches:
+      - init
 
 jobs:
   build_and_publish:
@@ -15,16 +16,24 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: 14
+        node-version: 16.x'
         registry-url: 'https://registry.npmjs.org'
 
-    - name: Install dependencies
-      run: yarn install
-
-    - name: Build
-      run: yarn workspaces run build
-
-    - name: Publish to NPM
-      run: yarn workspaces foreach -ptv run publish
+      - name: Check package versions
+        run: |
+          for pkg in $(find packages/* -maxdepth 0 -type d); do
+            current_version=$(jq -r '.version' $pkg/package.json)
+            git_diff=$(git diff HEAD~1 HEAD -- $pkg/package.json)
+            
+            if [[ -n "$git_diff" ]]; then
+              echo "Detected version change in $pkg: $current_version -> $new_version"
+              new_version=$(jq -r '.version' $pkg/package.json)
+              npm run build --prefix $pkg
+              echo "//registry.npmjs.org/:_authToken=\${{ secrets.NPM_AUTH_TOKEN }}" > $pkg/.npmrc
+              npm publish --access public --prefix $pkg
+            else
+              echo "No version change detected in $pkg"
+            fi
+          done
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
