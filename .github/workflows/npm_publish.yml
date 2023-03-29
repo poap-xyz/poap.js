@@ -25,14 +25,14 @@ jobs:
     - name: Check package versions
       run: |
         for pkg in $(find packages/* -maxdepth 0 -type d); do
+          pkg_name=$(jq -r '.name' $pkg/package.json)
           current_version=$(jq -r '.version' $pkg/package.json)
-          git_diff=$(git diff HEAD~1 HEAD -- $pkg/package.json)
+          remote_version=$(npm view $pkg_name version)
 
-          if [[ -n "$git_diff" ]]; then
-            echo "Detected version change in $pkg: $current_version -> $new_version"
-            new_version=$(jq -r '.version' $pkg/package.json)
-            yarn build
-            yarn publish --access public
+          if [ "$current_version" != "$remote_version" ]; then
+            echo "Detected version change in $pkg: $remote_version -> $current_version"
+            yarn workspace $pkg_name build
+            yarn workspace $pkg_name publish --access public
           else
             echo "No version change detected in $pkg"
           fi
