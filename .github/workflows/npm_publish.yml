@@ -19,23 +19,23 @@ jobs:
         node-version: '16.x'
         registry-url: 'https://registry.npmjs.org'
 
-      - name: Install dependencies
-        run: yarn
+    - name: Install dependencies
+      run: yarn
   
-      - name: Check package versions
-        run: |
-          for pkg in $(find packages/* -maxdepth 0 -type d); do
-            current_version=$(jq -r '.version' $pkg/package.json)
-            git_diff=$(git diff HEAD~1 HEAD -- $pkg/package.json)
-            
-            if [[ -n "$git_diff" ]]; then
-              echo "Detected version change in $pkg: $current_version -> $new_version"
-              new_version=$(jq -r '.version' $pkg/package.json)
-              yarn build
-              yarn publish --access public
-            else
-              echo "No version change detected in $pkg"
-            fi
-          done
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+    - name: Check package versions
+      run: |
+        for pkg in $(find packages/* -maxdepth 0 -type d); do
+          current_version=$(jq -r '.version' $pkg/package.json)
+          git_diff=$(git diff HEAD~1 HEAD -- $pkg/package.json)
+
+          if [[ -n "$git_diff" ]]; then
+            echo "Detected version change in $pkg: $current_version -> $new_version"
+            new_version=$(jq -r '.version' $pkg/package.json)
+            yarn build
+            yarn publish --access public
+          else
+            echo "No version change detected in $pkg"
+          fi
+        done
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
