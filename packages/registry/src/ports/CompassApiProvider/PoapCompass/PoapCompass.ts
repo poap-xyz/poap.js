@@ -1,11 +1,11 @@
 import { HttpProvider } from './HttpProvider';
-import { PaginatedResult } from '../../utils/types';
+import { PaginatedResult } from '../../../utils/types';
 import {
   FetchAttributeInput,
   FetchVersionDropAttributeInput,
   FetchAttributesInput,
   VersionedAttribute,
-} from '../../types';
+} from '../../../types';
 import { CompassApiProvider } from '../CompassApiProvider';
 import { PoapGraphqlFetchProvider } from './PoapGraphqlFetchProvider';
 import {
@@ -19,7 +19,7 @@ import {
   AttributesQueryResponse,
   VersionedAttributeQueryResponse,
 } from './types/response';
-import { Attribute } from '../../domain/Attribute';
+import { Attribute } from '../../../domain/Attribute';
 
 export class PoapCompass implements CompassApiProvider {
   private PoapGraphqlFetchProvider: PoapGraphqlFetchProvider;

@@ -1,12 +1,12 @@
-import { PaginatedResult } from '../utils/types';
+import { PaginatedResult } from '../../utils/types';
 import {
   FetchAttributesInput,
   VersionedAttribute,
   FetchAttributeInput,
   FetchVersionDropAttributeInput,
-} from '../types';
+} from '../../types';
 
-import { Attribute } from '../domain/Attribute';
+import { Attribute } from '../../domain/Attribute';
 
 export interface CompassApiProvider {
   fetchAttributes(
