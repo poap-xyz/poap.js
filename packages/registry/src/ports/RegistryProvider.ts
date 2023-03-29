@@ -7,7 +7,7 @@ import {
   FetchVersionDropAttributeInput,
 } from '../types';
 
-export interface RegisrtyProvider {
+export interface RegistryProvider {
   fetchAttributes(
     PaginatedAttributeInput: FetchAttributesInput,
   ): Promise<PaginatedResult<Attribute>>;

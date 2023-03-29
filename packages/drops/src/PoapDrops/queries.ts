@@ -10,11 +10,6 @@ export const PAGINATED_DROPS_QUERY = `
       image_url
       id
       created_date
-      attributes_aggregate {
-        aggregate {
-          count
-        }
-      }
     }
   }
 `;

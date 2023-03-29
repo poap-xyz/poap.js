@@ -1,4 +1,4 @@
-import { Attribute, VersionAttribute } from './../../../types/attribute';
+import { Attribute, VersionAttribute } from '../../../types';
 
 export type VersionedAttributeQueryResponse = {
   attributes: [

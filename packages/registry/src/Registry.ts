@@ -6,10 +6,10 @@ import {
   VersionedAttribute,
 } from './types';
 import { PaginatedResult } from './utils/types';
-import { RegisrtyProvider } from './ports/RegistryProvider';
+import { RegistryProvider } from './ports/RegistryProvider';
 
 export class Registry {
-  constructor(private regsitryProvider: RegisrtyProvider) {}
+  constructor(private regsitryProvider: RegistryProvider) {}
 
   async fetchVersionPaginatedDropAttribute(
     input: FetchVersionDropAttributeInput,

@@ -4,18 +4,16 @@ import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 
-const packages = ['moments', 'registry', 'drops'];
-
-const configs = packages.map((pkg) => ({
-  input: `packages/${pkg}/src/index.ts`,
+const configs = {
+  input: `./src/index.ts`,
   output: [
     {
-      file: `packages/${pkg}/dist/cjs/index.js`,
+      file: `./dist/cjs/index.js`,
       format: 'cjs',
       sourcemap: true,
     },
     {
-      file: `packages/${pkg}/dist/esm/index.js`,
+      file: `./dist/esm/index.js`,
       format: 'esm',
       sourcemap: true,
     },
@@ -23,7 +21,7 @@ const configs = packages.map((pkg) => ({
   plugins: [
     peerDepsExternal(), // Automatically externalize dependencies
     typescript({
-      tsconfig: `packages/${pkg}/tsconfig.json`,
+      tsconfig: `./tsconfig.json`,
     }),
     resolve({
       preferBuiltins: false,
@@ -31,7 +29,6 @@ const configs = packages.map((pkg) => ({
     commonjs(),
     json(),
   ],
-  // external: ['@your-sdk-name/common'],
-}));
+};
 
 export default configs;

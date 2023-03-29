@@ -7,7 +7,7 @@ import {
   FetchAttributesInput,
   VersionedAttribute,
 } from '../../types';
-import { RegisrtyProvider } from '../RegistryProvider';
+import { RegistryProvider } from '../RegistryProvider';
 import { PoapGraphqlFetchProvider } from './PoapGraphqlFetchProvider';
 import {
   Attribute_QUERY,
@@ -21,7 +21,7 @@ import {
   VersionedAttributeQueryResponse,
 } from './types/response';
 
-export class PoapRegistryProvider implements RegisrtyProvider {
+export class PoapRegistryProvider implements RegistryProvider {
   private PoapGraphqlFetchProvider: PoapGraphqlFetchProvider;
 
   constructor(apiKey: string, HttpProvider: HttpProvider) {

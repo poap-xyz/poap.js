@@ -3,10 +3,6 @@
   "version": "0.0.1",
   "description": "Moments module for the poap.js library",
   "main": "src/index.ts",
-  "peerDependencies": {
-    "@apollo/client": "^3.5.7",
-    "node-fetch": "^3.1.1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/poap-xyz/poap.js.git"
@@ -16,5 +12,9 @@
   "bugs": {
     "url": "https://github.com/poap-xyz/poap.js/issues"
   },
-  "homepage": "https://github.com/poap-xyz/poap.js#readme"
+  "homepage": "https://github.com/poap-xyz/poap.js#readme",
+
+  "scripts": {
+    "build": "rollup -c"
+  }
 }
