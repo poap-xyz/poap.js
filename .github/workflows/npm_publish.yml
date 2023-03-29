@@ -3,7 +3,7 @@ name: Publish to NPM
 on:
   push:
     branches:
-      - init
+      - lerna-mvp
 
 jobs:
   build_and_publish:
@@ -14,11 +14,14 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Set up Node.js
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v3
       with:
         node-version: 16.x'
         registry-url: 'https://registry.npmjs.org'
 
+      - name: Install dependencies
+        run: yarn
+  
       - name: Check package versions
         run: |
           for pkg in $(find packages/* -maxdepth 0 -type d); do
@@ -28,9 +31,8 @@ jobs:
             if [[ -n "$git_diff" ]]; then
               echo "Detected version change in $pkg: $current_version -> $new_version"
               new_version=$(jq -r '.version' $pkg/package.json)
-              npm run build --prefix $pkg
-              echo "//registry.npmjs.org/:_authToken=\${{ secrets.NPM_AUTH_TOKEN }}" > $pkg/.npmrc
-              npm publish --access public --prefix $pkg
+              yarn build
+              yarn publish --access public
             else
               echo "No version change detected in $pkg"
             fi
