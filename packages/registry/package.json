@@ -1,6 +1,6 @@
 {
   "name": "@rlajous/registry",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "Registry module for the poap.js library",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
