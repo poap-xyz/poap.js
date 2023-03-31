@@ -6,7 +6,8 @@
   "scripts": {
     "build": "rollup -c",
     "lint": "eslint 'packages/**/src/**/*.ts' --fix",
-    "format": "prettier --write 'packages/**/src/**/*.ts'"
+    "format": "prettier --write 'packages/**/src/**/*.ts'",
+    "publish": "bash ./publish-update-packages.sh"
   },
   "repository": {
     "type": "git",

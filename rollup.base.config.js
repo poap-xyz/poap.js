@@ -12,11 +12,13 @@ const configs = {
       file: `./dist/cjs/index.js`,
       format: 'cjs',
       sourcemap: true,
+      exports: 'named',
     },
     {
       file: `./dist/esm/index.js`,
       format: 'esm',
       sourcemap: true,
+      exports: 'named',
     },
   ],
   plugins: [

@@ -1,16 +1,12 @@
 import {
-  CompassProvider,
   RegistryApiProvider,
   CreateAttributeInput,
+  CreateAttributesBulkInput,
 } from '@rlajous/providers';
 import { Attribute } from './domain/Attribute';
-// import { PaginatedResult } from './utils/types';
 
 export class Attributes {
-  constructor(
-    private CompassProvider: CompassProvider,
-    private RegistryApiProvider: RegistryApiProvider,
-  ) {}
+  constructor(private RegistryApiProvider: RegistryApiProvider) {}
 
   async create(input: CreateAttributeInput): Promise<Attribute> {
     const repsonse = await this.RegistryApiProvider.createAttribute(input);
@@ -20,7 +16,7 @@ export class Attributes {
     });
   }
 
-  async createBulk(input: CreateBulkAttributeInput): Promise<Attribute[]> {
+  async createBulk(input: CreateAttributesBulkInput): Promise<Attribute[]> {
     const repsonse = await this.RegistryApiProvider.createAttributesBulk(input);
     return repsonse.map(
       (attribute) =>

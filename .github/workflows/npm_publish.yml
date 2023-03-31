@@ -19,23 +19,14 @@ jobs:
         node-version: '16.x'
         registry-url: 'https://registry.npmjs.org'
 
+    - name: Install Yarn
+      run: |
+        yarn set version $(grep 'yarnPath' .yarnrc.yml | cut -d'/' -f4 | cut -d'.' -f1-2)
+
     - name: Install dependencies
       run: yarn
   
     - name: Check package versions
-      run: |
-        for pkg in $(find packages/* -maxdepth 0 -type d); do
-          pkg_name=$(jq -r '.name' $pkg/package.json)
-          current_version=$(jq -r '.version' $pkg/package.json)
-          remote_version=$(npm view $pkg_name version)
-
-          if [ "$current_version" != "$remote_version" ]; then
-            echo "Detected version change in $pkg: $remote_version -> $current_version"
-            yarn workspace $pkg_name build
-            yarn workspace $pkg_name publish --access public
-          else
-            echo "No version change detected in $pkg"
-          fi
-        done
+      run: yarn publish
     env:
       NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
