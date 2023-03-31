@@ -38,7 +38,8 @@ module.exports = {
         project: [
           './packages/moments/tsconfig.json',
           './packages/drops/tsconfig.json',
-          './packages/registry/tsconfig.json',
+          './packages/providers/tsconfig.json',
+          './packages/attributes/tsconfig.json',
           './tsconfig.json',
         ],
       },

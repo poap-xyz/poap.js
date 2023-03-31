@@ -18,13 +18,18 @@
     "baseUrl": "./packages",
     "paths": {
       "moments": ["moments/src"],
-      "registry": ["registry/src"],
-      "drops": ["drops/src"]
+      "providers": ["providers/src/*"],
+      "drops": ["drops/src"],
+      "attributes": ["attributes/src"],
+      "types": ["types/src"]
     }
   },
+  "exclude": ["node_modules", "dist"],
   "references": [
     { "path": "./packages/moments" },
     { "path": "./packages/drops" },
-    { "path": "./packages/registry" }
+    { "path": "./packages/providers" },
+    { "path": "./packages/attributes" },
+    { "path": "./packages/types" }
   ]
 }

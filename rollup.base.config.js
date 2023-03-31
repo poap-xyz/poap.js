@@ -3,6 +3,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 
 const configs = {
   input: `./src/index.ts`,
@@ -28,6 +29,7 @@ const configs = {
     }),
     commonjs(),
     json(),
+    nodeResolve(),
   ],
 };
 

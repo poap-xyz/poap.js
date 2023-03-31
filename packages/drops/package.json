@@ -15,5 +15,8 @@
   "homepage": "https://github.com/poap-xyz/poap.js#readme",
   "scripts": {
     "build": "rollup -c"
+  },
+  "dependencies": {
+    "@rlajous/providers": "*"
   }
 }

@@ -1,0 +1,19 @@
+{
+  "name": "@rlajous/types",
+  "version": "0.1.1",
+  "description": "Moments module for the poap.js library",
+  "main": "src/index.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/poap-xyz/poap.js.git"
+  },
+  "author": "POAP",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/poap-xyz/poap.js/issues"
+  },
+  "homepage": "https://github.com/poap-xyz/poap.js#readme",
+  "scripts": {
+    "build": "rollup -c"
+  }
+}

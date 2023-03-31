@@ -1,0 +1,21 @@
+{
+  "name": "@rlajous/attributes",
+  "version": "0.1.6",
+  "description": "Registry module for the poap.js library",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "typings": "dist/cjs/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/poap-xyz/poap.js.git"
+  },
+  "author": "POAP",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/poap-xyz/poap.js/issues"
+  },
+  "homepage": "https://github.com/poap-xyz/poap.js#readme",
+  "scripts": {
+    "build": "rollup -c"
+  }
+}
