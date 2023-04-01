@@ -5,7 +5,7 @@ import {
 } from '@rlajous/providers';
 import { Attribute } from './domain/Attribute';
 
-export class Attributes {
+export class AttributesClient {
   constructor(private RegistryApiProvider: RegistryApiProvider) {}
 
   async create(input: CreateAttributeInput): Promise<Attribute> {

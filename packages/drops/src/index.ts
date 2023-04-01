@@ -1,3 +1,3 @@
-import { Drops } from './Drops';
+import { DropsClient } from './DropsClient';
 
-export { Drops };
+export { DropsClient };

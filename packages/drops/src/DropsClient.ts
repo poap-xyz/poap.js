@@ -10,7 +10,7 @@ import {
 import { CreateDropsInput, FetchDropsInput, UpdateDropsInput } from './types';
 import { PaginatedResult } from './utils/types';
 
-export class DropClient {
+export class DropsClient {
   constructor(
     private CompassProvider: CompassProvider,
     private DropApiProvider: DropApiProvider,
