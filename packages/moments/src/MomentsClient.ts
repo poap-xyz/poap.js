@@ -1,9 +1,9 @@
+import { PoapMomentsApi } from '@rlajous/providers';
 import { Moment } from './domain/Moment';
-import { MomentsApiProvider } from './ports/MomentsApiProvider';
 import { createMomentInput } from './types';
 
-export class Moments {
-  constructor(private MomentsApiProvider: MomentsApiProvider) {}
+export class MomentsClient {
+  constructor(private Poap: PoapMomentsApi ) {}
 
   async createMoment(input: createMomentInput): Promise<Moment> {
     return new Moment(

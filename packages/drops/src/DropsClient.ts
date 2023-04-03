@@ -10,12 +10,32 @@ import {
 import { CreateDropsInput, FetchDropsInput, UpdateDropsInput } from './types';
 import { PaginatedResult } from './utils/types';
 
+/**
+ * Represents a client for working with POAP drops.
+ *
+ * @class DropsClient
+ */
 export class DropsClient {
+  /**
+   * Creates a new DropsClient object.
+   *
+   * @constructor
+   * @param {CompassProvider} CompassProvider - The provider for the POAP compass API.
+   * @param {DropApiProvider} DropApiProvider - The provider for the POAP drop API.
+   */
   constructor(
     private CompassProvider: CompassProvider,
     private DropApiProvider: DropApiProvider,
   ) {}
 
+  /**
+   * Fetches drops based on the specified input.
+   *
+   * @async
+   * @method
+   * @param {FetchDropsInput} input - The input for fetching drops.
+   * @returns {Promise<PaginatedResult<Drop>>} A paginated result of drops.
+   */
   async fetch(input: FetchDropsInput): Promise<PaginatedResult<Drop>> {
     const {
       limit,
@@ -65,11 +85,27 @@ export class DropsClient {
     return new PaginatedResult<Drop>(drops, drops.length);
   }
 
+  /**
+   * Creates a new drop.
+   *
+   * @async
+   * @method
+   * @param {CreateDropsInput} input - The input for creating a new drop.
+   * @returns {Promise<Drop>} The newly created drop.
+   */
   async create(input: CreateDropsInput): Promise<Drop> {
     const repsonse = await this.DropApiProvider.createDrop(input);
     return new Drop(repsonse);
   }
 
+  /**
+   * Updates an existing drop.
+   *
+   * @async
+   * @method
+   * @param {UpdateDropsInput} input - The input for updating an existing drop.
+   * @returns {Promise<Drop>} The updated drop.
+   */
   async update(input: UpdateDropsInput): Promise<Drop> {
     const repsonse = await this.DropApiProvider.updateDrop(input);
     return new Drop(repsonse);

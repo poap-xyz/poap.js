@@ -2,12 +2,14 @@
   "name": "poap.js",
   "version": "0.0.1",
   "description": "A library containing moments and registry modules",
+  "type": "module",
   "main": "index.ts",
   "scripts": {
     "build": "rollup -c",
     "lint": "eslint 'packages/**/src/**/*.ts' --fix",
     "format": "prettier --write 'packages/**/src/**/*.ts'",
-    "publish": "bash ./publish-update-packages.sh"
+    "publish": "bash ./publish-update-packages.sh",
+    "docs": "typedoc"
   },
   "repository": {
     "type": "git",
@@ -36,6 +38,8 @@
     "rollup-plugin-node-polyfills": "^0.2.1",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-typescript2": "^0.31.1",
+    "typedoc": "^0.23.28",
+    "typedoc-plugin-markdown": "^3.14.0",
     "typescript": "^5.0.2"
   },
   "workspaces": [

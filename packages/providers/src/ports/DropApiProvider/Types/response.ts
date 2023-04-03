@@ -1,3 +1,8 @@
+/**
+ * The response data from a drop API.
+ *
+ * @interface DropResponse
+ */
 export interface DropResponse {
   id: number;
   fancy_id: string;

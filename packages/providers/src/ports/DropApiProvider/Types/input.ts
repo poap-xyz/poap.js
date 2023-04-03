@@ -1,3 +1,8 @@
+/**
+ * The input data for creating a drop.
+ *
+ * @interface CreateDropInput
+ */
 export interface CreateDropInput {
   name: string;
   description: string;
@@ -16,6 +21,11 @@ export interface CreateDropInput {
   private_event?: boolean;
 }
 
+/**
+ * The input data for updating a drop.
+ *
+ * @interface UpdateDropInput
+ */
 export interface UpdateDropInput {
   name: string;
   description: string;

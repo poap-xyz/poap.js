@@ -18,5 +18,8 @@
   },
   "devDependencies": {
     "rollup": "^3.20.2"
+  },
+  "dependencies": {
+    "@rlajous/providers": "*"
   }
 }

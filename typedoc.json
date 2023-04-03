@@ -1,0 +1,14 @@
+{
+  "tsconfig": "tsconfig.typedoc.json",
+  "entryPoints": [
+    "./packages/attributes/src",
+    "./packages/drops/src",
+    "./packages/moments/src",
+    "./packages/providers/src",
+    "./packages/types/src"
+  ],
+  "exclude": ["**/node_modules/**", "**/*.spec.ts"],
+  "out": "docs",
+  "plugin": ["typedoc-plugin-markdown"],
+  "theme": "markdown"
+}
