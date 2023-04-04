@@ -1,0 +1,43 @@
+{
+  "compilerOptions": {
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "sourceMap": true,
+    "baseUrl": "./packages",
+    "importHelpers": true,
+    "strict": true,
+    "declaration": true,
+    "declarationDir": ".",
+    "outDir": "./dist",
+    "target": "es5",
+    "lib": ["es2018", "dom", "esnext"],
+    "module": "es6",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "downlevelIteration": true,
+    "noImplicitAny": false,
+    "paths": {
+      "moments": ["moments/src"],
+      "providers": ["providers/src/*"],
+      "drops": ["drops/src"],
+      "attributes": ["attributes/src"],
+      "utils": ["utils/src"]
+    }
+  },
+  "exclude": ["node_modules", "dist"],
+  "references": [
+    { "path": "./packages/moments" },
+    { "path": "./packages/drops" },
+    { "path": "./packages/providers" },
+    { "path": "./packages/attributes" },
+    { "path": "./packages/utils" }
+  ]
+}

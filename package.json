@@ -1,0 +1,48 @@
+{
+  "name": "poap.js",
+  "version": "0.0.1",
+  "description": "A library containing moments and registry modules",
+  "main": "index.ts",
+  "scripts": {
+    "build": "bash ./build.sh",
+    "lint": "eslint 'packages/**/src/**/*.ts' --fix",
+    "format": "prettier --write 'packages/**/src/**/*.ts'",
+    "publish": "bash ./publish-update-packages.sh",
+    "docs": "typedoc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/poap-xyz/poap.js.git"
+  },
+  "author": "POAP",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/poap-xyz/poap.js/issues"
+  },
+  "homepage": "https://github.com/poap-xyz/poap.js#readme",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^22.0.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-terser": "^0.4.0",
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "@typescript-eslint/parser": "^5.56.0",
+    "eslint": "^8.36.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.6",
+    "rollup": "^3.20.2",
+    "rollup-plugin-node-polyfills": "^0.2.1",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-typescript2": "^0.31.1",
+    "typedoc": "^0.23.28",
+    "typedoc-plugin-markdown": "^3.14.0",
+    "typescript": "^5.0.2"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "packageManager": "yarn@3.5.0"
+}

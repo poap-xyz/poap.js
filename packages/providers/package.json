@@ -1,0 +1,35 @@
+{
+  "name": "@rlajous/providers",
+  "version": "0.2.20",
+  "description": "Providers module for the poap.js library",
+  "main": "dist/cjs/index.cjs",
+  "module": "dist/esm/index.mjs",
+  "typings": "dist/cjs/index.d.ts",
+  "browser": "dist/umd/index.js",
+  "exports": {
+    "require": "./dist/cjs/index.cjs",
+    "import": "./dist/esm/index.mjs",
+    "browser": "./dist/umd/index.js"
+  },
+  "exports": {
+    "require": "./dist/cjs/index.cjs",
+    "import": "./dist/esm/index.mjs",
+    "browser": "./dist/umd/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/poap-xyz/poap.js.git"
+  },
+  "author": "POAP",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/poap-xyz/poap.js/issues"
+  },
+  "homepage": "https://github.com/poap-xyz/poap.js#readme",
+  "scripts": {
+    "build": "rollup -c --bundleConfigAsCjs"
+  },
+  "devDependencies": {
+    "rollup": "^3.20.2"
+  }
+}
