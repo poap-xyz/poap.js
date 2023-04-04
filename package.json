@@ -5,7 +5,7 @@
   "type": "module",
   "main": "index.ts",
   "scripts": {
-    "build": "rollup -c",
+    "build": "bash ./build.sh",
     "lint": "eslint 'packages/**/src/**/*.ts' --fix",
     "format": "prettier --write 'packages/**/src/**/*.ts'",
     "publish": "bash ./publish-update-packages.sh",

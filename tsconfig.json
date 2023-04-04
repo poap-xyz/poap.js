@@ -6,6 +6,7 @@
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "strictNullChecks": true,
@@ -21,7 +22,7 @@
       "providers": ["providers/src/*"],
       "drops": ["drops/src"],
       "attributes": ["attributes/src"],
-      "types": ["types/src"]
+      "utils": ["utils/src"]
     }
   },
   "exclude": ["node_modules", "dist"],
@@ -30,6 +31,6 @@
     { "path": "./packages/drops" },
     { "path": "./packages/providers" },
     { "path": "./packages/attributes" },
-    { "path": "./packages/types" }
+    { "path": "./packages/utils" }
   ]
 }

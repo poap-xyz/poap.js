@@ -1,6 +1,6 @@
 {
   "name": "@rlajous/attributes",
-  "version": "0.1.6",
+  "version": "0.2.1",
   "description": "Registry module for the poap.js library",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -20,5 +20,9 @@
   },
   "devDependencies": {
     "rollup": "^3.20.2"
+  },
+  "dependencies": {
+    "@rlajous/providers": "*",
+    "@rlajous/utils": "*"
   }
 }

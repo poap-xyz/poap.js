@@ -8,7 +8,7 @@ import {
   filterUndefinedProperties,
 } from './queries/utils';
 import { CreateDropsInput, FetchDropsInput, UpdateDropsInput } from './types';
-import { PaginatedResult } from './utils/types';
+import { PaginatedResult } from '@rlajous/utils';
 
 /**
  * Represents a client for working with POAP drops.

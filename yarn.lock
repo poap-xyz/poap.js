@@ -182,6 +182,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@rlajous/attributes@workspace:packages/attributes"
   dependencies:
+    "@rlajous/providers": "*"
+    "@rlajous/utils": "*"
     rollup: ^3.20.2
   languageName: unknown
   linkType: soft
@@ -191,6 +193,7 @@ __metadata:
   resolution: "@rlajous/drops@workspace:packages/drops"
   dependencies:
     "@rlajous/providers": "*"
+    "@rlajous/utils": "*"
     rollup: ^3.20.2
   languageName: unknown
   linkType: soft
@@ -212,9 +215,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@rlajous/types@workspace:packages/types":
+"@rlajous/utils@*, @rlajous/utils@workspace:packages/utils":
   version: 0.0.0-use.local
-  resolution: "@rlajous/types@workspace:packages/types"
+  resolution: "@rlajous/utils@workspace:packages/utils"
   dependencies:
     rollup: ^3.20.2
   languageName: unknown

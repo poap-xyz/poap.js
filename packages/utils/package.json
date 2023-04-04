@@ -1,8 +1,10 @@
 {
-  "name": "@rlajous/types",
-  "version": "0.1.1",
-  "description": "Moments module for the poap.js library",
-  "main": "src/index.ts",
+  "name": "@rlajous/utils",
+  "version": "0.2.0",
+  "description": "Utils module for the poap.js library",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "typings": "dist/cjs/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/poap-xyz/poap.js.git"
