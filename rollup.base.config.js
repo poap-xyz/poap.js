@@ -1,5 +1,5 @@
 import typescript from 'rollup-plugin-typescript2';
-import resolve from '@rollup/plugin-node-resolve';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
@@ -15,12 +15,16 @@ const configs = [
       name: pkg.name,
       file: pkg.browser,
       format: 'umd',
+      exports: 'named',
+      sourcemap: true,
     },
+    cache: false,
     plugins: [
-      resolve({ browser: true }),
+      nodeResolve({ browser: true }),
       typescript({
         tsconfig: `./tsconfig.json`,
       }),
+      commonjs(),
       json(),
     ],
   },
@@ -45,7 +49,7 @@ const configs = [
       typescript({
         tsconfig: `./tsconfig.json`,
       }),
-      resolve({
+      nodeResolve({
         preferBuiltins: false,
       }),
       commonjs(),

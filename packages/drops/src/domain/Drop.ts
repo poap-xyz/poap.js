@@ -24,6 +24,21 @@ export class Drop {
   created_date: string;
 
   constructor(properties: DropProperties) {
+    this.id = properties.id;
+    this.fancy_id = properties.fancy_id;
+    this.name = properties.name;
+    this.description = properties.description;
+    this.city = properties.city;
+    this.country = properties.country;
+    this.event_url = properties.event_url;
+    this.image_url = properties.image_url;
+    this.year = properties.year;
+    this.start_date = properties.start_date;
+    this.end_date = properties.end_date;
+    this.expiry_date = properties.expiry_date;
+    this.from_admin = properties.from_admin;
+    this.virtual_event = properties.virtual_event;
+    this.created_date = properties.created_date;
     Object.assign(this, properties);
   }
 }

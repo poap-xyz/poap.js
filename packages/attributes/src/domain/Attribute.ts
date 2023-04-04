@@ -59,7 +59,12 @@ export class Attribute {
    * @param {AttributeProperties} properties - The properties of the attribute.
    */
   constructor(properties: AttributeProperties) {
-    Object.assign(this, properties);
+    this.id = properties.id;
+    this.dropId = properties.dropId;
+    this.tokenId = properties.tokenId ?? 0;
+    this.key = properties.key;
+    this.value = properties.value;
+    this.timestamp = properties.timestamp;
   }
 }
 
