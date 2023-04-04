@@ -1,10 +1,12 @@
 {
   "name": "@rlajous/attributes",
-  "version": "0.2.1",
+  "version": "0.2.5",
   "description": "Registry module for the poap.js library",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
+  "main": "dist/cjs/index.cjs",
+  "module": "dist/esm/index.mjs",
   "typings": "dist/cjs/index.d.ts",
+  "browser": "dist/umd/index.js",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/poap-xyz/poap.js.git"
@@ -21,7 +23,7 @@
   "devDependencies": {
     "rollup": "^3.20.2"
   },
-  "dependencies": {
+  "peerDependencies": {
     "@rlajous/providers": "*",
     "@rlajous/utils": "*"
   }

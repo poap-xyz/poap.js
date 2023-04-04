@@ -182,9 +182,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@rlajous/attributes@workspace:packages/attributes"
   dependencies:
+    rollup: ^3.20.2
+  peerDependencies:
     "@rlajous/providers": "*"
     "@rlajous/utils": "*"
-    rollup: ^3.20.2
   languageName: unknown
   linkType: soft
 

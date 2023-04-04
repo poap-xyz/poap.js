@@ -2,7 +2,6 @@
   "name": "poap.js",
   "version": "0.0.1",
   "description": "A library containing moments and registry modules",
-  "type": "module",
   "main": "index.ts",
   "scripts": {
     "build": "bash ./build.sh",
