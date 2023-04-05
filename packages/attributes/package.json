@@ -1,6 +1,6 @@
 {
   "name": "@poap-xyz/attributes",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Registry module for the poap.js library",
   "main": "dist/cjs/index.cjs",
   "module": "dist/esm/index.mjs",
@@ -28,7 +28,7 @@
   "devDependencies": {
     "rollup": "^3.20.2"
   },
-  "dependencies": {
+  "peerDependencies": {
     "@poap-xyz/providers": "*",
     "@poap-xyz/utils": "*"
   }

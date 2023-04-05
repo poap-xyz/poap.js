@@ -182,9 +182,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@poap-xyz/attributes@workspace:packages/attributes"
   dependencies:
+    rollup: ^3.20.2
+  peerDependencies:
     "@poap-xyz/providers": "*"
     "@poap-xyz/utils": "*"
-    rollup: ^3.20.2
   languageName: unknown
   linkType: soft
 
@@ -202,8 +203,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@poap-xyz/moments@workspace:packages/moments"
   dependencies:
-    "@poap-xyz/providers": "*"
     rollup: ^3.20.2
+  peerDependencies:
+    "@poap-xyz/providers": "*"
   languageName: unknown
   linkType: soft
 

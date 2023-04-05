@@ -55,7 +55,7 @@ const configs = [
       commonjs(),
       json(),
     ],
-  }
+  },
 ];
 
 export default configs;
