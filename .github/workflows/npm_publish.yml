@@ -3,7 +3,7 @@ name: Publish to NPM
 on:
   push:
     branches:
-      - clean-code
+      - main
 
 jobs:
   build_and_publish:
