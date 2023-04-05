@@ -1,4 +1,4 @@
-import { PoapMomentsApi } from '@rlajous/providers';
+import { PoapMomentsApi } from '@poap-xyz/providers';
 import { Moment } from './domain/Moment';
 import { createMomentInput } from './types';
 

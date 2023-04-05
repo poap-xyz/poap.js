@@ -1,5 +1,5 @@
-import { RegistryApiProvider, CreateAttributeInput, CreateAttributesBulkInput, CompassProvider } from '@rlajous/providers';
-import { PaginatedResult } from '@rlajous/utils';
+import { RegistryApiProvider, CreateAttributeInput, CreateAttributesBulkInput, CompassProvider } from '@poap-xyz/providers';
+import { PaginatedResult } from '@poap-xyz/utils';
 import { Attribute } from './domain/Attribute';
 import { FetchAttributesInput } from './types';
 import { AttributesQueryResponse, PAGINATED_ATTRIBUTES_QUERY } from './queries';

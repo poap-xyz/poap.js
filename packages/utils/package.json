@@ -1,6 +1,6 @@
 {
-  "name": "@rlajous/utils",
-  "version": "0.2.20",
+  "name": "@poap-xyz/utils",
+  "version": "0.0.1",
   "description": "Utils module for the poap.js library",
   "type": "module",
   "main": "dist/cjs/index.cjs",

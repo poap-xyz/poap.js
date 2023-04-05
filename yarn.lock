@@ -178,46 +178,46 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rlajous/attributes@workspace:packages/attributes":
+"@poap-xyz/attributes@workspace:packages/attributes":
   version: 0.0.0-use.local
-  resolution: "@rlajous/attributes@workspace:packages/attributes"
+  resolution: "@poap-xyz/attributes@workspace:packages/attributes"
   dependencies:
-    "@rlajous/providers": "*"
-    "@rlajous/utils": "*"
+    "@poap-xyz/providers": "*"
+    "@poap-xyz/utils": "*"
     rollup: ^3.20.2
   languageName: unknown
   linkType: soft
 
-"@rlajous/drops@workspace:packages/drops":
+"@poap-xyz/drops@workspace:packages/drops":
   version: 0.0.0-use.local
-  resolution: "@rlajous/drops@workspace:packages/drops"
+  resolution: "@poap-xyz/drops@workspace:packages/drops"
   dependencies:
-    "@rlajous/providers": "*"
-    "@rlajous/utils": "*"
+    "@poap-xyz/providers": "*"
+    "@poap-xyz/utils": "*"
     rollup: ^3.20.2
   languageName: unknown
   linkType: soft
 
-"@rlajous/moments@workspace:packages/moments":
+"@poap-xyz/moments@workspace:packages/moments":
   version: 0.0.0-use.local
-  resolution: "@rlajous/moments@workspace:packages/moments"
+  resolution: "@poap-xyz/moments@workspace:packages/moments"
   dependencies:
-    "@rlajous/providers": "*"
+    "@poap-xyz/providers": "*"
     rollup: ^3.20.2
   languageName: unknown
   linkType: soft
 
-"@rlajous/providers@*, @rlajous/providers@workspace:packages/providers":
+"@poap-xyz/providers@*, @poap-xyz/providers@workspace:packages/providers":
   version: 0.0.0-use.local
-  resolution: "@rlajous/providers@workspace:packages/providers"
+  resolution: "@poap-xyz/providers@workspace:packages/providers"
   dependencies:
     rollup: ^3.20.2
   languageName: unknown
   linkType: soft
 
-"@rlajous/utils@*, @rlajous/utils@workspace:packages/utils":
+"@poap-xyz/utils@*, @poap-xyz/utils@workspace:packages/utils":
   version: 0.0.0-use.local
-  resolution: "@rlajous/utils@workspace:packages/utils"
+  resolution: "@poap-xyz/utils@workspace:packages/utils"
   dependencies:
     rollup: ^3.20.2
   languageName: unknown
