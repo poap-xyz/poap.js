@@ -3,7 +3,7 @@ name: Publish to NPM
 on:
   push:
     branches:
-      - main
+      - clean-code
 
 jobs:
   build_and_publish:
@@ -18,10 +18,6 @@ jobs:
       with:
         node-version: '16.x'
         registry-url: 'https://registry.npmjs.org'
-
-    - name: Install Yarn
-      run: |
-        yarn set version $(grep 'yarnPath' .yarnrc.yml | cut -d'/' -f4 | cut -d'.' -f1-2)
 
     - name: Install dependencies
       run: yarn
