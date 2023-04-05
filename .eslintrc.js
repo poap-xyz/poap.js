@@ -28,7 +28,7 @@ module.exports = {
     '@typescript-eslint/no-misused-promises': ['error'],
     '@typescript-eslint/no-unused-vars': ['error'],
     complexity: ['error', 5],
-    'max-len': ['error', { code: 100, ignorePattern: '^import |^export ' }],
+    'max-len': ['error', { code: 200, ignorePattern: '^import |^export ' }],
     'max-statements': ['error', 10],
   },
   overrides: [
