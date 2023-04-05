@@ -1,7 +1,7 @@
 /**
  * Represents a Moment in the POAP system.
  * @class
-**/
+ **/
 export class Moment {
   /**
    * A UUID

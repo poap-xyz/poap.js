@@ -3,7 +3,7 @@ import { Moment } from './domain/Moment';
 import { createMomentInput } from './types';
 
 export class MomentsClient {
-  constructor(private Poap: PoapMomentsApi ) {}
+  constructor(private Poap: PoapMomentsApi) {}
 
   async createMoment(input: createMomentInput): Promise<Moment> {
     return new Moment(

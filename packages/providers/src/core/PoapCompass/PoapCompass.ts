@@ -64,9 +64,7 @@ export class PoapCompass implements CompassProvider {
 
       return json;
     } catch (error) {
-      throw new Error(
-        `Network error, received status code ${error}`,
-      );
+      throw new Error(`Network error, received status code ${error}`);
     }
   }
 

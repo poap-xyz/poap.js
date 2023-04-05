@@ -1,4 +1,9 @@
-import { RegistryApiProvider, CreateAttributeInput, CreateAttributesBulkInput, CompassProvider } from '@poap-xyz/providers';
+import {
+  RegistryApiProvider,
+  CreateAttributeInput,
+  CreateAttributesBulkInput,
+  CompassProvider,
+} from '@poap-xyz/providers';
 import { PaginatedResult } from '@poap-xyz/utils';
 import { Attribute } from './domain/Attribute';
 import { FetchAttributesInput } from './types';
@@ -16,7 +21,10 @@ export class AttributesClient {
    * @constructor
    * @param {RegistryApiProvider} RegistryApiProvider - The registry API provider to use for creating attributes.
    */
-  constructor(private RegistryApiProvider: RegistryApiProvider, private CompassProvider: CompassProvider) {}
+  constructor(
+    private RegistryApiProvider: RegistryApiProvider,
+    private CompassProvider: CompassProvider,
+  ) {}
 
   /**
    * Creates a single attribute.
@@ -92,13 +100,12 @@ export class AttributesClient {
       (attribute) => {
         return new Attribute({
           id: attribute.id,
-          dropId:attribute.dropId,
-          key:attribute.key,
-          value:attribute.value,
+          dropId: attribute.dropId,
+          key: attribute.key,
+          value: attribute.value,
           timestamp: new Date(attribute.timestamp),
           tokenId: attribute.tokenId ?? 0,
-        }
-        );
+        });
       },
     );
 

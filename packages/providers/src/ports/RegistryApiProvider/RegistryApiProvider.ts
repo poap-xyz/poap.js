@@ -37,4 +37,3 @@ export interface RegistryApiProvider {
     input: CreateAttributeInput,
   ): Promise<CreateAttributeResponse>;
 }
-
