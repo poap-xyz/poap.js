@@ -193,9 +193,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@poap-xyz/drops@workspace:packages/drops"
   dependencies:
+    rollup: ^3.20.2
+  peerDependencies:
     "@poap-xyz/providers": "*"
     "@poap-xyz/utils": "*"
-    rollup: ^3.20.2
   languageName: unknown
   linkType: soft
 
@@ -209,7 +210,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@poap-xyz/providers@*, @poap-xyz/providers@workspace:packages/providers":
+"@poap-xyz/providers@workspace:packages/providers":
   version: 0.0.0-use.local
   resolution: "@poap-xyz/providers@workspace:packages/providers"
   dependencies:
@@ -217,7 +218,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@poap-xyz/utils@*, @poap-xyz/utils@workspace:packages/utils":
+"@poap-xyz/utils@workspace:packages/utils":
   version: 0.0.0-use.local
   resolution: "@poap-xyz/utils@workspace:packages/utils"
   dependencies:
