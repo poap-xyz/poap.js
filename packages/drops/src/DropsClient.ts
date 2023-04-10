@@ -1,4 +1,4 @@
-import { CompassProvider, DropApiProvider } from '@rlajous/providers';
+import { CompassProvider, DropApiProvider } from '@poap-xyz/providers';
 import { Drop } from './domain/Drop';
 import { PaginatedDropsResponse, PAGINATED_DROPS_QUERY } from './queries';
 import {
@@ -8,7 +8,7 @@ import {
   filterUndefinedProperties,
 } from './queries/utils';
 import { CreateDropsInput, FetchDropsInput, UpdateDropsInput } from './types';
-import { PaginatedResult } from '@rlajous/utils';
+import { PaginatedResult } from '@poap-xyz/utils';
 
 /**
  * Represents a client for working with POAP drops.

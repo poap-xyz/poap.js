@@ -1,5 +1,5 @@
-import { Attribute } from "../types";
-import { CORE_ATTRIBUTE_FIELDS_FRAGMENT } from "./base";
+import { Attribute } from '../types';
+import { CORE_ATTRIBUTE_FIELDS_FRAGMENT } from './base';
 
 export const PAGINATED_ATTRIBUTES_QUERY = `
   ${CORE_ATTRIBUTE_FIELDS_FRAGMENT}

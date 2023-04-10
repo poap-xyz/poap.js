@@ -1,2 +1,2 @@
 export * from './types';
-export {PaginatedResult} from './types/pagination'
+export { PaginatedResult } from './types/pagination';
