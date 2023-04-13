@@ -1,3 +1,4 @@
+/* eslint-disable max-statements */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { DropApiProvider } from '../../ports/DropApiProvider/DropApiProvider';
@@ -6,7 +7,8 @@ import {
   DropResponse,
   UpdateDropInput,
 } from '../../ports/DropApiProvider/Types';
-import { HttpProvider } from '../../ports/HttpProvider/HttpProvider';
+import FormData from 'form-data';
+import axios from 'axios';
 
 /**
  * A class that implements the `DropApiProvider` interface for interacting with the Poap Drop API.
@@ -24,7 +26,7 @@ export class PoapDropApi implements DropApiProvider {
    * @param {string} apiKey - The API key to use for requests.
    * @param {HttpProvider} HttpProvider - An instance of the `HttpProvider` class for making HTTP requests.
    */
-  constructor(private apiKey: string, private HttpProvider: HttpProvider) {}
+  constructor(private apiKey: string) {}
 
   /**
    * Creates a new drop on the Poap Drop API.
@@ -36,13 +38,27 @@ export class PoapDropApi implements DropApiProvider {
    * @returns {Promise<DropResponse>} A Promise that resolves with the response from the API.
    */
   async createDrop(input: CreateDropInput): Promise<DropResponse> {
+    const form = new FormData();
+    for (const key in input) {
+      if (Object.prototype.hasOwnProperty.call(input, key)) {
+        if (key === 'image') {
+          form.append(key, input[key], {
+            filename: input['filename'],
+            contentType: input['contentType'],
+          });
+        } else {
+          form.append(key, (input[key] as string) + '');
+        }
+      }
+    }
     return await this.secureFetch(`${this.baseUrl}/events`, {
       method: 'POST',
-      body: JSON.stringify(input),
-      headers: {},
+      body: form,
+      headers: {
+        ...form.getHeaders(),
+      },
     });
   }
-
   /**
    * Updates an existing drop on the Poap Drop API.
    *
@@ -78,11 +94,12 @@ export class PoapDropApi implements DropApiProvider {
       'x-api-key': this.apiKey,
     };
 
-    return this.HttpProvider.request({
-      endpoint: url,
-      method: options.method,
-      body: options.body,
-      headers: headersWithApiKey,
-    });
+    return (
+      await axios(url, {
+        method: options.method,
+        data: options.body,
+        headers: headersWithApiKey,
+      })
+    ).data;
   }
 }

@@ -6,6 +6,7 @@ export interface FetchAttributesInput {
   limit: number;
   offset: number;
   order: string;
-  key: string;
-  value: string;
+  key?: string;
+  value?: string;
+  id?: number;
 }

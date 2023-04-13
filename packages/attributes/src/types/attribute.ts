@@ -1,6 +1,6 @@
 export type Attribute = {
   id: number;
-  dropId: number;
+  drop_id: number;
   tokenId?: number;
   key: string;
   value: string;

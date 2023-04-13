@@ -27,6 +27,13 @@ export function createMetadataFilter(
     : {};
 }
 
+export function creatEqFilter(
+  key: string,
+  value?: string | number,
+): Record<string, any> {
+  return value ? { [key]: { _eq: value } } : {};
+}
+
 export function createBetweenFilter(
   key: string,
   from?: string,

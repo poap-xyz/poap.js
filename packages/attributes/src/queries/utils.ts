@@ -15,6 +15,13 @@ export function createFilter(key: string, value?: string): Record<string, any> {
   return value ? { [key]: { _ilike: `%${value}%` } } : {};
 }
 
+export function creatEqFilter(
+  key: string,
+  value?: string | number,
+): Record<string, any> {
+  return value ? { [key]: { _eq: value } } : {};
+}
+
 export function createMetadataFilter(
   withMetadata?: string,
 ): Record<string, any> {

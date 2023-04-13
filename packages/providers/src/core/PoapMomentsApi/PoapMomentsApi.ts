@@ -14,7 +14,6 @@ export class PoapMomentsApi implements MomentsApiProvider {
     return this.secureFetch(`${MOMENTS_URL}/file`, {
       method: 'POST',
       body: JSON.stringify({}),
-      headers: { 'Content-Type': 'application/json' },
     });
   }
 
@@ -22,7 +21,6 @@ export class PoapMomentsApi implements MomentsApiProvider {
     return await this.secureFetch(`${MOMENTS_URL}/moments`, {
       method: 'POST',
       body: JSON.stringify(input),
-      headers: { 'Content-Type': 'application/json' },
     });
   }
 

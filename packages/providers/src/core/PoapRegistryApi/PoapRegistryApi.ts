@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { HttpProvider } from '../../ports/HttpProvider/HttpProvider';
 import { RegistryApiProvider } from '../../ports/RegistryApiProvider/RegistryApiProvider';
 import {
   CreateAttributeInput,
@@ -8,6 +7,7 @@ import {
   CreateAttributesBulkInput,
   CreateAttributesBulkResponse,
 } from '../../ports/RegistryApiProvider/Types';
+import axios from 'axios';
 
 const METADATA_URL = 'https://registry.poap.tech';
 
@@ -19,7 +19,7 @@ const METADATA_URL = 'https://registry.poap.tech';
  * @param {HttpProvider} HttpProvider - An instance of the `HttpProvider` class for making HTTP requests.
  */
 export class PoapRegistryApi implements RegistryApiProvider {
-  constructor(private apiKey: string, private HttpProvider: HttpProvider) {}
+  constructor(private apiKey: string) {}
 
   /**
    * Creates a new attribute on the Poap Registry API.
@@ -76,11 +76,12 @@ export class PoapRegistryApi implements RegistryApiProvider {
       'x-api-key': this.apiKey,
     };
 
-    return this.HttpProvider.request({
-      endpoint: url,
-      method: options.method,
-      body: options.body,
-      headers: headersWithApiKey,
-    });
+    return (
+      await axios(url, {
+        method: options.method,
+        data: options.body,
+        headers: headersWithApiKey,
+      })
+    ).data;
   }
 }

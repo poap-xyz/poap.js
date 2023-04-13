@@ -42,7 +42,8 @@
     "typescript": "^5.0.2"
   },
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "examples/**"
   ],
   "packageManager": "yarn@3.5.0"
 }
