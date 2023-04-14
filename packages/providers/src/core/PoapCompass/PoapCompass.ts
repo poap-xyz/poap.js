@@ -81,7 +81,6 @@ export class PoapCompass implements CompassProvider {
       const data = await this.fetchGraphQL<T>(query, variables);
       return data;
     } catch (error) {
-      console.error('Error:', error);
       throw error;
     }
   }

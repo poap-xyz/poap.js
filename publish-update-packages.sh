@@ -1,7 +1,8 @@
 #!/bin/bash
+source package-order.sh
 
 # Loop through each package directory
-for pkg in $(find packages/* -maxdepth 0 -type d); do
+for dir in "${DIRS[@]}"; do
   pkg_name=$(jq -r '.name' $pkg/package.json)
   current_version=$(jq -r '.version' $pkg/package.json)
   remote_version=$(npm view $pkg_name version 2>/dev/null)

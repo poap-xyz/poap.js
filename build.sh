@@ -1,13 +1,7 @@
 #!/bin/bash
 # Loop through each package directory
 # Define the order of the directories to process
-DIRS=(
-  "utils"
-  "providers"
-  "attributes"
-  "drops"
-  "moments"
-)
+source package-order.sh
 
 # Loop over the directories and run the build command
 for dir in "${DIRS[@]}"; do
