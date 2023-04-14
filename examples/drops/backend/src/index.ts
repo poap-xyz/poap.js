@@ -9,9 +9,7 @@ async function main(): Promise<void> {
   // Use your library here
   const client = new DropsClient(
     new PoapCompass('you_api_key'),
-    new PoapDropApi(
-      'lQKtzjJdEk4rMjXWRScn6IbDs6tvDQGPKdXlT3uKXrTouOEirAAiGxzsatF5yN7cisrRvf73J6xpn70FTmKIloRplbp0aBGIBdABVwCaDimfUxdUIhnGaPIdlPDEf0td',
-    ),
+    new PoapDropApi('your_api_key'),
   );
   // Multiple Drops
   await fetch_multiple_drops(client);
