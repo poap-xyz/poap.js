@@ -1,76 +1,53 @@
+import { Media } from './Media';
+
 /**
- * Represents a Moment in the POAP system.
- * @class
- **/
+ * Represents a moment.
+ */
 export class Moment {
   /**
-   * A UUID
-   * @type {string}
+   * A UUID.
    */
-  id: string;
+  public readonly id: string;
+
   /**
-   * The Author of the moment (For now only ETH Accounts)
-   * @type {string}
+   * The author of the moment (for now only ETH accounts).
    */
-  author: string;
+  public readonly author: string;
+
   /**
-   * When the moment was received on the API
-   * @type {Date}
+   * When the moment was received on the API.
    */
-  createdOn: Date;
+  public readonly createdOn: Date;
+
   /**
-   * Specifies the media key
-   * @type {string}
+   * The media file associated with the moment.
+   * @type {Media}
    */
-  mediaKey: string;
+  public readonly media: Media;
+
   /**
-   * Specifies where the Moment media is located
-   * @type {string}
+   * The drop ID related to the moment.
    */
-  mediaLocation: string;
+  public readonly dropId: number;
+
   /**
-   * Specifies the MIME Type of the Moment file
-   * @type {string}
+   * The token ID related to the moment (optional).
    */
-  mimeType: string;
-  /**
-   * The Drop ID related to the moment
-   * @type {number}
-   */
-  dropId: number;
-  /**
-   * The Token ID related to the moment (Optional)
-   * @type {number}
-   */
-  tokenId?: number;
-  /**
-   * Creates a new instance of the Moment class.
-   * @param {string} id - The ID of the moment.
-   * @param {string} author - The address of the author of the moment.
-   * @param {Date} createdOn - The date and time when the moment was received by the API.
-   * @param {string} mediaKey - The media key of the moment.
-   * @param {string} mediaLocation - The location of the media associated with the moment.
-   * @param {string} mimeType - The MIME type of the media file associated with the moment.
-   * @param {number} dropId - The ID of the drop that this moment is associated with.
-   * @param {number |undefined} tokenId - The ID of the token associated with this moment. This parameter is optional.
-   */
+  public readonly tokenId?: number;
+
   constructor(
     id: string,
     author: string,
     createdOn: Date,
-    mediaKey: string,
-    mediaLocation: string,
-    mimeType: string,
     dropId: number,
+    media: Media,
     tokenId?: number,
   ) {
     this.id = id;
     this.author = author;
     this.createdOn = createdOn;
-    this.mediaKey = mediaKey;
-    this.mediaLocation = mediaLocation;
-    this.mimeType = mimeType;
     this.dropId = dropId;
     this.tokenId = tokenId;
+    this.media = media;
   }
 }

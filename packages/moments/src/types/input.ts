@@ -7,4 +7,8 @@ export interface createMomentInput {
    * The Token ID related to the moment (Optional)
    */
   tokenId?: number;
+  file: Buffer;
+  author: string;
+  mediaKey: string;
+  mimeType: string;
 }

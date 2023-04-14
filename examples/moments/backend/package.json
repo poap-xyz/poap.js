@@ -10,7 +10,7 @@
     "test": "echo \"No tests specified\" && exit 0"
   },
   "dependencies": {
-    "@poap-xyz/attributes": "*",
+    "@poap-xyz/moments": "*",
     "@poap-xyz/providers": "*",
     "@poap-xyz/utils": "*",
     "node-fetch": "^3.3.1"

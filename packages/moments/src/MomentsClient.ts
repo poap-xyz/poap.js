@@ -1,20 +1,24 @@
 import { PoapMomentsApi } from '@poap-xyz/providers';
-import { Moment } from './domain/Moment';
 import { createMomentInput } from './types';
+import { Moment } from './domain/Moment';
 
 export class MomentsClient {
-  constructor(private Poap: PoapMomentsApi) {}
+  constructor(private PoapMomentsApi: PoapMomentsApi) {}
 
   async createMoment(input: createMomentInput): Promise<Moment> {
+    const { url, key } = await this.PoapMomentsApi.getSignedUrl();
+    await this.PoapMomentsApi.uploadFile(input.file, url);
+    await this.PoapMomentsApi.waitForMediaProcessing(key);
+    const response = await this.PoapMomentsApi.createMoment({
+      ...input,
+    });
     return new Moment(
-      'as',
-      'as',
-      new Date(),
-      'as',
-      'as',
-      'as',
-      input.dropId,
-      input.tokenId,
+      response.id,
+      response.author,
+      response.createdOn,
+      response.dropId,
+      response.media,
+      response.tokenId,
     );
   }
 }
