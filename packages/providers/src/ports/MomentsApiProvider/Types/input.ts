@@ -8,4 +8,5 @@ export type CreateMomentInput = {
   author: string;
   mediaKey: string;
   mimeType: string;
+  tokenId?: number;
 };

@@ -39,10 +39,7 @@ export class PoapMomentsApi implements MomentsApiProvider {
             method: 'GET',
           },
         );
-        if (response.ok) {
-          const data = await response.json();
-          status = data.status;
-        }
+        status = response.status;
       } catch (error) {
         console.log('Error while getting media: ', error);
       }

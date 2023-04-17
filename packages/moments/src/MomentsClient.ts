@@ -10,7 +10,11 @@ export class MomentsClient {
     await this.PoapMomentsApi.uploadFile(input.file, url);
     await this.PoapMomentsApi.waitForMediaProcessing(key);
     const response = await this.PoapMomentsApi.createMoment({
-      ...input,
+      dropId: input.dropId,
+      author: input.author,
+      mediaKey: key,
+      mimeType: input.mimeType,
+      tokenId: input.tokenId,
     });
     return new Moment(
       response.id,
