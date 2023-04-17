@@ -2,9 +2,9 @@
 
 # Define the order of the directories to process
 DIRS=(
-  "utils"
-  "providers"
-  "attributes"
-  "drops"
-  "moments"
+  "packages/utils"
+  "packages/providers"
+  "packages/attributes"
+  "packages/drops"
+  "packages/moments"
 )
