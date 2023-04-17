@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Backend example for using the library",
   "main": "src/index.ts",
-  "type": "module",
   "scripts": {
     "start": "ts-node ./src/index.ts",
     "build": "tsc",

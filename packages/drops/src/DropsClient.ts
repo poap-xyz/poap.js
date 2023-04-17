@@ -76,12 +76,12 @@ export class DropsClient {
       },
     };
 
-    const response = await this.CompassProvider.request<PaginatedDropsResponse>(
+    const { data } = await this.CompassProvider.request<PaginatedDropsResponse>(
       PAGINATED_DROPS_QUERY,
       variables,
     );
 
-    const drops = response.drops.map(
+    const drops = data.drops.map(
       (drop) =>
         new Drop({
           ...drop,

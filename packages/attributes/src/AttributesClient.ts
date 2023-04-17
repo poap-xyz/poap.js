@@ -84,7 +84,7 @@ export class AttributesClient {
     key,
     value,
   }: FetchAttributesInput): Promise<PaginatedResult<Attribute>> {
-    const { attributes_aggregate } =
+    const { data } =
       await this.CompassProvider.request<AttributesQueryResponse>(
         PAGINATED_ATTRIBUTES_QUERY,
         {
@@ -99,7 +99,7 @@ export class AttributesClient {
         },
       );
 
-    const attributes: Attribute[] = attributes_aggregate.nodes.map(
+    const attributes: Attribute[] = data.attributes_aggregate.nodes.map(
       (attribute) => {
         return new Attribute({
           id: attribute.id,

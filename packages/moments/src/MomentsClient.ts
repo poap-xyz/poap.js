@@ -1,9 +1,24 @@
-import { PoapMomentsApi } from '@poap-xyz/providers';
-import { createMomentInput } from './types';
+import { PoapMomentsApi, CompassProvider } from '@poap-xyz/providers';
+import { PaginatedResult } from '@poap-xyz/utils';
+import { createMomentInput, FetchMomentsInput } from './types';
 import { Moment } from './domain/Moment';
+import {
+  createBetweenFilter,
+  createFilter,
+  creatEqFilter,
+  filterUndefinedProperties,
+} from './queries/utils';
+import {
+  MomentsQueryResponse,
+  PAGINATED_MOMENTS_QUERY,
+} from './queries/PaginatedMoments';
+import { MediaStatus } from './domain/MediaStatus';
 
 export class MomentsClient {
-  constructor(private PoapMomentsApi: PoapMomentsApi) {}
+  constructor(
+    private PoapMomentsApi: PoapMomentsApi,
+    private CompassProvider: CompassProvider,
+  ) {}
 
   async createMoment(input: createMomentInput): Promise<Moment> {
     const { url, key } = await this.PoapMomentsApi.getSignedUrl();
@@ -24,5 +39,67 @@ export class MomentsClient {
       response.media,
       response.tokenId,
     );
+  }
+  async fetch({
+    limit,
+    offset,
+    id,
+    createdOrder,
+    token_id,
+    drop_id,
+    from,
+    to,
+    author,
+    idOrder,
+    tokenIdOrder,
+    dropIdOrder,
+  }: FetchMomentsInput): Promise<PaginatedResult<Moment>> {
+    const variables = {
+      limit,
+      offset,
+      orderBy: filterUndefinedProperties({
+        start_date: createdOrder,
+        token_id: tokenIdOrder,
+        drop_id: dropIdOrder,
+        id: idOrder,
+      }),
+      where: {
+        ...creatEqFilter('token_id', token_id),
+        ...creatEqFilter('drop_id', drop_id),
+        ...createFilter('author', author),
+        ...createBetweenFilter('created_on', from, to),
+        ...creatEqFilter('id', id),
+      },
+    };
+
+    const { data } = await this.CompassProvider.request<MomentsQueryResponse>(
+      PAGINATED_MOMENTS_QUERY,
+      variables,
+    );
+
+    const moments_response: Moment[] = data.moments.map((moment) => {
+      return new Moment(
+        moment.id,
+        moment.author,
+        new Date(moment.created_on),
+        moment.drop_id,
+        {
+          key: moment.media_key,
+          mimeType: moment.mime_type,
+          status: MediaStatus.PROCESSED,
+          hash: moment.media_hash,
+        },
+        moment.token_id,
+      );
+    });
+
+    const endIndex = offset + moments_response.length;
+
+    const result = new PaginatedResult<Moment>(
+      moments_response,
+      endIndex < offset + limit ? null : endIndex,
+    );
+
+    return result;
   }
 }

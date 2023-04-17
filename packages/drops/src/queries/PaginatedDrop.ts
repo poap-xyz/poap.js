@@ -63,10 +63,12 @@ export interface DropResponse {
 }
 
 export interface PaginatedDropsResponse {
-  drops: DropResponse[];
-  drops_aggregate: {
-    aggregate: {
-      count: number;
+  data: {
+    drops: DropResponse[];
+    drops_aggregate: {
+      aggregate: {
+        count: number;
+      };
     };
   };
 }

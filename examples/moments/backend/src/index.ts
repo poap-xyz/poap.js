@@ -1,24 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { MomentsClient } from '@poap-xyz/moments';
-import { PoapMomentsApi } from '@poap-xyz/providers';
-import fs from 'fs';
+import { PoapCompass, PoapMomentsApi } from '@poap-xyz/providers';
+import { create_moment } from './methods/create_moment';
+import { fetch_multiple_moments } from './methods/fetch_multiple_moments';
+import { fetch_single_moment } from './methods/fetch_single_moment';
 
 async function main(): Promise<void> {
   // Use your library here
-  const client = new MomentsClient(new PoapMomentsApi('your_api_key'));
+  const client = new MomentsClient(
+    new PoapMomentsApi('your_api_key'),
+    new PoapCompass('your_api_key'),
+  );
   // Create Moment
-  const response = await client.createMoment({
-    dropId: 110148,
-    /**
-     * The Token ID related to the moment (Optional)
-     */
-    // tokenId: 10,
-    file: await fs.promises.readFile('src/assets/poap.png'),
-    author: 'poap.js',
-    mediaKey: 'poap.png',
-    mimeType: 'image/png',
-  });
-  console.log(response);
+  await create_moment(client);
+  // Fetch multiple moments
+  await fetch_multiple_moments(client);
+  // Fetch one moment by id
+  await fetch_single_moment(client);
 }
 
 main().catch((error) => {
