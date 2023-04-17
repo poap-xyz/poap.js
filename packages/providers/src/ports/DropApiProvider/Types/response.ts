@@ -12,7 +12,7 @@ export interface DropResponse {
   country: string;
   event_url: string;
   image_url: string;
-  animation_url?: string;
+  animation_url: string;
   year: number;
   start_date: string;
   end_date: string;
@@ -20,6 +20,10 @@ export interface DropResponse {
   from_admin: boolean;
   virtual_event: boolean;
   event_template_id?: number | null;
-  private_event?: boolean;
+  private_event: boolean;
+  channel: string;
+  platform: string;
+  location_type: string;
+  timezone: string;
   created_date: string;
 }

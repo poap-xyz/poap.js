@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CompassProvider } from '../../ports/CompassProvider/CompassProvider';
-import { HttpProvider } from '../../ports/HttpProvider/HttpProvider';
+import axios from 'axios';
 // TODO: Change variable type any to a more specific type
 
 /**
@@ -18,7 +18,7 @@ export class PoapCompass implements CompassProvider {
    * @param {string} apiKey - The API key to use for requests.
    * @param {HttpProvider} HttpProvider - An instance of the `HttpProvider` class for making HTTP requests.
    */
-  constructor(private apiKey: string, private HttpProvider: HttpProvider) {}
+  constructor(private apiKey: string) {}
 
   /**
    * Fetches data from the Poap GraphQL API.
@@ -39,18 +39,15 @@ export class PoapCompass implements CompassProvider {
     const endpoint = 'https://explorer.poap.tech/v1/graphql';
 
     try {
-      const response = await this.HttpProvider.request<any>({
+      const response = await axios(endpoint, {
         method: 'POST',
-        endpoint,
-        body: {
+        data: {
           query,
           variables,
         },
         headers: {
-          headers: {
-            'Content-Type': 'application/json',
-            'x-api-key': this.apiKey,
-          },
+          'Content-Type': 'application/json',
+          'x-api-key': this.apiKey,
         },
       });
 
@@ -84,7 +81,6 @@ export class PoapCompass implements CompassProvider {
       const data = await this.fetchGraphQL<T>(query, variables);
       return data;
     } catch (error) {
-      console.error('Error:', error);
       throw error;
     }
   }

@@ -15,7 +15,7 @@
     "declaration": true,
     "declarationDir": ".",
     "outDir": "./dist",
-    "target": "es5",
+    "target": "es2018",
     "lib": ["es2018", "dom", "esnext"],
     "module": "es6",
     "moduleResolution": "node",

@@ -40,7 +40,7 @@ module.exports = {
           './packages/drops/tsconfig.json',
           './packages/providers/tsconfig.json',
           './packages/attributes/tsconfig.json',
-          './packages/types/tsconfig.json',
+          './packages/utils/tsconfig.json',
           './tsconfig.json',
         ],
       },

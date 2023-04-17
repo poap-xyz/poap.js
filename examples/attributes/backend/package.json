@@ -1,0 +1,21 @@
+{
+  "name": "backend-attributes-example",
+  "version": "1.0.0",
+  "description": "Backend example for using the library",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "ts-node ./src/index.ts",
+    "build": "tsc",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "dependencies": {
+    "@poap-xyz/attributes": "*",
+    "@poap-xyz/providers": "*",
+    "@poap-xyz/utils": "*",
+    "axios": "^1.3.5"
+  },
+  "devDependencies": {
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.5"
+  }
+}

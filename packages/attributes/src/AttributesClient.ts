@@ -8,7 +8,7 @@ import { PaginatedResult } from '@poap-xyz/utils';
 import { Attribute } from './domain/Attribute';
 import { FetchAttributesInput } from './types';
 import { AttributesQueryResponse, PAGINATED_ATTRIBUTES_QUERY } from './queries';
-import { createFilter } from './queries/utils';
+import { createFilter, creatEqFilter } from './queries/utils';
 
 /**
  * A client for creating attributes.
@@ -70,6 +70,7 @@ export class AttributesClient {
    * @param {FetchAttributesInput} input - An object containing the input parameters.
    * @param {number} input.limit - The maximum number of attributes to retrieve per page.
    * @param {number} input.offset - The offset to start retrieving attributes from.
+   * @param {number} input.id - The offset to start retrieving attributes from.
    * @param {string} input.order - The attribute order to use. Can be "asc" or "desc".
    * @param {string} input.key - The key to filter the attributes by.
    * @param {string} input.value - The value to filter the attributes by.
@@ -78,11 +79,12 @@ export class AttributesClient {
   async fetch({
     limit,
     offset,
+    id,
     order,
     key,
     value,
   }: FetchAttributesInput): Promise<PaginatedResult<Attribute>> {
-    const { attributes_aggregate } =
+    const { data } =
       await this.CompassProvider.request<AttributesQueryResponse>(
         PAGINATED_ATTRIBUTES_QUERY,
         {
@@ -92,15 +94,16 @@ export class AttributesClient {
           where: {
             ...createFilter('key', key),
             ...createFilter('value', value),
+            ...creatEqFilter('id', id),
           },
         },
       );
 
-    const attributes: Attribute[] = attributes_aggregate.nodes.map(
+    const attributes: Attribute[] = data.attributes_aggregate.nodes.map(
       (attribute) => {
         return new Attribute({
           id: attribute.id,
-          dropId: attribute.dropId,
+          dropId: attribute.drop_id,
           key: attribute.key,
           value: attribute.value,
           timestamp: new Date(attribute.timestamp),
@@ -109,11 +112,11 @@ export class AttributesClient {
       },
     );
 
+    const endIndex = offset + attributes.length;
+
     const result = new PaginatedResult<Attribute>(
       attributes,
-      attributes_aggregate.nodes.length > 0
-        ? limit + 1 + attributes_aggregate.nodes.length
-        : null,
+      endIndex < offset + limit ? null : endIndex,
     );
 
     return result;

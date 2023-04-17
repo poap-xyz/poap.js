@@ -1,3 +1,2 @@
-import { DropsClient } from './DropsClient';
-
-export { DropsClient };
+export { DropsClient } from './DropsClient';
+export { Drop } from './domain/drop';

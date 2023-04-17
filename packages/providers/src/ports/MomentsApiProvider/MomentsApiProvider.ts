@@ -11,10 +11,10 @@ export interface MomentsApiProvider {
    *
    * @async
    * @function
-   * @name MomentsApiProvider#getFileUrl
+   * @name MomentsApiProvider#getSignedUrl
    * @returns {Promise<string>} A Promise that resolves with the file URL from the API.
    */
-  getFileUrl(): Promise<string>;
+  getSignedUrl(): Promise<{ url: string; key: string }>;
 
   /**
    * Creates a new moment on the API.
@@ -26,4 +26,8 @@ export interface MomentsApiProvider {
    * @returns {Promise<CreateMomentResponse>} A Promise that resolves with the response from the API.
    */
   createMoment(input: CreateMomentInput): Promise<CreateMomentResponse>;
+
+  uploadFile(file: Buffer, signedUrl: string): Promise<void>;
+
+  waitForMediaProcessing(mediaKey: string): Promise<void>;
 }

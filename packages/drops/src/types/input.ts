@@ -1,5 +1,3 @@
-import { DropProperties } from './../domain/Drop';
-
 export interface FetchDropsInput {
   limit: number;
   offset: number;
@@ -12,12 +10,27 @@ export interface FetchDropsInput {
   withMetadata?: string;
   from?: string;
   to?: string;
+  id?: number;
 }
 
-export interface CreateDropsInput extends DropProperties {
-  email: string;
-  image: string;
+export interface CreateDropsInput {
+  name: string;
+  description: string;
+  city: string;
+  country: string;
+  start_date: string;
+  end_date: string;
+  expiry_date: string;
+  event_url: string;
+  virtual_event: boolean;
+  image: Buffer;
+  filename: string;
+  contentType: string;
   secret_code: string;
+  event_template_id?: number | null;
+  email: string;
+  requested_codes?: number;
+  private_event?: boolean;
 }
 
 export type UpdateDropsInput = CreateDropsInput;

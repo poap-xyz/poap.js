@@ -5,4 +5,8 @@
  */
 export type CreateMomentInput = {
   dropId: number;
+  author: string;
+  mediaKey: string;
+  mimeType: string;
+  tokenId?: number;
 };

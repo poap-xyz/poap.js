@@ -12,22 +12,16 @@ export const PAGINATED_DROPS_QUERY = `
       description
       city
       country
-      event_url
+      channel
+      platform
+      location_type
+      drop_url
       image_url
       animation_url
       year
       start_date
-      end_date
-      expiry_date
-      from_admin
-      virtual_event
-      supply
-      event_template_id
-      private_event
-      location_type
-      channel
-      platform
       timezone
+      private
       created_date
       attributes_aggregate {
         aggregate {
@@ -50,22 +44,16 @@ export interface DropResponse {
   description: string;
   city: string;
   country: string;
-  event_url: string;
+  channel: string;
+  platform: string;
+  location_type: string;
+  drop_url: string;
   image_url: string;
-  animation_url?: string;
+  animation_url: string;
   year: number;
   start_date: string;
-  end_date: string;
-  expiry_date: string;
-  from_admin: boolean;
-  virtual_event: boolean;
-  supply?: number | null;
-  event_template_id?: number | null;
-  private_event?: boolean;
-  location_type?: string;
-  channel?: string;
-  platform?: string;
-  timezone?: string;
+  timezone: string;
+  private: boolean;
   created_date: string;
   attributes_aggregate: {
     aggregate: {
@@ -75,10 +63,12 @@ export interface DropResponse {
 }
 
 export interface PaginatedDropsResponse {
-  drops: DropResponse[];
-  drops_aggregate: {
-    aggregate: {
-      count: number;
+  data: {
+    drops: DropResponse[];
+    drops_aggregate: {
+      aggregate: {
+        count: number;
+      };
     };
   };
 }

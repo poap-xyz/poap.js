@@ -1,7 +1,12 @@
-import { CompassProvider, DropApiProvider } from '@poap-xyz/providers';
+import {
+  CompassProvider,
+  DropApiProvider,
+  DropResponse,
+} from '@poap-xyz/providers';
 import { Drop } from './domain/Drop';
 import { PaginatedDropsResponse, PAGINATED_DROPS_QUERY } from './queries';
 import {
+  creatEqFilter,
   createBetweenFilter,
   createFilter,
   createMetadataFilter,
@@ -49,6 +54,7 @@ export class DropsClient {
       withMetadata,
       from,
       to,
+      id,
     } = input;
 
     const variables = {
@@ -66,15 +72,16 @@ export class DropsClient {
         ...createFilter('attributes.value', value),
         ...createBetweenFilter('created_date', from, to),
         ...createMetadataFilter(withMetadata),
+        ...creatEqFilter('id', id),
       },
     };
 
-    const response = await this.CompassProvider.request<PaginatedDropsResponse>(
+    const { data } = await this.CompassProvider.request<PaginatedDropsResponse>(
       PAGINATED_DROPS_QUERY,
       variables,
     );
 
-    const drops = response.drops.map(
+    const drops = data.drops.map(
       (drop) =>
         new Drop({
           ...drop,
@@ -82,7 +89,12 @@ export class DropsClient {
           year: Number(drop.year),
         }),
     );
-    return new PaginatedResult<Drop>(drops, drops.length);
+    const endIndex = offset + drops.length;
+
+    return new PaginatedResult<Drop>(
+      drops,
+      endIndex < offset + limit ? null : endIndex,
+    );
   }
 
   /**
@@ -95,7 +107,8 @@ export class DropsClient {
    */
   async create(input: CreateDropsInput): Promise<Drop> {
     const repsonse = await this.DropApiProvider.createDrop(input);
-    return new Drop(repsonse);
+    console.log(repsonse);
+    return this.formatDrop(repsonse);
   }
 
   /**
@@ -108,6 +121,28 @@ export class DropsClient {
    */
   async update(input: UpdateDropsInput): Promise<Drop> {
     const repsonse = await this.DropApiProvider.updateDrop(input);
-    return new Drop(repsonse);
+    return this.formatDrop(repsonse);
+  }
+
+  private formatDrop(drop: DropResponse): Drop {
+    return new Drop({
+      id: drop.id,
+      fancy_id: drop.fancy_id,
+      name: drop.name,
+      description: drop.description,
+      city: drop.city,
+      country: drop.country,
+      channel: drop.channel,
+      platform: drop.platform,
+      location_type: drop.location_type,
+      drop_url: drop.event_url,
+      image_url: drop.image_url,
+      animation_url: drop.animation_url,
+      year: drop.year,
+      start_date: drop.start_date,
+      timezone: drop.timezone,
+      private: drop.private_event,
+      created_date: drop.created_date,
+    });
   }
 }

@@ -23,8 +23,10 @@ export const PAGINATED_ATTRIBUTES_QUERY = `
 `;
 
 export type AttributesQueryResponse = {
-  attributes_aggregate: {
-    aggregate: { count: number };
-    nodes: Attribute[];
+  data: {
+    attributes_aggregate: {
+      aggregate: { count: number };
+      nodes: Attribute[];
+    };
   };
 };
