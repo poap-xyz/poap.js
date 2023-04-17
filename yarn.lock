@@ -888,7 +888,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@poap-xyz/moments@workspace:packages/moments":
+"@poap-xyz/moments@*, @poap-xyz/moments@workspace:packages/moments":
   version: 0.0.0-use.local
   resolution: "@poap-xyz/moments@workspace:packages/moments"
   dependencies:
@@ -1744,7 +1744,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "backend-moments-example@workspace:examples/moments/backend"
   dependencies:
-    "@poap-xyz/attributes": "*"
+    "@poap-xyz/moments": "*"
     "@poap-xyz/providers": "*"
     "@poap-xyz/utils": "*"
     "@types/node-fetch": ^2.6.3
