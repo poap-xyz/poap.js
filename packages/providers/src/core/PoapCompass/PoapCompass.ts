@@ -18,7 +18,10 @@ export class PoapCompass implements CompassProvider {
    * @param {string} apiKey - The API key to use for requests.
    * @param {HttpProvider} HttpProvider - An instance of the `HttpProvider` class for making HTTP requests.
    */
-  constructor(private apiKey: string) {}
+  constructor(
+    private apiKey: string,
+    private baseUrl: string = 'https://explorer.poap.tech/v1/graphql',
+  ) {}
 
   /**
    * Fetches data from the Poap GraphQL API.
@@ -36,7 +39,7 @@ export class PoapCompass implements CompassProvider {
     query: string,
     variables: Record<string, any>,
   ): Promise<R> {
-    const endpoint = 'https://explorer.poap.tech/v1/graphql';
+    const endpoint = this.baseUrl;
 
     try {
       const response = await axios(endpoint, {

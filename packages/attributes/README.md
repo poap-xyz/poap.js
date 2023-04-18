@@ -4,8 +4,14 @@ Package to interact with POAP Attributes
 
 ## Installation
 
+### NPM
 ```bash
-npm install @poap-xyz/attributes
+npm install @poap-xyz/attributes @poap-xyz/utils @poap-xyz/providers axios form-data
+```
+
+### Yarn
+```bash
+yarn add @poap-xyz/attributes @poap-xyz/utils @poap-xyz/providers axios form-data
 ```
 
 ## Usage
@@ -113,6 +119,18 @@ Creates a new Attribute instance.
 - `timestamp` (required): The timestamp of the attribute.
 - `tokenId` (optional): The token ID associated with the attribute.
 
+## Documentation
+
+For more detailed documentation, please visit [this link](https://documentation.poap.tech/docs).
+
+## Examples
+
+For example scripts and usage, please check the `examples` [folder](https://github.com/poap-xyz/poap.js/tree/main/examples).
+
+## Contributing
+
+We welcome contributions! Please see the `CONTRIBUTING.md` file for guidelines.
+
 ## License
 
-[MIT](https://opensource.org/licenses/MIT)
+@poap-xyz/moments is released under the [MIT License](https://opensource.org/licenses/MIT).

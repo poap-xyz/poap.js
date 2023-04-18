@@ -40,6 +40,7 @@ export class MomentsClient {
       response.tokenId,
     );
   }
+
   async fetch({
     limit,
     offset,

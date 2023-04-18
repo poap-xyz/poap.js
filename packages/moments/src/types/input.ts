@@ -9,7 +9,6 @@ export interface createMomentInput {
   tokenId?: number;
   file: Buffer;
   author: string;
-  mediaKey: string;
   mimeType: string;
 }
 

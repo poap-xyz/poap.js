@@ -5,13 +5,14 @@ import { CreateMomentInput } from './../../ports/MomentsApiProvider/Types/input'
 import { MomentsApiProvider } from './../../ports/MomentsApiProvider/MomentsApiProvider';
 import axios from 'axios';
 
-const MOMENTS_URL = 'https://moments.poap.tech';
-
 export class PoapMomentsApi implements MomentsApiProvider {
-  constructor(private apiKey: string) {}
+  constructor(
+    private apiKey: string,
+    private baseUrl: string = 'https://moments.poap.tech',
+  ) {}
 
   async getSignedUrl(): Promise<{ url: string; key: string }> {
-    return await this.secureFetch(`${MOMENTS_URL}/moments/media-upload-url`, {
+    return await this.secureFetch(`${this.baseUrl}/moments/media-upload-url`, {
       method: 'POST',
       body: JSON.stringify({}),
     });
@@ -34,7 +35,7 @@ export class PoapMomentsApi implements MomentsApiProvider {
     while (status !== 'PROCESSED') {
       try {
         const response = await this.secureFetch(
-          `${MOMENTS_URL}/media/${mediaKey}`,
+          `${this.baseUrl}/media/${mediaKey}`,
           {
             method: 'GET',
           },
@@ -49,7 +50,7 @@ export class PoapMomentsApi implements MomentsApiProvider {
   }
 
   async createMoment(input: CreateMomentInput): Promise<CreateMomentResponse> {
-    return await this.secureFetch(`${MOMENTS_URL}/moments`, {
+    return await this.secureFetch(`${this.baseUrl}/moments`, {
       method: 'POST',
       body: JSON.stringify(input),
       headers: { 'Content-Type': 'application/json' },

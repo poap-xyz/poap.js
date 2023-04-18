@@ -9,8 +9,6 @@ import {
 } from '../../ports/RegistryApiProvider/Types';
 import axios from 'axios';
 
-const METADATA_URL = 'https://registry.poap.tech';
-
 /**
  * Creates a new instance of the `PoapRegistryApi` class.
  *
@@ -19,7 +17,10 @@ const METADATA_URL = 'https://registry.poap.tech';
  * @param {HttpProvider} HttpProvider - An instance of the `HttpProvider` class for making HTTP requests.
  */
 export class PoapRegistryApi implements RegistryApiProvider {
-  constructor(private apiKey: string) {}
+  constructor(
+    private apiKey: string,
+    private baseUrl: string = 'https://registry.poap.tech',
+  ) {}
 
   /**
    * Creates a new attribute on the Poap Registry API.
@@ -33,7 +34,7 @@ export class PoapRegistryApi implements RegistryApiProvider {
   async createAttribute(
     input: CreateAttributeInput,
   ): Promise<CreateAttributeResponse> {
-    return await this.secureFetch(`${METADATA_URL}/attributes`, {
+    return await this.secureFetch(`${this.baseUrl}/attributes`, {
       method: 'POST',
       body: JSON.stringify(input.attribute),
       headers: { 'Content-Type': 'application/json' },
@@ -52,7 +53,7 @@ export class PoapRegistryApi implements RegistryApiProvider {
   async createAttributesBulk(
     input: CreateAttributesBulkInput,
   ): Promise<CreateAttributesBulkResponse> {
-    return await this.secureFetch(`${METADATA_URL}/attributes/bulk`, {
+    return await this.secureFetch(`${this.baseUrl}/attributes/bulk`, {
       method: 'POST',
       body: JSON.stringify(input.attributes),
       headers: { 'Content-Type': 'application/json' },

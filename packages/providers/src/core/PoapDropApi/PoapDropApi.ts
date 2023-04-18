@@ -17,8 +17,6 @@ import axios from 'axios';
  * @implements {DropApiProvider}
  */
 export class PoapDropApi implements DropApiProvider {
-  private baseUrl = 'https://api.poap.tech';
-
   /**
    * Creates a new instance of the `PoapDropApi` class.
    *
@@ -26,7 +24,10 @@ export class PoapDropApi implements DropApiProvider {
    * @param {string} apiKey - The API key to use for requests.
    * @param {HttpProvider} HttpProvider - An instance of the `HttpProvider` class for making HTTP requests.
    */
-  constructor(private apiKey: string) {}
+  constructor(
+    private apiKey: string,
+    private baseUrl: string = 'https://api.poap.tech',
+  ) {}
 
   /**
    * Creates a new drop on the Poap Drop API.

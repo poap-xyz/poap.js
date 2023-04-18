@@ -2,37 +2,32 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-@poap-xyz/providers is a [short description of the purpose of the package].
+@poap-xyz/providers is a package to use POAP providers that let you iteract with POAPs APIs. Also you can make your own provider by extending the interfaces.
 
 ## Features
 
-- Feature 1
-- Feature 2
-- Feature 3
+- Interfaces to interact with our APIs
+- POAP custom Providers so you can use without implementing one.
 
 ## Installation
 
+### NPM
 ```bash
-npm install @poap-xyz/providers
+npm install @poap-xyz/providers axios form-data
 ```
 
-## Usage
-
-\```python
-from package_name import module
-
-# Example usage
-result = module.function(parameter)
-print(result)
-\```
+### Yarn
+```bash
+yarn add @poap-xyz/providers axios form-data
+```
 
 ## Documentation
 
-For more detailed documentation, please visit [link to your documentation].
+For more detailed documentation, please visit [this link](https://documentation.poap.tech/docs).
 
 ## Examples
 
-For example scripts and usage, please check the `examples` folder.
+For example scripts and usage, please check the `examples` [folder](https://github.com/poap-xyz/poap.js/tree/main/examples).
 
 ## Contributing
 
@@ -40,4 +35,4 @@ We welcome contributions! Please see the `CONTRIBUTING.md` file for guidelines.
 
 ## License
 
-@poap-xyz/providers is released under the [MIT License](https://opensource.org/licenses/MIT).
+@poap-xyz/moments is released under the [MIT License](https://opensource.org/licenses/MIT).
