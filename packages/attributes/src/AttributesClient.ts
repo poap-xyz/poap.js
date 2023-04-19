@@ -4,7 +4,7 @@ import {
   CreateAttributesBulkInput,
   CompassProvider,
 } from '@poap-xyz/providers';
-import { PaginatedResult } from '@poap-xyz/utils';
+import { PaginatedResult, nextCursor } from '@poap-xyz/utils';
 import { Attribute } from './domain/Attribute';
 import { FetchAttributesInput } from './types';
 import { AttributesQueryResponse, PAGINATED_ATTRIBUTES_QUERY } from './queries';
@@ -99,6 +99,8 @@ export class AttributesClient {
         },
       );
 
+    console.log(data.attributes_aggregate.nodes);
+
     const attributes: Attribute[] = data.attributes_aggregate.nodes.map(
       (attribute) => {
         return new Attribute({
@@ -112,11 +114,9 @@ export class AttributesClient {
       },
     );
 
-    const endIndex = offset + attributes.length;
-
     const result = new PaginatedResult<Attribute>(
       attributes,
-      endIndex < offset + limit ? null : endIndex,
+      nextCursor(attributes.length, limit, offset),
     );
 
     return result;

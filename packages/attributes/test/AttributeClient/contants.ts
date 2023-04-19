@@ -1,0 +1,96 @@
+export const mockMultipleFetch = {
+  data: {
+    attributes_aggregate: {
+      nodes: [
+        {
+          drop_id: 97764,
+          id: 2,
+          key: 'conference',
+          timestamp: '2023-02-14T18:02:18.095113',
+          token_id: null,
+          value: 'NFT NY',
+        },
+        {
+          drop_id: 97764,
+          id: 3,
+          key: 'name',
+          timestamp: '2023-02-14T18:02:18.095113',
+          token_id: null,
+          value: 'Creepz invaison ',
+        },
+        {
+          drop_id: 100780,
+          id: 4,
+          key: 'who',
+          timestamp: '2023-02-15T12:36:54.650561',
+          token_id: null,
+          value: 'pepe',
+        },
+        {
+          drop_id: 97764,
+          id: 5,
+          key: 'year',
+          timestamp: '2023-02-15T13:13:11.92633',
+          token_id: null,
+          value: '2023',
+        },
+        {
+          drop_id: 95424,
+          id: 6,
+          key: 'asd',
+          timestamp: '2023-02-15T13:15:52.195065',
+          token_id: null,
+          value: 'asd',
+        },
+        {
+          drop_id: 97764,
+          id: 7,
+          key: 'name',
+          timestamp: '2023-02-15T13:24:00.508741',
+          token_id: null,
+          value: 'Creepz Invasion NYC',
+        },
+        {
+          drop_id: 99467,
+          id: 8,
+          key: 'a',
+          timestamp: '2023-02-15T16:48:19.275469',
+          token_id: null,
+          value: 'a',
+        },
+        {
+          drop_id: 74002,
+          id: 9,
+          key: 'Conference',
+          timestamp: '2023-02-15T16:55:34.750136',
+          token_id: null,
+          value: 'Devcon',
+        },
+        {
+          drop_id: 74002,
+          id: 10,
+          key: 'City',
+          timestamp: '2023-02-15T16:56:02.847014',
+          token_id: null,
+          value: 'Bogota',
+        },
+        {
+          drop_id: 45589,
+          id: 11,
+          key: 'City',
+          timestamp: '2023-02-15T17:21:45.935',
+          token_id: null,
+          value: 'Buenos Aires',
+        },
+      ],
+    },
+  },
+};
+
+export const inputMultipleFetch = {
+  order: 'asc',
+  key: '',
+  value: '',
+  limit: 10,
+  offset: 1,
+};

@@ -16,7 +16,7 @@ async function main(): Promise<void> {
   // one attribute by id
   await fetch_single_attributes(client);
   // Create an attribute or more
-  await create_attributes(client);
+  //await create_attributes(client);
 }
 
 main().catch((error) => {
