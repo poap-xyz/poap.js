@@ -6,7 +6,7 @@
 
 ## Features
 
-- Interfaces to interact with our APIs
+- Interfaces to interact with POAP APIs
 - POAP custom Providers so you can use without implementing one.
 
 ## Installation

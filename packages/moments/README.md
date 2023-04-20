@@ -6,7 +6,7 @@
 
 ## Features
 
-- Create a Moment
+- Create a Moment attached to a Drop or an specific POAP
 - Fetch multiple Moments
 - Fetch a single Moment
 
@@ -46,7 +46,7 @@ const input: createMomentInput = {
   author: '0x82AB2941Cf555CED5ad7Ed232a5B5f6083815FBC',
   mimeType: 'image/png',
 };
-const response: Moment = await client.createMoment(input);
+const moment: Moment = await client.createMoment(input);
 ```
 
 ## Documentation

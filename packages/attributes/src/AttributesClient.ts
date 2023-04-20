@@ -99,8 +99,6 @@ export class AttributesClient {
         },
       );
 
-    console.log(data.attributes_aggregate.nodes);
-
     const attributes: Attribute[] = data.attributes_aggregate.nodes.map(
       (attribute) => {
         return new Attribute({

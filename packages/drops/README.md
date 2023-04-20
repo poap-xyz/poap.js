@@ -7,8 +7,8 @@
 ## Features
 
 - Create a Drop
-- Update a Drop
-- Fetch a Drop
+- Update a Drop attributes
+- Fetch a single Drop
 - Fetch multiple Drops
 
 ## Installation
