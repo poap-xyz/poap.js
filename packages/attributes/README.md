@@ -5,11 +5,13 @@ Package to interact with POAP Attributes
 ## Installation
 
 ### NPM
+
 ```bash
 npm install @poap-xyz/attributes @poap-xyz/utils @poap-xyz/providers axios form-data
 ```
 
 ### Yarn
+
 ```bash
 yarn add @poap-xyz/attributes @poap-xyz/utils @poap-xyz/providers axios form-data
 ```

@@ -9,6 +9,8 @@ import {
 } from '../../ports/RegistryApiProvider/Types';
 import axios from 'axios';
 
+const REGISTRY_BASE_URL = 'https://registry.poap.xyz';
+
 /**
  * Creates a new instance of the `PoapRegistryApi` class.
  *
@@ -19,7 +21,7 @@ import axios from 'axios';
 export class PoapRegistryApi implements RegistryApiProvider {
   constructor(
     private apiKey: string,
-    private baseUrl: string = 'https://registry.poap.tech',
+    private baseUrl: string = REGISTRY_BASE_URL,
   ) {}
 
   /**

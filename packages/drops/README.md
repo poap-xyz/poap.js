@@ -14,15 +14,16 @@
 ## Installation
 
 ### NPM
+
 ```bash
 npm install @poap-xyz/drops @poap-xyz/utils @poap-xyz/providers axios form-data
 ```
 
 ### Yarn
+
 ```bash
 yarn add @poap-xyz/drops @poap-xyz/utils @poap-xyz/providers axios form-data
 ```
-
 
 ## Usage
 
@@ -42,7 +43,7 @@ For more detailed documentation, please visit [this link](https://documentation.
 
 ## Examples
 
-For example scripts and usage, please check the `examples` [folder](https://github.com/poap-xyz/poap.js/tree/main/examples).
+For example scripts and usage, please check the [examples](https://github.com/poap-xyz/poap.js/tree/main/examples).
 
 ## Contributing
 

@@ -12,11 +12,13 @@
 ## Installation
 
 ### NPM
+
 ```bash
 npm install @poap-xyz/utils
 ```
 
 ### Yarn
+
 ```bash
 yarn add @poap-xyz/utils
 ```
@@ -27,7 +29,7 @@ For more detailed documentation, please visit [this link](https://documentation.
 
 ## Examples
 
-For example scripts and usage, please check the `examples` [folder](https://github.com/poap-xyz/poap.js/tree/main/examples).
+For example scripts and usage, please check the [examples](https://github.com/poap-xyz/poap.js/tree/main/examples).
 
 ## Contributing
 

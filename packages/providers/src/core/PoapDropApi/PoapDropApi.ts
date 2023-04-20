@@ -10,6 +10,8 @@ import {
 import FormData from 'form-data';
 import axios from 'axios';
 
+const DROP_BASE_URL = 'https://api.poap.xyz';
+
 /**
  * A class that implements the `DropApiProvider` interface for interacting with the Poap Drop API.
  *
@@ -26,7 +28,7 @@ export class PoapDropApi implements DropApiProvider {
    */
   constructor(
     private apiKey: string,
-    private baseUrl: string = 'https://api.poap.tech',
+    private baseUrl: string = DROP_BASE_URL,
   ) {}
 
   /**
