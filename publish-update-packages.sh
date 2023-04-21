@@ -15,11 +15,29 @@ for pkg in "${DIRS[@]}"; do
       echo "Detected version change in $pkg: $remote_version -> $current_version"
     fi
 
-    cd $pkg
-    npm run build
-    # Publish the package with npm
-    npm publish --access public
-    cd -
+    # Change to the directory
+    if ! cd "$pkg"; then
+      echo "Error: Unable to change to directory: packages/$dir"
+      exit 1
+    fi
+
+    # Run the build command
+    if ! npm run build; then
+      echo "Error: Failed to run 'npm run build' in directory: packages/$dir"
+      exit 1
+    fi
+
+    # Run the publish command
+    if ! npm publish --access public; then
+      echo "Error: Failed to run 'npm publish --access public' in directory: packages/$dir"
+      exit 1
+    fi
+
+    # Change back to the original directory
+    if ! cd - > /dev/null; then
+      echo "Error: Unable to change back to original directory"
+      exit 1
+    fi
   else
     echo "No version change detected in $pkg"
   fi

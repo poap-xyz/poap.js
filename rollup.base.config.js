@@ -20,6 +20,7 @@ const configs = [
     },
     cache: false,
     plugins: [
+      peerDepsExternal(), // Automatically externalize dependencies
       nodeResolve({ browser: true }),
       typescript({
         tsconfig: `./tsconfig.json`,
