@@ -37,4 +37,4 @@ We welcome contributions! Please see the `CONTRIBUTING.md` file for guidelines.
 
 ## License
 
-@poap-xyz/moments is released under the [MIT License](https://opensource.org/licenses/MIT).
+@poap-xyz/providers is released under the [MIT License](https://opensource.org/licenses/MIT).
