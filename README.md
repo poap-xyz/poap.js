@@ -1,5 +1,91 @@
-# poap.js
+# POAP.js
 
+The POAP.js is a collection of SDKs and utilities for interacting with the POAP ecosystem. The library provides a set of classes and methods to simplify working with them.
+
+## Table of Contents
+
+- [POAP.js](#poapjs)
+  - [Table of Contents](#table-of-contents)
+  - [Features](#features)
+  - [Development](#development)
+  - [Examples](#examples)
+  - [Documentation](#documentation)
+  - [Contributing](#contributing)
+  - [Active contributors](#active-contributors)
+  - [License](#license)
+
+## Features
+
+- Handle moments creation and management
+- TypeScript support with strong typing
+- Easy integration with the POAP ecosystem
+
+## Development
+
+To start developing the POAP Package Library, follow these steps:
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/poap-xyz/poap.js.git
+```
+
+2. Have yarn installed:
+
+```bash
+npm install -g yarn
+```
+
+3. Install dependencies:
+
+```bash
+yarn install
+```
+
+4. Build the packages:
+
+```bash
+yarn build
+```
+
+5. Run the tests:
+
+```bash
+yarn test
+```
+
+## Examples
+
+The `examples` folder contains various examples to help you understand how to use the POAP Package Library. To run these examples, follow these steps:
+
+1. Replace the placeholder `'your_api_key'` with your actual API key in the example files.
+2. Run the examples using the `yarn start` command.
+
+Inside the `examples` folder, you'll find subfolders for each method, showcasing different ways to interact with each client.
+
+Feel free to explore these examples to learn how to use the library effectively and get a better understanding of the available functionality.
+
+## Documentation
+
+The library is well-documented using TypeDoc. To generate the documentation, run the following command:
+  
+```bash
+yarn docs
+```
+
+The generated documentation will be available in the docs/ directory.
+
+## Contributing
+
+Contributions to the POAP Package Library are welcome. To contribute, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch with a descriptive name.
+3. Make your changes and commit them with a clear and concise commit message.
+4. Create a pull request, describing the changes you made and why.
+5. Wait for a maintainer to review your pull request and provide feedback.
+
+Please ensure that your code adheres to the project's code style and passes all tests before submitting a pull request.
 
 ## Active contributors
 <!-- ALL-CONTRIBUTORS-LIST:END -->
