@@ -5,7 +5,7 @@ import { CreateMomentInput } from './../../ports/MomentsApiProvider/Types/input'
 import { MomentsApiProvider } from './../../ports/MomentsApiProvider/MomentsApiProvider';
 import axios from 'axios';
 
-const MOMENTS_BASE_URL = 'https://moments.poap.xyz';
+const MOMENTS_BASE_URL = 'https://moments.poap.tech';
 
 /**
  * PoapMomentsApi class provides methods to interact with the POAP Moments API
@@ -105,12 +105,12 @@ export class PoapMomentsApi implements MomentsApiProvider {
       'x-api-key': this.apiKey,
     };
 
-    return (
-      await axios(url, {
-        method: options.method,
-        data: options.body,
-        headers: headersWithApiKey,
-      })
-    ).data;
+    const response = await axios(url, {
+      method: options.method,
+      data: options.body,
+      headers: headersWithApiKey,
+    });
+
+    return response.data;
   }
 }

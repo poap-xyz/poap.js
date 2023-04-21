@@ -28,7 +28,6 @@ export class MomentsClient {
       dropId: input.dropId,
       author: input.author,
       mediaKey: key,
-      mimeType: input.mimeType,
       tokenId: input.tokenId,
     });
     return new Moment(
