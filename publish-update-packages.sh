@@ -17,19 +17,19 @@ for pkg in "${DIRS[@]}"; do
 
     # Change to the directory
     if ! cd "$pkg"; then
-      echo "Error: Unable to change to directory: packages/$dir"
+      echo "Error: Unable to change to directory: packages/$pkg"
       exit 1
     fi
 
     # Run the build command
     if ! npm run build; then
-      echo "Error: Failed to run 'npm run build' in directory: packages/$dir"
+      echo "Error: Failed to run 'npm run build' in directory: packages/$pkg"
       exit 1
     fi
 
     # Run the publish command
     if ! npm publish --access public; then
-      echo "Error: Failed to run 'npm publish --access public' in directory: packages/$dir"
+      echo "Error: Failed to run 'npm publish --access public' in directory: packages/$pkg"
       exit 1
     fi
 
