@@ -1,2 +1,2 @@
 export { DropsClient } from './DropsClient';
-export { Drop } from './domain/drop';
+export { Drop } from './domain/Drop';

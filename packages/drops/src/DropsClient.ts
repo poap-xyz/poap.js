@@ -13,7 +13,7 @@ import {
   filterUndefinedProperties,
 } from './queries/utils';
 import { CreateDropsInput, FetchDropsInput, UpdateDropsInput } from './types';
-import { PaginatedResult } from '@poap-xyz/utils';
+import { PaginatedResult, nextCursor } from '@poap-xyz/utils';
 
 /**
  * Represents a client for working with POAP drops.
@@ -89,11 +89,10 @@ export class DropsClient {
           year: Number(drop.year),
         }),
     );
-    const endIndex = offset + drops.length;
 
     return new PaginatedResult<Drop>(
       drops,
-      endIndex < offset + limit ? null : endIndex,
+      nextCursor(drops.length, limit, offset),
     );
   }
 

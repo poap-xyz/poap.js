@@ -9,6 +9,4 @@
   ],
   "exclude": ["**/node_modules/**", "**/*.spec.ts"],
   "out": "docs",
-  "plugin": ["typedoc-plugin-markdown"],
-  "theme": "markdown"
 }

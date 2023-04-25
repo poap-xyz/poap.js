@@ -42,7 +42,6 @@
     "rollup-plugin-typescript2": "^0.31.1",
     "ts-jest": "^29.1.0",
     "typedoc": "^0.23.28",
-    "typedoc-plugin-markdown": "^3.14.0",
     "typescript": "^5.0.2"
   },
   "workspaces": [
@@ -51,6 +50,7 @@
   ],
   "packageManager": "yarn@3.5.0",
   "dependencies": {
+    "@types/node": "^18.16.0",
     "ts-node": "^10.9.1"
   }
 }

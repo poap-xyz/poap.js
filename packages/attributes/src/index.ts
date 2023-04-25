@@ -1,3 +1,3 @@
-export { Attribute } from './domain/attribute';
+export { Attribute } from './domain/Attribute';
 export { AttributesClient } from './AttributesClient';
 export * from './types';

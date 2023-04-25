@@ -4,6 +4,8 @@ import { CompassProvider } from '../../ports/CompassProvider/CompassProvider';
 import axios from 'axios';
 // TODO: Change variable type any to a more specific type
 
+const COMPASS_BASE_URL = 'https://explorer.poap.xyz/graphql';
+
 /**
  * A class that implements the `CompassProvider` interface for fetching data from the Poap API.
  *
@@ -18,7 +20,10 @@ export class PoapCompass implements CompassProvider {
    * @param {string} apiKey - The API key to use for requests.
    * @param {HttpProvider} HttpProvider - An instance of the `HttpProvider` class for making HTTP requests.
    */
-  constructor(private apiKey: string) {}
+  constructor(
+    private apiKey: string,
+    private baseUrl: string = COMPASS_BASE_URL,
+  ) {}
 
   /**
    * Fetches data from the Poap GraphQL API.
@@ -36,7 +41,7 @@ export class PoapCompass implements CompassProvider {
     query: string,
     variables: Record<string, any>,
   ): Promise<R> {
-    const endpoint = 'https://explorer.poap.tech/v1/graphql';
+    const endpoint = this.baseUrl;
 
     try {
       const response = await axios(endpoint, {

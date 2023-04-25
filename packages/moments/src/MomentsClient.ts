@@ -1,5 +1,5 @@
 import { PoapMomentsApi, CompassProvider } from '@poap-xyz/providers';
-import { PaginatedResult } from '@poap-xyz/utils';
+import { PaginatedResult, nextCursor } from '@poap-xyz/utils';
 import { createMomentInput, FetchMomentsInput } from './types';
 import { Moment } from './domain/Moment';
 import {
@@ -28,7 +28,6 @@ export class MomentsClient {
       dropId: input.dropId,
       author: input.author,
       mediaKey: key,
-      mimeType: input.mimeType,
       tokenId: input.tokenId,
     });
     return new Moment(
@@ -40,6 +39,7 @@ export class MomentsClient {
       response.tokenId,
     );
   }
+
   async fetch({
     limit,
     offset,
@@ -93,11 +93,9 @@ export class MomentsClient {
       );
     });
 
-    const endIndex = offset + moments_response.length;
-
     const result = new PaginatedResult<Moment>(
       moments_response,
-      endIndex < offset + limit ? null : endIndex,
+      nextCursor(moments_response.length, limit, offset),
     );
 
     return result;
