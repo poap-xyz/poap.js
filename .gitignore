@@ -2,6 +2,7 @@ node_modules
 dist
 coverage
 .env
+docs/.yarn/
 .yarn/*
 !.yarn/patches
 !.yarn/plugins
