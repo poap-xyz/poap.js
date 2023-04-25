@@ -19,6 +19,17 @@
       <br />
       <a href="#" title="Code">💻</a>
     </td>
+    <td align="center">
+        <a href="https://github.com/alavarello">
+            <img src="https://avatars.githubusercontent.com/u/19600590?v=4" width="100px;" alt=""/>
+            <br />
+            <sub>
+            <b>Agustin Lavarello</b>
+            </sub>
+        </a>
+        <br />
+        <a href="#" title="Code">💻</a>
+    </td>
     <!-- <td align="center">
       <a href="https://github.com/jm42">
           <img src="https://avatars.githubusercontent.com/u/3297150?v=4" width="100px;" alt=""/>
@@ -36,17 +47,6 @@
             <br />
             <sub>
             <b>Ignacio Negro Caino</b>
-            </sub>
-        </a>
-        <br />
-        <a href="#" title="Code">💻</a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/alavarello">
-            <img src="https://avatars.githubusercontent.com/u/19600590?v=4" width="100px;" alt=""/>
-            <br />
-            <sub>
-            <b>Agustin Lavarello</b>
             </sub>
         </a>
         <br />
