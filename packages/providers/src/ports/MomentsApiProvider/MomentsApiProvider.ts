@@ -30,10 +30,11 @@ export interface MomentsApiProvider {
    * @function
    * @name MomentsApiProvider#uploadFile
    * @param {Buffer} file - The file to be uploaded as a Buffer
+   * @param {string} fileType - The file type
    * @param {string} signedUrl - The signed URL for uploading the file
    * @returns {Promise<void>} A Promise that resolves when the file has been uploaded
    */
-  uploadFile(file: Buffer, signedUrl: string): Promise<void>;
+  uploadFile(file: Buffer, signedUrl: string, fileType: string): Promise<void>;
 
   /**
    * Wait for the media to finish processing.
@@ -41,7 +42,8 @@ export interface MomentsApiProvider {
    * @function
    * @name MomentsApiProvider#waitForMediaProcessing
    * @param {string} mediaKey - The key for the media file
+   * @param {number} timeOut - The amount of time to wait until media is processed
    * @returns {Promise<void>} A Promise that resolves when the media processing is complete
    */
-  waitForMediaProcessing(mediaKey: string): Promise<void>;
+  waitForMediaProcessing(mediaKey: string, timeOut?: number): Promise<void>;
 }

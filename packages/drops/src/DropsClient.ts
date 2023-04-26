@@ -106,7 +106,6 @@ export class DropsClient {
    */
   async create(input: CreateDropsInput): Promise<Drop> {
     const repsonse = await this.DropApiProvider.createDrop(input);
-    console.log(repsonse);
     return this.formatDrop(repsonse);
   }
 
