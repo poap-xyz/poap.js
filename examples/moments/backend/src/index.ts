@@ -19,7 +19,6 @@ async function main(): Promise<void> {
   await fetch_single_moment(client);
 }
 
-main().catch((error) => {
-  console.error(error);
+main().catch(() => {
   process.exit(1);
 });

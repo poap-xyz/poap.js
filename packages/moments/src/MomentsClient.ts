@@ -22,8 +22,8 @@ export class MomentsClient {
 
   async createMoment(input: createMomentInput): Promise<Moment> {
     const { url, key } = await this.PoapMomentsApi.getSignedUrl();
-    await this.PoapMomentsApi.uploadFile(input.file, url);
-    await this.PoapMomentsApi.waitForMediaProcessing(key);
+    await this.PoapMomentsApi.uploadFile(input.file, url, input.fileType);
+    await this.PoapMomentsApi.waitForMediaProcessing(key, input.timeOut);
     const response = await this.PoapMomentsApi.createMoment({
       dropId: input.dropId,
       author: input.author,

@@ -1,3 +1,5 @@
+import { InvalidMediaFileError } from './errors/InvalidMediaFileError';
+import { MediaStatus } from './constants';
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CreateMomentResponse } from './../../ports/MomentsApiProvider/Types/response';
@@ -36,44 +38,81 @@ export class PoapMomentsApi implements MomentsApiProvider {
   /**
    * Upload a file using the signed URL
    * @param {Buffer} file - The file to be uploaded as a Buffer
+   * @param {string} fileType - The file type
    * @param {string} signedUrl - The signed URL for uploading the file
    * @returns {Promise<void>} - A Promise that resolves when the file has been uploaded
    */
-  async uploadFile(file: Buffer, signedUrl: string): Promise<void> {
+  async uploadFile(
+    file: Buffer,
+    signedUrl: string,
+    fileType: string,
+  ): Promise<void> {
     return await this.secureFetch(signedUrl, {
       method: 'PUT',
       body: file,
       headers: {
-        'Content-Type': 'application/octet-stream', // This can be adjusted based on the actual file type
+        'Content-Type': fileType, // This can be adjusted based on the actual file type
       },
     });
   }
+  /**
+   * Fetches the media processing status.
+   * @param {string} mediaKey - The key for the media file
+   * @returns {Promise<MediaStatus>} - A Promise that resolves with the media processing status
+   */
+  async fetchMediaStatus(mediaKey: string): Promise<MediaStatus> {
+    try {
+      const response = await this.secureFetch(
+        `${this.baseUrl}/media/${mediaKey}`,
+        {
+          method: 'GET',
+        },
+      );
+      return response.status;
+    } catch {
+      // Do nothing
+      return MediaStatus.IN_PROCESS;
+    }
+  }
 
   /**
-   * Wait for the media to finish processing
+   * Waits for the media to finish processing, checking its status at regular intervals.
+   * If the media processing status is not MediaStatus.PROCESSED after a maximum number of tries,
+   * an error is thrown. If the media status is MediaStatus.INVALID, an InvalidMediaFileError is thrown.
+   *
    * @param {string} mediaKey - The key for the media file
+   * @param {number} timeOut - The amount of time to wait until media is processed
    * @returns {Promise<void>} - A Promise that resolves when the media processing is complete
    */
-  async waitForMediaProcessing(mediaKey: string): Promise<void> {
-    let status = 'IN_PROCESS';
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+  async waitForMediaProcessing(
+    mediaKey: string,
+    timeOut = 60000,
+  ): Promise<void> {
+    const delay = 2000;
+    const maxTries = timeOut / delay;
 
-    while (status !== 'PROCESSED') {
-      try {
-        const response = await this.secureFetch(
-          `${this.baseUrl}/media/${mediaKey}`,
-          {
-            method: 'GET',
-          },
+    const checkStatus = async (tries: number): Promise<void> => {
+      if (tries >= maxTries) {
+        throw new Error(
+          'Exceeded maximum number of tries to check media processing status.',
         );
-        status = response.status;
-      } catch (error) {
-        // TODO: Throw error if status is not 404
-        //console.log('Error while getting media: ', error);
+      }
+      const status = await this.fetchMediaStatus(mediaKey);
+
+      if (status === MediaStatus.PROCESSED) {
+        return;
       }
 
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-    }
+      if (status === MediaStatus.INVALID) {
+        throw new InvalidMediaFileError();
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, delay));
+      return checkStatus(tries + 1);
+    };
+
+    await new Promise((resolve) => setTimeout(resolve, delay));
+    return checkStatus(0);
   }
 
   /**
