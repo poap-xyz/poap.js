@@ -3982,21 +3982,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nextra-docs-template@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "nextra-docs-template@workspace:."
-  dependencies:
-    "@svgr/webpack": ^7.0.0
-    "@types/node": 18.11.10
-    next: ^13.0.6
-    nextra: latest
-    nextra-theme-docs: latest
-    react: ^18.2.0
-    react-dom: ^18.2.0
-    typescript: ^4.9.3
-  languageName: unknown
-  linkType: soft
-
 "nextra-theme-docs@npm:latest":
   version: 2.4.2
   resolution: "nextra-theme-docs@npm:2.4.2"
@@ -4205,6 +4190,21 @@ __metadata:
   checksum: a2e8092dd86c8396bdba9f2b5481032848525b3dc295ce9b57896f931e63fc16f79805144321f72976383fc249584672a75cc18d6777c6b757603f372f745981
   languageName: node
   linkType: hard
+
+"poap-js-documentation@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "poap-js-documentation@workspace:."
+  dependencies:
+    "@svgr/webpack": ^7.0.0
+    "@types/node": 18.11.10
+    next: ^13.0.6
+    nextra: latest
+    nextra-theme-docs: latest
+    react: ^18.2.0
+    react-dom: ^18.2.0
+    typescript: ^4.9.3
+  languageName: unknown
+  linkType: soft
 
 "postcss@npm:8.4.14":
   version: 8.4.14
