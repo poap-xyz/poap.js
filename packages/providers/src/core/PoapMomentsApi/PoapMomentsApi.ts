@@ -51,7 +51,7 @@ export class PoapMomentsApi implements MomentsApiProvider {
       method: 'PUT',
       body: file,
       headers: {
-        'Content-Type': fileType, // This can be adjusted based on the actual file type
+        'Content-Type': fileType,
       },
     });
   }
