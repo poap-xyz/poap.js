@@ -68,7 +68,8 @@ export class PoapMomentsApi implements MomentsApiProvider {
         );
         status = response.status;
       } catch (error) {
-        console.log('Error while getting media: ', error);
+        // TODO: Throw error if status is not 404
+        //console.log('Error while getting media: ', error);
       }
 
       await new Promise((resolve) => setTimeout(resolve, 2000));
