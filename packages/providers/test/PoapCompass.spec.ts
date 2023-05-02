@@ -3,8 +3,13 @@ import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 
 describe('PoapCompass', () => {
-  const apiKey = 'test-api-key';
-  const mockAxios = new MockAdapter(axios);
+  let apiKey;
+  let mockAxios;
+
+  beforeEach(() => {
+    apiKey = 'test-api-key';
+    mockAxios = new MockAdapter(axios);
+  });
 
   afterEach(() => {
     mockAxios.reset();

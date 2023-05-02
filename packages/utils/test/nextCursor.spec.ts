@@ -6,8 +6,8 @@ describe('nextCursor', () => {
     const limit = 10;
     const offset = 0;
 
-    const result = nextCursor(length, limit, offset);
-    expect(result).toBeNull();
+    const cursor = nextCursor(length, limit, offset);
+    expect(cursor).toBeNull();
   });
 
   it('should return the correct endIndex when endIndex is greater or equal to the sum of offset and limit', () => {
@@ -15,21 +15,22 @@ describe('nextCursor', () => {
     const limit = 10;
     const offset = 10;
 
-    const result = nextCursor(length, limit, offset);
-    expect(result).toBe(20);
+    const cursor = nextCursor(length, limit, offset);
+    expect(cursor).toBe(20);
   });
 
-  it('should handle different values of length, limit, and offset', () => {
-    const testCases = [
-      { length: 7, limit: 10, offset: 5, expected: null },
-      { length: 10, limit: 5, offset: 5, expected: 15 },
-      { length: 5, limit: 5, offset: 5, expected: 10 },
-      { length: 0, limit: 10, offset: 10, expected: null },
-    ];
+  const testCases = [
+    { length: 7, limit: 10, offset: 5, expected: null },
+    { length: 10, limit: 5, offset: 5, expected: 15 },
+    { length: 5, limit: 5, offset: 5, expected: 10 },
+    { length: 0, limit: 10, offset: 10, expected: null },
+  ];
 
-    testCases.forEach(({ length, limit, offset, expected }) => {
-      const result = nextCursor(length, limit, offset);
-      expect(result).toBe(expected);
-    });
-  });
+  it.each(testCases)(
+    'should handle different values of length, limit, and offset',
+    ({ length, limit, offset, expected }) => {
+      const cursor = nextCursor(length, limit, offset);
+      expect(cursor).toBe(expected);
+    },
+  );
 });

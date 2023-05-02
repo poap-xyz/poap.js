@@ -1,20 +1,21 @@
 import { PaginatedResult } from './../src/types/pagination';
 
 describe('PaginatedResult', () => {
-  const items = [
-    { id: 1, name: 'Item 1' },
-    { id: 2, name: 'Item 2' },
-  ];
   const nextCursor = 'next-page-cursor';
 
   it('should initialize with the provided items and nextCursor', () => {
+    const items = [
+      { id: 1, name: 'Item 1' },
+      { id: 2, name: 'Item 2' },
+    ];
+
     const paginatedResult = new PaginatedResult(items, nextCursor);
 
     expect(paginatedResult.items).toEqual(items);
     expect(paginatedResult.nextCursor).toBe(nextCursor);
   });
 
-  it('should initialize with an empty array and null cursor when not provided', () => {
+  it('should initialize with an empty array and null cursor when provided', () => {
     const paginatedResult = new PaginatedResult([], null);
 
     expect(paginatedResult.items).toEqual([]);
