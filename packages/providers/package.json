@@ -1,6 +1,6 @@
 {
   "name": "@poap-xyz/providers",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Providers module for the poap.js library",
   "main": "dist/cjs/index.cjs",
   "module": "dist/esm/index.mjs",
@@ -25,6 +25,7 @@
     "build": "rollup -c --bundleConfigAsCjs"
   },
   "devDependencies": {
+    "axios-mock-adapter": "^1.21.4",
     "rollup": "^3.20.2"
   },
   "peerDependencies": {

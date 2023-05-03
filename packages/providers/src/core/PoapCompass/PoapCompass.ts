@@ -4,7 +4,7 @@ import { CompassProvider } from '../../ports/CompassProvider/CompassProvider';
 import axios from 'axios';
 // TODO: Change variable type any to a more specific type
 
-const COMPASS_BASE_URL = 'https://explorer.poap.xyz/graphql';
+const COMPASS_BASE_URL = 'https://compass.poap.tech/v1/graphql';
 
 /**
  * A class that implements the `CompassProvider` interface for fetching data from the Poap API.

@@ -902,6 +902,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@poap-xyz/providers@workspace:packages/providers"
   dependencies:
+    axios-mock-adapter: ^1.21.4
     rollup: ^3.20.2
   peerDependencies:
     axios: ^1.3.5
@@ -1622,6 +1623,18 @@ __metadata:
   version: 1.0.5
   resolution: "available-typed-arrays@npm:1.0.5"
   checksum: 20eb47b3cefd7db027b9bbb993c658abd36d4edd3fe1060e83699a03ee275b0c9b216cc076ff3f2db29073225fb70e7613987af14269ac1fe2a19803ccc97f1a
+  languageName: node
+  linkType: hard
+
+"axios-mock-adapter@npm:^1.21.4":
+  version: 1.21.4
+  resolution: "axios-mock-adapter@npm:1.21.4"
+  dependencies:
+    fast-deep-equal: ^3.1.3
+    is-buffer: ^2.0.5
+  peerDependencies:
+    axios: ">= 0.17.0"
+  checksum: adcd838c8b21f1ed67950c18b68dcf7c7c9bcddc75418720b5a407fd8448a3aa97b736307c631c27c2971368ac56716a310ea6cfc056517c1f1b0f8825427e58
   languageName: node
   linkType: hard
 
@@ -3369,6 +3382,13 @@ __metadata:
     call-bind: ^1.0.2
     has-tostringtag: ^1.0.0
   checksum: c03b23dbaacadc18940defb12c1c0e3aaece7553ef58b162a0f6bba0c2a7e1551b59f365b91e00d2dbac0522392d576ef322628cb1d036a0fe51eb466db67222
+  languageName: node
+  linkType: hard
+
+"is-buffer@npm:^2.0.5":
+  version: 2.0.5
+  resolution: "is-buffer@npm:2.0.5"
+  checksum: 764c9ad8b523a9f5a32af29bdf772b08eb48c04d2ad0a7240916ac2688c983bf5f8504bf25b35e66240edeb9d9085461f9b5dae1f3d2861c6b06a65fe983de42
   languageName: node
   linkType: hard
 
