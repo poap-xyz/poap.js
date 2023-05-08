@@ -7,13 +7,13 @@ import {
 export const create_attributes = async (
   client: AttributesClient,
 ): Promise<void> => {
-  const createAttribuet: CreateAttribute = {
+  const attribute: CreateAttribute = {
     key: 'test',
     value: 'test',
     dropId: 110148,
   };
   const input: CreateAttributesBulkInput = {
-    attributes: [createAttribuet],
+    attributes: [attribute],
   };
   const response = await client.createBulk(input);
   console.log(response);
