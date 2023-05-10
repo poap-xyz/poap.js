@@ -28,7 +28,6 @@
       "moments": ["moments/src"],
       "providers": ["providers/src/*"],
       "drops": ["drops/src"],
-      "attributes": ["attributes/src"],
       "utils": ["utils/src"]
     }
   },
@@ -37,7 +36,6 @@
     { "path": "./packages/moments" },
     { "path": "./packages/drops" },
     { "path": "./packages/providers" },
-    { "path": "./packages/attributes" },
     { "path": "./packages/utils" }
   ]
 }

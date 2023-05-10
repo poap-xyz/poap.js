@@ -15,18 +15,6 @@ export function createFilter(key: string, value?: string): Record<string, any> {
   return value ? { [key]: { _ilike: `%${value}%` } } : {};
 }
 
-export function createMetadataFilter(
-  withMetadata?: string,
-): Record<string, any> {
-  return withMetadata
-    ? {
-        attributes_aggregate: {
-          count: { predicate: { _eq: withMetadata === 'no' ? 0 : { _gt: 0 } } },
-        },
-      }
-    : {};
-}
-
 export function creatEqFilter(
   key: string,
   value?: string | number,
