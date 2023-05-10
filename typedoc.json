@@ -1,7 +1,6 @@
 {
   "tsconfig": "tsconfig.typedoc.json",
   "entryPoints": [
-    "./packages/attributes/src",
     "./packages/drops/src",
     "./packages/moments/src",
     "./packages/providers/src",

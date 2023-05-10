@@ -6,7 +6,6 @@
     "outDir": "./dist"
   },
   "include": [
-    "packages/attributes/src/**/*.ts",
     "packages/drops/src/**/*.ts",
     "packages/moments/src/**/*.ts",
     "packages/providers/src/**/*.ts",

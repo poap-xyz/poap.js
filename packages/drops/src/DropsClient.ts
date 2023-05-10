@@ -9,7 +9,6 @@ import {
   creatEqFilter,
   createBetweenFilter,
   createFilter,
-  createMetadataFilter,
   filterUndefinedProperties,
 } from './queries/utils';
 import { CreateDropsInput, FetchDropsInput, UpdateDropsInput } from './types';
@@ -42,20 +41,8 @@ export class DropsClient {
    * @returns {Promise<PaginatedResult<Drop>>} A paginated result of drops.
    */
   async fetch(input: FetchDropsInput): Promise<PaginatedResult<Drop>> {
-    const {
-      limit,
-      offset,
-      order,
-      key,
-      value,
-      name,
-      nameOrder,
-      idOrder,
-      withMetadata,
-      from,
-      to,
-      id,
-    } = input;
+    const { limit, offset, order, name, nameOrder, idOrder, from, to, id } =
+      input;
 
     const variables = {
       limit,
@@ -68,10 +55,7 @@ export class DropsClient {
       where: {
         private: { _eq: false },
         ...createFilter('name', name),
-        ...createFilter('attributes.key', key),
-        ...createFilter('attributes.value', value),
         ...createBetweenFilter('created_date', from, to),
-        ...createMetadataFilter(withMetadata),
         ...creatEqFilter('id', id),
       },
     };

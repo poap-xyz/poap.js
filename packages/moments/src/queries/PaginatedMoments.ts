@@ -6,7 +6,6 @@ export const PAGINATED_MOMENTS_QUERY = `
     $where: moments_bool_exp
   ) {
     moments(limit: $limit, offset: $offset, order_by: $orderBy, where: $where) {
-      attribute_id
       author
       created_on
       drop_id
@@ -22,7 +21,6 @@ export const PAGINATED_MOMENTS_QUERY = `
 `;
 
 export interface MomentResponse {
-  attribute_id: number;
   author: string;
   created_on: string;
   drop_id: number;
