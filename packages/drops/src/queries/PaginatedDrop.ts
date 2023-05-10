@@ -23,11 +23,6 @@ export const PAGINATED_DROPS_QUERY = `
       timezone
       private
       created_date
-      attributes_aggregate {
-        aggregate {
-          count
-        }
-      }
     }
     drops_aggregate(where: $where) {
       aggregate {
@@ -55,11 +50,6 @@ export interface DropResponse {
   timezone: string;
   private: boolean;
   created_date: string;
-  attributes_aggregate: {
-    aggregate: {
-      count: number;
-    };
-  };
 }
 
 export interface PaginatedDropsResponse {
