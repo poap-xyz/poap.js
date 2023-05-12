@@ -1,3 +1,9 @@
+> 
+> **Warning**
+> 
+> This product is in development and is not intended to be used in a production environment.
+> 
+
 # POAP.js
 
 The POAP.js is a collection of SDKs and utilities for interacting with the POAP ecosystem. The library provides a set of classes and methods to simplify working with them.
