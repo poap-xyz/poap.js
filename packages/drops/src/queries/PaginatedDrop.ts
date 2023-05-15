@@ -23,10 +23,9 @@ export const PAGINATED_DROPS_QUERY = `
       timezone
       private
       created_date
-    }
-    drops_aggregate(where: $where) {
-      aggregate {
-        count
+      stats {
+        transfer_count
+        poap_count
       }
     }
   }
@@ -50,15 +49,14 @@ export interface DropResponse {
   timezone: string;
   private: boolean;
   created_date: string;
+  stats: {
+    transfer_count: number;
+    poap_count: number;
+  };
 }
 
 export interface PaginatedDropsResponse {
   data: {
     drops: DropResponse[];
-    drops_aggregate: {
-      aggregate: {
-        count: number;
-      };
-    };
   };
 }

@@ -17,6 +17,8 @@ export class Drop {
   timezone: string;
   private: boolean;
   created_date: string;
+  poap_count: number;
+  transfer_count: number;
 
   constructor(properties: DropProperties) {
     this.id = properties.id;
@@ -36,6 +38,8 @@ export class Drop {
     this.timezone = properties.timezone;
     this.private = properties.private;
     this.created_date = properties.created_date;
+    this.poap_count = properties.poap_count;
+    this.transfer_count = properties.transfer_count;
     Object.assign(this, properties);
   }
 }
@@ -58,4 +62,6 @@ export interface DropProperties {
   timezone: string;
   private: boolean;
   created_date: string;
+  poap_count: number;
+  transfer_count: number;
 }
