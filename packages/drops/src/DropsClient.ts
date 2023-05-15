@@ -71,6 +71,8 @@ export class DropsClient {
           ...drop,
           id: Number(drop.id),
           year: Number(drop.year),
+          poap_count: drop.stats ? Number(drop.stats.poap_count) : 0,
+          transfer_count: drop.stats ? Number(drop.stats.transfer_count) : 0,
         }),
     );
 
@@ -125,6 +127,8 @@ export class DropsClient {
       timezone: drop.timezone,
       private: drop.private_event,
       created_date: drop.created_date,
+      transfer_count: 0,
+      poap_count: 0,
     });
   }
 }
