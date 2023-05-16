@@ -16,7 +16,7 @@ async function main(): Promise<void> {
   // One Drop by id
   await fetch_single_drop(client);
   // Create Drop
-  await create_drop(client);
+  // await create_drop(client);
 }
 
 main().catch((error) => {
