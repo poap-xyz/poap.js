@@ -27,6 +27,9 @@ export const PAGINATED_DROPS_QUERY = `
         transfer_count
         poap_count
       }
+      email_claims_stats {
+        total
+      }
     }
   }
 `;
@@ -52,6 +55,9 @@ export interface DropResponse {
   stats: {
     transfer_count: number;
     poap_count: number;
+  };
+  email_claims_stats: {
+    total: number;
   };
 }
 

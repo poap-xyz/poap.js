@@ -19,6 +19,7 @@ export class Drop {
   created_date: string;
   poap_count: number;
   transfer_count: number;
+  email_claim: number;
 
   constructor(properties: DropProperties) {
     this.id = properties.id;
@@ -40,7 +41,11 @@ export class Drop {
     this.created_date = properties.created_date;
     this.poap_count = properties.poap_count;
     this.transfer_count = properties.transfer_count;
-    Object.assign(this, properties);
+    this.email_claim = properties.email_claim;
+  }
+
+  public getTotalMinted(): number {
+    return this.poap_count + this.email_claim;
   }
 }
 
@@ -64,4 +69,5 @@ export interface DropProperties {
   created_date: string;
   poap_count: number;
   transfer_count: number;
+  email_claim: number;
 }

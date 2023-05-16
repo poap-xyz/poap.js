@@ -73,6 +73,9 @@ export class DropsClient {
           year: Number(drop.year),
           poap_count: drop.stats ? Number(drop.stats.poap_count) : 0,
           transfer_count: drop.stats ? Number(drop.stats.transfer_count) : 0,
+          email_claim: drop.email_claims_stats
+            ? Number(drop.email_claims_stats.total)
+            : 0,
         }),
     );
 
@@ -129,6 +132,7 @@ export class DropsClient {
       created_date: drop.created_date,
       transfer_count: 0,
       poap_count: 0,
+      email_claim: 0,
     });
   }
 }
