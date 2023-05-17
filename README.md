@@ -2,10 +2,14 @@
 > **Warning**
 > 
 > The POAP SDK is still in active initial development phase. Anything MAY change at any time.
+> 
 > This is a Developer Preview aimed primarily at existing integrators so to gather early feedback.
 > Documentation is in progress.
+> 
 > This product is in development and is not intended to be used in a production environment.
 > 
+> If you want to collaborate and leave us feedback you can do it so [here](https://github.com/poap-xyz/poap.js/discussions/19)
+
 
 # POAP.js
 
