@@ -10,3 +10,5 @@ docs/.yarn/
 !.yarn/sdks
 !.yarn/versions
 .next
+.idea
+.vscode

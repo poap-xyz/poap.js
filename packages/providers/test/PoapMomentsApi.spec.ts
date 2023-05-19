@@ -1,36 +1,45 @@
-import { PoapMomentsApi } from '../src/core/PoapMomentsApi/PoapMomentsApi';
+import { AuthenticationProvider, PoapMomentsApi } from '../src';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import { MediaStatus } from '../src/core/PoapMomentsApi/constants';
-import { InvalidMediaFileError } from '../src/core/PoapMomentsApi/errors/InvalidMediaFileError';
+import { InvalidMediaFileError } from '../src';
+import { mock, MockProxy } from 'jest-mock-extended';
 
 describe('PoapMomentsApi', () => {
-  let mock;
-  let apiKey;
-  let baseUrl;
-  let api;
+  const BASE_URL = 'https://moments.test';
+
+  let api: PoapMomentsApi;
+  let authenticationProviderMocked: MockProxy<AuthenticationProvider>;
+  let axiosMocked;
 
   beforeEach(() => {
-    mock = new MockAdapter(axios);
-    apiKey = 'test-api-key';
-    baseUrl = 'https://moments.poap.tech';
-    api = new PoapMomentsApi(apiKey, baseUrl);
+    authenticationProviderMocked = mock();
+    axiosMocked = new MockAdapter(axios);
+    api = new PoapMomentsApi({
+      baseUrl: BASE_URL,
+      authenticationProvider: authenticationProviderMocked,
+    });
   });
 
   afterEach(() => {
-    mock.reset();
+    axiosMocked.reset();
   });
 
   describe('getSignedUrl', () => {
     it('should fetch a signed URL', async () => {
       const mockResponse = { url: 'mock-signed-url', key: 'mock-key' };
 
-      mock
-        .onPost(`${baseUrl}/moments/media-upload-url`)
+      axiosMocked
+        .onPost(`${BASE_URL}/moments/media-upload-url`)
         .reply(200, mockResponse);
 
       const result = await api.getSignedUrl();
       expect(result).toEqual(mockResponse);
+    });
+
+    it('should throw error when AuthenticationProvider is not provided', async () => {
+      api = new PoapMomentsApi({});
+      await expect(api.getSignedUrl()).rejects.toThrow();
     });
   });
 
@@ -40,7 +49,7 @@ describe('PoapMomentsApi', () => {
       const signedUrl = 'https://mock-signed-url';
       const fileType = 'image/png';
 
-      mock.onPut(signedUrl).reply(200);
+      axiosMocked.onPut(signedUrl).reply(200);
 
       await expect(
         api.uploadFile(file, signedUrl, fileType),
@@ -53,7 +62,9 @@ describe('PoapMomentsApi', () => {
       const mediaKey = 'mock-media-key';
       const mockResponse = { status: MediaStatus.PROCESSED };
 
-      mock.onGet(`${baseUrl}/media/${mediaKey}`).reply(200, mockResponse);
+      axiosMocked
+        .onGet(`${BASE_URL}/media/${mediaKey}`)
+        .reply(200, mockResponse);
 
       const result = await api.fetchMediaStatus(mediaKey);
       expect(result).toEqual(mockResponse.status);
@@ -65,7 +76,9 @@ describe('PoapMomentsApi', () => {
       const mediaKey = 'mock-media-key';
       const mockResponse = { status: MediaStatus.PROCESSED };
 
-      mock.onGet(`${baseUrl}/media/${mediaKey}`).reply(200, mockResponse);
+      axiosMocked
+        .onGet(`${BASE_URL}/media/${mediaKey}`)
+        .reply(200, mockResponse);
 
       await expect(
         api.waitForMediaProcessing(mediaKey, 5000),
@@ -76,8 +89,8 @@ describe('PoapMomentsApi', () => {
       const mediaKey = 'mock-media-key';
       const invalidMediaResponse = { status: MediaStatus.INVALID };
 
-      mock
-        .onGet(`${baseUrl}/media/${mediaKey}`)
+      axiosMocked
+        .onGet(`${BASE_URL}/media/${mediaKey}`)
         .reply(200, invalidMediaResponse);
 
       await expect(
@@ -87,6 +100,13 @@ describe('PoapMomentsApi', () => {
   });
 
   describe('createMoment', () => {
+    const createMomentInput = {
+      dropId: 1,
+      author: '0x1234',
+      mediaKey: 'mock-media-key',
+      tokenId: 1000,
+    };
+
     it('should create a moment successfully', async () => {
       const mockResponse = {
         id: '1',
@@ -103,17 +123,15 @@ describe('PoapMomentsApi', () => {
         tokenId: 1000,
       };
 
-      const createMomentInput = {
-        dropId: 1,
-        author: '0x1234',
-        mediaKey: 'mock-media-key',
-        tokenId: 1000,
-      };
-
-      mock.onPost(`${baseUrl}/moments`).reply(200, mockResponse);
+      axiosMocked.onPost(`${BASE_URL}/moments`).reply(200, mockResponse);
 
       const result = await api.createMoment(createMomentInput);
       expect(result).toEqual(mockResponse);
+    });
+
+    it('should throw error when AuthenticationProvider is not provided', async () => {
+      api = new PoapMomentsApi({});
+      await expect(api.createMoment(createMomentInput)).rejects.toThrow();
     });
   });
 });

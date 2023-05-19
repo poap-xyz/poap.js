@@ -1,6 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { MomentsClient } from '@poap-xyz/moments';
-import { PoapCompass, PoapMomentsApi } from '@poap-xyz/providers';
+import {
+  PoapCompass,
+  PoapMomentsApi,
+  AuthenticationProviderHttp,
+} from '@poap-xyz/providers';
 import { create_moment } from './methods/create_moment';
 import { fetch_multiple_moments } from './methods/fetch_multiple_moments';
 import { fetch_single_moment } from './methods/fetch_single_moment';
@@ -8,7 +12,13 @@ import { fetch_single_moment } from './methods/fetch_single_moment';
 async function main(): Promise<void> {
   // Use your library here
   const client = new MomentsClient(
-    new PoapMomentsApi('your_api_key'),
+    new PoapMomentsApi({
+      // You need to provide an authentication provider for write operations
+      authenticationProvider: new AuthenticationProviderHttp(
+        '<CLIENT_ID>',
+        '<CLIENT_SECRET>',
+      ),
+    }),
     new PoapCompass('your_api_key'),
   );
   // Create Moment
