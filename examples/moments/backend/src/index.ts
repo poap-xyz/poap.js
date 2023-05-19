@@ -4,6 +4,7 @@ import { PoapCompass, PoapMomentsApi } from '@poap-xyz/providers';
 import { create_moment } from './methods/create_moment';
 import { fetch_multiple_moments } from './methods/fetch_multiple_moments';
 import { fetch_single_moment } from './methods/fetch_single_moment';
+import { fetch_moments_by_drop_ids } from './methods/fetch_moments_by_drop_ids';
 
 async function main(): Promise<void> {
   // Use your library here
@@ -17,6 +18,8 @@ async function main(): Promise<void> {
   await fetch_multiple_moments(client);
   // Fetch one moment by id
   await fetch_single_moment(client);
+  // Fetch moments by drop ids
+  await fetch_moments_by_drop_ids(client);
 }
 
 main().catch(() => {

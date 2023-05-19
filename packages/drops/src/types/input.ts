@@ -7,7 +7,7 @@ export interface FetchDropsInput {
   idOrder?: string;
   from?: string;
   to?: string;
-  id?: number;
+  ids?: number[];
 }
 
 export interface CreateDropsInput {

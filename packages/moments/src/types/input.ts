@@ -45,5 +45,5 @@ export interface FetchMomentsInput {
   to?: string;
   id?: string;
   token_id?: number;
-  drop_id?: number;
+  drop_ids?: number[];
 }

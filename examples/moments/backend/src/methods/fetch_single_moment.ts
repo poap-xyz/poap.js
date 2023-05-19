@@ -10,6 +10,10 @@ export const fetch_single_moment = async (
     id: '7284219b-1bc7-43b8-ab27-44749bdd91e1',
     idOrder: 'desc',
   };
-  const data: PaginatedResult<Moment> = await client.fetch(input);
-  console.log(data);
+  try {
+    const data: PaginatedResult<Moment> = await client.fetch(input);
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
 };
