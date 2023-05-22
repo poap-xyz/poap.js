@@ -1,6 +1,6 @@
 import { PoapMomentsApi, CompassProvider } from '@poap-xyz/providers';
 import { PaginatedResult, nextCursor } from '@poap-xyz/utils';
-import { createMomentInput, FetchMomentsInput } from './types';
+import { CreateMomentInput, FetchMomentsInput } from './types';
 import { Moment } from './domain/Moment';
 import {
   createBetweenFilter,
@@ -21,7 +21,7 @@ export class MomentsClient {
     private CompassProvider: CompassProvider,
   ) {}
 
-  async createMoment(input: createMomentInput): Promise<Moment> {
+  async createMoment(input: CreateMomentInput): Promise<Moment> {
     const { url, key } = await this.PoapMomentsApi.getSignedUrl();
     await this.PoapMomentsApi.uploadFile(input.file, url, input.fileType);
     await this.PoapMomentsApi.waitForMediaProcessing(key, input.timeOut);

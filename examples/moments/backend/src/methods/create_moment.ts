@@ -1,5 +1,5 @@
 /* eslint-disable max-statements */
-import { MomentsClient, createMomentInput } from '@poap-xyz/moments';
+import { MomentsClient, CreateMomentInput } from '@poap-xyz/moments';
 import fs from 'fs';
 import mime from 'mime';
 
@@ -12,7 +12,7 @@ export const create_moment = async (client: MomentsClient): Promise<void> => {
     return;
   }
 
-  const input: createMomentInput = {
+  const input: CreateMomentInput = {
     dropId: 110148,
     /**
      * The Token ID related to the moment (Optional)

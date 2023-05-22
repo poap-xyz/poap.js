@@ -1,10 +1,10 @@
 import { InvalidMediaFileError } from './errors/InvalidMediaFileError';
-import { MediaStatus } from './constants';
 import { CreateMomentResponse } from '../../ports/MomentsApiProvider';
 import { CreateMomentInput } from '../../ports/MomentsApiProvider';
 import { MomentsApiProvider } from '../../ports';
 import { AuthenticationProvider } from '../../ports';
 import axios, { AxiosError } from 'axios';
+import { MediaStatus } from './Types/MediaStatus';
 
 const MOMENTS_BASE_URL = 'https://moments.poap.tech';
 

@@ -1,9 +1,9 @@
 import { AuthenticationProvider, PoapMomentsApi } from '../src';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
-import { MediaStatus } from '../src/core/PoapMomentsApi/constants';
 import { InvalidMediaFileError } from '../src';
 import { mock, MockProxy } from 'jest-mock-extended';
+import { MediaStatus } from '../src/core/PoapMomentsApi/Types/MediaStatus';
 
 describe('PoapMomentsApi', () => {
   const BASE_URL = 'https://moments.test';
