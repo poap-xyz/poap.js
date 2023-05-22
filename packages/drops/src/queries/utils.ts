@@ -22,6 +22,13 @@ export function creatEqFilter(
   return value ? { [key]: { _eq: value } } : {};
 }
 
+export function createInFilter(
+  key: string,
+  values?: Array<string | number>,
+): Record<string, any> {
+  return values && values.length ? { [key]: { _in: values } } : {};
+}
+
 export function createBetweenFilter(
   key: string,
   from?: string,

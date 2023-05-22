@@ -40,11 +40,15 @@ export const create_drop = async (client: DropsClient): Promise<void> => {
     filename: 'file.png',
     contentType: 'image/png',
     event_template_id: 1,
-    email: 'rodrigo@poap.io',
+    email: 'your_email@poap.io',
     requested_codes: 10,
     private_event: true,
   };
 
-  const response = await client.create(createDrop);
-  console.log(response);
+  try {
+    const response = await client.create(createDrop);
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
 };
