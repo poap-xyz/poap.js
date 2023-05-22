@@ -2,6 +2,10 @@ import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import { AuthenticationProviderHttp } from '../src';
 
+const getAuthUrl = (authServer: string): string => {
+  return `https://${authServer}/oauth/token`;
+};
+
 describe('AuthenticationProviderHttp', () => {
   jest.useFakeTimers();
 
@@ -26,7 +30,7 @@ describe('AuthenticationProviderHttp', () => {
       CLIENT_SECRET,
       AUTH_SERVER,
     );
-    axiosMocked.onPost(`https://${AUTH_SERVER}/oauth/token`).reply(200, {
+    axiosMocked.onPost(getAuthUrl(AUTH_SERVER)).reply(200, {
       access_token: ACCESS_TOKEN,
       expires_in: EXPIRES_IN,
     });
@@ -42,7 +46,7 @@ describe('AuthenticationProviderHttp', () => {
       CLIENT_SECRET,
       AUTH_SERVER,
     );
-    axiosMocked.onPost(`https://${AUTH_SERVER}/oauth/token`).reply(200, {
+    axiosMocked.onPost(getAuthUrl(AUTH_SERVER)).reply(200, {
       access_token: ACCESS_TOKEN,
       expires_in: EXPIRES_IN,
     });
@@ -61,7 +65,7 @@ describe('AuthenticationProviderHttp', () => {
       CLIENT_SECRET,
       AUTH_SERVER,
     );
-    axiosMocked.onPost(`https://${AUTH_SERVER}/oauth/token`).reply(200, {
+    axiosMocked.onPost(getAuthUrl(AUTH_SERVER)).reply(200, {
       access_token: ACCESS_TOKEN,
       expires_in: EXPIRES_IN,
     });
