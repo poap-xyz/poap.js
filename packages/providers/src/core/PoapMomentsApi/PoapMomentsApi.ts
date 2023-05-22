@@ -1,11 +1,10 @@
 import { InvalidMediaFileError } from './errors/InvalidMediaFileError';
 import { MediaStatus } from './constants';
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { CreateMomentResponse } from './../../ports/MomentsApiProvider/Types/response';
-import { CreateMomentInput } from './../../ports/MomentsApiProvider/Types/input';
-import { MomentsApiProvider } from './../../ports/MomentsApiProvider/MomentsApiProvider';
-import axios from 'axios';
+import { CreateMomentResponse } from '../../ports/MomentsApiProvider';
+import { CreateMomentInput } from '../../ports/MomentsApiProvider';
+import { MomentsApiProvider } from '../../ports';
+import { AuthenticationProvider } from '../../ports';
+import axios, { AxiosError } from 'axios';
 
 const MOMENTS_BASE_URL = 'https://moments.poap.tech';
 
@@ -14,25 +13,39 @@ const MOMENTS_BASE_URL = 'https://moments.poap.tech';
  * @class
  */
 export class PoapMomentsApi implements MomentsApiProvider {
+  private readonly baseUrl: string;
+  private readonly authenticationProvider?: AuthenticationProvider;
+
   /**
    * @constructor
-   * @param {string} apiKey - The API key for the POAP Moments API
-   * @param {string} [baseUrl='https://moments.poap.xyz'] - The base URL for the POAP Moments API
+   * * @param {Object} params - Object containing constructor parameters.
+   *  * @param {string} [params.baseUrl='https://moments.poap.xyz'] - The base URL for the POAP Moments API.
+   *  * @param {AuthenticationProvider} [params.authenticationProvider] - Optional authentication provider only used for write operations.ication provider only used for write operations
    */
-  constructor(
-    private apiKey: string,
-    private baseUrl: string = MOMENTS_BASE_URL,
-  ) {}
+  constructor(params: {
+    baseUrl?: string;
+    authenticationProvider?: AuthenticationProvider;
+  }) {
+    this.baseUrl = params.baseUrl ?? MOMENTS_BASE_URL;
+    this.authenticationProvider = params.authenticationProvider;
+  }
 
   /**
    * Fetch a signed URL for uploading a file
    * @returns {Promise<{ url: string; key: string }>} - A Promise that resolves to an object containing the signed URL and the media key
    */
-  async getSignedUrl(): Promise<{ url: string; key: string }> {
-    return await this.secureFetch(`${this.baseUrl}/moments/media-upload-url`, {
-      method: 'POST',
-      body: JSON.stringify({}),
-    });
+  public async getSignedUrl(): Promise<{ url: string; key: string }> {
+    const response = await axios.post(
+      `${this.baseUrl}/moments/media-upload-url`,
+      undefined,
+      {
+        headers: {
+          Authorization: await this.getAuthorizationToken(),
+        },
+      },
+    );
+
+    return response.data;
   }
 
   /**
@@ -42,36 +55,33 @@ export class PoapMomentsApi implements MomentsApiProvider {
    * @param {string} signedUrl - The signed URL for uploading the file
    * @returns {Promise<void>} - A Promise that resolves when the file has been uploaded
    */
-  async uploadFile(
+  public async uploadFile(
     file: Buffer,
     signedUrl: string,
     fileType: string,
   ): Promise<void> {
-    return await this.secureFetch(signedUrl, {
-      method: 'PUT',
-      body: file,
+    await axios.put(signedUrl, file, {
       headers: {
         'Content-Type': fileType,
       },
     });
   }
+
   /**
    * Fetches the media processing status.
    * @param {string} mediaKey - The key for the media file
    * @returns {Promise<MediaStatus>} - A Promise that resolves with the media processing status
    */
-  async fetchMediaStatus(mediaKey: string): Promise<MediaStatus> {
+  public async fetchMediaStatus(mediaKey: string): Promise<MediaStatus> {
     try {
-      const response = await this.secureFetch(
-        `${this.baseUrl}/media/${mediaKey}`,
-        {
-          method: 'GET',
-        },
-      );
-      return response.status;
-    } catch {
-      // Do nothing
-      return MediaStatus.IN_PROCESS;
+      const response = await axios.get(`${this.baseUrl}/media/${mediaKey}`);
+      return response.data.status;
+    } catch (error) {
+      if (error instanceof AxiosError && error.response?.status === 404) {
+        return MediaStatus.IN_PROCESS;
+      }
+
+      throw error;
     }
   }
 
@@ -84,7 +94,7 @@ export class PoapMomentsApi implements MomentsApiProvider {
    * @param {number} timeOut - The amount of time to wait until media is processed
    * @returns {Promise<void>} - A Promise that resolves when the media processing is complete
    */
-  async waitForMediaProcessing(
+  public async waitForMediaProcessing(
     mediaKey: string,
     timeOut = 60000,
   ): Promise<void> {
@@ -120,37 +130,26 @@ export class PoapMomentsApi implements MomentsApiProvider {
    * @param {CreateMomentInput} input - The input for creating a moment
    * @returns {Promise<CreateMomentResponse>} - A Promise that resolves to the created moment
    */
-  async createMoment(input: CreateMomentInput): Promise<CreateMomentResponse> {
-    return await this.secureFetch(`${this.baseUrl}/moments`, {
-      method: 'POST',
-      body: JSON.stringify(input),
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
-
-  /**
-   * Sends a secure HTTP request to the Poap Registry API.
-   *
-   * @async
-   * @private
-   * @function
-   * @name PoapRegistryApi#secureFetch
-   * @param {string} url - The URL for the HTTP request.
-   * @param {any} options - The options for the HTTP request.
-   * @returns {Promise<any>} A Promise that resolves with the response from the API.
-   */
-  async secureFetch(url: string, options: any): Promise<any> {
-    const headersWithApiKey = {
-      ...options.headers,
-      'x-api-key': this.apiKey,
-    };
-
-    const response = await axios(url, {
-      method: options.method,
-      data: options.body,
-      headers: headersWithApiKey,
+  public async createMoment(
+    input: CreateMomentInput,
+  ): Promise<CreateMomentResponse> {
+    const response = await axios.post(`${this.baseUrl}/moments`, input, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: await this.getAuthorizationToken(),
+      },
     });
 
     return response.data;
+  }
+
+  private async getAuthorizationToken(): Promise<string> {
+    if (!this.authenticationProvider) {
+      throw new Error(
+        'An AuthenticationProvider is required for write operations',
+      );
+    }
+
+    return `Bearer ${await this.authenticationProvider.getJWT(this.baseUrl)}`;
   }
 }

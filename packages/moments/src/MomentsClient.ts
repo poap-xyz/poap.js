@@ -9,10 +9,7 @@ import {
   creatEqFilter,
   filterUndefinedProperties,
 } from './queries/utils';
-import {
-  MomentsQueryResponse,
-  PAGINATED_MOMENTS_QUERY,
-} from './queries/PaginatedMoments';
+import { MomentsQueryResponse, PAGINATED_MOMENTS_QUERY } from './queries';
 import { MediaStatus } from './domain/MediaStatus';
 
 export class MomentsClient {
