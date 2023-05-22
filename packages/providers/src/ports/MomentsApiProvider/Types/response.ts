@@ -23,14 +23,11 @@ export enum MediaStatus {
  * Represents a media file for a moment.
  */
 export interface Media {
-  /**
-   * The location of the media file.
-   */
-  location?: string;
   key: string;
   mimeType: string;
   status: MediaStatus;
   hash?: string;
+  gateways?: string[];
 }
 
 export interface CreateMomentResponse {

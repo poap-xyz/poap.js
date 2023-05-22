@@ -1,5 +1,3 @@
-import { Media } from './Media';
-
 /**
  * Represents a moment.
  */
@@ -20,12 +18,6 @@ export class Moment {
   public readonly createdOn: Date;
 
   /**
-   * The media file associated with the moment.
-   * @type {Media}
-   */
-  public readonly media: Media;
-
-  /**
    * The drop ID related to the moment.
    */
   public readonly dropId: number;
@@ -35,12 +27,17 @@ export class Moment {
    */
   public readonly tokenId?: number;
 
+  /**
+   * Indicates an array of gateways that the media file is stored on.
+   */
+  public readonly gateways: string[];
+
   constructor(
     id: string,
     author: string,
     createdOn: Date,
     dropId: number,
-    media: Media,
+    gateways: string[],
     tokenId?: number,
   ) {
     this.id = id;
@@ -48,6 +45,6 @@ export class Moment {
     this.createdOn = createdOn;
     this.dropId = dropId;
     this.tokenId = tokenId;
-    this.media = media;
+    this.gateways = gateways;
   }
 }
