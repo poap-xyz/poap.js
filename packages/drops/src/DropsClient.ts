@@ -6,9 +6,9 @@ import {
 import { Drop } from './domain/Drop';
 import { PaginatedDropsResponse, PAGINATED_DROPS_QUERY } from './queries';
 import {
-  creatEqFilter,
   createBetweenFilter,
   createFilter,
+  createInFilter,
   filterUndefinedProperties,
 } from './queries/utils';
 import { CreateDropsInput, FetchDropsInput, UpdateDropsInput } from './types';
@@ -41,7 +41,7 @@ export class DropsClient {
    * @returns {Promise<PaginatedResult<Drop>>} A paginated result of drops.
    */
   async fetch(input: FetchDropsInput): Promise<PaginatedResult<Drop>> {
-    const { limit, offset, order, name, nameOrder, idOrder, from, to, id } =
+    const { limit, offset, order, name, nameOrder, idOrder, from, to, ids } =
       input;
 
     const variables = {
@@ -56,7 +56,7 @@ export class DropsClient {
         private: { _eq: false },
         ...createFilter('name', name),
         ...createBetweenFilter('created_date', from, to),
-        ...creatEqFilter('id', id),
+        ...createInFilter('id', ids),
       },
     };
 

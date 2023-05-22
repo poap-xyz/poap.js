@@ -5,6 +5,7 @@ import { Moment } from './domain/Moment';
 import {
   createBetweenFilter,
   createFilter,
+  createInFilter,
   creatEqFilter,
   filterUndefinedProperties,
 } from './queries/utils';
@@ -43,7 +44,7 @@ export class MomentsClient {
     id,
     createdOrder,
     token_id,
-    drop_id,
+    drop_ids,
     from,
     to,
     author,
@@ -62,19 +63,19 @@ export class MomentsClient {
       }),
       where: {
         ...creatEqFilter('token_id', token_id),
-        ...creatEqFilter('drop_id', drop_id),
+        ...createInFilter('drop_id', drop_ids),
         ...createFilter('author', author),
         ...createBetweenFilter('created_on', from, to),
         ...creatEqFilter('id', id),
       },
     };
 
-    const { data } = await this.CompassProvider.request<MomentsQueryResponse>(
+    const response = await this.CompassProvider.request<MomentsQueryResponse>(
       PAGINATED_MOMENTS_QUERY,
       variables,
     );
 
-    const moments_response: Moment[] = data.moments.map((moment) => {
+    const moments_response: Moment[] = response.data.moments.map((moment) => {
       return new Moment(
         moment.id,
         moment.author,
