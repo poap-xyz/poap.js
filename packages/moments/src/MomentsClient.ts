@@ -1,6 +1,6 @@
 import { PoapMomentsApi, CompassProvider } from '@poap-xyz/providers';
 import { PaginatedResult, nextCursor } from '@poap-xyz/utils';
-import { createMomentInput, FetchMomentsInput } from './types';
+import { CreateMomentInput, FetchMomentsInput } from './types';
 import { Moment } from './domain/Moment';
 import {
   createBetweenFilter,
@@ -9,8 +9,11 @@ import {
   creatEqFilter,
   filterUndefinedProperties,
 } from './queries/utils';
-import { MomentsQueryResponse, PAGINATED_MOMENTS_QUERY } from './queries';
-import { MediaStatus } from './domain/MediaStatus';
+import {
+  MomentResponse,
+  MomentsQueryResponse,
+  PAGINATED_MOMENTS_QUERY,
+} from './queries';
 
 export class MomentsClient {
   constructor(
@@ -18,7 +21,7 @@ export class MomentsClient {
     private CompassProvider: CompassProvider,
   ) {}
 
-  async createMoment(input: createMomentInput): Promise<Moment> {
+  async createMoment(input: CreateMomentInput): Promise<Moment> {
     const { url, key } = await this.PoapMomentsApi.getSignedUrl();
     await this.PoapMomentsApi.uploadFile(input.file, url, input.fileType);
     await this.PoapMomentsApi.waitForMediaProcessing(key, input.timeOut);
@@ -33,7 +36,8 @@ export class MomentsClient {
       response.author,
       response.createdOn,
       response.dropId,
-      response.media,
+      // We will always have a gateway because we wait for the media to be processed
+      response.media.gateways!,
       response.tokenId,
     );
   }
@@ -75,27 +79,26 @@ export class MomentsClient {
       variables,
     );
 
-    const moments_response: Moment[] = response.data.moments.map((moment) => {
-      return new Moment(
-        moment.id,
-        moment.author,
-        new Date(moment.created_on),
-        moment.drop_id,
-        {
-          key: moment.media_key,
-          mimeType: moment.mime_type,
-          status: MediaStatus.PROCESSED,
-          hash: moment.media_hash,
-        },
-        moment.token_id,
-      );
-    });
+    const momentsResponse: Moment[] = response.data.moments.map(
+      this.getMomentFromMomentResponse,
+    );
 
     const result = new PaginatedResult<Moment>(
-      moments_response,
-      nextCursor(moments_response.length, limit, offset),
+      momentsResponse,
+      nextCursor(momentsResponse.length, limit, offset),
     );
 
     return result;
+  }
+
+  private getMomentFromMomentResponse(momentResponse: MomentResponse): Moment {
+    return new Moment(
+      momentResponse.id,
+      momentResponse.author,
+      new Date(momentResponse.created_on),
+      momentResponse.drop_id,
+      momentResponse.gateways,
+      momentResponse.token_id,
+    );
   }
 }

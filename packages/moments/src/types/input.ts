@@ -8,7 +8,7 @@
  * @property {string} timeOut - The amount of time to wait until media is processed.
  * @property {string} fileType - The type of the file.
  */
-export interface createMomentInput {
+export interface CreateMomentInput {
   dropId: number;
   tokenId?: number;
   file: Buffer;

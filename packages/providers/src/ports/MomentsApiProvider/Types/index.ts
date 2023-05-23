@@ -1,2 +1,2 @@
-export * from './input';
-export * from './response';
+export * from './CreateMomentInput';
+export * from './CreateMomentResponse';
