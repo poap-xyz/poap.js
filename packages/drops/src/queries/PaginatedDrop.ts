@@ -23,9 +23,13 @@ export const PAGINATED_DROPS_QUERY = `
       timezone
       private
       created_date
-      stats {
-        transfer_count
-        poap_count
+      stats_by_chain_aggregate {
+        aggregate {
+          sum {
+            transfer_count
+            poap_count
+          }
+        }
       }
       email_claims_stats {
         total
@@ -52,9 +56,13 @@ export interface DropResponse {
   timezone: string;
   private: boolean;
   created_date: string;
-  stats: {
-    transfer_count: number;
-    poap_count: number;
+  stats_by_chain_aggregate: {
+    aggregate: {
+      sum: {
+        transfer_count: number;
+        poap_count: number;
+      };
+    };
   };
   email_claims_stats: {
     total: number;
