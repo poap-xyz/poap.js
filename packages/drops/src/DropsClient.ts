@@ -71,8 +71,12 @@ export class DropsClient {
           ...drop,
           id: Number(drop.id),
           year: Number(drop.year),
-          poap_count: drop.stats ? Number(drop.stats.poap_count) : 0,
-          transfer_count: drop.stats ? Number(drop.stats.transfer_count) : 0,
+          poap_count: drop.stats_by_chain_aggregate.aggregate.sum
+            ? Number(drop.stats_by_chain_aggregate.aggregate.sum.poap_count)
+            : 0,
+          transfer_count: drop.stats_by_chain_aggregate.aggregate.sum
+            ? Number(drop.stats_by_chain_aggregate.aggregate.sum.transfer_count)
+            : 0,
           email_claim: drop.email_claims_stats
             ? Number(drop.email_claims_stats.total)
             : 0,
