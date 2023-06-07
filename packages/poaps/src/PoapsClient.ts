@@ -4,10 +4,11 @@ import { PaginatedPoapsResponse, PAGINATED_POAPS_QUERY } from './queries';
 import {
   createBetweenFilter,
   createFilter,
+  creatEqFilter,
   createInFilter,
   filterUndefinedProperties,
 } from './queries/utils';
-import { FetchDropsInput } from './types';
+import { FetchPoapsInput } from './types';
 import { PaginatedResult, nextCursor } from '@poap-xyz/utils';
 
 /**
@@ -29,24 +30,35 @@ export class PoapsClient {
    *
    * @async
    * @method
-   * @param {FetchDropsInput} input - The input for fetching drops.
+   * @param {FetchPoapsInput} input - The input for fetching drops.
    * @returns {Promise<PaginatedResult<Drop>>} A paginated result of drops.
    */
-  async fetch(input: FetchDropsInput): Promise<PaginatedResult<POAP>> {
-    const { limit, offset, order, name, nameOrder, idOrder, from, to, ids } =
-      input;
+  async fetch(input: FetchPoapsInput): Promise<PaginatedResult<POAP>> {
+    const {
+      limit,
+      offset,
+      order,
+      chain,
+      collector_address,
+      idOrder,
+      from,
+      to,
+      ids,
+      drop_id,
+    } = input;
 
     const variables = {
       limit,
       offset,
       orderBy: filterUndefinedProperties({
-        start_date: order,
-        name: nameOrder,
+        minted_on: order,
         id: idOrder,
       }),
       where: {
-        ...createFilter('name', name),
-        ...createBetweenFilter('created_date', from, to),
+        ...createFilter('collector_address', collector_address),
+        ...creatEqFilter('chain', chain),
+        ...creatEqFilter('drop_id', drop_id),
+        ...createBetweenFilter('minted_on', from, to),
         ...createInFilter('id', ids),
       },
     };
