@@ -1,9 +1,9 @@
 export const PAGINATED_POAPS_QUERY = `
-  query PaginatedDrops(
+  query PaginatedPoaps(
     $limit: Int!
     $offset: Int!
-    $orderBy: [drops_order_by!]
-    $where: drops_bool_exp
+    $orderBy: [poaps_order_by!]
+    $where: poaps_bool_exp
   ) {
     poaps(limit: $limit, offset: $offset, order_by: $orderBy, where: $where) {
       chain

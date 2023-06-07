@@ -7,9 +7,9 @@ import { fetch_single_poap } from './methods/fetch_single_poap';
 async function main(): Promise<void> {
   // Use your library here
   const client = new PoapsClient(new PoapCompass('you_api_key'));
-  // Multiple Drops
+  // Multiple Poaps
   await fetch_multiple_poaps(client);
-  // One Drop by id
+  // One Poap by id
   await fetch_single_poap(client);
 }
 
