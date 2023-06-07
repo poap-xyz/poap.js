@@ -28,7 +28,8 @@
       "moments": ["moments/src"],
       "providers": ["providers/src/*"],
       "drops": ["drops/src"],
-      "utils": ["utils/src"]
+      "utils": ["utils/src"],
+      "poaps": ["poaps/src"]
     }
   },
   "exclude": ["node_modules", "dist"],
@@ -36,6 +37,7 @@
     { "path": "./packages/moments" },
     { "path": "./packages/drops" },
     { "path": "./packages/providers" },
-    { "path": "./packages/utils" }
+    { "path": "./packages/utils" },
+    { "path": "./packages/poaps" }
   ]
 }
