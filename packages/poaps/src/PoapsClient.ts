@@ -68,15 +68,16 @@ export class PoapsClient {
       variables,
     );
 
-    const poaps = data.poaps.map(
-      (poap) =>
-        new POAP({
-          ...poap,
-          id: Number(poap.id),
-          minted_on: new Date(poap.minted_on),
-          drop_id: Number(poap.drop_id),
-        }),
-    );
+    const poaps = data.poaps.map((poap) => {
+      const { drop } = poap;
+      return new POAP({
+        ...poap,
+        ...drop,
+        id: Number(poap.id),
+        minted_on: new Date(poap.minted_on),
+        drop_id: Number(poap.drop_id),
+      });
+    });
 
     return new PaginatedResult<POAP>(
       poaps,

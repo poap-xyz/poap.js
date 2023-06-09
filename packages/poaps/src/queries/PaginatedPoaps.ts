@@ -12,6 +12,14 @@ export const PAGINATED_POAPS_QUERY = `
       id
       minted_on
       transfer_count
+      drop {
+        image_url
+        city
+        country
+        description
+        start_date
+        name
+      }
     }
   }
 `;
@@ -22,6 +30,14 @@ export interface PoapsResponse {
   transfer_count: number;
   minted_on: number;
   drop_id: number;
+  drop: {
+    image_url: string;
+    city: string;
+    country: string;
+    description: string;
+    start_date: string;
+    name: string;
+  };
 }
 
 export interface PaginatedPoapsResponse {
