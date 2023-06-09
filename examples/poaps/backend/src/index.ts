@@ -3,6 +3,8 @@ import { PoapsClient } from '@poap-xyz/poaps';
 import { PoapCompass } from '@poap-xyz/providers';
 import { fetch_multiple_poaps } from './methods/fetch_multiple_poaps';
 import { fetch_single_poap } from './methods/fetch_single_poap';
+import { fetch_multiple_poaps_by_collector } from './methods/fetch_multiple_poaps_by_collector';
+import { fetch_multiple_poaps_by_drop_id } from './methods/fetch_multiple_poaps_by_drop_id';
 
 async function main(): Promise<void> {
   // Use your library here
@@ -11,6 +13,10 @@ async function main(): Promise<void> {
   await fetch_multiple_poaps(client);
   // One Poap by id
   await fetch_single_poap(client);
+  // Multiple Poaps by collector
+  await fetch_multiple_poaps_by_collector(client);
+  // Multiple Poaps by drop
+  await fetch_multiple_poaps_by_drop_id(client);
 }
 
 main().catch((error) => {

@@ -15,6 +15,6 @@
      "allowSyntheticDefaultImports": true
 
   },
-  "include": ["src/**/*.ts", "src/assets/*.png"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }

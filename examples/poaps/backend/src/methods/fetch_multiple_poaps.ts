@@ -8,9 +8,10 @@ export const fetch_multiple_poaps = async (
     const data: PaginatedResult<POAP> = await client.fetch({
       order: 'asc',
       limit: 10,
-      offset: 1,
+      offset: 0,
     });
     console.log(data);
+    console.log('The first 10 POAP tokens minted.');
   } catch (error) {
     console.log(error);
   }
