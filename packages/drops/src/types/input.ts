@@ -1,10 +1,12 @@
+import { Order } from '@poap-xyz/utils';
+
 export interface FetchDropsInput {
   limit: number;
   offset: number;
-  order?: string;
+  order?: Order;
   name?: string;
-  nameOrder?: string;
-  idOrder?: string;
+  nameOrder?: Order;
+  idOrder?: Order;
   from?: string;
   to?: string;
   ids?: number[];

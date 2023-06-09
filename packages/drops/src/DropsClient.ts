@@ -80,6 +80,10 @@ export class DropsClient {
           email_claim: drop.email_claims_stats
             ? Number(drop.email_claims_stats.total)
             : 0,
+          start_date: new Date(drop.start_date),
+          end_date: new Date(drop.end_date),
+          created_date: new Date(drop.created_date),
+          expiry_date: new Date(drop.expiry_date),
         }),
     );
 
@@ -130,10 +134,12 @@ export class DropsClient {
       image_url: drop.image_url,
       animation_url: drop.animation_url,
       year: drop.year,
-      start_date: drop.start_date,
+      start_date: new Date(drop.start_date),
       timezone: drop.timezone,
       private: drop.private_event,
-      created_date: drop.created_date,
+      created_date: new Date(drop.created_date),
+      expiry_date: new Date(drop.expiry_date),
+      end_date: new Date(drop.end_date),
       transfer_count: 0,
       poap_count: 0,
       email_claim: 0,

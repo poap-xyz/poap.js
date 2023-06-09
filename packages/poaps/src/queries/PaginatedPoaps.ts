@@ -18,6 +18,7 @@ export const PAGINATED_POAPS_QUERY = `
         country
         description
         start_date
+        end_date
         name
       }
     }
@@ -36,6 +37,7 @@ export interface PoapsResponse {
     country: string;
     description: string;
     start_date: string;
+    end_date: string;
     name: string;
   };
 }

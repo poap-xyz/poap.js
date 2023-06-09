@@ -40,9 +40,9 @@ export class PoapsClient {
       order,
       chain,
       collector_address,
-      idOrder,
-      from,
-      to,
+      id_order,
+      minted_date_from,
+      minted_date_to,
       ids,
       drop_id,
     } = input;
@@ -52,13 +52,13 @@ export class PoapsClient {
       offset,
       orderBy: filterUndefinedProperties({
         minted_on: order,
-        id: idOrder,
+        id: id_order,
       }),
       where: {
         ...createFilter('collector_address', collector_address),
         ...creatEqFilter('chain', chain),
         ...creatEqFilter('drop_id', drop_id),
-        ...createBetweenFilter('minted_on', from, to),
+        ...createBetweenFilter('minted_on', minted_date_from, minted_date_to),
         ...createInFilter('id', ids),
       },
     };
@@ -76,6 +76,8 @@ export class PoapsClient {
         id: Number(poap.id),
         minted_on: new Date(poap.minted_on),
         drop_id: Number(poap.drop_id),
+        start_date: new Date(drop.start_date),
+        end_date: new Date(drop.end_date),
       });
     });
 

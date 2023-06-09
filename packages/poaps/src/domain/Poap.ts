@@ -9,7 +9,8 @@ export class POAP {
   city: string;
   country: string;
   description: string;
-  start_date: string;
+  start_date: Date;
+  end_date: Date;
   name: string;
 
 
@@ -24,6 +25,7 @@ export class POAP {
     this.country = properties.country;
     this.description = properties.description;
     this.start_date = properties.start_date;
+    this.end_date = properties.end_date;
     this.name = properties.name;
   }
 }
@@ -38,6 +40,7 @@ export interface PoapProperties {
   city: string;
   country: string;
   description: string;
-  start_date: string;
+  start_date: Date;
   name: string;
+  end_date: Date;
 }
