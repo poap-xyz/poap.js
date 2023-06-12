@@ -1,4 +1,4 @@
-import { POAP, PoapsClient } from '@poap-xyz/poaps';
+import { POAP, PoapsClient, PoapsSortFields } from '@poap-xyz/poaps';
 import { Order, PaginatedResult } from '@poap-xyz/utils';
 
 export const fetch_multiple_poaps_by_drop_id = async (
@@ -6,7 +6,8 @@ export const fetch_multiple_poaps_by_drop_id = async (
 ): Promise<void> => {
   try {
     const data: PaginatedResult<POAP> = await client.fetch({
-      minted_on_order: Order.ASC,
+      sort_field: PoapsSortFields.MintedOn,
+      sort_order: Order.ASC,
       limit: 10,
       offset: 0,
       drop_id: 14,

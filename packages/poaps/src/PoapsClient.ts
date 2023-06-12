@@ -37,22 +37,21 @@ export class PoapsClient {
     const {
       limit,
       offset,
-      minted_on_order,
       chain,
       collector_address,
-      id_order,
       minted_date_from,
       minted_date_to,
       ids,
       drop_id,
+      sort_field,
+      sort_order,
     } = input;
 
     const variables = {
       limit,
       offset,
       orderBy: filterUndefinedProperties({
-        minted_on: minted_on_order,
-        id: id_order,
+        [`${sort_field}`]: sort_order,
       }),
       where: {
         ...createFilter('collector_address', collector_address),
