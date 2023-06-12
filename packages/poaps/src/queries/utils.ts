@@ -35,8 +35,11 @@ export function createBetweenFilter(
   to?: string,
 ): Record<string, any> {
   const dateFilter: { _gte?: string; _lte?: string } = {};
-  if (from) dateFilter._gte = from;
-  if (to) dateFilter._lte = to;
-
+  if (from) {
+    dateFilter._gte = from;
+  }
+  if (to) {
+    dateFilter._lte = to;
+  }
   return from || to ? { [key]: dateFilter } : {};
 }

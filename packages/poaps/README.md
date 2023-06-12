@@ -2,12 +2,12 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-@poap-xyz/poaps is a package to interact with POAPs Tokens.
+`@poap-xyz/poaps` is a package to fetch information about POAPs tokens, their on-chain data, their related drop and metadata.
 
 ## Features
 
-- Fetch a single POAP
-- Fetch multiple POAPs
+- Fetch a single POAP token,
+- Search over minted POAPs by their collector or the drop they belong.
 
 ## Installation
 
