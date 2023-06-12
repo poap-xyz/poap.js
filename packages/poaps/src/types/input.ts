@@ -3,7 +3,7 @@ import { Order } from '@poap-xyz/utils';
 export interface FetchPoapsInput {
   limit: number;
   offset: number;
-  order?: Order;
+  minted_on_order?: Order;
   name?: string;
   chain?: string;
   id_order?: Order;

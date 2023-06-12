@@ -37,7 +37,7 @@ export class PoapsClient {
     const {
       limit,
       offset,
-      order,
+      minted_on_order,
       chain,
       collector_address,
       id_order,
@@ -51,7 +51,7 @@ export class PoapsClient {
       limit,
       offset,
       orderBy: filterUndefinedProperties({
-        minted_on: order,
+        minted_on: minted_on_order,
         id: id_order,
       }),
       where: {

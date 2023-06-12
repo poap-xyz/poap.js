@@ -6,7 +6,7 @@ export const fetch_multiple_poaps_by_drop_id = async (
 ): Promise<void> => {
   try {
     const data: PaginatedResult<POAP> = await client.fetch({
-      order: Order.ASC,
+      minted_on_order: Order.ASC,
       limit: 10,
       offset: 0,
       drop_id: 14,
