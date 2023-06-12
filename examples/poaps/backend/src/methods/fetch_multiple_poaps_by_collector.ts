@@ -7,7 +7,7 @@ export const fetch_multiple_poaps_by_collector = async (
   try {
     const data: PaginatedResult<POAP> = await client.fetch({
       sort_field: PoapsSortFields.MintedOn,
-      sort_order: Order.ASC,
+      sort_dir: Order.ASC,
       limit: 10,
       offset: 0,
       collector_address: '0xf6B6F07862A02C85628B3A9688beae07fEA9C863',

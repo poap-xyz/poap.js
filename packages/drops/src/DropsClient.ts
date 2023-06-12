@@ -41,16 +41,13 @@ export class DropsClient {
    * @returns {Promise<PaginatedResult<Drop>>} A paginated result of drops.
    */
   async fetch(input: FetchDropsInput): Promise<PaginatedResult<Drop>> {
-    const { limit, offset, order, name, nameOrder, idOrder, from, to, ids } =
-      input;
+    const { limit, offset, name, sort_field, sort_dir, from, to, ids } = input;
 
     const variables = {
       limit,
       offset,
       orderBy: filterUndefinedProperties({
-        start_date: order,
-        name: nameOrder,
-        id: idOrder,
+        [`${sort_field}`]: sort_dir,
       }),
       where: {
         private: { _eq: false },

@@ -44,14 +44,14 @@ export class PoapsClient {
       ids,
       drop_id,
       sort_field,
-      sort_order,
+      sort_dir,
     } = input;
 
     const variables = {
       limit,
       offset,
       orderBy: filterUndefinedProperties({
-        [`${sort_field}`]: sort_order,
+        [`${sort_field}`]: sort_dir,
       }),
       where: {
         ...createFilter('collector_address', collector_address),

@@ -1,4 +1,5 @@
 import { Drop, DropsClient } from '@poap-xyz/drops';
+import { DropsSortFields } from '@poap-xyz/drops/dist/cjs/types';
 import { Order, PaginatedResult } from '@poap-xyz/utils';
 
 export const fetch_multiple_drops = async (
@@ -6,7 +7,8 @@ export const fetch_multiple_drops = async (
 ): Promise<void> => {
   try {
     const data: PaginatedResult<Drop> = await client.fetch({
-      order: Order.ASC,
+      sort_field: DropsSortFields.Id,
+      sort_dir: Order.ASC,
       limit: 10,
       offset: 1,
     });

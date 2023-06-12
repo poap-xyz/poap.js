@@ -7,7 +7,7 @@ export const fetch_multiple_poaps_by_drop_id = async (
   try {
     const data: PaginatedResult<POAP> = await client.fetch({
       sort_field: PoapsSortFields.MintedOn,
-      sort_order: Order.ASC,
+      sort_dir: Order.ASC,
       limit: 10,
       offset: 0,
       drop_id: 14,
