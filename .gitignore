@@ -12,3 +12,4 @@ docs/.yarn/
 .next
 .idea
 .vscode
+*.txt
