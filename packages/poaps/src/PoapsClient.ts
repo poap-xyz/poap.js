@@ -6,7 +6,7 @@ import {
   createFilter,
   creatEqFilter,
   createInFilter,
-  filterUndefinedProperties,
+  creatUndefinedOrder,
 } from './queries/utils';
 import { FetchPoapsInput } from './types';
 import { PaginatedResult, nextCursor } from '@poap-xyz/utils';
@@ -50,9 +50,7 @@ export class PoapsClient {
     const variables = {
       limit,
       offset,
-      orderBy: filterUndefinedProperties({
-        [`${sort_field}`]: sort_dir,
-      }),
+      orderBy: creatUndefinedOrder(sort_field, sort_dir),
       where: {
         ...createFilter('collector_address', collector_address),
         ...creatEqFilter('chain', chain),

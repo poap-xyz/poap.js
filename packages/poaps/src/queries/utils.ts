@@ -11,6 +11,13 @@ export function filterUndefinedProperties<T extends Record<string, any>>(
   return filteredObj;
 }
 
+export function creatUndefinedOrder(
+  key: string | undefined,
+  value?: string | undefined,
+): Record<string, any> {
+  return key && value ? { [key]: value } : {};
+}
+
 export function createFilter(key: string, value?: string): Record<string, any> {
   return value ? { [key]: { _ilike: `%${value}%` } } : {};
 }
