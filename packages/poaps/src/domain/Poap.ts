@@ -13,7 +13,6 @@ export class POAP {
   end_date: Date;
   name: string;
 
-
   constructor(properties: PoapProperties) {
     this.id = properties.id;
     this.collector_address = properties.collector_address;
