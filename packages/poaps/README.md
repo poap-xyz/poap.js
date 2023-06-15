@@ -14,16 +14,22 @@
 ### NPM
 
 ```bash
+npm install @poap-xyz/poaps @poap-xyz/utils @poap-xyz/providers axios form-data
 ```
 
 ### Yarn
 
 ```bash
+yarn add @poap-xyz/poaps @poap-xyz/utils @poap-xyz/providers axios form-data
 ```
 
 ## Usage
 
 ```javascript
+  import { PoapsClient } from '@poap-xyz/poaps';
+  import { PoapCompass } from '@poap-xyz/providers';
+
+  const client = new PoapsClient(new PoapCompass('you_api_key'));
 
 ```
 
