@@ -13,10 +13,12 @@ export class Drop {
   image_url: string;
   animation_url: string;
   year: number;
-  start_date: string;
   timezone: string;
   private: boolean;
-  created_date: string;
+  start_date: Date;
+  created_date: Date;
+  expiry_date: Date;
+  end_date: Date;
   poap_count: number;
   transfer_count: number;
   email_claim: number;
@@ -42,6 +44,8 @@ export class Drop {
     this.poap_count = properties.poap_count;
     this.transfer_count = properties.transfer_count;
     this.email_claim = properties.email_claim;
+    this.expiry_date = properties.expiry_date;
+    this.end_date = properties.end_date;
   }
 
   public getTotalMinted(): number {
@@ -63,10 +67,12 @@ export interface DropProperties {
   image_url: string;
   animation_url: string;
   year: number;
-  start_date: string;
   timezone: string;
   private: boolean;
-  created_date: string;
+  created_date: Date;
+  start_date: Date;
+  expiry_date: Date;
+  end_date: Date;
   poap_count: number;
   transfer_count: number;
   email_claim: number;

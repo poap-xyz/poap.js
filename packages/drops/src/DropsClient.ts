@@ -6,10 +6,10 @@ import {
 import { Drop } from './domain/Drop';
 import { PaginatedDropsResponse, PAGINATED_DROPS_QUERY } from './queries';
 import {
+  creatUndefinedOrder,
   createBetweenFilter,
   createFilter,
   createInFilter,
-  filterUndefinedProperties,
 } from './queries/utils';
 import { CreateDropsInput, FetchDropsInput, UpdateDropsInput } from './types';
 import { PaginatedResult, nextCursor } from '@poap-xyz/utils';
@@ -41,17 +41,12 @@ export class DropsClient {
    * @returns {Promise<PaginatedResult<Drop>>} A paginated result of drops.
    */
   async fetch(input: FetchDropsInput): Promise<PaginatedResult<Drop>> {
-    const { limit, offset, order, name, nameOrder, idOrder, from, to, ids } =
-      input;
+    const { limit, offset, name, sort_field, sort_dir, from, to, ids } = input;
 
     const variables = {
       limit,
       offset,
-      orderBy: filterUndefinedProperties({
-        start_date: order,
-        name: nameOrder,
-        id: idOrder,
-      }),
+      orderBy: creatUndefinedOrder(sort_field, sort_dir),
       where: {
         private: { _eq: false },
         ...createFilter('name', name),
@@ -80,6 +75,10 @@ export class DropsClient {
           email_claim: drop.email_claims_stats
             ? Number(drop.email_claims_stats.total)
             : 0,
+          start_date: new Date(drop.start_date),
+          end_date: new Date(drop.end_date),
+          created_date: new Date(drop.created_date),
+          expiry_date: new Date(drop.expiry_date),
         }),
     );
 
@@ -130,10 +129,12 @@ export class DropsClient {
       image_url: drop.image_url,
       animation_url: drop.animation_url,
       year: drop.year,
-      start_date: drop.start_date,
+      start_date: new Date(drop.start_date),
       timezone: drop.timezone,
       private: drop.private_event,
-      created_date: drop.created_date,
+      created_date: new Date(drop.created_date),
+      expiry_date: new Date(drop.expiry_date),
+      end_date: new Date(drop.end_date),
       transfer_count: 0,
       poap_count: 0,
       email_claim: 0,

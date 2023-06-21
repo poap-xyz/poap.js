@@ -1,10 +1,17 @@
+import { Order } from '@poap-xyz/utils';
+
+export enum DropsSortFields {
+  Name = 'name',
+  Id = 'id',
+  StartDate = 'start_date',
+}
+
 export interface FetchDropsInput {
   limit: number;
   offset: number;
-  order?: string;
   name?: string;
-  nameOrder?: string;
-  idOrder?: string;
+  sort_field?: DropsSortFields;
+  sort_dir?: Order;
   from?: string;
   to?: string;
   ids?: number[];

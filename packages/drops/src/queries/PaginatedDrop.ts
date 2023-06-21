@@ -23,6 +23,8 @@ export const PAGINATED_DROPS_QUERY = `
       timezone
       private
       created_date
+      expiry_date
+      end_date
       stats_by_chain_aggregate {
         aggregate {
           sum {
@@ -56,6 +58,8 @@ export interface DropResponse {
   timezone: string;
   private: boolean;
   created_date: string;
+  expiry_date: string;
+  end_date: string;
   stats_by_chain_aggregate: {
     aggregate: {
       sum: {
