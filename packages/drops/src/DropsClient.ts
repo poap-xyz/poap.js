@@ -48,7 +48,7 @@ export class DropsClient {
       offset,
       orderBy: creatUndefinedOrder(sort_field, sort_dir),
       where: {
-        private: { _eq: false },
+        private: { _eq: 'false' },
         ...createFilter('name', name),
         ...createBetweenFilter('created_date', from, to),
         ...createInFilter('id', ids),

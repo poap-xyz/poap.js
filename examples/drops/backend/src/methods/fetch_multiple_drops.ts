@@ -1,5 +1,4 @@
-import { Drop, DropsClient } from '@poap-xyz/drops';
-import { DropsSortFields } from '@poap-xyz/drops/dist/cjs/types';
+import { Drop, DropsClient, DropsSortFields } from '@poap-xyz/drops';
 import { Order, PaginatedResult } from '@poap-xyz/utils';
 
 export const fetch_multiple_drops = async (
