@@ -51,6 +51,33 @@ export class Drop {
   public getTotalMinted(): number {
     return this.poap_count + this.email_claim;
   }
+
+  public toSerializableObject(): DropProperties {
+    return {
+      id: this.id,
+      fancy_id: this.fancy_id,
+      name: this.name,
+      description: this.description,
+      city: this.city,
+      country: this.country,
+      channel: this.channel,
+      platform: this.platform,
+      location_type: this.location_type,
+      drop_url: this.drop_url,
+      image_url: this.image_url,
+      animation_url: this.animation_url,
+      year: this.year,
+      timezone: this.timezone,
+      private: this.private,
+      start_date: this.start_date,
+      created_date: this.created_date,
+      poap_count: this.poap_count,
+      transfer_count: this.transfer_count,
+      email_claim: this.email_claim,
+      expiry_date: this.expiry_date,
+      end_date: this.end_date
+    };
+  }
 }
 
 export interface DropProperties {
