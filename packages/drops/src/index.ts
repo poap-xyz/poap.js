@@ -1,5 +1,5 @@
 export { DropsClient } from './DropsClient';
-export { Drop } from './domain/Drop';
+export { Drop, DropProperties } from './domain/Drop';
 export {
   FetchDropsInput,
   CreateDropsInput,
