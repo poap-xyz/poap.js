@@ -52,7 +52,7 @@ export class Drop {
     return this.poap_count + this.email_claim;
   }
 
-  public toSerializableObject(): DropProperties {
+  public toSerializableObject(): any {
     return {
       id: this.id,
       fancy_id: this.fancy_id,
@@ -69,15 +69,15 @@ export class Drop {
       year: this.year,
       timezone: this.timezone,
       private: this.private,
-      start_date: this.start_date,
-      created_date: this.created_date,
+      start_date: this.start_date.toISOString(),
+      created_date: this.created_date.toISOString(),
       poap_count: this.poap_count,
       transfer_count: this.transfer_count,
       email_claim: this.email_claim,
-      expiry_date: this.expiry_date,
-      end_date: this.end_date
+      expiry_date: this.expiry_date.toISOString(),
+      end_date: this.end_date.toISOString()
     };
-  }
+  }  
 }
 
 export interface DropProperties {
