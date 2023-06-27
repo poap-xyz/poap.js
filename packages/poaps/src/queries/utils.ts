@@ -29,6 +29,13 @@ export function creatEqFilter(
   return value ? { [key]: { _eq: value } } : {};
 }
 
+export function creatAddressFilter(
+  key: string,
+  value?: string,
+): Record<string, any> {
+  return value ? { [key]: { _eq: value.toLocaleLowerCase() } } : {};
+}
+
 export function createInFilter(
   key: string,
   values?: Array<string | number>,

@@ -3,10 +3,10 @@ import { POAP } from './domain/Poap';
 import { PaginatedPoapsResponse, PAGINATED_POAPS_QUERY } from './queries';
 import {
   createBetweenFilter,
-  createFilter,
   creatEqFilter,
   createInFilter,
   creatUndefinedOrder,
+  creatAddressFilter,
 } from './queries/utils';
 import { FetchPoapsInput } from './types';
 import { PaginatedResult, nextCursor } from '@poap-xyz/utils';
@@ -52,7 +52,7 @@ export class PoapsClient {
       offset,
       orderBy: creatUndefinedOrder(sort_field, sort_dir),
       where: {
-        ...createFilter('collector_address', collector_address),
+        ...creatAddressFilter('collector_address', collector_address),
         ...creatEqFilter('chain', chain),
         ...creatEqFilter('drop_id', drop_id),
         ...createBetweenFilter('minted_on', minted_date_from, minted_date_to),
