@@ -1,19 +1,21 @@
 import { PoapMomentsApi, CompassProvider } from '@poap-xyz/providers';
 import { PaginatedResult, nextCursor } from '@poap-xyz/utils';
-import { CreateMomentInput, FetchMomentsInput } from './types';
-import { Moment } from './domain/Moment';
+import { Moment } from '../domain/Moment';
 import {
   createBetweenFilter,
   createFilter,
   createInFilter,
   creatEqFilter,
   filterUndefinedProperties,
-} from './queries/utils';
+} from '../queries/utils';
 import {
   MomentResponse,
   MomentsQueryResponse,
   PAGINATED_MOMENTS_QUERY,
-} from './queries';
+} from '../queries';
+import { CreateMomentInput } from './dtos/create/CreateInput';
+import { CreateSteps } from './dtos/create/CreateSteps';
+import { FetchMomentsInput } from './dtos/fetch/FetchMomentsInput';
 
 export class MomentsClient {
   constructor(
@@ -21,16 +23,32 @@ export class MomentsClient {
     private CompassProvider: CompassProvider,
   ) {}
 
-  async createMoment(input: CreateMomentInput): Promise<Moment> {
+  public async createMoment(input: CreateMomentInput): Promise<Moment> {
+    const defaultOnStepUpdate = (): void => {
+      //do nothing
+    };
+    const onStepUpdate = input.onStepUpdate || defaultOnStepUpdate;
+    void onStepUpdate(CreateSteps.REQUESTING_MEDIA_UPLOAD_URL);
     const { url, key } = await this.PoapMomentsApi.getSignedUrl();
+    void onStepUpdate(CreateSteps.UPLOADING_MEDIA);
     await this.PoapMomentsApi.uploadFile(input.file, url, input.fileType);
-    await this.PoapMomentsApi.waitForMediaProcessing(key, input.timeOut);
+    void onStepUpdate(CreateSteps.UPLOADING_MEDIA_METADATA);
+    //  we will be adding metadata to the media in the future
+    void onStepUpdate(CreateSteps.PROCESSING_MEDIA);
+    try {
+      await this.PoapMomentsApi.waitForMediaProcessing(key, input.timeOut);
+    } catch (error) {
+      void onStepUpdate(CreateSteps.PROCESSING_MEDIA_ERROR);
+      throw error;
+    }
+    void onStepUpdate(CreateSteps.UPLOADING_MOMENT);
     const response = await this.PoapMomentsApi.createMoment({
       dropId: input.dropId,
       author: input.author,
       mediaKey: key,
       tokenId: input.tokenId,
     });
+    void onStepUpdate(CreateSteps.FINISHED);
     return new Moment(
       response.id,
       response.author,
