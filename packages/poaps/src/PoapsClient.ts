@@ -64,14 +64,15 @@ export class PoapsClient {
       PAGINATED_POAPS_QUERY,
       variables,
     );
-
     const poaps = data.poaps.map((poap) => {
       const { drop } = poap;
+      const minted_on = new Date(0);
+      minted_on.setUTCSeconds(poap.minted_on);
       return new POAP({
         ...poap,
         ...drop,
         id: Number(poap.id),
-        minted_on: new Date(poap.minted_on),
+        minted_on,
         drop_id: Number(poap.drop_id),
         start_date: new Date(drop.start_date),
         end_date: new Date(drop.end_date),
