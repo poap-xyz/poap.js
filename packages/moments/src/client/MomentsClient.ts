@@ -19,7 +19,7 @@ import { FetchMomentsInput } from './dtos/fetch/FetchMomentsInput';
 
 export class MomentsClient {
   constructor(
-    private PoapMomentsApi: PoapMomentsApi,
+    private poapMomentsApi: PoapMomentsApi,
     private CompassProvider: CompassProvider,
   ) {}
 
@@ -29,20 +29,20 @@ export class MomentsClient {
     };
     const onStepUpdate = input.onStepUpdate || defaultOnStepUpdate;
     void onStepUpdate(CreateSteps.REQUESTING_MEDIA_UPLOAD_URL);
-    const { url, key } = await this.PoapMomentsApi.getSignedUrl();
+    const { url, key } = await this.poapMomentsApi.getSignedUrl();
     void onStepUpdate(CreateSteps.UPLOADING_MEDIA);
-    await this.PoapMomentsApi.uploadFile(input.file, url, input.fileType);
+    await this.poapMomentsApi.uploadFile(input.file, url, input.fileType);
     void onStepUpdate(CreateSteps.UPLOADING_MEDIA_METADATA);
     //  we will be adding metadata to the media in the future
     void onStepUpdate(CreateSteps.PROCESSING_MEDIA);
     try {
-      await this.PoapMomentsApi.waitForMediaProcessing(key, input.timeOut);
+      await this.poapMomentsApi.waitForMediaProcessing(key, input.timeOut);
     } catch (error) {
       void onStepUpdate(CreateSteps.PROCESSING_MEDIA_ERROR);
       throw error;
     }
     void onStepUpdate(CreateSteps.UPLOADING_MOMENT);
-    const response = await this.PoapMomentsApi.createMoment({
+    const response = await this.poapMomentsApi.createMoment({
       dropId: input.dropId,
       author: input.author,
       mediaKey: key,
