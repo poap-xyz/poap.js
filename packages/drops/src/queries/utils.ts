@@ -29,6 +29,15 @@ export function creatEqFilter(
   return value ? { [key]: { _eq: value } } : {};
 }
 
+export function creatPrivateFilter(
+  key: string,
+  value?: boolean,
+): Record<string, any> {
+  return typeof value === 'boolean'
+    ? { [key]: { _eq: value ? 'true' : 'false' } }
+    : {};
+}
+
 export function createInFilter(
   key: string,
   values?: Array<string | number>,
