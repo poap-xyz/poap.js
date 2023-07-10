@@ -6,11 +6,6 @@ export enum DropsSortFields {
   StartDate = 'start_date',
 }
 
-export enum IsDropPrivate {
-  TRUE = 'true',
-  FALSE = 'false',
-}
-
 export interface FetchDropsInput {
   limit: number;
   offset: number;

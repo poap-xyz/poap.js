@@ -1,5 +1,3 @@
-import { IsDropPrivate } from '../types';
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export function filterUndefinedProperties<T extends Record<string, any>>(
   obj: T,
