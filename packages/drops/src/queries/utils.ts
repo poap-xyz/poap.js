@@ -1,3 +1,5 @@
+import { IsDropPrivate } from '../types';
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export function filterUndefinedProperties<T extends Record<string, any>>(
   obj: T,
@@ -25,6 +27,13 @@ export function createFilter(key: string, value?: string): Record<string, any> {
 export function creatEqFilter(
   key: string,
   value?: string | number,
+): Record<string, any> {
+  return value ? { [key]: { _eq: value } } : {};
+}
+
+export function creatPrivateFilter(
+  key: string,
+  value?: IsDropPrivate,
 ): Record<string, any> {
   return value ? { [key]: { _eq: value } } : {};
 }

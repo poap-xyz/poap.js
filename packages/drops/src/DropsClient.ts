@@ -6,6 +6,7 @@ import {
 import { Drop } from './domain/Drop';
 import { PaginatedDropsResponse, PAGINATED_DROPS_QUERY } from './queries';
 import {
+  creatPrivateFilter,
   creatUndefinedOrder,
   createBetweenFilter,
   createFilter,
@@ -41,14 +42,24 @@ export class DropsClient {
    * @returns {Promise<PaginatedResult<Drop>>} A paginated result of drops.
    */
   async fetch(input: FetchDropsInput): Promise<PaginatedResult<Drop>> {
-    const { limit, offset, name, sort_field, sort_dir, from, to, ids } = input;
+    const {
+      limit,
+      offset,
+      name,
+      sort_field,
+      sort_dir,
+      from,
+      to,
+      ids,
+      is_private,
+    } = input;
 
     const variables = {
       limit,
       offset,
       orderBy: creatUndefinedOrder(sort_field, sort_dir),
       where: {
-        private: { _eq: 'false' },
+        ...creatPrivateFilter('private', is_private),
         ...createFilter('name', name),
         ...createBetweenFilter('created_date', from, to),
         ...createInFilter('id', ids),
