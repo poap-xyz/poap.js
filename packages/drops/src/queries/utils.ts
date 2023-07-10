@@ -33,7 +33,9 @@ export function creatPrivateFilter(
   key: string,
   value?: boolean,
 ): Record<string, any> {
-  return typeof value === 'boolean' ? { [key]: { _eq: `${value}` } } : {};
+  return typeof value === 'boolean'
+    ? { [key]: { _eq: value ? 'true' : 'false' } }
+    : {};
 }
 
 export function createInFilter(
