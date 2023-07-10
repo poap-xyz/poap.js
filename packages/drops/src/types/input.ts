@@ -20,7 +20,7 @@ export interface FetchDropsInput {
   from?: string;
   to?: string;
   ids?: number[];
-  is_private?: IsDropPrivate;
+  is_private?: boolean;
 }
 
 export interface CreateDropsInput {

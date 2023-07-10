@@ -5,5 +5,4 @@ export {
   CreateDropsInput,
   UpdateDropsInput,
   DropsSortFields,
-  IsDropPrivate,
 } from './types';

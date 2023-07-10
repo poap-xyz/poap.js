@@ -33,9 +33,9 @@ export function creatEqFilter(
 
 export function creatPrivateFilter(
   key: string,
-  value?: IsDropPrivate,
+  value?: boolean,
 ): Record<string, any> {
-  return value ? { [key]: { _eq: value } } : {};
+  return typeof value === 'boolean' ? { [key]: { _eq: `${value}` } } : {};
 }
 
 export function createInFilter(
