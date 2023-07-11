@@ -17,4 +17,5 @@ export interface FetchPoapsInput {
   drop_id?: number;
   sort_field?: PoapsSortFields;
   sort_dir?: Order;
+  filter_by_zero_address?: boolean;
 }
