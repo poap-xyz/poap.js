@@ -45,6 +45,7 @@ export class PoapsClient {
       drop_id,
       sort_field,
       sort_dir,
+      filter_by_zero_address = true,
     } = input;
 
     const variables = {
@@ -52,7 +53,11 @@ export class PoapsClient {
       offset,
       orderBy: creatUndefinedOrder(sort_field, sort_dir),
       where: {
-        ...creatAddressFilter('collector_address', collector_address),
+        ...creatAddressFilter(
+          'collector_address',
+          filter_by_zero_address,
+          collector_address,
+        ),
         ...creatEqFilter('chain', chain),
         ...creatEqFilter('drop_id', drop_id),
         ...createBetweenFilter('minted_on', minted_date_from, minted_date_to),

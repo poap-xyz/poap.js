@@ -29,11 +29,32 @@ export function creatEqFilter(
   return value ? { [key]: { _eq: value } } : {};
 }
 
+export function creatNeqFilter(
+  key: string,
+  value?: string | number,
+): Record<string, any> {
+  return value ? { [key]: { _neq: value } } : {};
+}
+
+export function filterZeroAddress(filter: boolean): Record<string, any> {
+  return filter ? { _neq: '0x0000000000000000000000000000000000000000' } : {};
+}
+
 export function creatAddressFilter(
   key: string,
+  filter: boolean,
   value?: string,
 ): Record<string, any> {
-  return value ? { [key]: { _eq: value.toLocaleLowerCase() } } : {};
+  const addressFilter = {
+    [key]: {
+      ...filterZeroAddress(filter),
+    },
+  };
+
+  if (value) {
+    addressFilter[key]._eq = value.toLocaleLowerCase();
+  }
+  return filter || value ? addressFilter : {};
 }
 
 export function createInFilter(
