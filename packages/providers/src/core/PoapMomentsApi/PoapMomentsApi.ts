@@ -53,7 +53,7 @@ export class PoapMomentsApi implements MomentsApiProvider {
    * @param {Buffer} file - The file to be uploaded as a Buffer
    * @param {string} fileType - The file type
    * @param {string} signedUrl - The signed URL for uploading the file
-   * @param {(progress: number) => void} [onProgress] - Optional callback function to be called when the upload progress changes
+   * @param {(progress: number) => void} [onProgress] - Optional callback function to be called when the upload progress changes - progress is a number between 0 and 1
    * @returns {Promise<void>} - A Promise that resolves when the file has been uploaded
    */
   public async uploadFile(

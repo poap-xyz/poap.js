@@ -26,7 +26,6 @@
   },
   "devDependencies": {
     "axios-mock-adapter": "^1.21.4",
-    "jest-mock-extended": "^3.0.4",
     "rollup": "^3.20.2"
   },
   "peerDependencies": {

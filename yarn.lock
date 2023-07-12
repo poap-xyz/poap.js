@@ -872,8 +872,8 @@ __metadata:
   dependencies:
     rollup: ^3.20.2
   peerDependencies:
-    "@poap-xyz/providers": 0.0.26
-    "@poap-xyz/utils": 0.0.26
+    "@poap-xyz/providers": 0.0.27
+    "@poap-xyz/utils": 0.0.27
   languageName: unknown
   linkType: soft
 
@@ -883,7 +883,7 @@ __metadata:
   dependencies:
     rollup: ^3.20.2
   peerDependencies:
-    "@poap-xyz/providers": 0.0.26
+    "@poap-xyz/providers": 0.0.27
   languageName: unknown
   linkType: soft
 
@@ -893,8 +893,8 @@ __metadata:
   dependencies:
     rollup: ^3.20.2
   peerDependencies:
-    "@poap-xyz/providers": 0.0.26
-    "@poap-xyz/utils": 0.0.26
+    "@poap-xyz/providers": 0.0.27
+    "@poap-xyz/utils": 0.0.27
   languageName: unknown
   linkType: soft
 
@@ -903,7 +903,6 @@ __metadata:
   resolution: "@poap-xyz/providers@workspace:packages/providers"
   dependencies:
     axios-mock-adapter: ^1.21.4
-    jest-mock-extended: ^3.0.4
     rollup: ^3.20.2
   peerDependencies:
     axios: ^1.3.5
