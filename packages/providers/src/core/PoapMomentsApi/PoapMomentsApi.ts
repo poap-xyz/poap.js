@@ -50,19 +50,19 @@ export class PoapMomentsApi implements MomentsApiProvider {
 
   /**
    * Upload a file using the signed URL
-   * @param {Buffer} file - The file to be uploaded as a Buffer
+   * @param {Uint8Array} fileBinary - The file to be uploaded as a binary array
    * @param {string} fileType - The file type
    * @param {string} signedUrl - The signed URL for uploading the file
    * @param {(progress: number) => void} [onProgress] - Optional callback function to be called when the upload progress changes - progress is a number between 0 and 1
    * @returns {Promise<void>} - A Promise that resolves when the file has been uploaded
    */
   public async uploadFile(
-    file: Buffer,
+    fileBinary: Uint8Array,
     signedUrl: string,
     fileType: string,
     onProgress?: (progress: number) => void,
   ): Promise<void> {
-    await axios.put(signedUrl, file, {
+    await axios.put(signedUrl, fileBinary, {
       headers: {
         'Content-Type': fileType,
       },

@@ -32,7 +32,7 @@ export class MomentsClient {
     const { url, key } = await this.poapMomentsApi.getSignedUrl();
     void onStepUpdate(CreateSteps.UPLOADING_MEDIA);
     await this.poapMomentsApi.uploadFile(
-      input.file,
+      input.fileBinary,
       url,
       input.fileType,
       input.onFileUploadProgress,

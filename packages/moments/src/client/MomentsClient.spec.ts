@@ -34,7 +34,7 @@ describe('MomentsClient', () => {
       const inputs: CreateMomentInput = {
         dropId: DROP_ID,
         tokenId: TOKEN_ID,
-        file: FILE,
+        fileBinary: FILE,
         fileType: FILE_TYPE,
         author: AUTHOR,
         onStepUpdate,
