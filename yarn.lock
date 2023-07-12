@@ -872,8 +872,8 @@ __metadata:
   dependencies:
     rollup: ^3.20.2
   peerDependencies:
-    "@poap-xyz/providers": 0.0.27
-    "@poap-xyz/utils": 0.0.27
+    "@poap-xyz/providers": 0.0.28
+    "@poap-xyz/utils": 0.0.28
   languageName: unknown
   linkType: soft
 
@@ -883,7 +883,7 @@ __metadata:
   dependencies:
     rollup: ^3.20.2
   peerDependencies:
-    "@poap-xyz/providers": 0.0.27
+    "@poap-xyz/providers": 0.0.28
   languageName: unknown
   linkType: soft
 
@@ -893,8 +893,8 @@ __metadata:
   dependencies:
     rollup: ^3.20.2
   peerDependencies:
-    "@poap-xyz/providers": 0.0.27
-    "@poap-xyz/utils": 0.0.27
+    "@poap-xyz/providers": 0.0.28
+    "@poap-xyz/utils": 0.0.28
   languageName: unknown
   linkType: soft
 

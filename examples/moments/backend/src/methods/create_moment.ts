@@ -18,7 +18,7 @@ export const create_moment = async (client: MomentsClient): Promise<void> => {
      * The Token ID related to the moment (Optional)
      */
     tokenId: 6568008,
-    file: fileBuffer,
+    fileBinary: fileBuffer,
     author: '0x82AB2941Cf555CED5ad7Ed232a5B5f6083815FBC',
     fileType: mimeType,
   };
