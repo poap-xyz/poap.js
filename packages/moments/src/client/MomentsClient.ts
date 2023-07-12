@@ -31,7 +31,12 @@ export class MomentsClient {
     void onStepUpdate(CreateSteps.REQUESTING_MEDIA_UPLOAD_URL);
     const { url, key } = await this.poapMomentsApi.getSignedUrl();
     void onStepUpdate(CreateSteps.UPLOADING_MEDIA);
-    await this.poapMomentsApi.uploadFile(input.file, url, input.fileType);
+    await this.poapMomentsApi.uploadFile(
+      input.file,
+      url,
+      input.fileType,
+      input.onFileUploadProgress,
+    );
     void onStepUpdate(CreateSteps.UPLOADING_MEDIA_METADATA);
     //  we will be adding metadata to the media in the future
     void onStepUpdate(CreateSteps.PROCESSING_MEDIA);
