@@ -6,7 +6,7 @@
 
 ## Features
 
-- Create a Moment attached to a Drop or an specific POAP
+- Create a Moment attached to a Drop or a specific POAP
 - Fetch multiple Moments
 - Fetch a single Moment
 
