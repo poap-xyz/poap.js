@@ -1,7 +1,7 @@
 import { AuthenticationProvider } from '../../ports';
 import axios from 'axios';
 
-const OAUTH_SERVER = 'poapauth.auth0.com';
+const OAUTH_SERVER = 'auth.accounts.poap.xyz';
 
 export class AuthenticationProviderHttp implements AuthenticationProvider {
   private readonly oAuthServerDomain: string;
