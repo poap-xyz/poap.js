@@ -52,6 +52,7 @@ export class MomentsClient {
       author: input.author,
       mediaKey: key,
       tokenId: input.tokenId,
+      description: input.description,
     });
     void onStepUpdate(CreateSteps.FINISHED);
     return new Moment(
@@ -62,6 +63,7 @@ export class MomentsClient {
       // We will always have a gateway because we wait for the media to be processed
       response.media.gateways!,
       response.tokenId,
+      response.description,
     );
   }
 
@@ -122,6 +124,7 @@ export class MomentsClient {
       momentResponse.drop_id,
       momentResponse.gateways,
       momentResponse.token_id,
+      momentResponse.description,
     );
   }
 }

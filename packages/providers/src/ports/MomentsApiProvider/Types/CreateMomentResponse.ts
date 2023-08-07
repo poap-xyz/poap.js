@@ -27,4 +27,9 @@ export interface CreateMomentResponse {
    * The token ID related to the moment (optional).
    */
   tokenId?: number;
+
+  /**
+   * The description of the moment.
+   */
+  description?: string;
 }
