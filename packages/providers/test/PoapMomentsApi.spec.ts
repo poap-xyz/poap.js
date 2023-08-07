@@ -4,6 +4,7 @@ import axios from 'axios';
 import { InvalidMediaFileError } from '../src';
 import { mock, MockProxy } from 'jest-mock-extended';
 import { MediaStatus } from '../src/core/PoapMomentsApi/Types/MediaStatus';
+import { CreateMomentInput } from '../src/ports/MomentsApiProvider';
 
 describe('PoapMomentsApi', () => {
   const BASE_URL = 'https://moments.test';
@@ -100,11 +101,12 @@ describe('PoapMomentsApi', () => {
   });
 
   describe('createMoment', () => {
-    const createMomentInput = {
+    const createMomentInput: CreateMomentInput = {
       dropId: 1,
       author: '0x1234',
       mediaKey: 'mock-media-key',
       tokenId: 1000,
+      description: 'This is a test description',
     };
 
     it('should create a moment successfully', async () => {
@@ -121,6 +123,7 @@ describe('PoapMomentsApi', () => {
         },
         dropId: 1,
         tokenId: 1000,
+        description: 'This is a test description',
       };
 
       axiosMocked.onPost(`${BASE_URL}/moments`).reply(200, mockResponse);
