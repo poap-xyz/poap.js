@@ -13,6 +13,7 @@ export const PAGINATED_MOMENTS_QUERY = `
       gateways
       media_key
       token_id
+      description
     }
   }
 `;
@@ -25,10 +26,11 @@ export interface MomentResponse {
   gateways: string[];
   media_key: string;
   token_id: number;
+  description?: string;
 }
 
-export type MomentsQueryResponse = {
+export interface MomentsQueryResponse {
   data: {
     moments: MomentResponse[];
   };
-};
+}

@@ -32,6 +32,11 @@ export class Moment {
    */
   public readonly gateways: string[];
 
+  /**
+   * The description of the moment.
+   */
+  public readonly description?: string;
+
   constructor(
     id: string,
     author: string,
@@ -39,6 +44,7 @@ export class Moment {
     dropId: number,
     gateways: string[],
     tokenId?: number,
+    description?: string,
   ) {
     this.id = id;
     this.author = author;
@@ -46,5 +52,6 @@ export class Moment {
     this.dropId = dropId;
     this.tokenId = tokenId;
     this.gateways = gateways;
+    this.description = description;
   }
 }
