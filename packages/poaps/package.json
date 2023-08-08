@@ -1,6 +1,6 @@
 {
   "name": "@poap-xyz/poaps",
-  "version": "0.0.31",
+  "version": "0.0.32",
   "description": "Poaps module for the poap.js library",
   "main": "dist/cjs/index.cjs",
   "module": "dist/esm/index.mjs",
@@ -30,6 +30,6 @@
   },
   "peerDependencies": {
     "@poap-xyz/providers": "0.0.31",
-    "@poap-xyz/utils": "0.0.31"
+    "@poap-xyz/utils": "0.0.32"
   }
 }
