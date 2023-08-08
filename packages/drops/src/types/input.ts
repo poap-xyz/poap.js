@@ -1,4 +1,4 @@
-import { Order } from '@poap-xyz/utils';
+import { Order, PaginationInput } from '@poap-xyz/utils';
 
 export enum DropsSortFields {
   Name = 'name',
@@ -6,9 +6,7 @@ export enum DropsSortFields {
   StartDate = 'start_date',
 }
 
-export interface FetchDropsInput {
-  limit: number;
-  offset: number;
+export interface FetchDropsInput extends PaginationInput {
   name?: string;
   sort_field?: DropsSortFields;
   sort_dir?: Order;
