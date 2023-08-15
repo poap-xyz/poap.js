@@ -1,11 +1,11 @@
-import { Order, Chain, PaginatedInput } from '@poap-xyz/utils';
+import { Order, Chain, PaginationInput } from '@poap-xyz/utils';
 
 export enum PoapsSortFields {
   MintedOn = 'minted_on',
   Id = 'id',
 }
 
-export interface FetchPoapsInput extends PaginatedInput {
+export interface FetchPoapsInput extends PaginationInput {
   name?: string;
   chain?: Chain;
   minted_date_from?: string;
