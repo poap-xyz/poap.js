@@ -1,3 +1,4 @@
+import { PaginationInput } from '@poap-xyz/utils';
 /**
  * Interface representing the input needed to fetch moments.
  * @interface
@@ -14,9 +15,7 @@
  * @property {number} [token_id] - The token ID to filter moments by (optional).
  * @property {number} [drop_id] - The drop ID to filter moments by (optional).
  */
-export interface FetchMomentsInput {
-  limit: number;
-  offset: number;
+export interface FetchMomentsInput extends PaginationInput {
   createdOrder?: string;
   tokenIdOrder?: string;
   dropIdOrder?: string;
