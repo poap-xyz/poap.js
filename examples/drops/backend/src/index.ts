@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import { measurePerformance } from '@poap-xyz/performance';
 import { DropsClient } from '@poap-xyz/drops';
 import { PoapCompass, PoapDropApi } from '@poap-xyz/providers';
 import { fetch_multiple_drops } from './methods/fetch_multiple_drops';
@@ -12,11 +12,17 @@ async function main(): Promise<void> {
     new PoapDropApi('your_api_key'),
   );
   // Multiple Drops
-  await fetch_multiple_drops(client);
+  await measurePerformance(
+    () => fetch_multiple_drops(client),
+    'fetch_multiple_drops',
+  );
   // One Drop by id
-  await fetch_single_drop(client);
+  await measurePerformance(
+    () => fetch_single_drop(client),
+    'fetch_single_drop',
+  );
   // Create Drop
-  await create_drop(client);
+  await measurePerformance(() => create_drop(client), 'create_drop');
 }
 
 main().catch((error) => {
