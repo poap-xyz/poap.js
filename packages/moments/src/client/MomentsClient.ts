@@ -1,13 +1,14 @@
 import { PoapMomentsApi, CompassProvider } from '@poap-xyz/providers';
-import { PaginatedResult, nextCursor } from '@poap-xyz/utils';
-import { Moment } from '../domain/Moment';
 import {
+  PaginatedResult,
+  nextCursor,
   createBetweenFilter,
   createFilter,
   createInFilter,
   creatEqFilter,
   filterUndefinedProperties,
-} from '../queries/utils';
+} from '@poap-xyz/utils';
+import { Moment } from '../domain/Moment';
 import {
   MomentResponse,
   MomentsQueryResponse,

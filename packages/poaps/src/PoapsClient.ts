@@ -1,15 +1,16 @@
 import { CompassProvider } from '@poap-xyz/providers';
 import { POAP } from './domain/Poap';
 import { PaginatedPoapsResponse, PAGINATED_POAPS_QUERY } from './queries';
+import { FetchPoapsInput } from './types';
 import {
+  PaginatedResult,
+  nextCursor,
   createBetweenFilter,
   creatEqFilter,
   createInFilter,
   creatUndefinedOrder,
   creatAddressFilter,
-} from './queries/utils';
-import { FetchPoapsInput } from './types';
-import { PaginatedResult, nextCursor } from '@poap-xyz/utils';
+} from '@poap-xyz/utils';
 
 /**
  * Represents a client for working with POAP drops.
