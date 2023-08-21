@@ -1,7 +1,7 @@
 {
   "name": "@poap-xyz/performance",
   "version": "0.0.34",
-  "description": "Utils module for the poap.js library",
+  "description": "Performance module for the poap.js library",
   "type": "module",
   "main": "dist/cjs/index.cjs",
   "module": "dist/esm/index.mjs",
