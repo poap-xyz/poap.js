@@ -14,4 +14,5 @@ export {
   creatAddressFilter,
   createInFilter,
   createBetweenFilter,
+  creatPrivateFilter,
 } from './queries/utils';

@@ -5,15 +5,16 @@ import {
 } from '@poap-xyz/providers';
 import { Drop } from './domain/Drop';
 import { PaginatedDropsResponse, PAGINATED_DROPS_QUERY } from './queries';
+import { CreateDropsInput, FetchDropsInput, UpdateDropsInput } from './types';
 import {
+  PaginatedResult,
+  nextCursor,
   creatPrivateFilter,
   creatUndefinedOrder,
   createBetweenFilter,
   createFilter,
   createInFilter,
-} from './queries/utils';
-import { CreateDropsInput, FetchDropsInput, UpdateDropsInput } from './types';
-import { PaginatedResult, nextCursor } from '@poap-xyz/utils';
+} from '@poap-xyz/utils';
 
 /**
  * Represents a client for working with POAP drops.
