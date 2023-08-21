@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import { measurePerformance } from '@poap-xyz/performance';
 import { MomentsClient } from '@poap-xyz/moments';
 import {
   PoapCompass,
@@ -29,13 +29,23 @@ async function main(): Promise<void> {
   // Use your library here
   const client = new MomentsClient(momentsApi, compass);
   // Create Moment
-  await create_moment(client);
+
+  await measurePerformance(() => create_moment(client), 'create_moment');
   // Fetch multiple moments
-  await fetch_multiple_moments(client);
+  await measurePerformance(
+    () => fetch_multiple_moments(client),
+    'fetch_multiple_moments',
+  );
   // Fetch one moment by id
-  await fetch_single_moment(client);
+  await measurePerformance(
+    () => fetch_single_moment(client),
+    'fetch_single_moment',
+  );
   // Fetch moments by drop ids
-  await fetch_moments_by_drop_ids(client);
+  await measurePerformance(
+    () => fetch_moments_by_drop_ids(client),
+    'fetch_moments_by_drop_ids',
+  );
 }
 
 main().catch(() => {

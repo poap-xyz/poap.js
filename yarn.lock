@@ -888,6 +888,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@poap-xyz/performance@*, @poap-xyz/performance@workspace:packages/performance":
+  version: 0.0.0-use.local
+  resolution: "@poap-xyz/performance@workspace:packages/performance"
+  dependencies:
+    rollup: ^3.20.2
+  languageName: unknown
+  linkType: soft
+
 "@poap-xyz/poaps@*, @poap-xyz/poaps@workspace:packages/poaps":
   version: 0.0.0-use.local
   resolution: "@poap-xyz/poaps@workspace:packages/poaps"
@@ -1781,6 +1789,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "backend-poaps-example@workspace:examples/poaps/backend"
   dependencies:
+    "@poap-xyz/performance": "*"
     "@poap-xyz/poaps": "*"
     "@poap-xyz/providers": "*"
     "@poap-xyz/utils": "*"

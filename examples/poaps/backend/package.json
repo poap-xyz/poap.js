@@ -19,6 +19,7 @@
     "stream": "^0.0.2"
   },
   "devDependencies": {
+    "@poap-xyz/performance": "*",
     "ts-node": "^10.4.0",
     "typescript": "^4.5.5"
   }
