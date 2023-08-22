@@ -12,13 +12,6 @@ export interface CreateMomentResponse {
   createdOn: Date;
 
   /**
-   * The media file associated with the moment.
-   */
-  media: {
-    gateways: string[];
-  };
-
-  /**
    * The drop ID related to the moment.
    */
   dropId: number;
