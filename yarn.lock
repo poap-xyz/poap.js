@@ -882,8 +882,6 @@ __metadata:
   resolution: "@poap-xyz/moments@workspace:packages/moments"
   dependencies:
     rollup: ^3.20.2
-  peerDependencies:
-    "@poap-xyz/providers": 0.0.32
   languageName: unknown
   linkType: soft
 
