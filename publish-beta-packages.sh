@@ -1,39 +1,51 @@
 #!/bin/bash
+
+# Ensure that an argument is provided
+if [ -z "$1" ]; then
+  echo "Error: Please provide a version argument."
+  exit 1
+fi
+
+# Source the package order
 source package-order.sh
 
 # Loop through each package directory
 for pkg in "${DIRS[@]}"; do
+  # Get the package name from its package.json file
   pkg_name=$(jq -r '.name' $pkg/package.json)
-  current_version=$(jq -r '.version' $pkg/package.json)
-  remote_version=$(npm view $pkg_name version 2>/dev/null)
-  echo $1
-  
-  # Change to the directory
+  echo "Processing package: $pkg_name"
+
+  # Change to the package directory
   if ! cd "$pkg"; then
-    echo "Error: Unable to change to directory: packages/$pkg"
+    echo "Error: Unable to change to directory: $pkg"
     exit 1
   fi
 
-  if ! npm version $1; then
-    echo "Error: Failed to run 'npm version' in directory: packages/$pkg"
+  # Update the package version
+  if ! npm version "$1"; then
+    echo "Error: Failed to update version for $pkg_name"
     exit 1
   fi
 
-  # Run the build command
+  # Build the package
   if ! npm run build; then
-    echo "Error: Failed to run 'npm run build' in directory: packages/$pkg"
+    echo "Error: Failed to build $pkg_name"
     exit 1
   fi
 
-  # Run the publish command
+  # Publish the package with a "beta" tag
   if ! npm publish --tag beta; then
-    echo "Error: Failed to run 'npm publish --access public' in directory: packages/$pkg"
+    echo "Error: Failed to publish $pkg_name"
     exit 1
   fi
 
-  # Change back to the original directory
+  # Change back to the root directory
   if ! cd - > /dev/null; then
     echo "Error: Unable to change back to original directory"
     exit 1
   fi
+
+  echo "$pkg_name has been processed successfully."
 done
+
+echo "All packages processed."
