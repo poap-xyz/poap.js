@@ -920,8 +920,6 @@ __metadata:
 "@poap-xyz/utils@workspace:packages/utils":
   version: 0.0.0-use.local
   resolution: "@poap-xyz/utils@workspace:packages/utils"
-  dependencies:
-    rollup: ^3.20.2
   languageName: unknown
   linkType: soft
 
