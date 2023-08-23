@@ -27,5 +27,9 @@
   },
   "devDependencies": {
     "rollup": "^3.20.2"
+  },
+  "peerDependencies": {
+    "@poap-xyz/providers": "0.0.31",
+    "@poap-xyz/utils": "0.0.34"
   }
 }
