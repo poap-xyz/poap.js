@@ -8,6 +8,11 @@ for pkg in "${DIRS[@]}"; do
   remote_version=$(npm view $pkg_name version 2>/dev/null)
   echo $1
   
+  # Change to the directory
+  if ! cd "$pkg"; then
+    echo "Error: Unable to change to directory: packages/$pkg"
+    exit 1
+  fi
 
   if ! npm version $1; then
     echo "Error: Failed to run 'npm version' in directory: packages/$pkg"
