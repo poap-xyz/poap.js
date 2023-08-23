@@ -13,7 +13,7 @@ source package-order.sh
 for pkg in "${DIRS[@]}"; do
   # Get the package name from its package.json file
   pkg_name=$(jq -r '.name' $pkg/package.json)
-  echo "Processing package: $pkg_name"
+  echo "Processing package: $pkg_name with version $1"
 
   # Change to the package directory
   if ! cd "$pkg"; then
