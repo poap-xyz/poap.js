@@ -28,11 +28,6 @@ export class Moment {
   public readonly tokenId?: number;
 
   /**
-   * Indicates an array of gateways that the media file is stored on.
-   */
-  public readonly gateways: string[];
-
-  /**
    * The description of the moment.
    */
   public readonly description?: string;
@@ -42,7 +37,6 @@ export class Moment {
     author: string,
     createdOn: Date,
     dropId: number,
-    gateways: string[],
     tokenId?: number,
     description?: string,
   ) {
@@ -51,7 +45,6 @@ export class Moment {
     this.createdOn = createdOn;
     this.dropId = dropId;
     this.tokenId = tokenId;
-    this.gateways = gateways;
     this.description = description;
   }
 }

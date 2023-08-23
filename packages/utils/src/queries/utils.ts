@@ -36,6 +36,15 @@ export function creatNeqFilter(
   return value ? { [key]: { _neq: value } } : {};
 }
 
+export function creatPrivateFilter(
+  key: string,
+  value?: boolean,
+): Record<string, any> {
+  return typeof value === 'boolean'
+    ? { [key]: { _eq: value ? 'true' : 'false' } }
+    : {};
+}
+
 export function filterZeroAddress(filter: boolean): Record<string, any> {
   return filter ? { _neq: '0x0000000000000000000000000000000000000000' } : {};
 }

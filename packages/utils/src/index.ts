@@ -4,3 +4,15 @@ export { PaginationInput } from './types/input';
 export * from './types';
 export { PaginatedResult } from './types/pagination';
 export { nextCursor } from './functions/nextCursor';
+export {
+  filterUndefinedProperties,
+  creatUndefinedOrder,
+  createFilter,
+  creatEqFilter,
+  creatNeqFilter,
+  filterZeroAddress,
+  creatAddressFilter,
+  createInFilter,
+  createBetweenFilter,
+  creatPrivateFilter,
+} from './queries/utils';

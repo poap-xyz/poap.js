@@ -1,7 +1,8 @@
 {
-  "name": "@poap-xyz/poaps",
-  "version": "0.0.33",
-  "description": "Poaps module for the poap.js library",
+  "name": "@poap-xyz/performance",
+  "version": "0.0.34",
+  "description": "Performance module for the poap.js library",
+  "type": "module",
   "main": "dist/cjs/index.cjs",
   "module": "dist/esm/index.mjs",
   "typings": "dist/cjs/index.d.ts",
@@ -11,7 +12,6 @@
     "import": "./dist/esm/index.mjs",
     "browser": "./dist/umd/index.js"
   },
-  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/poap-xyz/poap.js.git"
@@ -27,9 +27,5 @@
   },
   "devDependencies": {
     "rollup": "^3.20.2"
-  },
-  "peerDependencies": {
-    "@poap-xyz/providers": "0.0.31",
-    "@poap-xyz/utils": "0.0.34"
   }
 }

@@ -1,4 +1,4 @@
-import { InvalidMediaFileError } from './errors/InvalidMediaFileError';
+import { InvalidMediaError } from './errors/InvalidMediaError';
 import { CreateMomentResponse } from '../../ports/MomentsApiProvider';
 import { CreateMomentInput } from '../../ports/MomentsApiProvider';
 import { MomentsApiProvider } from '../../ports';
@@ -97,8 +97,8 @@ export class PoapMomentsApi implements MomentsApiProvider {
    * If the media processing status is not MediaStatus.PROCESSED after a maximum number of tries,
    * an error is thrown. If the media status is MediaStatus.INVALID, an InvalidMediaFileError is thrown.
    *
-   * @param {string} mediaKey - The key for the media file
-   * @param {number} timeOut - The amount of time to wait until media is processed
+   * @param mediaKey - The key for the media file
+   * @param timeOut - The amount of time to wait until media is processed
    * @returns {Promise<void>} - A Promise that resolves when the media processing is complete
    */
   public async waitForMediaProcessing(
@@ -121,7 +121,7 @@ export class PoapMomentsApi implements MomentsApiProvider {
       }
 
       if (status === MediaStatus.INVALID) {
-        throw new InvalidMediaFileError();
+        throw new InvalidMediaError('status is invalid');
       }
 
       await new Promise((resolve) => setTimeout(resolve, delay));
@@ -140,14 +140,28 @@ export class PoapMomentsApi implements MomentsApiProvider {
   public async createMoment(
     input: CreateMomentInput,
   ): Promise<CreateMomentResponse> {
-    const response = await axios.post(`${this.baseUrl}/moments`, input, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: await this.getAuthorizationToken(),
-      },
-    });
+    try {
+      const response = await axios.post(`${this.baseUrl}/moments`, input, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: await this.getAuthorizationToken(),
+        },
+      });
+      return response.data;
+    } catch (error) {
+      /**
+       * 409 Conflict error is thrown when:
+       *  - Some Media file was not found
+       *  - Some Media file was not processed
+       *  - Some Media is on an invalid status
+       *  - Some Media is already attached to a Moment
+       */
+      if (error instanceof AxiosError && error.response?.status === 409) {
+        throw new InvalidMediaError(error.response.data.message);
+      }
 
-    return response.data;
+      throw error;
+    }
   }
 
   private async getAuthorizationToken(): Promise<string> {

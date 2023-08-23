@@ -1,13 +1,14 @@
 import { PoapMomentsApi, CompassProvider } from '@poap-xyz/providers';
-import { PaginatedResult, nextCursor } from '@poap-xyz/utils';
-import { Moment } from '../domain/Moment';
 import {
+  PaginatedResult,
+  nextCursor,
   createBetweenFilter,
   createFilter,
   createInFilter,
   creatEqFilter,
   filterUndefinedProperties,
-} from '../queries/utils';
+} from '@poap-xyz/utils';
+import { Moment } from '../domain/Moment';
 import {
   MomentResponse,
   MomentsQueryResponse,
@@ -50,7 +51,7 @@ export class MomentsClient {
     const response = await this.poapMomentsApi.createMoment({
       dropId: input.dropId,
       author: input.author,
-      mediaKey: key,
+      mediaKeys: [key],
       tokenId: input.tokenId,
       description: input.description,
     });
@@ -60,8 +61,6 @@ export class MomentsClient {
       response.author,
       response.createdOn,
       response.dropId,
-      // We will always have a gateway because we wait for the media to be processed
-      response.media.gateways!,
       response.tokenId,
       response.description,
     );
@@ -122,7 +121,6 @@ export class MomentsClient {
       momentResponse.author,
       new Date(momentResponse.created_on),
       momentResponse.drop_id,
-      momentResponse.gateways,
       momentResponse.token_id,
       momentResponse.description,
     );
