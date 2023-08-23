@@ -24,8 +24,5 @@
   "homepage": "https://github.com/poap-xyz/poap.js#readme",
   "scripts": {
     "build": "rollup -c --bundleConfigAsCjs"
-  },
-  "devDependencies": {
-    "rollup": "^3.20.2"
   }
 }
