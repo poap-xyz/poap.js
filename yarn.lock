@@ -865,7 +865,7 @@ __metadata:
   resolution: "@poap-xyz/drops@workspace:packages/drops"
   dependencies:
     "@poap-xyz/providers": 0.0.35
-    "@poap-xyz/utils": 0.0.36-beta-v0.0.8
+    "@poap-xyz/utils": 0.0.35
   languageName: unknown
   linkType: soft
 
@@ -874,7 +874,7 @@ __metadata:
   resolution: "@poap-xyz/moments@workspace:packages/moments"
   dependencies:
     "@poap-xyz/providers": 0.0.35
-    "@poap-xyz/utils": 0.0.36-beta-v0.0.8
+    "@poap-xyz/utils": 0.0.35
   languageName: unknown
   linkType: soft
 
@@ -889,7 +889,7 @@ __metadata:
   resolution: "@poap-xyz/poaps@workspace:packages/poaps"
   dependencies:
     "@poap-xyz/providers": 0.0.35
-    "@poap-xyz/utils": 0.0.36-beta-v0.0.8
+    "@poap-xyz/utils": 0.0.35
   languageName: unknown
   linkType: soft
 
@@ -904,18 +904,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@poap-xyz/utils@0.0.36-beta-v0.0.8, @poap-xyz/utils@workspace:packages/utils":
+"@poap-xyz/utils@*, @poap-xyz/utils@0.0.35, @poap-xyz/utils@workspace:packages/utils":
   version: 0.0.0-use.local
   resolution: "@poap-xyz/utils@workspace:packages/utils"
   languageName: unknown
   linkType: soft
-
-"@poap-xyz/utils@npm:*":
-  version: 0.0.35
-  resolution: "@poap-xyz/utils@npm:0.0.35"
-  checksum: d1789361518e019179ce62f5e06c76a04506910daef63afc2f1f4cd96f1bedc0af1bd2e9d5f9a5d9b68366ec7efc11812321c594706ff3a184652ef69362d6f7
-  languageName: node
-  linkType: hard
 
 "@rollup/plugin-commonjs@npm:^22.0.0":
   version: 22.0.2

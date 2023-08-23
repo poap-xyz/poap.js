@@ -27,6 +27,6 @@
   },
   "dependencies": {
     "@poap-xyz/providers": "0.0.35",
-    "@poap-xyz/utils": "0.0.36-beta-v0.0.8"
+    "@poap-xyz/utils": "0.0.35"
   }
 }
