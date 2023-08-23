@@ -23,6 +23,6 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Check package versions and publish
-        run: yarn publish --tag beta
+        run: yarn publish-beta $GITHUB_REF_NAME
     env:
       NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
