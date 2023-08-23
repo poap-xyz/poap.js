@@ -19,6 +19,11 @@ jobs:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
 
+      - name: Set Git config
+        run: |
+          git config user.name "GitHub Action"
+          git config user.email "action@github.com"
+
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
