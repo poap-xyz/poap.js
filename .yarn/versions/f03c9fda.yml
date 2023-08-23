@@ -1,0 +1,7 @@
+undecided:
+  - poap.js
+  - "@poap-xyz/drops"
+  - "@poap-xyz/moments"
+  - "@poap-xyz/performance"
+  - "@poap-xyz/poaps"
+  - "@poap-xyz/providers"
