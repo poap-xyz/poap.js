@@ -22,7 +22,7 @@ for pkg in "${DIRS[@]}"; do
   fi
 
   # Update the package version
-  if ! npm version "$1"; then
+  if ! yarn version "$1"; then
     echo "Error: Failed to update version for $pkg_name"
     exit 1
   fi
