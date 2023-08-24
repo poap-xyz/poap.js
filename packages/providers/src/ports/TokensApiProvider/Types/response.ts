@@ -1,3 +1,5 @@
+import { Status } from '@poap-xyz/utils';
+
 export interface CheckCodeResponse {
   id: number;
   qr_hash: string;
@@ -31,6 +33,13 @@ export interface ClaimCodeResponse {
   created_date: string;
   is_active: boolean;
   event: DropEvent;
+}
+
+export interface ClaimStatusResponse {
+  uid: number;
+  operation: string;
+  status: Status;
+  result: { tx_hash: string } | null;
 }
 
 interface DropEvent {

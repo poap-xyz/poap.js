@@ -1,4 +1,4 @@
-import { Order, Chain, PaginationInput } from '@poap-xyz/utils';
+import { Order, Chain, PaginationInput, Status } from '@poap-xyz/utils';
 
 export enum PoapsSortFields {
   MintedOn = 'minted_on',
@@ -16,4 +16,11 @@ export interface FetchPoapsInput extends PaginationInput {
   sort_field?: PoapsSortFields;
   sort_dir?: Order;
   filter_by_zero_address?: boolean;
+}
+
+export interface claimtInput {
+  qr_hash: string;
+  benificiary: string;
+  sendEmail?: boolean;
+  onStatusUpdate?: (status: Status) => void | Promise<void>;
 }

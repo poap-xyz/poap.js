@@ -1,6 +1,7 @@
 import {
   CheckCodeResponse,
   ClaimCodeResponse,
+  ClaimStatusResponse,
 } from './../../ports/TokensApiProvider/Types/response';
 import { ClaimCodeInput } from './../../ports/TokensApiProvider/Types/input';
 import { AuthenticationProvider } from './../../ports/AuthenticationProvider/AuthenticationProvider';
@@ -42,6 +43,17 @@ export class PoapTokenApi implements TokensApiProvider {
       {
         method: 'POST',
         body: input,
+        headers: {},
+      },
+    );
+  }
+
+  async claimStatus(uid: string): Promise<ClaimStatusResponse> {
+    return await this.secureFetch(
+      `${this.baseUrl}/queue-message/${uid}
+    `,
+      {
+        method: 'GET',
         headers: {},
       },
     );

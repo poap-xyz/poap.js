@@ -1,7 +1,8 @@
+import { TokensApiProvider } from './../../providers/src/ports/TokensApiProvider/TokensApiProvider';
 import { CompassProvider } from '@poap-xyz/providers';
 import { POAP } from './domain/Poap';
 import { PaginatedPoapsResponse, PAGINATED_POAPS_QUERY } from './queries';
-import { FetchPoapsInput } from './types';
+import { FetchPoapsInput, claimtInput } from './types';
 import {
   PaginatedResult,
   nextCursor,
@@ -10,6 +11,7 @@ import {
   createInFilter,
   creatUndefinedOrder,
   creatAddressFilter,
+  Status,
 } from '@poap-xyz/utils';
 
 /**
@@ -24,7 +26,10 @@ export class PoapsClient {
    * @constructor
    * @param {CompassProvider} CompassProvider - The provider for the POAP compass API.
    */
-  constructor(private CompassProvider: CompassProvider) {}
+  constructor(
+    private CompassProvider: CompassProvider,
+    private TokensApiProvider: TokensApiProvider,
+  ) {}
 
   /**
    * Fetches drops based on the specified input.
@@ -89,5 +94,47 @@ export class PoapsClient {
       poaps,
       nextCursor(poaps.length, limit, offset),
     );
+  }
+
+  async claim(input: claimtInput): Promise<POAP> {
+    const { qr_hash, benificiary, sendEmail } = input;
+    let checkCodeResponse = await this.TokensApiProvider.checkCode(qr_hash);
+
+    if (checkCodeResponse.claimed == true) {
+      throw new Error('Code alreade claimed');
+    }
+    if (checkCodeResponse.is_active == false) {
+      throw new Error('Code has expired');
+    }
+
+    const response = await this.TokensApiProvider.claimCode({
+      address: benificiary,
+      qr_hash: qr_hash,
+      secret: checkCodeResponse.secret,
+      sendEmail: sendEmail || true,
+    });
+
+    const { queue_uid } = response;
+
+    const status = Status.IN_PROCESS;
+
+    while (status !== Status.FINISH_WITH_ERROR || status !== Status.FINISH) {
+      const claimStatusResponse = await this.TokensApiProvider.claimStatus(
+        queue_uid,
+      );
+
+      status = claimStatusResponse.status;
+    }
+
+    if (status == Status.FINISH) {
+      checkCodeResponse = await this.TokensApiProvider.checkCode(qr_hash);
+      return this.fetch({
+        limit: 1,
+        offset: 0,
+        ids: [checkCodeResponse.result.token],
+      })[0];
+    } else {
+      throw new Error('Finished with error, please try again later');
+    }
   }
 }
