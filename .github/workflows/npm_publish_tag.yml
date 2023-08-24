@@ -1,0 +1,37 @@
+name: Publish Tag to NPM
+
+on:
+  push:
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+-beta-v[0-9]+'
+permissions:
+  actions: write
+
+jobs:
+  build_and_publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Set Git config
+        run: |
+          git config user.name "GitHub Action"
+          git config user.email "action@github.com"
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Check package versions and publish
+        run: yarn publish-beta $GITHUB_REF_NAME
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

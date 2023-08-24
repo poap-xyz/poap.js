@@ -1,7 +1,7 @@
 import { AuthenticationProvider, PoapMomentsApi } from '../src';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
-import { InvalidMediaFileError } from '../src';
+import { InvalidMediaError } from '../src';
 import { mock, MockProxy } from 'jest-mock-extended';
 import { MediaStatus } from '../src/core/PoapMomentsApi/Types/MediaStatus';
 import { CreateMomentInput } from '../src/ports/MomentsApiProvider';
@@ -96,7 +96,7 @@ describe('PoapMomentsApi', () => {
 
       await expect(
         api.waitForMediaProcessing(mediaKey, 5000),
-      ).rejects.toThrowError(new InvalidMediaFileError());
+      ).rejects.toThrowError(InvalidMediaError);
     });
   });
 
@@ -104,7 +104,7 @@ describe('PoapMomentsApi', () => {
     const createMomentInput: CreateMomentInput = {
       dropId: 1,
       author: '0x1234',
-      mediaKey: 'mock-media-key',
+      mediaKeys: ['mock-media-key'],
       tokenId: 1000,
       description: 'This is a test description',
     };
@@ -114,13 +114,6 @@ describe('PoapMomentsApi', () => {
         id: '1',
         author: '0x1234',
         createdOn: '2023-01-01T00:00:00.000Z',
-        media: {
-          location: 'https://example.com/media/1',
-          key: 'mock-media-key',
-          mimeType: 'image/png',
-          status: MediaStatus.PROCESSED,
-          hash: 'mock-hash',
-        },
         dropId: 1,
         tokenId: 1000,
         description: 'This is a test description',

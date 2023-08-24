@@ -43,9 +43,6 @@ describe('MomentsClient', () => {
         id: MOMENT_ID,
         author: AUTHOR,
         createdOn: new Date(),
-        media: {
-          gateways: [''],
-        },
         dropId: DROP_ID,
         tokenId: TOKEN_ID,
       });
@@ -62,7 +59,6 @@ describe('MomentsClient', () => {
       expect(moment.author).toBe(AUTHOR);
       expect(moment.dropId).toBe(DROP_ID);
       expect(moment.tokenId).toBe(TOKEN_ID);
-      expect(moment.gateways).toEqual(['']);
       expect(onStepUpdate).toHaveBeenCalledWith(
         CreateSteps.REQUESTING_MEDIA_UPLOAD_URL,
       );
