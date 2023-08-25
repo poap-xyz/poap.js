@@ -13,6 +13,7 @@ describe('MomentsClient', () => {
   const FILE_TYPE = 'image/png';
   const MEDIA_KEY = 'this-is-a-media-key';
   const MEDIA_UPLOAD_URL = 'this-is-a-media-upload-url';
+  const DESCRIPTION = 'This is a description';
 
   let poapMomentsAPIMocked: MockProxy<PoapMomentsApi>;
   let compassProviderMocked: MockProxy<PoapCompass>;
@@ -34,10 +35,15 @@ describe('MomentsClient', () => {
       const inputs: CreateMomentInput = {
         dropId: DROP_ID,
         tokenId: TOKEN_ID,
-        fileBinary: FILE,
-        fileType: FILE_TYPE,
+        medias: [
+          {
+            fileBinary: FILE,
+            fileType: FILE_TYPE,
+          },
+        ],
         author: AUTHOR,
         onStepUpdate,
+        description: DESCRIPTION,
       };
       poapMomentsAPIMocked.createMoment.mockResolvedValue({
         id: MOMENT_ID,
@@ -51,6 +57,14 @@ describe('MomentsClient', () => {
         url: MEDIA_UPLOAD_URL,
       });
 
+      const EXPECTED_MOMENT_CREATE_INPUT = {
+        dropId: DROP_ID,
+        tokenId: TOKEN_ID,
+        author: AUTHOR,
+        description: DESCRIPTION,
+        mediaKeys: [MEDIA_KEY],
+      };
+
       // WHEN
       const moment = await client.createMoment(inputs);
 
@@ -59,6 +73,9 @@ describe('MomentsClient', () => {
       expect(moment.author).toBe(AUTHOR);
       expect(moment.dropId).toBe(DROP_ID);
       expect(moment.tokenId).toBe(TOKEN_ID);
+      expect(poapMomentsAPIMocked.createMoment).toHaveBeenCalledWith(
+        EXPECTED_MOMENT_CREATE_INPUT,
+      );
       expect(onStepUpdate).toHaveBeenCalledWith(
         CreateSteps.REQUESTING_MEDIA_UPLOAD_URL,
       );

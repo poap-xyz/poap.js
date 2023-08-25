@@ -12,3 +12,6 @@ docs/.yarn/
 .next
 .idea
 .vscode
+
+# Ignore Typescript definitions file extension
+*.d.ts
