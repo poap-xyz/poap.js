@@ -76,15 +76,18 @@ export class MomentsClient {
     let progress = 0;
 
     for (const media of medias) {
+      const mediaOnFileUploadProgress = (mediaProgress: number): void => {
+        const totalProgress = progressPerMedia * mediaProgress + progress;
+        void onFileUploadProgress?.(totalProgress);
+      };
       const key = await this.createMedia(
         media,
-        onStepUpdate,
-        onFileUploadProgress,
+        mediaOnFileUploadProgress,
         timeOut,
       );
       mediaKeys.push(key);
       progress += progressPerMedia;
-      await onFileUploadProgress?.(progress);
+      void onFileUploadProgress?.(progress);
     }
 
     return mediaKeys;
@@ -112,7 +115,6 @@ export class MomentsClient {
 
   private async createMedia(
     media: CreateMedia,
-    onStepUpdate?: (step: CreateSteps) => void | Promise<void>,
     onFileUploadProgress?: (progress: number) => void | Promise<void>,
     timeOut?: number,
   ): Promise<string> {
