@@ -1,6 +1,6 @@
 {
   "name": "@poap-xyz/utils",
-  "version": "0.0.36",
+  "version": "0.0.37",
   "description": "Utils module for the poap.js library",
   "type": "module",
   "main": "dist/cjs/index.cjs",
@@ -25,5 +25,5 @@
   "scripts": {
     "build": "rollup -c --bundleConfigAsCjs"
   },
-  "stableVersion": "0.0.36"
+  "stableVersion": "0.0.37"
 }
