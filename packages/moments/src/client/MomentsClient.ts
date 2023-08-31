@@ -1,12 +1,12 @@
-import { PoapMomentsApi, CompassProvider } from '@poap-xyz/providers';
+import { CompassProvider, PoapMomentsApi } from '@poap-xyz/providers';
 import {
-  PaginatedResult,
-  nextCursor,
   createBetweenFilter,
   createFilter,
   createInFilter,
   creatEqFilter,
   filterUndefinedProperties,
+  nextCursor,
+  PaginatedResult,
 } from '@poap-xyz/utils';
 import { Moment } from '../domain/Moment';
 import {
@@ -20,37 +20,31 @@ import { FetchMomentsInput } from './dtos/fetch/FetchMomentsInput';
 import { CreateMedia } from './dtos/create/CreateMedia';
 
 export class MomentsClient {
-  private static readonly DEFAULT_ON_STEP_UPDATE = (): void => {
-    //do nothing
-  };
-
   constructor(
     private poapMomentsApi: PoapMomentsApi,
     private CompassProvider: CompassProvider,
   ) {}
 
   public async createMoment(input: CreateMomentInput): Promise<Moment> {
-    if (input.medias && input.medias.length > 1) {
-      // TODO: implement multiple medias
-      throw new Error('Multiple medias not supported yet');
-    }
-
-    const onStepUpdate =
-      input.onStepUpdate || MomentsClient.DEFAULT_ON_STEP_UPDATE;
-
-    const mediaKeys: string[] = [];
+    let mediaKeys: string[] = [];
     if (input.medias && input.medias.length > 0) {
-      const media = input.medias[0];
-      const key = await this.createMedia(
-        media,
-        onStepUpdate,
+      mediaKeys = await this.uploadMedias(
+        input.medias,
+        input.onStepUpdate,
         input.onFileUploadProgress,
         input.timeOut,
       );
-      mediaKeys.push(key);
     }
 
-    void onStepUpdate(CreateSteps.UPLOADING_MOMENT);
+    if (mediaKeys.length > 0) {
+      await this.awaitForMediasProcessing(
+        mediaKeys,
+        input.onStepUpdate,
+        input.timeOut,
+      );
+    }
+
+    void input.onStepUpdate?.(CreateSteps.UPLOADING_MOMENT);
     const response = await this.poapMomentsApi.createMoment({
       dropId: input.dropId,
       author: input.author,
@@ -58,7 +52,8 @@ export class MomentsClient {
       description: input.description,
       mediaKeys,
     });
-    void onStepUpdate(CreateSteps.FINISHED);
+
+    void input.onStepUpdate?.(CreateSteps.FINISHED);
     return new Moment(
       response.id,
       response.author,
@@ -69,28 +64,70 @@ export class MomentsClient {
     );
   }
 
-  private async createMedia(
+  private async uploadMedias(
+    medias: CreateMedia[],
+    onStepUpdate?: (step: CreateSteps) => void | Promise<void>,
+    onFileUploadProgress?: (progress: number) => void | Promise<void>,
+    timeOut?: number,
+  ): Promise<string[]> {
+    void onStepUpdate?.(CreateSteps.UPLOADING_MEDIA);
+    const mediaKeys: string[] = [];
+    const progressPerMedia = 1 / medias.length;
+    let progress = 0;
+
+    for (const media of medias) {
+      const mediaOnFileUploadProgress = (mediaProgress: number): void => {
+        const totalProgress = progressPerMedia * mediaProgress + progress;
+        void onFileUploadProgress?.(totalProgress);
+      };
+      const key = await this.uploadMedia(
+        media,
+        mediaOnFileUploadProgress,
+        timeOut,
+      );
+      mediaKeys.push(key);
+      progress += progressPerMedia;
+      void onFileUploadProgress?.(progress);
+    }
+
+    return mediaKeys;
+  }
+
+  private async awaitForMediasProcessing(
+    mediaKeys: string[],
+    onStepUpdate?: (step: CreateSteps) => void | Promise<void>,
+    timeOut?: number,
+  ): Promise<void> {
+    void onStepUpdate?.(CreateSteps.PROCESSING_MEDIA);
+    const promises: Promise<void>[] = [];
+
+    for (const key of mediaKeys) {
+      promises.push(this.poapMomentsApi.waitForMediaProcessing(key, timeOut));
+    }
+
+    try {
+      await Promise.all(promises);
+    } catch (error) {
+      void onStepUpdate?.(CreateSteps.PROCESSING_MEDIA_ERROR);
+      throw error;
+    }
+  }
+
+  private async uploadMedia(
     media: CreateMedia,
-    onStepUpdate: (step: CreateSteps) => void | Promise<void>,
     onFileUploadProgress?: (progress: number) => void | Promise<void>,
     timeOut?: number,
   ): Promise<string> {
-    void onStepUpdate(CreateSteps.REQUESTING_MEDIA_UPLOAD_URL);
     const { url, key } = await this.poapMomentsApi.getSignedUrl();
-    void onStepUpdate(CreateSteps.UPLOADING_MEDIA);
     await this.poapMomentsApi.uploadFile(
       media.fileBinary,
       url,
       media.fileType,
       onFileUploadProgress,
     );
-    void onStepUpdate(CreateSteps.UPLOADING_MEDIA_METADATA);
-    //  we will be adding metadata to the media in the future
-    void onStepUpdate(CreateSteps.PROCESSING_MEDIA);
     try {
       await this.poapMomentsApi.waitForMediaProcessing(key, timeOut);
     } catch (error) {
-      void onStepUpdate(CreateSteps.PROCESSING_MEDIA_ERROR);
       throw error;
     }
 
