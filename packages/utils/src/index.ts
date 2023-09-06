@@ -5,6 +5,7 @@ export { PaginationInput } from './types/input';
 export * from './types';
 export { PaginatedResult } from './types/pagination';
 export { nextCursor } from './functions/nextCursor';
+export { sleep } from './functions/sleep';
 export {
   filterUndefinedProperties,
   creatUndefinedOrder,

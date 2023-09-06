@@ -1,6 +1,6 @@
 import { Status } from '@poap-xyz/utils';
 
-export interface CheckCodeResponse {
+export interface GetClaimCodeResponse {
   id: number;
   qr_hash: string;
   tx_hash: string;
@@ -20,7 +20,7 @@ export interface CheckCodeResponse {
   };
 }
 
-export interface ClaimCodeResponse {
+export interface PostClaimCodeResponse {
   id: number;
   qr_hash: string;
   queue_uid: string;

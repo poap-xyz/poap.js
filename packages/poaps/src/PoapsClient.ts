@@ -1,8 +1,11 @@
-import { TokensApiProvider } from './../../providers/src/ports/TokensApiProvider/TokensApiProvider';
-import { CompassProvider } from '@poap-xyz/providers';
+import {
+  CompassProvider,
+  TokensApiProvider,
+  GetClaimCodeResponse,
+} from '@poap-xyz/providers';
 import { POAP } from './domain/Poap';
 import { PaginatedPoapsResponse, PAGINATED_POAPS_QUERY } from './queries';
-import { FetchPoapsInput, claimtInput } from './types';
+import { FetchPoapsInput, emailClaimtInput, walletClaimtInput } from './types';
 import {
   PaginatedResult,
   nextCursor,
@@ -12,16 +15,21 @@ import {
   creatUndefinedOrder,
   creatAddressFilter,
   Status,
+  sleep,
 } from '@poap-xyz/utils';
+import { CodeAlreadyClaimedError } from './errors/CodeAlreadyClaimedError';
+import { CodeExpiredError } from './errors/CodeExpiredError';
+import { FinishedWithError } from './errors/FinishedWithError';
+import { POAPReservation } from './domain/POAPReservation';
 
 /**
- * Represents a client for working with POAP drops.
+ * Represents a client for working with POAPs.
  *
- * @class DropsClient
+ * @class PoapsClient
  */
 export class PoapsClient {
   /**
-   * Creates a new DropsClient object.
+   * Creates a new PoapsClient object.
    *
    * @constructor
    * @param {CompassProvider} CompassProvider - The provider for the POAP compass API.
@@ -36,8 +44,8 @@ export class PoapsClient {
    *
    * @async
    * @method
-   * @param {FetchPoapsInput} input - The input for fetching drops.
-   * @returns {Promise<PaginatedResult<Drop>>} A paginated result of drops.
+   * @param {FetchPoapsInput} input - The input for fetching poaps.
+   * @returns {Promise<PaginatedResult<POAP>>} A paginated result of poaps.
    */
   async fetch(input: FetchPoapsInput): Promise<PaginatedResult<POAP>> {
     const {
@@ -96,45 +104,139 @@ export class PoapsClient {
     );
   }
 
-  async claim(input: claimtInput): Promise<POAP> {
-    const { qr_hash, benificiary, sendEmail } = input;
-    let checkCodeResponse = await this.TokensApiProvider.checkCode(qr_hash);
+  /**
+   * Gets the secret associated with a specific QR hash.
+   * @param {string} qr_hash - The QR hash.
+   * @returns {Promise<string>} The secret.
+   * @throws {CodeAlreadyClaimedError} If the code is already claimed.
+   * @throws {CodeExpiredError} If the code is expired.
+   */
+  async getCodeSecret(qr_hash: string): Promise<string> {
+    const getCodeResponse = await this.TokensApiProvider.getClaimCode(qr_hash);
 
-    if (checkCodeResponse.claimed == true) {
-      throw new Error('Code alreade claimed');
+    if (getCodeResponse.claimed == true) {
+      throw new CodeAlreadyClaimedError(qr_hash);
     }
-    if (checkCodeResponse.is_active == false) {
-      throw new Error('Code has expired');
+    if (getCodeResponse.is_active == false) {
+      throw new CodeExpiredError(qr_hash);
     }
 
-    const response = await this.TokensApiProvider.claimCode({
-      address: benificiary,
-      qr_hash: qr_hash,
-      secret: checkCodeResponse.secret,
-      sendEmail: sendEmail || true,
+    return getCodeResponse.secret;
+  }
+
+  /**
+   * Retrieves the claim code information for a specific QR hash.
+   * @param {string} qr_hash - The QR hash.
+   * @returns {Promise<GetClaimCodeResponse>} The claim code response.
+   */
+  async getClaimCode(qr_hash: string): Promise<GetClaimCodeResponse> {
+    return await this.TokensApiProvider.getClaimCode(qr_hash);
+  }
+
+  /**
+   * Gets the status of a claim using its unique ID.
+   * @param {string} queue_uid - The unique ID of the claim.
+   * @returns {Promise<Status>} The status of the claim.
+   */
+  async getClaimStatus(queue_uid: string): Promise<Status> {
+    const claimStatusResponse = await this.TokensApiProvider.claimStatus(
+      queue_uid,
+    );
+    return claimStatusResponse.status;
+  }
+
+  /**
+   * Waits for a claim's status to move out of the 'IN_PROCESS' or 'PENDING' states.
+   * @param {string} queue_uid - The unique ID of the claim.
+   * @returns {Promise<Status>} The final status of the claim.
+   */
+  async waitClaimStatus(queue_uid: string): Promise<Status> {
+    let status: Status = Status.IN_PROCESS;
+    while (status === Status.IN_PROCESS || status === Status.PENDING) {
+      try {
+        status = await this.getClaimStatus(queue_uid);
+        await sleep(1000);
+      } catch {
+        // do nothing
+      }
+    }
+    return status;
+  }
+
+  /**
+   * Initiates an asynchronous claim process and returns a unique queue ID.
+   * @param {walletClaimtInput} input - The claim input details.
+   * @returns {Promise<string>} The unique queue ID.
+   */
+  async claimAsync(input: walletClaimtInput): Promise<string> {
+    const secret = await this.getCodeSecret(input.qr_hash);
+
+    const response = await this.TokensApiProvider.postClaimCode({
+      address: input.address,
+      qr_hash: input.qr_hash,
+      secret: secret,
+      sendEmail: false,
     });
 
-    const { queue_uid } = response;
+    return response.queue_uid;
+  }
 
-    const status = Status.IN_PROCESS;
+  /**
+   * Initiates a synchronous claim process. It waits for the claim to process and
+   * then returns the associated POAP.
+   * @param {walletClaimtInput} input - The claim input details.
+   * @returns {Promise<POAP>} The associated POAP once the claim is complete.
+   * @throws {FinishedWithError} If the claim finishes with an error.
+   */
+  async claimSync(input: walletClaimtInput): Promise<POAP> {
+    const queue_uid = await this.claimAsync(input);
 
-    while (status !== Status.FINISH_WITH_ERROR || status !== Status.FINISH) {
-      const claimStatusResponse = await this.TokensApiProvider.claimStatus(
-        queue_uid,
-      );
+    const status = await this.waitClaimStatus(queue_uid);
 
-      status = claimStatusResponse.status;
+    if (status === Status.FINISH) {
+      let getCodeResponse = await this.getClaimCode(input.qr_hash);
+
+      while (getCodeResponse.result == null) {
+        await sleep(1000);
+        getCodeResponse = await this.getClaimCode(input.qr_hash);
+      }
+      return (
+        await this.fetch({
+          limit: 1,
+          offset: 0,
+          ids: [getCodeResponse.result.token],
+        })
+      ).items[0];
     }
 
-    if (status == Status.FINISH) {
-      checkCodeResponse = await this.TokensApiProvider.checkCode(qr_hash);
-      return this.fetch({
-        limit: 1,
-        offset: 0,
-        ids: [checkCodeResponse.result.token],
-      })[0];
-    } else {
-      throw new Error('Finished with error, please try again later');
-    }
+    throw new FinishedWithError(input.qr_hash);
+  }
+
+  /**
+   * Reserves a POAP for an email address. Returns details of the reservation.
+   * @param {emailClaimtInput} input - The reservation input details.
+   * @returns {Promise<POAPReservation>} The details of the reserved POAP.
+   */
+  async emailReservation(input: emailClaimtInput): Promise<POAPReservation> {
+    const secret = await this.getCodeSecret(input.qr_hash);
+
+    const response = await this.TokensApiProvider.postClaimCode({
+      address: input.email,
+      qr_hash: input.qr_hash,
+      secret: secret,
+      sendEmail: input.sendEmail || true,
+    });
+
+    return new POAPReservation({
+      email: input.email,
+      drop_id: response.event.id,
+      image_url: response.event.image_url,
+      city: response.event.city,
+      country: response.event.country,
+      description: response.event.description,
+      start_date: new Date(response.event.start_date),
+      end_date: new Date(response.event.end_date),
+      name: response.event.name,
+    });
   }
 }

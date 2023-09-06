@@ -1,6 +1,6 @@
 import {
-  CheckCodeResponse,
-  ClaimCodeResponse,
+  GetClaimCodeResponse,
+  PostClaimCodeResponse,
   ClaimCodeInput,
   ClaimStatusResponse,
 } from './Types';
@@ -11,7 +11,7 @@ import {
  * @interface TokensApiProvider
  */
 export interface TokensApiProvider {
-  checkCode(code: string): Promise<CheckCodeResponse>;
-  claimCode(input: ClaimCodeInput): Promise<ClaimCodeResponse>;
+  getClaimCode(code: string): Promise<GetClaimCodeResponse>;
+  postClaimCode(input: ClaimCodeInput): Promise<PostClaimCodeResponse>;
   claimStatus(uid: string): Promise<ClaimStatusResponse>;
 }

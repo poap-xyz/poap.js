@@ -1,13 +1,17 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
-  CheckCodeResponse,
-  ClaimCodeResponse,
+  PostClaimCodeResponse,
   ClaimStatusResponse,
+  GetClaimCodeResponse,
 } from './../../ports/TokensApiProvider/Types/response';
 import { ClaimCodeInput } from './../../ports/TokensApiProvider/Types/input';
 import { AuthenticationProvider } from './../../ports/AuthenticationProvider/AuthenticationProvider';
 import { TokensApiProvider } from './../../ports/TokensApiProvider/TokensApiProvider';
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios';
+
+const instance = axios.create({
+  timeout: 10000, // 5 seconds
+});
 
 const DROP_BASE_URL = 'https://api.poap.tech';
 
@@ -25,7 +29,7 @@ export class PoapTokenApi implements TokensApiProvider {
     private authenticationProvider?: AuthenticationProvider,
   ) {}
 
-  async checkCode(code: string): Promise<CheckCodeResponse> {
+  async getClaimCode(code: string): Promise<GetClaimCodeResponse> {
     return await this.secureFetch(
       `${this.baseUrl}/actions/claim-qr?qr_hash=${code}
     `,
@@ -36,7 +40,7 @@ export class PoapTokenApi implements TokensApiProvider {
     );
   }
 
-  async claimCode(input: ClaimCodeInput): Promise<ClaimCodeResponse> {
+  async postClaimCode(input: ClaimCodeInput): Promise<PostClaimCodeResponse> {
     return await this.secureFetch(
       `${this.baseUrl}/actions/claim-qr
   `,
@@ -78,7 +82,7 @@ export class PoapTokenApi implements TokensApiProvider {
     };
 
     return (
-      await axios(url, {
+      await instance(url, {
         method: options.method,
         data: options.body,
         headers: headersWithApiKey,

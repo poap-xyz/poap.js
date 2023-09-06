@@ -1,6 +1,12 @@
 export * from './MomentsApiProvider/MomentsApiProvider';
 export * from './DropApiProvider/DropApiProvider';
-export * from './TokensApiProvider/TokensApiProvider';
+export {
+  TokensApiProvider,
+  GetClaimCodeResponse,
+  PostClaimCodeResponse,
+  ClaimCodeInput,
+  ClaimStatusResponse,
+} from './TokensApiProvider';
 
 export { HttpProvider } from './HttpProvider/HttpProvider';
 export { CompassProvider } from './CompassProvider/CompassProvider';
