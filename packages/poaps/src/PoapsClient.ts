@@ -4,6 +4,7 @@ import {
   GetClaimCodeResponse,
 } from '@poap-xyz/providers';
 import { POAP } from './domain/Poap';
+import { POAPReservation } from './domain/POAPReservation';
 import { PaginatedPoapsResponse, PAGINATED_POAPS_QUERY } from './queries';
 import { FetchPoapsInput, EmailClaimtInput, WalletClaimtInput } from './types';
 import {
@@ -20,7 +21,6 @@ import {
 import { CodeAlreadyClaimedError } from './errors/CodeAlreadyClaimedError';
 import { CodeExpiredError } from './errors/CodeExpiredError';
 import { FinishedWithError } from './errors/FinishedWithError';
-import { POAPReservation } from './domain/POAPReservation';
 
 /**
  * Represents a client for working with POAPs.
