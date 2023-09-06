@@ -32,11 +32,11 @@ export class PoapsClient {
    * Creates a new PoapsClient object.
    *
    * @constructor
-   * @param {CompassProvider} CompassProvider - The provider for the POAP compass API.
+   * @param {CompassProvider} compassProvider - The provider for the POAP compass API.
    */
   constructor(
-    private CompassProvider: CompassProvider,
-    private TokensApiProvider: TokensApiProvider,
+    private compassProvider: CompassProvider,
+    private tokensApiProvider: TokensApiProvider,
   ) {}
 
   /**
@@ -79,7 +79,7 @@ export class PoapsClient {
       },
     };
 
-    const { data } = await this.CompassProvider.request<PaginatedPoapsResponse>(
+    const { data } = await this.compassProvider.request<PaginatedPoapsResponse>(
       PAGINATED_POAPS_QUERY,
       variables,
     );
@@ -112,7 +112,7 @@ export class PoapsClient {
    * @throws {CodeExpiredError} If the code is expired.
    */
   async getCodeSecret(qr_hash: string): Promise<string> {
-    const getCodeResponse = await this.TokensApiProvider.getClaimCode(qr_hash);
+    const getCodeResponse = await this.tokensApiProvider.getClaimCode(qr_hash);
 
     if (getCodeResponse.claimed == true) {
       throw new CodeAlreadyClaimedError(qr_hash);
@@ -130,7 +130,7 @@ export class PoapsClient {
    * @returns {Promise<GetClaimCodeResponse>} The claim code response.
    */
   async getClaimCode(qr_hash: string): Promise<GetClaimCodeResponse> {
-    return await this.TokensApiProvider.getClaimCode(qr_hash);
+    return await this.tokensApiProvider.getClaimCode(qr_hash);
   }
 
   /**
@@ -139,7 +139,7 @@ export class PoapsClient {
    * @returns {Promise<Status>} The status of the claim.
    */
   async getClaimStatus(queue_uid: string): Promise<Status> {
-    const claimStatusResponse = await this.TokensApiProvider.claimStatus(
+    const claimStatusResponse = await this.tokensApiProvider.claimStatus(
       queue_uid,
     );
     return claimStatusResponse.status;
@@ -171,7 +171,7 @@ export class PoapsClient {
   async claimAsync(input: walletClaimtInput): Promise<string> {
     const secret = await this.getCodeSecret(input.qr_hash);
 
-    const response = await this.TokensApiProvider.postClaimCode({
+    const response = await this.tokensApiProvider.postClaimCode({
       address: input.address,
       qr_hash: input.qr_hash,
       secret: secret,
@@ -220,7 +220,7 @@ export class PoapsClient {
   async emailReservation(input: emailClaimtInput): Promise<POAPReservation> {
     const secret = await this.getCodeSecret(input.qr_hash);
 
-    const response = await this.TokensApiProvider.postClaimCode({
+    const response = await this.tokensApiProvider.postClaimCode({
       address: input.email,
       qr_hash: input.qr_hash,
       secret: secret,
