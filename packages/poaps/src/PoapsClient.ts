@@ -5,7 +5,7 @@ import {
 } from '@poap-xyz/providers';
 import { POAP } from './domain/Poap';
 import { PaginatedPoapsResponse, PAGINATED_POAPS_QUERY } from './queries';
-import { FetchPoapsInput, emailClaimtInput, walletClaimtInput } from './types';
+import { FetchPoapsInput, EmailClaimtInput, WalletClaimtInput } from './types';
 import {
   PaginatedResult,
   nextCursor,
@@ -165,10 +165,10 @@ export class PoapsClient {
 
   /**
    * Initiates an asynchronous claim process and returns a unique queue ID.
-   * @param {walletClaimtInput} input - The claim input details.
+   * @param {WalletClaimtInput} input - The claim input details.
    * @returns {Promise<string>} The unique queue ID.
    */
-  async claimAsync(input: walletClaimtInput): Promise<string> {
+  async claimAsync(input: WalletClaimtInput): Promise<string> {
     const secret = await this.getCodeSecret(input.qr_hash);
 
     const response = await this.tokensApiProvider.postClaimCode({
@@ -184,11 +184,11 @@ export class PoapsClient {
   /**
    * Initiates a synchronous claim process. It waits for the claim to process and
    * then returns the associated POAP.
-   * @param {walletClaimtInput} input - The claim input details.
+   * @param {WalletClaimtInput} input - The claim input details.
    * @returns {Promise<POAP>} The associated POAP once the claim is complete.
    * @throws {FinishedWithError} If the claim finishes with an error.
    */
-  async claimSync(input: walletClaimtInput): Promise<POAP> {
+  async claimSync(input: WalletClaimtInput): Promise<POAP> {
     const queue_uid = await this.claimAsync(input);
 
     const status = await this.waitClaimStatus(queue_uid);
@@ -214,10 +214,10 @@ export class PoapsClient {
 
   /**
    * Reserves a POAP for an email address. Returns details of the reservation.
-   * @param {emailClaimtInput} input - The reservation input details.
+   * @param {EmailClaimtInput} input - The reservation input details.
    * @returns {Promise<POAPReservation>} The details of the reserved POAP.
    */
-  async emailReservation(input: emailClaimtInput): Promise<POAPReservation> {
+  async emailReservation(input: EmailClaimtInput): Promise<POAPReservation> {
     const secret = await this.getCodeSecret(input.qr_hash);
 
     const response = await this.tokensApiProvider.postClaimCode({

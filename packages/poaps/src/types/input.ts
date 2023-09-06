@@ -18,12 +18,12 @@ export interface FetchPoapsInput extends PaginationInput {
   filter_by_zero_address?: boolean;
 }
 
-export interface walletClaimtInput {
+export interface WalletClaimtInput {
   qr_hash: string;
   address: string;
 }
 
-export interface emailClaimtInput {
+export interface EmailClaimtInput {
   qr_hash: string;
   email: string;
   sendEmail?: boolean;
