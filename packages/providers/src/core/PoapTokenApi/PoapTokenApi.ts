@@ -31,8 +31,7 @@ export class PoapTokenApi implements TokensApiProvider {
 
   async getClaimCode(code: string): Promise<GetClaimCodeResponse> {
     return await this.secureFetch(
-      `${this.baseUrl}/actions/claim-qr?qr_hash=${code}
-    `,
+      `${this.baseUrl}/actions/claim-qr?qr_hash=${code}`,
       {
         method: 'GET',
         headers: {},
@@ -41,26 +40,18 @@ export class PoapTokenApi implements TokensApiProvider {
   }
 
   async postClaimCode(input: ClaimCodeInput): Promise<PostClaimCodeResponse> {
-    return await this.secureFetch(
-      `${this.baseUrl}/actions/claim-qr
-  `,
-      {
-        method: 'POST',
-        body: input,
-        headers: {},
-      },
-    );
+    return await this.secureFetch(`${this.baseUrl}/actions/claim-qr`, {
+      method: 'POST',
+      body: input,
+      headers: {},
+    });
   }
 
   async claimStatus(uid: string): Promise<ClaimStatusResponse> {
-    return await this.secureFetch(
-      `${this.baseUrl}/queue-message/${uid}
-    `,
-      {
-        method: 'GET',
-        headers: {},
-      },
-    );
+    return await this.secureFetch(`${this.baseUrl}/queue-message/${uid}`, {
+      method: 'GET',
+      headers: {},
+    });
   }
   // TODO: Change variable type any to a more specific type
   /**
