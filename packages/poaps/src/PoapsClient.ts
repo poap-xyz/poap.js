@@ -14,7 +14,7 @@ import {
   createInFilter,
   creatUndefinedOrder,
   creatAddressFilter,
-  Status,
+  MintingStatus,
   sleep,
 } from '@poap-xyz/utils';
 import { CodeAlreadyClaimedError } from './errors/CodeAlreadyClaimedError';
@@ -136,9 +136,9 @@ export class PoapsClient {
   /**
    * Gets the status of a claim using its unique ID.
    * @param {string} queue_uid - The unique ID of the claim.
-   * @returns {Promise<Status>} The status of the claim.
+   * @returns {Promise<MintingStatus>} The status of the claim.
    */
-  async getClaimStatus(queue_uid: string): Promise<Status> {
+  async getClaimStatus(queue_uid: string): Promise<MintingStatus> {
     const claimStatusResponse = await this.tokensApiProvider.claimStatus(
       queue_uid,
     );
@@ -148,11 +148,14 @@ export class PoapsClient {
   /**
    * Waits for a claim's status to move out of the 'IN_PROCESS' or 'PENDING' states.
    * @param {string} queue_uid - The unique ID of the claim.
-   * @returns {Promise<Status>} The final status of the claim.
+   * @returns {Promise<MintingStatus>} The final status of the claim.
    */
-  async waitClaimStatus(queue_uid: string): Promise<Status> {
-    let status: Status = Status.IN_PROCESS;
-    while (status === Status.IN_PROCESS || status === Status.PENDING) {
+  async waitClaimStatus(queue_uid: string): Promise<MintingStatus> {
+    let status: MintingStatus = MintingStatus.IN_PROCESS;
+    while (
+      status === MintingStatus.IN_PROCESS ||
+      status === MintingStatus.PENDING
+    ) {
       try {
         status = await this.getClaimStatus(queue_uid);
         await sleep(1000);
@@ -193,7 +196,7 @@ export class PoapsClient {
 
     const status = await this.waitClaimStatus(queue_uid);
 
-    if (status === Status.FINISH) {
+    if (status === MintingStatus.FINISH) {
       let getCodeResponse = await this.getClaimCode(input.qr_hash);
 
       while (getCodeResponse.result == null) {

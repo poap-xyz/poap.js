@@ -1,4 +1,4 @@
-import { Status } from '@poap-xyz/utils';
+import { MintingStatus } from '@poap-xyz/utils';
 
 export interface GetClaimCodeResponse {
   id: number;
@@ -38,7 +38,7 @@ export interface PostClaimCodeResponse {
 export interface ClaimStatusResponse {
   uid: number;
   operation: string;
-  status: Status;
+  status: MintingStatus;
   result: { tx_hash: string } | null;
 }
 

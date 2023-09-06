@@ -1,4 +1,4 @@
-export enum Status {
+export enum MintingStatus {
   PENDING = 'PENDING',
   IN_PROCESS = 'IN_PROCESS',
   FINISH = 'FINISH',

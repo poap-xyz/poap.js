@@ -1,5 +1,5 @@
 import { PoapsClient } from '@poap-xyz/poaps';
-import { Status, sleep } from '@poap-xyz/utils';
+import { MintingStatus, sleep } from '@poap-xyz/utils';
 import { handleError } from '../utils/handleError';
 
 /**
@@ -26,7 +26,7 @@ export const claim_async_poap = async (client: PoapsClient): Promise<void> => {
 
     // Wait for the claim's status to move out of the 'IN_PROCESS' or 'PENDING' states
     const status = await client.waitClaimStatus(queue_uid);
-    if (status === Status.FINISH) {
+    if (status === MintingStatus.FINISH) {
       // Retrieve the claim code information for the QR hash
       let checkCodeResponse = await client.getClaimCode('your_qr_hash');
 
