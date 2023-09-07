@@ -1,5 +1,4 @@
 /* eslint-disable max-statements */
-// TODO: Poner el drop como objeto
 export class POAP {
   id: number;
   collector_address: string;

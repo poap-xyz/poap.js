@@ -39,7 +39,10 @@ export interface ClaimStatusResponse {
   uid: number;
   operation: string;
   status: MintingStatus;
-  result: { tx_hash: string } | null;
+  result: {
+    tx_hash: string;
+    error: string;
+  } | null;
 }
 
 interface DropEvent {

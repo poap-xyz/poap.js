@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { MissingAuthenticationProviderError } from './../../ports/AuthenticationProvider/errors/MissingAuthenticationProviderError';
 import {
   PostClaimCodeResponse,
   ClaimStatusResponse,
@@ -10,10 +11,10 @@ import { TokensApiProvider } from './../../ports/TokensApiProvider/TokensApiProv
 import axios from 'axios';
 
 const instance = axios.create({
-  timeout: 10000, // 5 seconds
+  timeout: 10000, // 10 seconds
 });
 
-const DROP_BASE_URL = 'https://api.poap.tech';
+const DEFAULT_DROP_BASE_URL = 'https://api.poap.tech';
 
 export class PoapTokenApi implements TokensApiProvider {
   /**
@@ -21,16 +22,15 @@ export class PoapTokenApi implements TokensApiProvider {
    *
    * @constructor
    * @param {string} apiKey - The API key to use for requests.
-   * @param {HttpProvider} HttpProvider - An instance of the `HttpProvider` class for making HTTP requests.
    */
   constructor(
     private apiKey: string,
-    private baseUrl: string = DROP_BASE_URL,
+    private baseUrl: string = DEFAULT_DROP_BASE_URL,
     private authenticationProvider?: AuthenticationProvider,
   ) {}
 
   async getClaimCode(code: string): Promise<GetClaimCodeResponse> {
-    return await this.secureFetch(
+    return await this.secureFetch<GetClaimCodeResponse>(
       `${this.baseUrl}/actions/claim-qr?qr_hash=${code}`,
       {
         method: 'GET',
@@ -40,20 +40,26 @@ export class PoapTokenApi implements TokensApiProvider {
   }
 
   async postClaimCode(input: ClaimCodeInput): Promise<PostClaimCodeResponse> {
-    return await this.secureFetch(`${this.baseUrl}/actions/claim-qr`, {
-      method: 'POST',
-      body: input,
-      headers: {},
-    });
+    return await this.secureFetch<PostClaimCodeResponse>(
+      `${this.baseUrl}/actions/claim-qr`,
+      {
+        method: 'POST',
+        body: input,
+        headers: {},
+      },
+    );
   }
 
   async claimStatus(uid: string): Promise<ClaimStatusResponse> {
-    return await this.secureFetch(`${this.baseUrl}/queue-message/${uid}`, {
-      method: 'GET',
-      headers: {},
-    });
+    return await this.secureFetch<ClaimStatusResponse>(
+      `${this.baseUrl}/queue-message/${uid}`,
+      {
+        method: 'GET',
+        headers: {},
+      },
+    );
   }
-  // TODO: Change variable type any to a more specific type
+
   /**
    * Sends a secure HTTP request to the Poap Drop API.
    *
@@ -63,9 +69,9 @@ export class PoapTokenApi implements TokensApiProvider {
    * @name PoapDropApi#secureFetch
    * @param {string} url - The URL for the HTTP request.
    * @param {any} options - The options for the HTTP request.
-   * @returns {Promise<any>} A Promise that resolves with the response from the API.
+   * @returns {Promise<R>} A Promise that resolves with the response from the API.
    */
-  private async secureFetch(url: string, options: any): Promise<any> {
+  private async secureFetch<R>(url: string, options: any): Promise<R> {
     const headersWithApiKey = {
       ...options.headers,
       'x-api-key': this.apiKey,
@@ -83,11 +89,8 @@ export class PoapTokenApi implements TokensApiProvider {
 
   private async getAuthorizationToken(): Promise<string> {
     if (!this.authenticationProvider) {
-      throw new Error(
-        'An AuthenticationProvider is required for write operations',
-      );
+      throw new MissingAuthenticationProviderError();
     }
-
     return `Bearer ${await this.authenticationProvider.getJWT(this.baseUrl)}`;
   }
 }

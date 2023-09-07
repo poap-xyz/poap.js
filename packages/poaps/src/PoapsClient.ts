@@ -16,23 +16,21 @@ import {
   creatUndefinedOrder,
   creatAddressFilter,
   MintingStatus,
-  sleep,
 } from '@poap-xyz/utils';
 import { CodeAlreadyClaimedError } from './errors/CodeAlreadyClaimedError';
 import { CodeExpiredError } from './errors/CodeExpiredError';
-import { FinishedWithError } from './errors/FinishedWithError';
+import { ClaimChecker } from './utils/ClaimChecker';
+import { PoapIndexed } from './utils/PoapIndexed';
 
 /**
- * Represents a client for working with POAPs.
- *
- * @class PoapsClient
+ * Represents a client for interacting with POAPs (Proof of Attendance Protocol tokens).
+ * @class
  */
 export class PoapsClient {
   /**
-   * Creates a new PoapsClient object.
-   *
-   * @constructor
+   * Initializes a new instance of the PoapsClient.
    * @param {CompassProvider} compassProvider - The provider for the POAP compass API.
+   * @param {TokensApiProvider} tokensApiProvider - The provider for the Tokens API.
    */
   constructor(
     private compassProvider: CompassProvider,
@@ -40,12 +38,10 @@ export class PoapsClient {
   ) {}
 
   /**
-   * Fetches drops based on the specified input.
-   *
+   * Fetches a list of POAP tokens based on the given input criteria.
    * @async
-   * @method
-   * @param {FetchPoapsInput} input - The input for fetching poaps.
-   * @returns {Promise<PaginatedResult<POAP>>} A paginated result of poaps.
+   * @param {FetchPoapsInput} input - Criteria for fetching POAP tokens.
+   * @returns {Promise<PaginatedResult<POAP>>} A paginated list of POAP tokens.
    */
   async fetch(input: FetchPoapsInput): Promise<PaginatedResult<POAP>> {
     const {
@@ -105,14 +101,15 @@ export class PoapsClient {
   }
 
   /**
-   * Gets the secret associated with a specific QR hash.
-   * @param {string} qr_hash - The QR hash.
-   * @returns {Promise<string>} The secret.
-   * @throws {CodeAlreadyClaimedError} If the code is already claimed.
-   * @throws {CodeExpiredError} If the code is expired.
+   * Retrieves the secret code associated with a QR hash.
+   * @async
+   * @param {string} qr_hash - The QR hash for which to get the secret.
+   * @returns {Promise<string>} The associated secret code.
+   * @throws {CodeAlreadyClaimedError} Thrown when the QR code has already been claimed.
+   * @throws {CodeExpiredError} Thrown when the QR code is expired.
    */
-  async getCodeSecret(qr_hash: string): Promise<string> {
-    const getCodeResponse = await this.tokensApiProvider.getClaimCode(qr_hash);
+  private async getCodeSecret(qr_hash: string): Promise<string> {
+    const getCodeResponse = await this.getClaimCode(qr_hash);
 
     if (getCodeResponse.claimed == true) {
       throw new CodeAlreadyClaimedError(qr_hash);
@@ -125,18 +122,20 @@ export class PoapsClient {
   }
 
   /**
-   * Retrieves the claim code information for a specific QR hash.
-   * @param {string} qr_hash - The QR hash.
-   * @returns {Promise<GetClaimCodeResponse>} The claim code response.
+   * Retrieves claim code details for a specific QR hash.
+   * @async
+   * @param {string} qr_hash - The QR hash for which to get the claim code.
+   * @returns {Promise<GetClaimCodeResponse>} The claim code details.
    */
   async getClaimCode(qr_hash: string): Promise<GetClaimCodeResponse> {
     return await this.tokensApiProvider.getClaimCode(qr_hash);
   }
 
   /**
-   * Gets the status of a claim using its unique ID.
+   * Fetches the current status of a claim based on its unique ID.
+   * @async
    * @param {string} queue_uid - The unique ID of the claim.
-   * @returns {Promise<MintingStatus>} The status of the claim.
+   * @returns {Promise<MintingStatus>} The current status of the claim.
    */
   async getClaimStatus(queue_uid: string): Promise<MintingStatus> {
     const claimStatusResponse = await this.tokensApiProvider.claimStatus(
@@ -146,30 +145,32 @@ export class PoapsClient {
   }
 
   /**
-   * Waits for a claim's status to move out of the 'IN_PROCESS' or 'PENDING' states.
+   * Awaits until the claim's status changes from 'IN_PROCESS' or 'PENDING'.
+   * @async
    * @param {string} queue_uid - The unique ID of the claim.
-   * @returns {Promise<MintingStatus>} The final status of the claim.
+   * @returns {Promise<void>}
    */
-  async waitClaimStatus(queue_uid: string): Promise<MintingStatus> {
-    let status: MintingStatus = MintingStatus.IN_PROCESS;
-    while (
-      status === MintingStatus.IN_PROCESS ||
-      status === MintingStatus.PENDING
-    ) {
-      try {
-        status = await this.getClaimStatus(queue_uid);
-        await sleep(1000);
-      } catch {
-        // do nothing
-      }
-    }
-    return status;
+  async waitClaimStatus(queue_uid: string): Promise<void> {
+    const checker = new ClaimChecker(queue_uid, this.tokensApiProvider);
+    await checker.checkClaimStatus();
   }
 
   /**
-   * Initiates an asynchronous claim process and returns a unique queue ID.
-   * @param {WalletClaimtInput} input - The claim input details.
-   * @returns {Promise<string>} The unique queue ID.
+   * Awaits until a specific POAP, identified by its QR hash, is indexed.
+   * @async
+   * @param {string} qr_hash - The QR hash identifying the POAP to be indexed.
+   * @returns {Promise<GetClaimCodeResponse>} Details of the indexed POAP.
+   */
+  async waitPoapIndexed(qr_hash: string): Promise<GetClaimCodeResponse> {
+    const checker = new PoapIndexed(qr_hash, this.tokensApiProvider);
+    return await checker.waitPoapIndexed();
+  }
+
+  /**
+   * Begins an asynchronous claim process and provides a unique queue ID in return.
+   * @async
+   * @param {WalletClaimtInput} input - Details required for the claim.
+   * @returns {Promise<string>} A unique queue ID for the initiated claim.
    */
   async claimAsync(input: WalletClaimtInput): Promise<string> {
     const secret = await this.getCodeSecret(input.qr_hash);
@@ -185,40 +186,34 @@ export class PoapsClient {
   }
 
   /**
-   * Initiates a synchronous claim process. It waits for the claim to process and
-   * then returns the associated POAP.
-   * @param {WalletClaimtInput} input - The claim input details.
-   * @returns {Promise<POAP>} The associated POAP once the claim is complete.
-   * @throws {FinishedWithError} If the claim finishes with an error.
+   * Starts a synchronous claim process. The method waits for the claim to be processed and then
+   * fetches the associated POAP.
+   * @async
+   * @param {WalletClaimtInput} input - Details needed for the claim.
+   * @returns {Promise<POAP>} The related POAP upon successful claim completion.
+   * @throws {FinishedWithError} If there's an error concluding the claim process.
    */
   async claimSync(input: WalletClaimtInput): Promise<POAP> {
     const queue_uid = await this.claimAsync(input);
 
-    const status = await this.waitClaimStatus(queue_uid);
+    await this.waitClaimStatus(queue_uid);
 
-    if (status === MintingStatus.FINISH) {
-      let getCodeResponse = await this.getClaimCode(input.qr_hash);
+    const getCodeResponse = await this.waitPoapIndexed(input.qr_hash);
 
-      while (getCodeResponse.result == null) {
-        await sleep(1000);
-        getCodeResponse = await this.getClaimCode(input.qr_hash);
-      }
-      return (
-        await this.fetch({
-          limit: 1,
-          offset: 0,
-          ids: [getCodeResponse.result.token],
-        })
-      ).items[0];
-    }
-
-    throw new FinishedWithError(input.qr_hash);
+    return (
+      await this.fetch({
+        limit: 1,
+        offset: 0,
+        ids: [getCodeResponse.result.token],
+      })
+    ).items[0];
   }
 
   /**
-   * Reserves a POAP for an email address. Returns details of the reservation.
-   * @param {EmailClaimtInput} input - The reservation input details.
-   * @returns {Promise<POAPReservation>} The details of the reserved POAP.
+   * Reserves a POAP against an email address and provides reservation details.
+   * @async
+   * @param {EmailClaimtInput} input - Information for the reservation.
+   * @returns {Promise<POAPReservation>} The reservation details of the POAP.
    */
   async emailReservation(input: EmailClaimtInput): Promise<POAPReservation> {
     const secret = await this.getCodeSecret(input.qr_hash);

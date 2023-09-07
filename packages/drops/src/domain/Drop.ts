@@ -75,9 +75,9 @@ export class Drop {
       transfer_count: this.transfer_count,
       email_claim: this.email_claim,
       expiry_date: this.expiry_date.toISOString(),
-      end_date: this.end_date.toISOString()
+      end_date: this.end_date.toISOString(),
     };
-  }  
+  }
 }
 
 export interface DropProperties {
