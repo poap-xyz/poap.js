@@ -27,6 +27,6 @@ export const handleError = (error: unknown): void => {
     error instanceof FinishedWithError
   ) {
     // Logs the specific error message.
-    console.log(error);
+    console.error(error);
   }
 };
