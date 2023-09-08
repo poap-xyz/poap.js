@@ -25,5 +25,8 @@
   "scripts": {
     "build": "rollup -c --bundleConfigAsCjs"
   },
+  "engines": {
+    "node": ">=18"
+  },
   "stableVersion": "0.0.37"
 }

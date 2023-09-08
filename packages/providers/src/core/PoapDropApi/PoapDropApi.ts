@@ -7,10 +7,8 @@ import {
   DropResponse,
   UpdateDropInput,
 } from '../../ports/DropApiProvider/Types';
-import FormData from 'form-data';
-import axios from 'axios';
 
-const DROP_BASE_URL = 'https://api.poap.tech';
+const DEFAULT_DROP_BASE_URL = 'https://api.poap.tech';
 
 /**
  * A class that implements the `DropApiProvider` interface for interacting with the Poap Drop API.
@@ -24,11 +22,11 @@ export class PoapDropApi implements DropApiProvider {
    *
    * @constructor
    * @param {string} apiKey - The API key to use for requests.
-   * @param {HttpProvider} HttpProvider - An instance of the `HttpProvider` class for making HTTP requests.
+   * @param {string} baseUrl - Base url for the Poap Drop API.
    */
   constructor(
     private apiKey: string,
-    private baseUrl: string = DROP_BASE_URL,
+    private baseUrl: string = DEFAULT_DROP_BASE_URL,
   ) {}
 
   /**
@@ -45,10 +43,7 @@ export class PoapDropApi implements DropApiProvider {
     for (const key in input) {
       if (Object.prototype.hasOwnProperty.call(input, key)) {
         if (key === 'image') {
-          form.append(key, input[key], {
-            filename: input['filename'],
-            contentType: input['contentType'],
-          });
+          form.append(key, input[key]);
         } else {
           form.append(key, (input[key] as string) + '');
         }
@@ -57,9 +52,7 @@ export class PoapDropApi implements DropApiProvider {
     return await this.secureFetch(`${this.baseUrl}/events`, {
       method: 'POST',
       body: form,
-      headers: {
-        ...form.getHeaders(),
-      },
+      headers: {},
     });
   }
   /**
@@ -97,12 +90,12 @@ export class PoapDropApi implements DropApiProvider {
       'x-api-key': this.apiKey,
     };
 
-    return (
-      await axios(url, {
-        method: options.method,
-        data: options.body,
-        headers: headersWithApiKey,
-      })
-    ).data;
+    const response = await fetch(url, {
+      method: options.method,
+      body: options.body,
+      headers: headersWithApiKey,
+    });
+
+    return await response.json();
   }
 }
