@@ -25,6 +25,9 @@
   "scripts": {
     "build": "rollup -c --bundleConfigAsCjs"
   },
+  "engines": {
+    "node": ">=18"
+  },
   "dependencies": {
     "@poap-xyz/providers": "0.0.37",
     "@poap-xyz/utils": "0.0.37"

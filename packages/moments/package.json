@@ -30,6 +30,9 @@
     "@poap-xyz/utils": "0.0.37",
     "uuid": "^9.0.0"
   },
+  "engines": {
+    "node": ">=18"
+  },
   "devDependencies": {
     "@types/uuid": "^9.0.2"
   }

@@ -28,5 +28,8 @@
   "dependencies": {
     "@poap-xyz/providers": "0.0.37",
     "@poap-xyz/utils": "0.0.37"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }
