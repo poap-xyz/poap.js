@@ -864,8 +864,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@poap-xyz/drops@workspace:packages/drops"
   dependencies:
-    "@poap-xyz/providers": 0.0.37
-    "@poap-xyz/utils": 0.0.37
+    "@poap-xyz/providers": 0.0.38
+    "@poap-xyz/utils": 0.0.38
   languageName: unknown
   linkType: soft
 
@@ -873,8 +873,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@poap-xyz/moments@workspace:packages/moments"
   dependencies:
-    "@poap-xyz/providers": 0.0.37
-    "@poap-xyz/utils": 0.0.37
+    "@poap-xyz/providers": 0.0.38
+    "@poap-xyz/utils": 0.0.38
     "@types/uuid": ^9.0.2
     uuid: ^9.0.0
   languageName: unknown
@@ -890,12 +890,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@poap-xyz/poaps@workspace:packages/poaps"
   dependencies:
-    "@poap-xyz/providers": 0.0.37
-    "@poap-xyz/utils": 0.0.37
+    "@poap-xyz/providers": 0.0.38
+    "@poap-xyz/utils": 0.0.38
   languageName: unknown
   linkType: soft
 
-"@poap-xyz/providers@*, @poap-xyz/providers@0.0.37, @poap-xyz/providers@workspace:packages/providers":
+"@poap-xyz/providers@*, @poap-xyz/providers@0.0.38, @poap-xyz/providers@workspace:packages/providers":
   version: 0.0.0-use.local
   resolution: "@poap-xyz/providers@workspace:packages/providers"
   dependencies:
@@ -906,7 +906,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@poap-xyz/utils@*, @poap-xyz/utils@0.0.37, @poap-xyz/utils@workspace:packages/utils":
+"@poap-xyz/utils@*, @poap-xyz/utils@0.0.38, @poap-xyz/utils@workspace:packages/utils":
   version: 0.0.0-use.local
   resolution: "@poap-xyz/utils@workspace:packages/utils"
   languageName: unknown
