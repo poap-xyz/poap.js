@@ -17,17 +17,24 @@ const instance = axios.create({
 const DEFAULT_DROP_BASE_URL = 'https://api.poap.tech';
 
 export class PoapTokenApi implements TokensApiProvider {
+  private apiKey: string;
+  private baseUrl: string;
+  private authenticationProvider?: AuthenticationProvider;
   /**
    * Creates a new instance of the `PoapDropApi` class.
    *
    * @constructor
    * @param {string} apiKey - The API key to use for requests.
    */
-  constructor(
-    private apiKey: string,
-    private baseUrl: string = DEFAULT_DROP_BASE_URL,
-    private authenticationProvider?: AuthenticationProvider,
-  ) {}
+  constructor({
+    apiKey,
+    baseUrl = DEFAULT_DROP_BASE_URL,
+    authenticationProvider,
+  }: PoapTokenApiOptions) {
+    this.apiKey = apiKey;
+    this.baseUrl = baseUrl;
+    this.authenticationProvider = authenticationProvider;
+  }
 
   async getClaimCode(code: string): Promise<GetClaimCodeResponse> {
     return await this.secureFetch<GetClaimCodeResponse>(
@@ -93,4 +100,10 @@ export class PoapTokenApi implements TokensApiProvider {
     }
     return `Bearer ${await this.authenticationProvider.getJWT(this.baseUrl)}`;
   }
+}
+
+export interface PoapTokenApiOptions {
+  apiKey: string;
+  baseUrl?: string;
+  authenticationProvider?: AuthenticationProvider;
 }

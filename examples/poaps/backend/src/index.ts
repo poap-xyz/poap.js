@@ -21,15 +21,15 @@ async function main(): Promise<void> {
   // Use your library here
   const client = new PoapsClient(
     new PoapCompass(getRequiredEnvVar('API_KEY')),
-    new PoapTokenApi(
-      getRequiredEnvVar('API_KEY'),
-      getRequiredEnvVar('POAP_TOKEN_BASE_URL'),
-      new AuthenticationProviderHttp(
+    new PoapTokenApi({
+      apiKey: getRequiredEnvVar('API_KEY'),
+      baseUrl: getRequiredEnvVar('POAP_TOKEN_BASE_URL'),
+      authenticationProvider: new AuthenticationProviderHttp(
         getRequiredEnvVar('CLIENT_ID'),
         getRequiredEnvVar('CLIENT_SECRET'),
         getRequiredEnvVar('OAUTH_SERVER_DOMAIN'),
       ),
-    ),
+    }),
   );
   // Multiple Poaps
   await measurePerformance(
