@@ -10,7 +10,7 @@ import {
   PaginatedResult,
   nextCursor,
   creatPrivateFilter,
-  creatUndefinedOrder,
+  createUndefinedOrder,
   createBetweenFilter,
   createFilter,
   createInFilter,
@@ -58,7 +58,7 @@ export class DropsClient {
     const variables = {
       limit,
       offset,
-      orderBy: creatUndefinedOrder(sort_field, sort_dir),
+      orderBy: createUndefinedOrder(sort_field, sort_dir),
       where: {
         ...creatPrivateFilter('private', is_private),
         ...createFilter('name', name),

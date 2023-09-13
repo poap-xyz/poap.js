@@ -6,14 +6,14 @@ import {
 import { POAP } from './domain/Poap';
 import { POAPReservation } from './domain/POAPReservation';
 import { PaginatedPoapsResponse, PAGINATED_POAPS_QUERY } from './queries';
-import { FetchPoapsInput, EmailClaimtInput, WalletClaimtInput } from './types';
+import { FetchPoapsInput, EmailClaimtInput, WalletClaimInput } from './types';
 import {
   PaginatedResult,
   nextCursor,
   createBetweenFilter,
   creatEqFilter,
   createInFilter,
-  creatUndefinedOrder,
+  createUndefinedOrder,
   creatAddressFilter,
   MintingStatus,
 } from '@poap-xyz/utils';
@@ -61,7 +61,7 @@ export class PoapsClient {
     const variables = {
       limit,
       offset,
-      orderBy: creatUndefinedOrder(sort_field, sort_dir),
+      orderBy: createUndefinedOrder(sort_field, sort_dir),
       where: {
         ...creatAddressFilter(
           'collector_address',
@@ -169,10 +169,10 @@ export class PoapsClient {
   /**
    * Begins an asynchronous claim process and provides a unique queue ID in return.
    * @async
-   * @param {WalletClaimtInput} input - Details required for the claim.
+   * @param {WalletClaimInput} input - Details required for the claim.
    * @returns {Promise<string>} A unique queue ID for the initiated claim.
    */
-  async claimAsync(input: WalletClaimtInput): Promise<string> {
+  async claimAsync(input: WalletClaimInput): Promise<string> {
     const secret = await this.getCodeSecret(input.qr_hash);
 
     const response = await this.tokensApiProvider.postClaimCode({
@@ -187,13 +187,14 @@ export class PoapsClient {
 
   /**
    * Starts a synchronous claim process. The method waits for the claim to be processed and then
-   * fetches the associated POAP.
+   * fetches the associated POAP. It combines the asynchronous claim and subsequent status checking
+   * into a synchronous process for ease of use.
    * @async
-   * @param {WalletClaimtInput} input - Details needed for the claim.
-   * @returns {Promise<POAP>} The related POAP upon successful claim completion.
+   * @param {WalletClaimInput} input - Details needed for the claim.
+   * @returns {Promise<POAP>} The associated POAP upon successful claim completion.
    * @throws {FinishedWithError} If there's an error concluding the claim process.
    */
-  async claimSync(input: WalletClaimtInput): Promise<POAP> {
+  async claimSync(input: WalletClaimInput): Promise<POAP> {
     const queue_uid = await this.claimAsync(input);
 
     await this.waitClaimStatus(queue_uid);

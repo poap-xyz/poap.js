@@ -15,16 +15,26 @@ const instance = axios.create({
 });
 
 const DEFAULT_DROP_BASE_URL = 'https://api.poap.tech';
-
+/**
+ * Represents the main interface to interact with the Poap Drop API.
+ *
+ * @export
+ * @class PoapTokenApi
+ * @implements {TokensApiProvider}
+ */
 export class PoapTokenApi implements TokensApiProvider {
   private apiKey: string;
   private baseUrl: string;
   private authenticationProvider?: AuthenticationProvider;
+
   /**
-   * Creates a new instance of the `PoapDropApi` class.
+   * Constructs a new instance of the `PoapTokenApi` class.
    *
    * @constructor
-   * @param {string} apiKey - The API key to use for requests.
+   * @param {PoapTokenApiOptions} options - Configuration options for the API.
+   * @param {string} options.apiKey - The API key for authenticating requests.
+   * @param {string} [options.baseUrl=DEFAULT_DROP_BASE_URL] - The base URL for the API.
+   * @param {AuthenticationProvider} [options.authenticationProvider] - Optional provider for JWT authentication.
    */
   constructor({
     apiKey,
@@ -36,6 +46,12 @@ export class PoapTokenApi implements TokensApiProvider {
     this.authenticationProvider = authenticationProvider;
   }
 
+  /**
+   * Retrieves the claim code details.
+   *
+   * @param {string} code - The unique QR hash for the claim.
+   * @returns {Promise<GetClaimCodeResponse>} Details of the claim code.
+   */
   async getClaimCode(code: string): Promise<GetClaimCodeResponse> {
     return await this.secureFetch<GetClaimCodeResponse>(
       `${this.baseUrl}/actions/claim-qr?qr_hash=${code}`,
@@ -46,6 +62,12 @@ export class PoapTokenApi implements TokensApiProvider {
     );
   }
 
+  /**
+   * Posts a new claim code to the API.
+   *
+   * @param {ClaimCodeInput} input - The input data for the claim code.
+   * @returns {Promise<PostClaimCodeResponse>} Response from the claim code creation.
+   */
   async postClaimCode(input: ClaimCodeInput): Promise<PostClaimCodeResponse> {
     return await this.secureFetch<PostClaimCodeResponse>(
       `${this.baseUrl}/actions/claim-qr`,
@@ -57,6 +79,12 @@ export class PoapTokenApi implements TokensApiProvider {
     );
   }
 
+  /**
+   * Checks the status of a claim by its unique identifier.
+   *
+   * @param {string} uid - The unique identifier for the claim.
+   * @returns {Promise<ClaimStatusResponse>} Status details of the claim.
+   */
   async claimStatus(uid: string): Promise<ClaimStatusResponse> {
     return await this.secureFetch<ClaimStatusResponse>(
       `${this.baseUrl}/queue-message/${uid}`,
@@ -68,15 +96,13 @@ export class PoapTokenApi implements TokensApiProvider {
   }
 
   /**
-   * Sends a secure HTTP request to the Poap Drop API.
+   * Sends a secure HTTP request to the Poap Drop API with proper headers.
    *
-   * @async
    * @private
-   * @function
-   * @name PoapDropApi#secureFetch
-   * @param {string} url - The URL for the HTTP request.
-   * @param {any} options - The options for the HTTP request.
-   * @returns {Promise<R>} A Promise that resolves with the response from the API.
+   * @template R - Type of the expected response data.
+   * @param {string} url - The complete URL for the HTTP request.
+   * @param {any} options - Configuration options for the HTTP request.
+   * @returns {Promise<R>} A promise that resolves with the parsed API response.
    */
   private async secureFetch<R>(url: string, options: any): Promise<R> {
     const headersWithApiKey = {
@@ -94,6 +120,13 @@ export class PoapTokenApi implements TokensApiProvider {
     ).data;
   }
 
+  /**
+   * Retrieves the authorization token for making authenticated requests.
+   *
+   * @private
+   * @throws {MissingAuthenticationProviderError} If no authentication provider is provided.
+   * @returns {Promise<string>} The bearer token for authentication.
+   */
   private async getAuthorizationToken(): Promise<string> {
     if (!this.authenticationProvider) {
       throw new MissingAuthenticationProviderError();
@@ -102,6 +135,15 @@ export class PoapTokenApi implements TokensApiProvider {
   }
 }
 
+/**
+ * Represents the configuration options required when instantiating the `PoapTokenApi` class.
+ *
+ * @export
+ * @interface PoapTokenApiOptions
+ * @property {string} apiKey - The API key to use for authenticating requests.
+ * @property {string} [baseUrl] - The base URL for the API. Defaults to 'https://api.poap.tech'.
+ * @property {AuthenticationProvider} [authenticationProvider] - Optional provider for JWT authentication.
+ */
 export interface PoapTokenApiOptions {
   apiKey: string;
   baseUrl?: string;

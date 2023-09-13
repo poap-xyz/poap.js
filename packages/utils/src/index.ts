@@ -7,7 +7,7 @@ export { PaginatedResult } from './types/pagination';
 export { nextCursor } from './functions/nextCursor';
 export {
   filterUndefinedProperties,
-  creatUndefinedOrder,
+  createUndefinedOrder,
   createFilter,
   creatEqFilter,
   creatNeqFilter,
