@@ -1,56 +1,32 @@
 import { TokensApiProvider, GetClaimCodeResponse } from '@poap-xyz/providers';
-
-const MAX_RETRIES = 20;
-const INITIAL_DELAY = 1000;
-const BACKOFF_FACTOR = 1.2;
+import { RetryableTask } from './RetryableTask';
 
 /**
- * A utility class designed to periodically check if a POAP (Proof of Attendance Protocol) token is indexed.
- * It implements a backoff retry mechanism if the token hasn't been indexed yet.
+ * @class PoapIndexed
+ * @extends {RetryableTask}
+ *
+ * Represents a utility class designed to periodically check if a POAP (Proof of Attendance Protocol) token is indexed.
+ * This class extends `RetryableTask` to utilize its backoff retry mechanism in case the token hasn't been indexed yet.
  */
-export class PoapIndexed {
-  private retries = 0;
-  private delay: number = INITIAL_DELAY;
+export class PoapIndexed extends RetryableTask {
   private qr_hash: string;
-  private tokensApiProvider: TokensApiProvider;
 
   /**
-   * Initializes a new instance of the `PoapIndexed` class.
+   * Creates an instance of the PoapIndexed class.
    *
-   * @param {string} qr_hash - The unique QR hash of the token.
-   * @param {TokensApiProvider} tokensApiProvider - The provider to check if the token is indexed.
+   * @param {string} qr_hash - A unique QR hash representing the token.
+   * @param {TokensApiProvider} tokensApiProvider - An instance of the TokensApiProvider used to check the indexing status of the token.
    */
   constructor(qr_hash: string, tokensApiProvider: TokensApiProvider) {
+    super(tokensApiProvider);
     this.qr_hash = qr_hash;
-    this.tokensApiProvider = tokensApiProvider;
   }
 
   /**
-   * Delays the callback function based on a delay that increases after each retry.
+   * Periodically checks if the POAP token, represented by its QR hash, is indexed.
+   * This method will continue retrying with an increasing delay until either the token is indexed or it reaches the maximum allowed retries.
    *
-   * @private
-   * @param {() => Promise<GetClaimCodeResponse>} callback - The callback function to retry.
-   * @returns {Promise<GetClaimCodeResponse>} The response of the callback function.
-   */
-  private async backoffAndRetry(
-    callback: () => Promise<GetClaimCodeResponse>,
-  ): Promise<GetClaimCodeResponse> {
-    if (this.retries >= MAX_RETRIES) {
-      throw new Error('Max retries reached');
-    }
-    this.retries++;
-    this.delay *= BACKOFF_FACTOR;
-
-    await new Promise((resolve) => setTimeout(resolve, this.delay));
-    return callback();
-  }
-
-  /**
-   * Continuously checks if a POAP token is indexed.
-   * It will keep retrying based on a delay that increases each time until the token is indexed or max retries are reached.
-   *
-   * @public
-   * @returns {Promise<GetClaimCodeResponse>} A promise that resolves with the indexed token's claim code response.
+   * @returns {Promise<GetClaimCodeResponse>} A promise that either resolves with the indexed token's claim code response or rejects due to reaching the max retry limit.
    */
   public async waitPoapIndexed(): Promise<GetClaimCodeResponse> {
     let response = await this.tokensApiProvider.getClaimCode(this.qr_hash);
