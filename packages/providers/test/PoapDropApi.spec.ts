@@ -17,7 +17,7 @@ describe('PoapDropApi', () => {
     mock = new MockAdapter(axios);
     apiKey = 'test-api-key';
     baseUrl = 'https://api.poap.test';
-    api = new PoapDropApi(apiKey, baseUrl);
+    api = new PoapDropApi({ apiKey, baseUrl });
   });
 
   afterEach(() => {
