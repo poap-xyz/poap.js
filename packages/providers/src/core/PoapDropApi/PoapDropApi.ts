@@ -8,9 +8,9 @@ import {
   UpdateDropInput,
 } from '../../ports/DropApiProvider/Types';
 import FormData from 'form-data';
-import axios from 'axios';
+import axios, { AxiosInstance } from 'axios';
 
-const DROP_BASE_URL = 'https://api.poap.tech';
+const DEFAULT_DROP_BASE_URL = 'https://api.poap.tech';
 
 /**
  * A class that implements the `DropApiProvider` interface for interacting with the Poap Drop API.
@@ -19,17 +19,23 @@ const DROP_BASE_URL = 'https://api.poap.tech';
  * @implements {DropApiProvider}
  */
 export class PoapDropApi implements DropApiProvider {
+  private apiKey: string;
+  private baseUrl: string;
+  private poapApi: AxiosInstance;
+
   /**
    * Creates a new instance of the `PoapDropApi` class.
    *
    * @constructor
-   * @param {string} apiKey - The API key to use for requests.
-   * @param {HttpProvider} HttpProvider - An instance of the `HttpProvider` class for making HTTP requests.
+   * @param {PoapDropApiConfig} config - Configuration object containing the API key and optional base URL.
    */
-  constructor(
-    private apiKey: string,
-    private baseUrl: string = DROP_BASE_URL,
-  ) {}
+  constructor(config: PoapDropApiConfig) {
+    this.apiKey = config.apiKey;
+    this.baseUrl = config.baseUrl || DEFAULT_DROP_BASE_URL;
+    this.poapApi = axios.create({
+      timeout: 10000, // 10 seconds
+    });
+  }
 
   /**
    * Creates a new drop on the Poap Drop API.
@@ -62,6 +68,7 @@ export class PoapDropApi implements DropApiProvider {
       },
     });
   }
+
   /**
    * Updates an existing drop on the Poap Drop API.
    *
@@ -98,11 +105,23 @@ export class PoapDropApi implements DropApiProvider {
     };
 
     return (
-      await axios(url, {
+      await this.poapApi(url, {
         method: options.method,
         data: options.body,
         headers: headersWithApiKey,
       })
     ).data;
   }
+}
+
+/**
+ * Configuration interface for the PoapDropApi class.
+ *
+ * @interface
+ * @property {string} apiKey - The API key to use for requests.
+ * @property {string} [baseUrl] - Optional base URL to override the default one.
+ */
+export interface PoapDropApiConfig {
+  apiKey: string;
+  baseUrl?: string;
 }

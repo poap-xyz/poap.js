@@ -1,5 +1,7 @@
 export class FinishedWithError extends Error {
-  constructor(error: string) {
-    super(`Finished with error: '${error}', please try again later `);
+  constructor(error: string, code: string) {
+    super(
+      `Code: '${code}', finished with error: '${error}', please try again later `,
+    );
   }
 }

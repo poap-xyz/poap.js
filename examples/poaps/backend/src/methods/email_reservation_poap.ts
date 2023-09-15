@@ -6,7 +6,7 @@ export const email_reservation_poap = async (
 ): Promise<void> => {
   try {
     const data: POAPReservation = await client.emailReservation({
-      qr_hash: 'your_qr_hash',
+      qrHash: 'your_qr_hash',
       email: 'your@email.io',
       sendEmail: true,
     });

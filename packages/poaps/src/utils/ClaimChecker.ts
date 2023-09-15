@@ -9,16 +9,23 @@ import { RetryableTask } from './RetryableTask';
  */
 export class ClaimChecker extends RetryableTask {
   private queue_uid: string;
+  private qr_hash: string;
 
   /**
    * Constructs a new instance of the ClaimChecker class.
    *
    * @param {string} queue_uid - The unique identifier for the token claim.
+   * @param {string} qr_hash - The unique code for the token claim.
    * @param {TokensApiProvider} tokensApiProvider - The provider to fetch the claim status.
    */
-  constructor(queue_uid: string, tokensApiProvider: TokensApiProvider) {
+  constructor(
+    queue_uid: string,
+    tokensApiProvider: TokensApiProvider,
+    qr_hash: string,
+  ) {
     super(tokensApiProvider);
     this.queue_uid = queue_uid;
+    this.qr_hash = qr_hash;
   }
 
   /**
@@ -42,12 +49,15 @@ export class ClaimChecker extends RetryableTask {
    * @param {ClaimStatusResponse} claimStatusResponse - The response from the claim status check.
    * @throws {FinishedWithError} Throws an error if the minting process finished with an error.
    */
-  private handleErrorStatus(claimStatusResponse: ClaimStatusResponse): void {
+  private handleErrorStatus(
+    claimStatusResponse: ClaimStatusResponse,
+    qr_hash: string,
+  ): void {
     if (
       claimStatusResponse.status === MintingStatus.FINISH_WITH_ERROR &&
       claimStatusResponse.result?.error
     ) {
-      throw new FinishedWithError(claimStatusResponse.result?.error);
+      throw new FinishedWithError(claimStatusResponse.result?.error, qr_hash);
     }
   }
 
@@ -68,7 +78,7 @@ export class ClaimChecker extends RetryableTask {
       if (this.shouldRetry(claimStatusResponse.status)) {
         await this.backoffAndRetry(() => this.checkClaimStatus());
       } else {
-        this.handleErrorStatus(claimStatusResponse);
+        this.handleErrorStatus(claimStatusResponse, this.qr_hash);
       }
     } catch (e) {
       await this.backoffAndRetry(() => this.checkClaimStatus());

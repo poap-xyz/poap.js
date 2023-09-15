@@ -20,7 +20,9 @@ dotenv.config();
 async function main(): Promise<void> {
   // Use your library here
   const client = new PoapsClient(
-    new PoapCompass(getRequiredEnvVar('API_KEY')),
+    new PoapCompass({
+      apiKey: getRequiredEnvVar('API_KEY'),
+    }),
     new PoapTokenApi({
       apiKey: getRequiredEnvVar('API_KEY'),
       baseUrl: getRequiredEnvVar('POAP_TOKEN_BASE_URL'),

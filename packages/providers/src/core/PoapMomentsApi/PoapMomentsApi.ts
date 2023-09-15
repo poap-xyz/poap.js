@@ -6,7 +6,7 @@ import { AuthenticationProvider } from '../../ports';
 import axios, { AxiosError } from 'axios';
 import { MediaStatus } from './Types/MediaStatus';
 
-const MOMENTS_BASE_URL = 'https://moments.poap.tech';
+const DEFAULT_MOMENTS_BASE_URL = 'https://moments.poap.tech';
 
 /**
  * PoapMomentsApi class provides methods to interact with the POAP Moments API
@@ -26,7 +26,7 @@ export class PoapMomentsApi implements MomentsApiProvider {
     baseUrl?: string;
     authenticationProvider?: AuthenticationProvider;
   }) {
-    this.baseUrl = params.baseUrl ?? MOMENTS_BASE_URL;
+    this.baseUrl = params.baseUrl ?? DEFAULT_MOMENTS_BASE_URL;
     this.authenticationProvider = params.authenticationProvider;
   }
 

@@ -6,7 +6,7 @@ import {
 import { POAP } from './domain/Poap';
 import { POAPReservation } from './domain/POAPReservation';
 import { PaginatedPoapsResponse, PAGINATED_POAPS_QUERY } from './queries';
-import { FetchPoapsInput, EmailClaimtInput, WalletClaimInput } from './types';
+import { FetchPoapsInput, EmailClaimInput, WalletClaimInput } from './types';
 import {
   PaginatedResult,
   nextCursor,
@@ -48,29 +48,29 @@ export class PoapsClient {
       limit,
       offset,
       chain,
-      collector_address,
-      minted_date_from,
-      minted_date_to,
+      collectorAddress,
+      mintedDateFrom,
+      mintedDateTo,
       ids,
-      drop_id,
-      sort_field,
-      sort_dir,
-      filter_by_zero_address = true,
+      dropId,
+      sortField,
+      sortDir,
+      filterByZeroAddress = true,
     } = input;
 
     const variables = {
       limit,
       offset,
-      orderBy: createUndefinedOrder(sort_field, sort_dir),
+      orderBy: createUndefinedOrder(sortField, sortDir),
       where: {
         ...creatAddressFilter(
           'collector_address',
-          filter_by_zero_address,
-          collector_address,
+          filterByZeroAddress,
+          collectorAddress,
         ),
         ...creatEqFilter('chain', chain),
-        ...creatEqFilter('drop_id', drop_id),
-        ...createBetweenFilter('minted_on', minted_date_from, minted_date_to),
+        ...creatEqFilter('drop_id', dropId),
+        ...createBetweenFilter('minted_on', mintedDateFrom, mintedDateTo),
         ...createInFilter('id', ids),
       },
     };
@@ -81,16 +81,21 @@ export class PoapsClient {
     );
     const poaps = data.poaps.map((poap) => {
       const { drop } = poap;
-      const minted_on = new Date(0);
-      minted_on.setUTCSeconds(poap.minted_on);
+      const mintedOn = new Date(0);
+      mintedOn.setUTCSeconds(poap.minted_on);
       return new POAP({
-        ...poap,
-        ...drop,
         id: Number(poap.id),
-        minted_on,
-        drop_id: Number(poap.drop_id),
-        start_date: new Date(drop.start_date),
-        end_date: new Date(drop.end_date),
+        collectorAddress: poap.collector_address,
+        transferCount: poap.transfer_count,
+        mintedOn,
+        dropId: Number(poap.drop_id),
+        imageUrl: drop.image_url,
+        city: drop.city,
+        country: drop.country,
+        description: drop.description,
+        startDate: new Date(drop.start_date),
+        name: drop.name,
+        endDate: new Date(drop.end_date),
       });
     });
 
@@ -103,19 +108,19 @@ export class PoapsClient {
   /**
    * Retrieves the secret code associated with a QR hash.
    * @async
-   * @param {string} qr_hash - The QR hash for which to get the secret.
+   * @param {string} qrHash - The QR hash for which to get the secret.
    * @returns {Promise<string>} The associated secret code.
    * @throws {CodeAlreadyClaimedError} Thrown when the QR code has already been claimed.
    * @throws {CodeExpiredError} Thrown when the QR code is expired.
    */
-  private async getCodeSecret(qr_hash: string): Promise<string> {
-    const getCodeResponse = await this.getClaimCode(qr_hash);
+  private async getCodeSecret(qrHash: string): Promise<string> {
+    const getCodeResponse = await this.getClaimCode(qrHash);
 
     if (getCodeResponse.claimed == true) {
-      throw new CodeAlreadyClaimedError(qr_hash);
+      throw new CodeAlreadyClaimedError(qrHash);
     }
     if (getCodeResponse.is_active == false) {
-      throw new CodeExpiredError(qr_hash);
+      throw new CodeExpiredError(qrHash);
     }
 
     return getCodeResponse.secret;
@@ -124,22 +129,22 @@ export class PoapsClient {
   /**
    * Retrieves claim code details for a specific QR hash.
    * @async
-   * @param {string} qr_hash - The QR hash for which to get the claim code.
+   * @param {string} qrhash - The QR hash for which to get the claim code.
    * @returns {Promise<GetClaimCodeResponse>} The claim code details.
    */
-  async getClaimCode(qr_hash: string): Promise<GetClaimCodeResponse> {
-    return await this.tokensApiProvider.getClaimCode(qr_hash);
+  async getClaimCode(qrhash: string): Promise<GetClaimCodeResponse> {
+    return await this.tokensApiProvider.getClaimCode(qrhash);
   }
 
   /**
    * Fetches the current status of a claim based on its unique ID.
    * @async
-   * @param {string} queue_uid - The unique ID of the claim.
+   * @param {string} queueUid - The unique ID of the claim.
    * @returns {Promise<MintingStatus>} The current status of the claim.
    */
-  async getClaimStatus(queue_uid: string): Promise<MintingStatus> {
+  async getClaimStatus(queueUid: string): Promise<MintingStatus> {
     const claimStatusResponse = await this.tokensApiProvider.claimStatus(
-      queue_uid,
+      queueUid,
     );
     return claimStatusResponse.status;
   }
@@ -147,22 +152,22 @@ export class PoapsClient {
   /**
    * Awaits until the claim's status changes from 'IN_PROCESS' or 'PENDING'.
    * @async
-   * @param {string} queue_uid - The unique ID of the claim.
+   * @param {string} queueUid - The unique ID of the claim.
    * @returns {Promise<void>}
    */
-  async waitClaimStatus(queue_uid: string): Promise<void> {
-    const checker = new ClaimChecker(queue_uid, this.tokensApiProvider);
+  async waitClaimStatus(queueUid: string, qrHash: string): Promise<void> {
+    const checker = new ClaimChecker(queueUid, this.tokensApiProvider, qrHash);
     await checker.checkClaimStatus();
   }
 
   /**
    * Awaits until a specific POAP, identified by its QR hash, is indexed.
    * @async
-   * @param {string} qr_hash - The QR hash identifying the POAP to be indexed.
+   * @param {string} qrHash - The QR hash identifying the POAP to be indexed.
    * @returns {Promise<GetClaimCodeResponse>} Details of the indexed POAP.
    */
-  async waitPoapIndexed(qr_hash: string): Promise<GetClaimCodeResponse> {
-    const checker = new PoapIndexed(qr_hash, this.tokensApiProvider);
+  async waitPoapIndexed(qrHash: string): Promise<GetClaimCodeResponse> {
+    const checker = new PoapIndexed(qrHash, this.tokensApiProvider);
     return await checker.waitPoapIndexed();
   }
 
@@ -173,11 +178,11 @@ export class PoapsClient {
    * @returns {Promise<string>} A unique queue ID for the initiated claim.
    */
   async claimAsync(input: WalletClaimInput): Promise<string> {
-    const secret = await this.getCodeSecret(input.qr_hash);
+    const secret = await this.getCodeSecret(input.qrHash);
 
     const response = await this.tokensApiProvider.postClaimCode({
       address: input.address,
-      qr_hash: input.qr_hash,
+      qr_hash: input.qrHash,
       secret: secret,
       sendEmail: false,
     });
@@ -195,11 +200,11 @@ export class PoapsClient {
    * @throws {FinishedWithError} If there's an error concluding the claim process.
    */
   async claimSync(input: WalletClaimInput): Promise<POAP> {
-    const queue_uid = await this.claimAsync(input);
+    const queueUid = await this.claimAsync(input);
 
-    await this.waitClaimStatus(queue_uid);
+    await this.waitClaimStatus(queueUid, input.qrHash);
 
-    const getCodeResponse = await this.waitPoapIndexed(input.qr_hash);
+    const getCodeResponse = await this.waitPoapIndexed(input.qrHash);
 
     return (
       await this.fetch({
@@ -213,28 +218,28 @@ export class PoapsClient {
   /**
    * Reserves a POAP against an email address and provides reservation details.
    * @async
-   * @param {EmailClaimtInput} input - Information for the reservation.
+   * @param {EmailClaimInput} input - Information for the reservation.
    * @returns {Promise<POAPReservation>} The reservation details of the POAP.
    */
-  async emailReservation(input: EmailClaimtInput): Promise<POAPReservation> {
-    const secret = await this.getCodeSecret(input.qr_hash);
+  async emailReservation(input: EmailClaimInput): Promise<POAPReservation> {
+    const secret = await this.getCodeSecret(input.qrHash);
 
     const response = await this.tokensApiProvider.postClaimCode({
       address: input.email,
-      qr_hash: input.qr_hash,
+      qr_hash: input.qrHash,
       secret: secret,
       sendEmail: input.sendEmail || true,
     });
 
     return new POAPReservation({
       email: input.email,
-      drop_id: response.event.id,
-      image_url: response.event.image_url,
+      dropId: response.event.id,
+      imageUrl: response.event.image_url,
       city: response.event.city,
       country: response.event.country,
       description: response.event.description,
-      start_date: new Date(response.event.start_date),
-      end_date: new Date(response.event.end_date),
+      startDate: new Date(response.event.start_date),
+      endDate: new Date(response.event.end_date),
       name: response.event.name,
     });
   }

@@ -11,6 +11,7 @@ import { TokensApiProvider } from './../../ports/TokensApiProvider/TokensApiProv
 import axios, { AxiosInstance } from 'axios';
 
 const DEFAULT_DROP_BASE_URL = 'https://api.poap.tech';
+
 /**
  * Represents the main interface to interact with the Poap Drop API.
  *

@@ -27,21 +27,21 @@ export interface FetchPoapsInput extends PaginationInput {
   /** Optional filter for the blockchain chain of a Poap. */
   chain?: Chain;
   /** Optional filter for the start date when a Poap was minted. */
-  minted_date_from?: string;
+  mintedDateFrom?: string;
   /** Optional filter for the end date when a Poap was minted. */
-  minted_date_to?: string;
+  mintedDateTo?: string;
   /** Optional filter for specific Poap IDs. */
   ids?: number[];
   /** Optional filter for the collector's address. */
-  collector_address?: string;
+  collectorAddress?: string;
   /** Optional filter for a specific drop ID. */
-  drop_id?: number;
+  dropId?: number;
   /** Field by which to sort the results. */
-  sort_field?: PoapsSortFields;
+  sortField?: PoapsSortFields;
   /** Direction in which to sort the results. */
-  sort_dir?: Order;
+  sortDir?: Order;
   /** Filter to include/exclude Poaps with zero addresses. */
-  filter_by_zero_address?: boolean;
+  filterByZeroAddress?: boolean;
 }
 
 /**
@@ -51,7 +51,7 @@ export interface FetchPoapsInput extends PaginationInput {
  * @interface WalletClaimInput
  */
 export interface WalletClaimInput {
-  qr_hash: string;
+  qrHash: string;
   address: string;
 }
 
@@ -59,10 +59,10 @@ export interface WalletClaimInput {
  * Represents the input fields required to claim a Poap via email.
  *
  * @export
- * @interface EmailClaimtInput
+ * @interface EmailClaimInput
  */
-export interface EmailClaimtInput {
-  qr_hash: string;
+export interface EmailClaimInput {
+  qrHash: string;
   email: string;
   sendEmail?: boolean;
 }

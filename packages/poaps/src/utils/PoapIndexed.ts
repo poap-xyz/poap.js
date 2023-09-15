@@ -9,17 +9,17 @@ import { RetryableTask } from './RetryableTask';
  * This class extends `RetryableTask` to utilize its backoff retry mechanism in case the token hasn't been indexed yet.
  */
 export class PoapIndexed extends RetryableTask {
-  private qr_hash: string;
+  private qrHash: string;
 
   /**
    * Creates an instance of the PoapIndexed class.
    *
-   * @param {string} qr_hash - A unique QR hash representing the token.
+   * @param {string} qrHash - A unique QR hash representing the token.
    * @param {TokensApiProvider} tokensApiProvider - An instance of the TokensApiProvider used to check the indexing status of the token.
    */
-  constructor(qr_hash: string, tokensApiProvider: TokensApiProvider) {
+  constructor(qrHash: string, tokensApiProvider: TokensApiProvider) {
     super(tokensApiProvider);
-    this.qr_hash = qr_hash;
+    this.qrHash = qrHash;
   }
 
   /**
@@ -29,10 +29,10 @@ export class PoapIndexed extends RetryableTask {
    * @returns {Promise<GetClaimCodeResponse>} A promise that either resolves with the indexed token's claim code response or rejects due to reaching the max retry limit.
    */
   public async waitPoapIndexed(): Promise<GetClaimCodeResponse> {
-    let response = await this.tokensApiProvider.getClaimCode(this.qr_hash);
+    let response = await this.tokensApiProvider.getClaimCode(this.qrHash);
     while (response.result == null) {
       response = await this.backoffAndRetry(() =>
-        this.tokensApiProvider.getClaimCode(this.qr_hash),
+        this.tokensApiProvider.getClaimCode(this.qrHash),
       );
     }
     return response;
