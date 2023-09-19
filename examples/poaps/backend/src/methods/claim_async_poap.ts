@@ -16,13 +16,13 @@ import { handleError } from '../utils/handleError';
 export const claim_async_poap = async (client: PoapsClient): Promise<void> => {
   try {
     // Initiate the asynchronous claim process
-    const queue_uid: string = await client.claimAsync({
+    const queueUid: string = await client.claimAsync({
       poapCode: 'your_poap_code',
       address: 'your_address',
     });
 
     // Wait for the claim's status to transition from 'IN_PROCESS' or 'PENDING' states
-    await client.waitClaimStatus(queue_uid, 'your_poap_code');
+    await client.waitClaimStatus(queueUid, 'your_poap_code');
 
     // Wait for the claimed POAP to be indexed and fetch the claim code information related to the QR hash
     const getClaimCodeResponse = await client.waitPoapIndexed('your_poap_code');

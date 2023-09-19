@@ -1,7 +1,7 @@
 export const getRequiredEnvVar = (envVarName: string): string => {
-  const env_var = process.env[envVarName];
-  if (env_var === undefined) {
+  const envVar = process.env[envVarName];
+  if (envVar === undefined) {
     throw new Error(`Environment variable ${envVarName} is required`);
   }
-  return env_var;
+  return envVar;
 };

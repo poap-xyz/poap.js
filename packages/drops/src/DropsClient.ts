@@ -30,8 +30,8 @@ export class DropsClient {
    * @param {DropApiProvider} DropApiProvider - The provider for the POAP drop API.
    */
   constructor(
-    private CompassProvider: CompassProvider,
-    private DropApiProvider: DropApiProvider,
+    private compassProvider: CompassProvider,
+    private dropApiProvider: DropApiProvider,
   ) {}
 
   /**
@@ -67,7 +67,7 @@ export class DropsClient {
       },
     };
 
-    const { data } = await this.CompassProvider.request<PaginatedDropsResponse>(
+    const { data } = await this.compassProvider.request<PaginatedDropsResponse>(
       PAGINATED_DROPS_QUERY,
       variables,
     );
@@ -121,7 +121,7 @@ export class DropsClient {
    * @returns {Promise<Drop>} The newly created drop.
    */
   async create(input: CreateDropsInput): Promise<Drop> {
-    const repsonse = await this.DropApiProvider.createDrop({
+    const repsonse = await this.dropApiProvider.createDrop({
       name: input.name,
       description: input.description,
       city: input.city,
@@ -152,7 +152,7 @@ export class DropsClient {
    * @returns {Promise<Drop>} The updated drop.
    */
   async update(input: UpdateDropsInput): Promise<Drop> {
-    const repsonse = await this.DropApiProvider.updateDrop({
+    const repsonse = await this.dropApiProvider.updateDrop({
       name: input.name,
       description: input.description,
       country: input.country,
