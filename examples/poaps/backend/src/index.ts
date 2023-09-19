@@ -9,9 +9,9 @@ import { fetch_multiple_poaps } from './methods/fetch_multiple_poaps';
 import { fetch_single_poap } from './methods/fetch_single_poap';
 import { fetch_multiple_poaps_by_collector } from './methods/fetch_multiple_poaps_by_collector';
 import { fetch_multiple_poaps_by_drop_id } from './methods/fetch_multiple_poaps_by_drop_id';
-import { claim_sync_poap } from './methods/claim_sync_poap';
+import { mint_sync_poap } from './methods/mint_sync_poap';
 import { getRequiredEnvVar } from './methods/get_required_env_var';
-import { claim_async_poap } from './methods/claim_async_poap';
+import { mint_async_poap } from './methods/mint_async_poap';
 import { email_reservation_poap } from './methods/email_reservation_poap';
 import dotenv from 'dotenv';
 
@@ -53,10 +53,10 @@ async function main(): Promise<void> {
     () => fetch_multiple_poaps_by_drop_id(client),
     'fetch_multiple_poaps_by_drop_id',
   );
-  // Claim Sync Poap
-  await measurePerformance(() => claim_sync_poap(client), 'claim_sync_poap');
-  // Claim Async Poap
-  await measurePerformance(() => claim_async_poap(client), 'claim_async_poap');
+  // mint Sync Poap
+  await measurePerformance(() => mint_sync_poap(client), 'mint_sync_poap');
+  // mint Async Poap
+  await measurePerformance(() => mint_async_poap(client), 'mint_async_poap');
   // Email Reservation Poap
   await measurePerformance(
     () => email_reservation_poap(client),

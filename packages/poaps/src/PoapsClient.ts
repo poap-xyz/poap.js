@@ -1,12 +1,16 @@
 import {
   CompassProvider,
   TokensApiProvider,
-  GetClaimCodeResponse,
+  GetMintCodeResponse,
 } from '@poap-xyz/providers';
 import { POAP } from './domain/Poap';
 import { POAPReservation } from './domain/POAPReservation';
 import { PaginatedPoapsResponse, PAGINATED_POAPS_QUERY } from './queries';
-import { FetchPoapsInput, EmailClaimInput, WalletClaimInput } from './types';
+import {
+  FetchPoapsInput,
+  EmailReservationInput,
+  WalletMintInput,
+} from './types';
 import {
   PaginatedResult,
   nextCursor,
@@ -17,9 +21,9 @@ import {
   creatAddressFilter,
   MintingStatus,
 } from '@poap-xyz/utils';
-import { CodeAlreadyClaimedError } from './errors/CodeAlreadyClaimedError';
+import { CodeAlreadyMintedError } from './errors/CodeAlreadyMintedError';
 import { CodeExpiredError } from './errors/CodeExpiredError';
-import { ClaimChecker } from './utils/ClaimChecker';
+import { MintChecker } from './utils/MintChecker';
 import { PoapIndexed } from './utils/PoapIndexed';
 
 /**
@@ -108,85 +112,81 @@ export class PoapsClient {
   /**
    * Retrieves the secret code associated with a POAP code.
    * @async
-   * @param {string} poapCode - The POAP code for which to get the secret.
+   * @param {string} mintCode - The POAP code for which to get the secret.
    * @returns {Promise<string>} The associated secret code.
-   * @throws {CodeAlreadyClaimedError} Thrown when the POAP code has already been claimed.
+   * @throws {CodeAlreadyMintedError} Thrown when the POAP code has already been minted.
    * @throws {CodeExpiredError} Thrown when the POAP code is expired.
    */
-  private async getSecretCode(poapCode: string): Promise<string> {
-    const getCodeResponse = await this.getClaimCode(poapCode);
+  private async getSecretCode(mintCode: string): Promise<string> {
+    const getCodeResponse = await this.getMintCode(mintCode);
 
     if (getCodeResponse.claimed == true) {
-      throw new CodeAlreadyClaimedError(poapCode);
+      throw new CodeAlreadyMintedError(mintCode);
     }
     if (getCodeResponse.is_active == false) {
-      throw new CodeExpiredError(poapCode);
+      throw new CodeExpiredError(mintCode);
     }
 
     return getCodeResponse.secret;
   }
 
   /**
-   * Retrieves claim code details for a specific QR hash.
+   * Retrieves mint code details for a specific QR hash.
    * @async
-   * @param {string} poapCode - The QR hash for which to get the claim code.
-   * @returns {Promise<GetClaimCodeResponse>} The claim code details.
+   * @param {string} mintCode - The QR hash for which to get the mint code.
+   * @returns {Promise<GetMintCodeResponse>} The mint code details.
    */
-  async getClaimCode(poapCode: string): Promise<GetClaimCodeResponse> {
-    return await this.tokensApiProvider.getClaimCode(poapCode);
+  async getMintCode(mintCode: string): Promise<GetMintCodeResponse> {
+    return await this.tokensApiProvider.getMintCode(mintCode);
   }
 
   /**
-   * Fetches the current status of a claim based on its unique ID.
+   * Fetches the current status of a mint based on its unique ID.
    * @async
-   * @param {string} queueUid - The unique ID of the claim.
-   * @returns {Promise<MintingStatus>} The current status of the claim.
+   * @param {string} queueUid - The unique ID of the mint.
+   * @returns {Promise<MintingStatus>} The current status of the mint.
    */
-  async getClaimStatus(queueUid: string): Promise<MintingStatus> {
-    const claimStatusResponse = await this.tokensApiProvider.claimStatus(
+  async getMintStatus(queueUid: string): Promise<MintingStatus> {
+    const mintStatusResponse = await this.tokensApiProvider.mintStatus(
       queueUid,
     );
-    return claimStatusResponse.status;
+    return mintStatusResponse.status;
   }
 
   /**
-   * Awaits until the claim's status changes from 'IN_PROCESS' or 'PENDING'.
+   * Awaits until the mint's status changes from 'IN_PROCESS' or 'PENDING'.
    * @async
-   * @param {string} queueUid - The unique ID of the claim.
+   * @param {string} queueUid - The unique ID of the mint.
    * @returns {Promise<void>}
    */
-  async waitClaimStatus(queueUid: string, poapCode: string): Promise<void> {
-    const checker = new ClaimChecker(
-      queueUid,
-      this.tokensApiProvider,
-      poapCode,
-    );
-    await checker.checkClaimStatus();
+  async waitMintStatus(queueUid: string, mintCode: string): Promise<void> {
+    const checker = new MintChecker(queueUid, this.tokensApiProvider, mintCode);
+    await checker.checkMintStatus();
   }
 
   /**
    * Awaits until a specific POAP, identified by its QR hash, is indexed.
    * @async
-   * @param {string} poapCode - The QR hash identifying the POAP to be indexed.
-   * @returns {Promise<GetClaimCodeResponse>} Details of the indexed POAP.
+   * @param {string} mintCode - The QR hash identifying the POAP to be indexed.
+   * @returns {Promise<GetMintCodeResponse>} Details of the indexed POAP.
    */
-  async waitPoapIndexed(poapCode: string): Promise<GetClaimCodeResponse> {
-    const checker = new PoapIndexed(poapCode, this.tokensApiProvider);
+  async waitPoapIndexed(mintCode: string): Promise<GetMintCodeResponse> {
+    const checker = new PoapIndexed(mintCode, this.tokensApiProvider);
     return await checker.waitPoapIndexed();
   }
 
   /**
-   * Begins an asynchronous claim process and provides a unique queue ID in return.
+   * Begins an asynchronous mint process and provides a unique queue ID in return.
    * @async
-   * @param {WalletClaimInput} input - Details required for the claim.
-   * @returns {Promise<string>} A unique queue ID for the initiated claim.
+   * @param {WalletMintInput} input - Details required for the mint.
+   * @returns {Promise<string>} A unique queue ID for the initiated mint.
    */
-  async claimAsync(input: WalletClaimInput): Promise<string> {
-    const secret = await this.getSecretCode(input.poapCode);
+  async mintAsync(input: WalletMintInput): Promise<string> {
+    const secret = await this.getSecretCode(input.mintCode);
 
-    const response = await this.tokensApiProvider.postClaimCode({
+    const response = await this.tokensApiProvider.postMintCode({
       address: input.address,
-      qr_hash: input.poapCode,
+      qr_hash: input.mintCode,
       secret: secret,
       sendEmail: false,
     });
@@ -195,20 +195,20 @@ export class PoapsClient {
   }
 
   /**
-   * Starts a synchronous claim process. The method waits for the claim to be processed and then
-   * fetches the associated POAP. It combines the asynchronous claim and subsequent status checking
+   * Starts a synchronous mint process. The method waits for the mint to be processed and then
+   * fetches the associated POAP. It combines the asynchronous mint and subsequent status checking
    * into a synchronous process for ease of use.
    * @async
-   * @param {WalletClaimInput} input - Details needed for the claim.
-   * @returns {Promise<POAP>} The associated POAP upon successful claim completion.
-   * @throws {FinishedWithError} If there's an error concluding the claim process.
+   * @param {WalletMintInput} input - Details needed for the mint.
+   * @returns {Promise<POAP>} The associated POAP upon successful mint completion.
+   * @throws {FinishedWithError} If there's an error concluding the mint process.
    */
-  async claimSync(input: WalletClaimInput): Promise<POAP> {
-    const queueUid = await this.claimAsync(input);
+  async mintSync(input: WalletMintInput): Promise<POAP> {
+    const queueUid = await this.mintAsync(input);
 
-    await this.waitClaimStatus(queueUid, input.poapCode);
+    await this.waitMintStatus(queueUid, input.mintCode);
 
-    const getCodeResponse = await this.waitPoapIndexed(input.poapCode);
+    const getCodeResponse = await this.waitPoapIndexed(input.mintCode);
 
     return (
       await this.fetch({
@@ -222,15 +222,17 @@ export class PoapsClient {
   /**
    * Reserves a POAP against an email address and provides reservation details.
    * @async
-   * @param {EmailClaimInput} input - Information for the reservation.
+   * @param {EmailReservationInput} input - Information for the reservation.
    * @returns {Promise<POAPReservation>} The reservation details of the POAP.
    */
-  async emailReservation(input: EmailClaimInput): Promise<POAPReservation> {
-    const secret = await this.getSecretCode(input.poapCode);
+  async emailReservation(
+    input: EmailReservationInput,
+  ): Promise<POAPReservation> {
+    const secret = await this.getSecretCode(input.mintCode);
 
-    const response = await this.tokensApiProvider.postClaimCode({
+    const response = await this.tokensApiProvider.postMintCode({
       address: input.email,
-      qr_hash: input.poapCode,
+      qr_hash: input.mintCode,
       secret: secret,
       sendEmail: input.sendEmail || true,
     });

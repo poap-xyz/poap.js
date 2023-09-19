@@ -45,24 +45,24 @@ export interface FetchPoapsInput extends PaginationInput {
 }
 
 /**
- * Represents the input fields required to claim a Poap for a wallet.
+ * Represents the input fields required to mint a Poap for a wallet.
  *
  * @export
- * @interface WalletClaimInput
+ * @interface WalletMintInput
  */
-export interface WalletClaimInput {
-  poapCode: string;
+export interface WalletMintInput {
+  mintCode: string;
   address: string;
 }
 
 /**
- * Represents the input fields required to claim a Poap via email.
+ * Represents the input fields required to reserve a Poap via email.
  *
  * @export
- * @interface EmailClaimInput
+ * @interface EmailReservationInput
  */
-export interface EmailClaimInput {
-  poapCode: string;
+export interface EmailReservationInput {
+  mintCode: string;
   email: string;
   sendEmail?: boolean;
 }

@@ -1,8 +1,8 @@
 import {
-  GetClaimCodeResponse,
-  PostClaimCodeResponse,
-  ClaimCodeInput,
-  ClaimStatusResponse,
+  GetMintCodeResponse,
+  PostMintCodeResponse,
+  MintCodeInput,
+  MintStatusResponse,
 } from './Types';
 
 /**
@@ -11,7 +11,7 @@ import {
  * @interface TokensApiProvider
  */
 export interface TokensApiProvider {
-  getClaimCode(code: string): Promise<GetClaimCodeResponse>;
-  postClaimCode(input: ClaimCodeInput): Promise<PostClaimCodeResponse>;
-  claimStatus(uid: string): Promise<ClaimStatusResponse>;
+  getMintCode(code: string): Promise<GetMintCodeResponse>;
+  postMintCode(input: MintCodeInput): Promise<PostMintCodeResponse>;
+  mintStatus(uid: string): Promise<MintStatusResponse>;
 }

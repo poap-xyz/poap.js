@@ -1,6 +1,6 @@
 import { MintingStatus } from '@poap-xyz/utils';
 
-export interface GetClaimCodeResponse {
+export interface GetMintCodeResponse {
   id: number;
   qr_hash: string;
   tx_hash: string;
@@ -20,7 +20,7 @@ export interface GetClaimCodeResponse {
   };
 }
 
-export interface PostClaimCodeResponse {
+export interface PostMintCodeResponse {
   id: number;
   qr_hash: string;
   queue_uid: string;
@@ -35,7 +35,7 @@ export interface PostClaimCodeResponse {
   event: DropEvent;
 }
 
-export interface ClaimStatusResponse {
+export interface MintStatusResponse {
   uid: number;
   operation: string;
   status: MintingStatus;

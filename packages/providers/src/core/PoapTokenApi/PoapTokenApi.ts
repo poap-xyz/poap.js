@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { MissingAuthenticationProviderError } from './../../ports/AuthenticationProvider/errors/MissingAuthenticationProviderError';
 import {
-  PostClaimCodeResponse,
-  ClaimStatusResponse,
-  GetClaimCodeResponse,
+  PostMintCodeResponse,
+  MintStatusResponse,
+  GetMintCodeResponse,
 } from './../../ports/TokensApiProvider/Types/response';
-import { ClaimCodeInput } from './../../ports/TokensApiProvider/Types/input';
+import { MintCodeInput } from './../../ports/TokensApiProvider/Types/input';
 import { AuthenticationProvider } from './../../ports/AuthenticationProvider/AuthenticationProvider';
 import { TokensApiProvider } from './../../ports/TokensApiProvider/TokensApiProvider';
 import axios, { AxiosInstance } from 'axios';
@@ -47,13 +47,13 @@ export class PoapTokenApi implements TokensApiProvider {
   }
 
   /**
-   * Retrieves the claim code details.
+   * Retrieves the mint code details.
    *
-   * @param {string} code - The unique QR hash for the claim.
-   * @returns {Promise<GetClaimCodeResponse>} Details of the claim code.
+   * @param {string} code - The unique QR hash for the mint.
+   * @returns {Promise<GetMintCodeResponse>} Details of the mint code.
    */
-  async getClaimCode(code: string): Promise<GetClaimCodeResponse> {
-    return await this.secureFetch<GetClaimCodeResponse>(
+  async getMintCode(code: string): Promise<GetMintCodeResponse> {
+    return await this.secureFetch<GetMintCodeResponse>(
       `${this.baseUrl}/actions/claim-qr?qr_hash=${code}`,
       {
         method: 'GET',
@@ -63,13 +63,13 @@ export class PoapTokenApi implements TokensApiProvider {
   }
 
   /**
-   * Posts a new claim code to the API.
+   * Posts a new mint code to the API.
    *
-   * @param {ClaimCodeInput} input - The input data for the claim code.
-   * @returns {Promise<PostClaimCodeResponse>} Response from the claim code creation.
+   * @param {MintCodeInput} input - The input data for the mint code.
+   * @returns {Promise<PostMintCodeResponse>} Response from the mint code creation.
    */
-  async postClaimCode(input: ClaimCodeInput): Promise<PostClaimCodeResponse> {
-    return await this.secureFetch<PostClaimCodeResponse>(
+  async postMintCode(input: MintCodeInput): Promise<PostMintCodeResponse> {
+    return await this.secureFetch<PostMintCodeResponse>(
       `${this.baseUrl}/actions/claim-qr`,
       {
         method: 'POST',
@@ -80,13 +80,13 @@ export class PoapTokenApi implements TokensApiProvider {
   }
 
   /**
-   * Checks the status of a claim by its unique identifier.
+   * Checks the status of a mint by its unique identifier.
    *
-   * @param {string} uid - The unique identifier for the claim.
-   * @returns {Promise<ClaimStatusResponse>} Status details of the claim.
+   * @param {string} uid - The unique identifier for the mint.
+   * @returns {Promise<MintStatusResponse>} Status details of the mint.
    */
-  async claimStatus(uid: string): Promise<ClaimStatusResponse> {
-    return await this.secureFetch<ClaimStatusResponse>(
+  async mintStatus(uid: string): Promise<MintStatusResponse> {
+    return await this.secureFetch<MintStatusResponse>(
       `${this.baseUrl}/queue-message/${uid}`,
       {
         method: 'GET',

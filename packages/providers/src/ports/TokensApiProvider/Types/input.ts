@@ -1,4 +1,4 @@
-export interface ClaimCodeInput {
+export interface MintCodeInput {
   address: string;
   qr_hash: string;
   secret: string;

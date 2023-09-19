@@ -98,7 +98,7 @@ export class DropsClient {
           transferCount: drop.stats_by_chain_aggregate.aggregate.sum
             ? Number(drop.stats_by_chain_aggregate.aggregate.sum.transfer_count)
             : 0,
-          emailClaim: drop.email_claims_stats
+          emailReservation: drop.email_claims_stats
             ? Number(drop.email_claims_stats.total)
             : 0,
           expiryDate: new Date(drop.expiry_date),
@@ -192,7 +192,7 @@ export class DropsClient {
       endDate: new Date(drop.end_date),
       transferCount: 0,
       poapCount: 0,
-      emailClaim: 0,
+      emailReservation: 0,
     });
   }
 }

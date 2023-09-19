@@ -1,7 +1,7 @@
 export { TokensApiProvider } from './TokensApiProvider';
 export {
-  GetClaimCodeResponse,
-  PostClaimCodeResponse,
-  ClaimCodeInput,
-  ClaimStatusResponse,
+  GetMintCodeResponse,
+  PostMintCodeResponse,
+  MintCodeInput,
+  MintStatusResponse,
 } from './Types';

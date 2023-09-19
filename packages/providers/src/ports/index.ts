@@ -2,10 +2,10 @@ export * from './MomentsApiProvider/MomentsApiProvider';
 export * from './DropApiProvider/DropApiProvider';
 export {
   TokensApiProvider,
-  GetClaimCodeResponse,
-  PostClaimCodeResponse,
-  ClaimCodeInput,
-  ClaimStatusResponse,
+  GetMintCodeResponse,
+  PostMintCodeResponse,
+  MintCodeInput,
+  MintStatusResponse,
 } from './TokensApiProvider';
 
 export { HttpProvider } from './HttpProvider/HttpProvider';

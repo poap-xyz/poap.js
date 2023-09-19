@@ -21,7 +21,7 @@ export class Drop {
   endDate: Date;
   poapCount: number;
   transferCount: number;
-  emailClaim: number;
+  emailReservation: number;
 
   constructor(properties: DropProperties) {
     this.id = properties.id;
@@ -43,13 +43,13 @@ export class Drop {
     this.createdDate = properties.createdDate;
     this.poapCount = properties.poapCount;
     this.transferCount = properties.transferCount;
-    this.emailClaim = properties.emailClaim;
+    this.emailReservation = properties.emailReservation;
     this.expiryDate = properties.expiryDate;
     this.endDate = properties.endDate;
   }
 
   public getTotalMinted(): number {
-    return this.poapCount + this.emailClaim;
+    return this.poapCount + this.emailReservation;
   }
 
   public toSerializableObject(): SerializableDrop {
@@ -73,7 +73,7 @@ export class Drop {
       createdDate: this.createdDate.toISOString(),
       poapCount: this.poapCount,
       transferCount: this.transferCount,
-      emailClaim: this.emailClaim,
+      emailReservation: this.emailReservation,
       expiryDate: this.expiryDate.toISOString(),
       endDate: this.endDate.toISOString(),
     };
@@ -100,7 +100,7 @@ export interface SerializableDrop {
   createdDate: string; // ISO String representation of Date
   poapCount: number;
   transferCount: number;
-  emailClaim: number;
+  emailReservation: number;
   expiryDate: string; // ISO String representation of Date
   endDate: string; // ISO String representation of Date
 }
@@ -127,5 +127,5 @@ export interface DropProperties {
   endDate: Date;
   poapCount: number;
   transferCount: number;
-  emailClaim: number;
+  emailReservation: number;
 }
