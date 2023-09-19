@@ -51,7 +51,7 @@ export interface FetchPoapsInput extends PaginationInput {
  * @interface WalletClaimInput
  */
 export interface WalletClaimInput {
-  qrHash: string;
+  poapCode: string;
   address: string;
 }
 
@@ -62,7 +62,7 @@ export interface WalletClaimInput {
  * @interface EmailClaimInput
  */
 export interface EmailClaimInput {
-  qrHash: string;
+  poapCode: string;
   email: string;
   sendEmail?: boolean;
 }

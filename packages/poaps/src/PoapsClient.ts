@@ -106,21 +106,21 @@ export class PoapsClient {
   }
 
   /**
-   * Retrieves the secret code associated with a QR hash.
+   * Retrieves the secret code associated with a POAP code.
    * @async
-   * @param {string} qrHash - The QR hash for which to get the secret.
+   * @param {string} poapCode - The POAP code for which to get the secret.
    * @returns {Promise<string>} The associated secret code.
-   * @throws {CodeAlreadyClaimedError} Thrown when the QR code has already been claimed.
-   * @throws {CodeExpiredError} Thrown when the QR code is expired.
+   * @throws {CodeAlreadyClaimedError} Thrown when the POAP code has already been claimed.
+   * @throws {CodeExpiredError} Thrown when the POAP code is expired.
    */
-  private async getCodeSecret(qrHash: string): Promise<string> {
-    const getCodeResponse = await this.getClaimCode(qrHash);
+  private async getSecretCode(poapCode: string): Promise<string> {
+    const getCodeResponse = await this.getClaimCode(poapCode);
 
     if (getCodeResponse.claimed == true) {
-      throw new CodeAlreadyClaimedError(qrHash);
+      throw new CodeAlreadyClaimedError(poapCode);
     }
     if (getCodeResponse.is_active == false) {
-      throw new CodeExpiredError(qrHash);
+      throw new CodeExpiredError(poapCode);
     }
 
     return getCodeResponse.secret;
@@ -129,11 +129,11 @@ export class PoapsClient {
   /**
    * Retrieves claim code details for a specific QR hash.
    * @async
-   * @param {string} qrhash - The QR hash for which to get the claim code.
+   * @param {string} poapCode - The QR hash for which to get the claim code.
    * @returns {Promise<GetClaimCodeResponse>} The claim code details.
    */
-  async getClaimCode(qrhash: string): Promise<GetClaimCodeResponse> {
-    return await this.tokensApiProvider.getClaimCode(qrhash);
+  async getClaimCode(poapCode: string): Promise<GetClaimCodeResponse> {
+    return await this.tokensApiProvider.getClaimCode(poapCode);
   }
 
   /**
@@ -155,19 +155,23 @@ export class PoapsClient {
    * @param {string} queueUid - The unique ID of the claim.
    * @returns {Promise<void>}
    */
-  async waitClaimStatus(queueUid: string, qrHash: string): Promise<void> {
-    const checker = new ClaimChecker(queueUid, this.tokensApiProvider, qrHash);
+  async waitClaimStatus(queueUid: string, poapCode: string): Promise<void> {
+    const checker = new ClaimChecker(
+      queueUid,
+      this.tokensApiProvider,
+      poapCode,
+    );
     await checker.checkClaimStatus();
   }
 
   /**
    * Awaits until a specific POAP, identified by its QR hash, is indexed.
    * @async
-   * @param {string} qrHash - The QR hash identifying the POAP to be indexed.
+   * @param {string} poapCode - The QR hash identifying the POAP to be indexed.
    * @returns {Promise<GetClaimCodeResponse>} Details of the indexed POAP.
    */
-  async waitPoapIndexed(qrHash: string): Promise<GetClaimCodeResponse> {
-    const checker = new PoapIndexed(qrHash, this.tokensApiProvider);
+  async waitPoapIndexed(poapCode: string): Promise<GetClaimCodeResponse> {
+    const checker = new PoapIndexed(poapCode, this.tokensApiProvider);
     return await checker.waitPoapIndexed();
   }
 
@@ -178,11 +182,11 @@ export class PoapsClient {
    * @returns {Promise<string>} A unique queue ID for the initiated claim.
    */
   async claimAsync(input: WalletClaimInput): Promise<string> {
-    const secret = await this.getCodeSecret(input.qrHash);
+    const secret = await this.getSecretCode(input.poapCode);
 
     const response = await this.tokensApiProvider.postClaimCode({
       address: input.address,
-      qr_hash: input.qrHash,
+      qr_hash: input.poapCode,
       secret: secret,
       sendEmail: false,
     });
@@ -202,9 +206,9 @@ export class PoapsClient {
   async claimSync(input: WalletClaimInput): Promise<POAP> {
     const queueUid = await this.claimAsync(input);
 
-    await this.waitClaimStatus(queueUid, input.qrHash);
+    await this.waitClaimStatus(queueUid, input.poapCode);
 
-    const getCodeResponse = await this.waitPoapIndexed(input.qrHash);
+    const getCodeResponse = await this.waitPoapIndexed(input.poapCode);
 
     return (
       await this.fetch({
@@ -222,11 +226,11 @@ export class PoapsClient {
    * @returns {Promise<POAPReservation>} The reservation details of the POAP.
    */
   async emailReservation(input: EmailClaimInput): Promise<POAPReservation> {
-    const secret = await this.getCodeSecret(input.qrHash);
+    const secret = await this.getSecretCode(input.poapCode);
 
     const response = await this.tokensApiProvider.postClaimCode({
       address: input.email,
-      qr_hash: input.qrHash,
+      qr_hash: input.poapCode,
       secret: secret,
       sendEmail: input.sendEmail || true,
     });

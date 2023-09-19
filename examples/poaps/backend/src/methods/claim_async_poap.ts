@@ -6,7 +6,7 @@ import { handleError } from '../utils/handleError';
  * After successfully claiming, the function fetches and logs the details of the claimed POAP.
  * In the event of an error during the process, the error is captured and managed by a separate utility function.
  *
- * Note: Replace 'your_qr_hash' and 'your_address' placeholders with appropriate values.
+ * Note: Replace 'your_poap_code' and 'your_address' placeholders with appropriate values.
  *
  * @async
  * @function
@@ -17,15 +17,15 @@ export const claim_async_poap = async (client: PoapsClient): Promise<void> => {
   try {
     // Initiate the asynchronous claim process
     const queue_uid: string = await client.claimAsync({
-      qrHash: 'your_qr_hash',
+      poapCode: 'your_poap_code',
       address: 'your_address',
     });
 
     // Wait for the claim's status to transition from 'IN_PROCESS' or 'PENDING' states
-    await client.waitClaimStatus(queue_uid, 'your_qr_hash');
+    await client.waitClaimStatus(queue_uid, 'your_poap_code');
 
     // Wait for the claimed POAP to be indexed and fetch the claim code information related to the QR hash
-    const getClaimCodeResponse = await client.waitPoapIndexed('your_qr_hash');
+    const getClaimCodeResponse = await client.waitPoapIndexed('your_poap_code');
 
     // Retrieve and log the specifics of the claimed POAP
     console.log(
