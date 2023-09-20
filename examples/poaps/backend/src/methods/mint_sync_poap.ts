@@ -10,5 +10,6 @@ export const mint_sync_poap = async (client: PoapsClient): Promise<void> => {
     console.log(data);
   } catch (error) {
     handleError(error);
+    console.error(error);
   }
 };

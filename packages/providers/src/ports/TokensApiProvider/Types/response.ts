@@ -1,6 +1,6 @@
 import { MintingStatus } from '@poap-xyz/utils';
 
-export interface GetMintCodeResponse {
+export interface GetMintCodeResponseRaw {
   id: number;
   qr_hash: string;
   tx_hash: string;

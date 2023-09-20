@@ -1,5 +1,5 @@
 import {
-  GetMintCodeResponse,
+  GetMintCodeResponseRaw,
   PostMintCodeResponse,
   MintCodeInput,
   MintStatusResponse,
@@ -11,7 +11,7 @@ import {
  * @interface TokensApiProvider
  */
 export interface TokensApiProvider {
-  getMintCode(code: string): Promise<GetMintCodeResponse>;
+  getMintCode(code: string): Promise<GetMintCodeResponseRaw>;
   postMintCode(input: MintCodeInput): Promise<PostMintCodeResponse>;
   mintStatus(uid: string): Promise<MintStatusResponse>;
 }

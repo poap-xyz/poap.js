@@ -1,8 +1,4 @@
-import {
-  CompassProvider,
-  TokensApiProvider,
-  GetMintCodeResponse,
-} from '@poap-xyz/providers';
+import { CompassProvider, TokensApiProvider } from '@poap-xyz/providers';
 import { POAP } from './domain/Poap';
 import { POAPReservation } from './domain/POAPReservation';
 import { PaginatedPoapsResponse, PAGINATED_POAPS_QUERY } from './queries';
@@ -25,6 +21,7 @@ import { CodeAlreadyMintedError } from './errors/CodeAlreadyMintedError';
 import { CodeExpiredError } from './errors/CodeExpiredError';
 import { MintChecker } from './utils/MintChecker';
 import { PoapIndexed } from './utils/PoapIndexed';
+import { GetMintCodeResponse } from './types/response';
 
 /**
  * Represents a client for interacting with POAPs (Proof of Attendance Protocol tokens).
@@ -123,7 +120,7 @@ export class PoapsClient {
     if (getCodeResponse.claimed == true) {
       throw new CodeAlreadyMintedError(mintCode);
     }
-    if (getCodeResponse.is_active == false) {
+    if (getCodeResponse.isActive == false) {
       throw new CodeExpiredError(mintCode);
     }
 
@@ -137,7 +134,25 @@ export class PoapsClient {
    * @returns {Promise<GetMintCodeResponse>} The mint code details.
    */
   async getMintCode(mintCode: string): Promise<GetMintCodeResponse> {
-    return await this.tokensApiProvider.getMintCode(mintCode);
+    const getMintCodeRaw = await this.tokensApiProvider.getMintCode(mintCode);
+    return {
+      id: getMintCodeRaw.id,
+      qrHash: getMintCodeRaw.qr_hash,
+      txHash: getMintCodeRaw.tx_hash,
+      eventId: getMintCodeRaw.event_id,
+      beneficiary: getMintCodeRaw.beneficiary,
+      userInput: getMintCodeRaw.user_input,
+      signer: getMintCodeRaw.signer,
+      claimed: getMintCodeRaw.claimed,
+      claimedDate: getMintCodeRaw.claimed_date,
+      createdDate: getMintCodeRaw.created_date,
+      isActive: getMintCodeRaw.is_active,
+      secret: getMintCodeRaw.secret,
+      txStatus: getMintCodeRaw.tx_status,
+      result: {
+        token: getMintCodeRaw.result.token,
+      },
+    };
   }
 
   /**
