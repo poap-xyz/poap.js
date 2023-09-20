@@ -17,15 +17,15 @@ export const mint_async_poap = async (client: PoapsClient): Promise<void> => {
   try {
     // Initiate the asynchronous mint process
     const queueUid: string = await client.mintAsync({
-      mintCode: '4y453b',
-      address: '0xa5a8ac4127946293f5b2e8471db43ebbd21e7428',
+      mintCode: 'your_mint_code',
+      address: 'your_address',
     });
 
     // Wait for the mint's status to transition from 'IN_PROCESS' or 'PENDING' states
-    await client.waitMintStatus(queueUid, '4y453b');
+    await client.waitMintStatus(queueUid, 'your_mint_code');
 
     // Wait for the minted POAP to be indexed and fetch the mint code information related to the QR hash
-    const getmintCodeResponse = await client.waitPoapIndexed('4y453b');
+    const getmintCodeResponse = await client.waitPoapIndexed('your_mint_code');
 
     // Retrieve and log the specifics of the minted POAP
     console.log(

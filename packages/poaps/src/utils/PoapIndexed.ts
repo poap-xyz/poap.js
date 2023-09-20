@@ -1,5 +1,6 @@
-import { TokensApiProvider, GetMintCodeResponse } from '@poap-xyz/providers';
+import { TokensApiProvider } from '@poap-xyz/providers';
 import { RetryableTask } from './RetryableTask';
+import { GetMintCodeResponse } from '../types';
 
 /**
  * @class PoapIndexed
@@ -35,6 +36,23 @@ export class PoapIndexed extends RetryableTask {
         this.tokensApiProvider.getMintCode(this.mintCode),
       );
     }
-    return response;
+    return {
+      id: response.id,
+      qrHash: response.qr_hash,
+      txHash: response.tx_hash,
+      eventId: response.event_id,
+      beneficiary: response.beneficiary,
+      userInput: response.user_input,
+      signer: response.signer,
+      claimed: response.claimed,
+      claimedDate: response.claimed_date,
+      createdDate: response.created_date,
+      isActive: response.is_active,
+      secret: response.secret,
+      txStatus: response.tx_status,
+      result: {
+        token: response.result?.token,
+      },
+    };
   }
 }
