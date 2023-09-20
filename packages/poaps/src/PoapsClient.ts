@@ -150,7 +150,7 @@ export class PoapsClient {
       secret: getMintCodeRaw.secret,
       txStatus: getMintCodeRaw.tx_status,
       result: {
-        token: getMintCodeRaw.result.token,
+        token: getMintCodeRaw.result?.token,
       },
     };
   }

@@ -40,14 +40,7 @@ export abstract class RetryableTask {
 
     return new Promise<T>((resolve, reject) => {
       setTimeout(() => {
-        (async (): Promise<void> => {
-          try {
-            const response = await callback();
-            resolve(response);
-          } catch (error) {
-            reject(error);
-          }
-        })().catch(reject); // Add a catch to handle potential rejections
+        callback().then(resolve, reject);
       }, this.delay);
     });
   }

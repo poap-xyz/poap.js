@@ -6,7 +6,7 @@ export const email_reservation_poap = async (
 ): Promise<void> => {
   try {
     const data: POAPReservation = await client.emailReservation({
-      mintCode: 'your_poap_code',
+      mintCode: '8hjamp',
       email: 'your@email.io',
       sendEmail: true,
     });
