@@ -1,6 +1,6 @@
 export { TokensApiProvider } from './TokensApiProvider';
 export {
-  GetMintCodeResponse,
+  GetMintCodeResponseRaw,
   PostMintCodeResponse,
   MintCodeInput,
   MintStatusResponse,
