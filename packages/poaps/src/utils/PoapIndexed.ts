@@ -39,7 +39,7 @@ export class PoapIndexed extends RetryableTask {
     return {
       minted: response.claimed,
       isActive: response.is_active,
-      secret: response.secret,
+      secretCode: response.secret,
       poapId: response.result?.token,
     };
   }

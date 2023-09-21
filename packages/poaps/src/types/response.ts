@@ -1,6 +1,6 @@
 export interface PoapMintStatus {
   minted: boolean;
   isActive: boolean;
-  secret: string;
+  secretCode: string;
   poapId: number;
 }

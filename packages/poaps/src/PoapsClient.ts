@@ -124,7 +124,7 @@ export class PoapsClient {
       throw new CodeExpiredError(mintCode);
     }
 
-    return getCodeResponse.secret;
+    return getCodeResponse.secretCode;
   }
 
   /**
@@ -138,7 +138,7 @@ export class PoapsClient {
     return {
       minted: getMintCodeRaw.claimed,
       isActive: getMintCodeRaw.is_active,
-      secret: getMintCodeRaw.secret,
+      secretCode: getMintCodeRaw.secret,
       poapId: getMintCodeRaw.result?.token,
     };
   }
@@ -185,12 +185,12 @@ export class PoapsClient {
    * @returns {Promise<string>} A unique queue ID for the initiated mint.
    */
   async mintAsync(input: WalletMintInput): Promise<string> {
-    const secret = await this.getSecretCode(input.mintCode);
+    const secretCode = await this.getSecretCode(input.mintCode);
 
     const response = await this.tokensApiProvider.postMintCode({
       address: input.address,
       qr_hash: input.mintCode,
-      secret: secret,
+      secret: secretCode,
       sendEmail: false,
     });
 
@@ -231,12 +231,12 @@ export class PoapsClient {
   async emailReservation(
     input: EmailReservationInput,
   ): Promise<POAPReservation> {
-    const secret = await this.getSecretCode(input.mintCode);
+    const secretCode = await this.getSecretCode(input.mintCode);
 
     const response = await this.tokensApiProvider.postMintCode({
       address: input.email,
       qr_hash: input.mintCode,
-      secret: secret,
+      secret: secretCode,
       sendEmail: input.sendEmail || true,
     });
 
