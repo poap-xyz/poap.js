@@ -2,7 +2,7 @@ export * from './MomentsApiProvider/MomentsApiProvider';
 export * from './DropApiProvider/DropApiProvider';
 export {
   TokensApiProvider,
-  GetMintCodeResponseRaw,
+  GetMintCodeResponse,
   PostMintCodeResponse,
   MintCodeInput,
   MintStatusResponse,

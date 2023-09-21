@@ -33,7 +33,7 @@ export const mint_async_poap = async (client: PoapsClient): Promise<void> => {
         await client.fetch({
           limit: 1,
           offset: 0,
-          ids: [getmintCodeResponse.result.token],
+          ids: [getmintCodeResponse.poapId],
         })
       ).items[0],
     );

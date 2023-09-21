@@ -3,7 +3,7 @@ import { MissingAuthenticationProviderError } from './../../ports/Authentication
 import {
   PostMintCodeResponse,
   MintStatusResponse,
-  GetMintCodeResponseRaw,
+  GetMintCodeResponse,
 } from './../../ports/TokensApiProvider/Types/response';
 import { MintCodeInput } from './../../ports/TokensApiProvider/Types/input';
 import { AuthenticationProvider } from './../../ports/AuthenticationProvider/AuthenticationProvider';
@@ -50,10 +50,10 @@ export class PoapTokenApi implements TokensApiProvider {
    * Retrieves the mint code details.
    *
    * @param {string} code - The unique QR hash for the mint.
-   * @returns {Promise<GetMintCodeResponseRaw>} Details of the mint code.
+   * @returns {Promise<GetMintCodeResponse>} Details of the mint code.
    */
-  async getMintCode(code: string): Promise<GetMintCodeResponseRaw> {
-    return await this.secureFetch<GetMintCodeResponseRaw>(
+  async getMintCode(code: string): Promise<GetMintCodeResponse> {
+    return await this.secureFetch<GetMintCodeResponse>(
       `${this.baseUrl}/actions/claim-qr?qr_hash=${code}`,
       {
         method: 'GET',

@@ -21,7 +21,7 @@ import { CodeAlreadyMintedError } from './errors/CodeAlreadyMintedError';
 import { CodeExpiredError } from './errors/CodeExpiredError';
 import { MintChecker } from './utils/MintChecker';
 import { PoapIndexed } from './utils/PoapIndexed';
-import { GetMintCodeResponse } from './types/response';
+import { PoapMintStatus } from './types/response';
 
 /**
  * Represents a client for interacting with POAPs (Proof of Attendance Protocol tokens).
@@ -117,7 +117,7 @@ export class PoapsClient {
   private async getSecretCode(mintCode: string): Promise<string> {
     const getCodeResponse = await this.getMintCode(mintCode);
 
-    if (getCodeResponse.claimed == true) {
+    if (getCodeResponse.minted == true) {
       throw new CodeAlreadyMintedError(mintCode);
     }
     if (getCodeResponse.isActive == false) {
@@ -133,25 +133,13 @@ export class PoapsClient {
    * @param {string} mintCode - The QR hash for which to get the mint code.
    * @returns {Promise<GetMintCodeResponse>} The mint code details.
    */
-  async getMintCode(mintCode: string): Promise<GetMintCodeResponse> {
+  async getMintCode(mintCode: string): Promise<PoapMintStatus> {
     const getMintCodeRaw = await this.tokensApiProvider.getMintCode(mintCode);
     return {
-      id: getMintCodeRaw.id,
-      qrHash: getMintCodeRaw.qr_hash,
-      txHash: getMintCodeRaw.tx_hash,
-      eventId: getMintCodeRaw.event_id,
-      beneficiary: getMintCodeRaw.beneficiary,
-      userInput: getMintCodeRaw.user_input,
-      signer: getMintCodeRaw.signer,
-      claimed: getMintCodeRaw.claimed,
-      claimedDate: getMintCodeRaw.claimed_date,
-      createdDate: getMintCodeRaw.created_date,
+      minted: getMintCodeRaw.claimed,
       isActive: getMintCodeRaw.is_active,
       secret: getMintCodeRaw.secret,
-      txStatus: getMintCodeRaw.tx_status,
-      result: {
-        token: getMintCodeRaw.result?.token,
-      },
+      poapId: getMintCodeRaw.result?.token,
     };
   }
 
@@ -185,7 +173,7 @@ export class PoapsClient {
    * @param {string} mintCode - The QR hash identifying the POAP to be indexed.
    * @returns {Promise<GetMintCodeResponse>} Details of the indexed POAP.
    */
-  async waitPoapIndexed(mintCode: string): Promise<GetMintCodeResponse> {
+  async waitPoapIndexed(mintCode: string): Promise<PoapMintStatus> {
     const checker = new PoapIndexed(mintCode, this.tokensApiProvider);
     return await checker.waitPoapIndexed();
   }
@@ -229,7 +217,7 @@ export class PoapsClient {
       await this.fetch({
         limit: 1,
         offset: 0,
-        ids: [getCodeResponse.result.token],
+        ids: [getCodeResponse.poapId],
       })
     ).items[0];
   }

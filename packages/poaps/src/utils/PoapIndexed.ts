@@ -1,6 +1,6 @@
 import { TokensApiProvider } from '@poap-xyz/providers';
 import { RetryableTask } from './RetryableTask';
-import { GetMintCodeResponse } from '../types';
+import { PoapMintStatus } from '../types';
 
 /**
  * @class PoapIndexed
@@ -29,7 +29,7 @@ export class PoapIndexed extends RetryableTask {
    *
    * @returns {Promise<GetClaimCodeResponse>} A promise that either resolves with the indexed token's mint code response or rejects due to reaching the max retry limit.
    */
-  public async waitPoapIndexed(): Promise<GetMintCodeResponse> {
+  public async waitPoapIndexed(): Promise<PoapMintStatus> {
     let response = await this.tokensApiProvider.getMintCode(this.mintCode);
     while (response.result == null) {
       response = await this.backoffAndRetry(() =>
@@ -37,22 +37,10 @@ export class PoapIndexed extends RetryableTask {
       );
     }
     return {
-      id: response.id,
-      qrHash: response.qr_hash,
-      txHash: response.tx_hash,
-      eventId: response.event_id,
-      beneficiary: response.beneficiary,
-      userInput: response.user_input,
-      signer: response.signer,
-      claimed: response.claimed,
-      claimedDate: response.claimed_date,
-      createdDate: response.created_date,
+      minted: response.claimed,
       isActive: response.is_active,
       secret: response.secret,
-      txStatus: response.tx_status,
-      result: {
-        token: response.result?.token,
-      },
+      poapId: response.result?.token,
     };
   }
 }
