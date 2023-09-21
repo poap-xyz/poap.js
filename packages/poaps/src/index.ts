@@ -1,5 +1,5 @@
 export { PoapsSortFields, FetchPoapsInput } from './types/input';
-export { GetMintCodeResponse } from './types/response';
+export { PoapMintStatus } from './types/response';
 export { PoapsClient } from './PoapsClient';
 export { POAP } from './domain/Poap';
 export { POAPReservation } from './domain/POAPReservation';
