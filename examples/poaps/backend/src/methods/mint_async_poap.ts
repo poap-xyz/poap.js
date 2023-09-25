@@ -25,7 +25,7 @@ export const mint_async_poap = async (client: PoapsClient): Promise<void> => {
     await client.waitMintStatus(queueUid, 'your_mint_code');
 
     // Wait for the minted POAP to be indexed and fetch the mint code information related to the QR hash
-    const getmintCodeResponse = await client.waitPoapIndexed('your_mint_code');
+    const getMintCodeResponse = await client.waitPoapIndexed('your_mint_code');
 
     // Retrieve and log the specifics of the minted POAP
     console.log(
@@ -33,7 +33,7 @@ export const mint_async_poap = async (client: PoapsClient): Promise<void> => {
         await client.fetch({
           limit: 1,
           offset: 0,
-          ids: [getmintCodeResponse.poapId],
+          ids: [getMintCodeResponse.poapId],
         })
       ).items[0],
     );

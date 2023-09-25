@@ -96,7 +96,7 @@ export class PoapTokenApi implements TokensApiProvider {
   }
 
   /**
-   * Sends a secure HTTP request to the Poap Drop API with proper headers.
+   * Sends a secure HTTP request to the Poap API with proper headers.
    *
    * @private
    * @template R - Type of the expected response data.

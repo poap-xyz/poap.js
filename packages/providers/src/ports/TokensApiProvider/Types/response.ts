@@ -13,7 +13,7 @@ export interface GetMintCodeResponse {
   created_date: string;
   is_active: boolean;
   secret: string;
-  event: DropEvent;
+  event: Drop;
   tx_status: string;
   result: {
     token: number;
@@ -32,7 +32,7 @@ export interface PostMintCodeResponse {
   claimed_date: string;
   created_date: string;
   is_active: boolean;
-  event: DropEvent;
+  event: Drop;
 }
 
 export interface MintStatusResponse {
@@ -45,7 +45,7 @@ export interface MintStatusResponse {
   } | null;
 }
 
-interface DropEvent {
+interface Drop {
   id: number;
   fancy_id: string;
   name: string;
