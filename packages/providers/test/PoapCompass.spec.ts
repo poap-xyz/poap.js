@@ -22,7 +22,7 @@ describe('PoapCompass', () => {
 
     mockAxios.onPost().reply(200, responseData);
 
-    const poapCompass = new PoapCompass(apiKey);
+    const poapCompass = new PoapCompass({ apiKey });
     const result = await poapCompass.request(query, variables);
 
     expect(result).toEqual(responseData);

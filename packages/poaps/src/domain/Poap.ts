@@ -1,45 +1,45 @@
 /* eslint-disable max-statements */
 export class POAP {
   id: number;
-  collector_address: string;
-  transfer_count: number;
-  minted_on: Date;
-  drop_id: number;
-  image_url: string;
+  collectorAddress: string;
+  transferCount: number;
+  mintedOn: Date;
+  dropId: number;
+  imageUrl: string;
   city: string;
   country: string;
   description: string;
-  start_date: Date;
-  end_date: Date;
+  startDate: Date;
+  endDate: Date;
   name: string;
 
   constructor(properties: PoapProperties) {
     this.id = properties.id;
-    this.collector_address = properties.collector_address;
-    this.minted_on = properties.minted_on;
-    this.drop_id = properties.drop_id;
-    this.transfer_count = properties.transfer_count;
-    this.image_url = properties.image_url;
+    this.collectorAddress = properties.collectorAddress;
+    this.mintedOn = properties.mintedOn;
+    this.dropId = properties.dropId;
+    this.transferCount = properties.transferCount;
+    this.imageUrl = properties.imageUrl;
     this.city = properties.city;
     this.country = properties.country;
     this.description = properties.description;
-    this.start_date = properties.start_date;
-    this.end_date = properties.end_date;
+    this.startDate = properties.startDate;
+    this.endDate = properties.endDate;
     this.name = properties.name;
   }
 }
 
 export interface PoapProperties {
   id: number;
-  collector_address: string;
-  transfer_count: number;
-  minted_on: Date;
-  drop_id: number;
-  image_url: string;
+  collectorAddress: string;
+  transferCount: number;
+  mintedOn: Date;
+  dropId: number;
+  imageUrl: string;
   city: string;
   country: string;
   description: string;
-  start_date: Date;
+  startDate: Date;
   name: string;
-  end_date: Date;
+  endDate: Date;
 }

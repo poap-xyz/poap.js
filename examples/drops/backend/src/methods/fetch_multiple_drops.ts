@@ -6,8 +6,8 @@ export const fetch_multiple_drops = async (
 ): Promise<void> => {
   try {
     const data: PaginatedResult<Drop> = await client.fetch({
-      sort_field: DropsSortFields.Id,
-      sort_dir: Order.ASC,
+      sortField: DropsSortFields.Id,
+      sortDir: Order.ASC,
       limit: 10,
       offset: 1,
     });

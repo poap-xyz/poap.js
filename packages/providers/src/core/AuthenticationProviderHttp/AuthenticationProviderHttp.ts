@@ -1,7 +1,7 @@
 import { AuthenticationProvider } from '../../ports';
 import axios from 'axios';
 
-const OAUTH_SERVER = 'auth.accounts.poap.xyz';
+const DEFAULT_OAUTH_SERVER = 'auth.accounts.poap.xyz';
 
 export class AuthenticationProviderHttp implements AuthenticationProvider {
   private readonly oAuthServerDomain: string;
@@ -16,7 +16,7 @@ export class AuthenticationProviderHttp implements AuthenticationProvider {
   ) {
     this.clientId = clientId;
     this.clientSecret = clientSecret;
-    this.oAuthServerDomain = oAuthServerDomain || OAUTH_SERVER;
+    this.oAuthServerDomain = oAuthServerDomain || DEFAULT_OAUTH_SERVER;
   }
 
   public async getJWT(audience: string): Promise<string> {

@@ -10,7 +10,7 @@ import {
   PaginatedResult,
   nextCursor,
   creatPrivateFilter,
-  creatUndefinedOrder,
+  createUndefinedOrder,
   createBetweenFilter,
   createFilter,
   createInFilter,
@@ -30,8 +30,8 @@ export class DropsClient {
    * @param {DropApiProvider} DropApiProvider - The provider for the POAP drop API.
    */
   constructor(
-    private CompassProvider: CompassProvider,
-    private DropApiProvider: DropApiProvider,
+    private compassProvider: CompassProvider,
+    private dropApiProvider: DropApiProvider,
   ) {}
 
   /**
@@ -47,27 +47,27 @@ export class DropsClient {
       limit,
       offset,
       name,
-      sort_field,
-      sort_dir,
+      sortField,
+      sortDir,
       from,
       to,
       ids,
-      is_private,
+      isPrivate,
     } = input;
 
     const variables = {
       limit,
       offset,
-      orderBy: creatUndefinedOrder(sort_field, sort_dir),
+      orderBy: createUndefinedOrder(sortField, sortDir),
       where: {
-        ...creatPrivateFilter('private', is_private),
+        ...creatPrivateFilter('private', isPrivate),
         ...createFilter('name', name),
         ...createBetweenFilter('created_date', from, to),
         ...createInFilter('id', ids),
       },
     };
 
-    const { data } = await this.CompassProvider.request<PaginatedDropsResponse>(
+    const { data } = await this.compassProvider.request<PaginatedDropsResponse>(
       PAGINATED_DROPS_QUERY,
       variables,
     );
@@ -75,22 +75,34 @@ export class DropsClient {
     const drops = data.drops.map(
       (drop) =>
         new Drop({
-          ...drop,
           id: Number(drop.id),
+          fancyId: drop.fancy_id,
+          name: drop.name,
+          description: drop.description,
+          city: drop.city,
+          country: drop.country,
+          channel: drop.channel,
+          platform: drop.platform,
+          locationType: drop.location_type,
+          dropUrl: drop.drop_url,
+          imageUrl: drop.image_url,
+          animationUrl: drop.animation_url,
           year: Number(drop.year),
-          poap_count: drop.stats_by_chain_aggregate.aggregate.sum
+          startDate: new Date(drop.start_date),
+          timezone: drop.timezone,
+          private: drop.private,
+          createdDate: new Date(drop.created_date),
+          poapCount: drop.stats_by_chain_aggregate.aggregate.sum
             ? Number(drop.stats_by_chain_aggregate.aggregate.sum.poap_count)
             : 0,
-          transfer_count: drop.stats_by_chain_aggregate.aggregate.sum
+          transferCount: drop.stats_by_chain_aggregate.aggregate.sum
             ? Number(drop.stats_by_chain_aggregate.aggregate.sum.transfer_count)
             : 0,
-          email_claim: drop.email_claims_stats
+          emailReservationCount: drop.email_claims_stats
             ? Number(drop.email_claims_stats.total)
             : 0,
-          start_date: new Date(drop.start_date),
-          end_date: new Date(drop.end_date),
-          created_date: new Date(drop.created_date),
-          expiry_date: new Date(drop.expiry_date),
+          expiryDate: new Date(drop.expiry_date),
+          endDate: new Date(drop.end_date),
         }),
     );
 
@@ -109,7 +121,25 @@ export class DropsClient {
    * @returns {Promise<Drop>} The newly created drop.
    */
   async create(input: CreateDropsInput): Promise<Drop> {
-    const repsonse = await this.DropApiProvider.createDrop(input);
+    const repsonse = await this.dropApiProvider.createDrop({
+      name: input.name,
+      description: input.description,
+      city: input.city,
+      country: input.country,
+      start_date: input.startDate,
+      end_date: input.endDate,
+      expiry_date: input.expiryDate,
+      event_url: input.eventUrl,
+      virtual_event: input.virtualEvent,
+      image: input.image,
+      filename: input.filename,
+      contentType: input.contentType,
+      secret_code: input.secretCode,
+      event_template_id: input.eventTemplateId,
+      email: input.email,
+      requested_codes: input.requestedCodes,
+      private_event: input.privateEvent,
+    });
     return this.formatDrop(repsonse);
   }
 
@@ -122,34 +152,47 @@ export class DropsClient {
    * @returns {Promise<Drop>} The updated drop.
    */
   async update(input: UpdateDropsInput): Promise<Drop> {
-    const repsonse = await this.DropApiProvider.updateDrop(input);
+    const repsonse = await this.dropApiProvider.updateDrop({
+      name: input.name,
+      description: input.description,
+      country: input.country,
+      city: input.city,
+      start_date: input.startDate,
+      end_date: input.endDate,
+      expiry_date: input.expiryDate,
+      event_url: input.eventUrl,
+      virtual_event: input.virtualEvent,
+      private_event: input.privateEvent,
+      event_template_id: input.eventTemplateId,
+      secret_code: input.secretCode,
+    });
     return this.formatDrop(repsonse);
   }
 
   private formatDrop(drop: DropResponse): Drop {
     return new Drop({
       id: drop.id,
-      fancy_id: drop.fancy_id,
+      fancyId: drop.fancy_id,
       name: drop.name,
       description: drop.description,
       city: drop.city,
       country: drop.country,
       channel: drop.channel,
       platform: drop.platform,
-      location_type: drop.location_type,
-      drop_url: drop.event_url,
-      image_url: drop.image_url,
-      animation_url: drop.animation_url,
+      locationType: drop.location_type,
+      dropUrl: drop.event_url,
+      imageUrl: drop.image_url,
+      animationUrl: drop.animation_url,
       year: drop.year,
-      start_date: new Date(drop.start_date),
+      startDate: new Date(drop.start_date),
       timezone: drop.timezone,
       private: drop.private_event,
-      created_date: new Date(drop.created_date),
-      expiry_date: new Date(drop.expiry_date),
-      end_date: new Date(drop.end_date),
-      transfer_count: 0,
-      poap_count: 0,
-      email_claim: 0,
+      createdDate: new Date(drop.created_date),
+      expiryDate: new Date(drop.expiry_date),
+      endDate: new Date(drop.end_date),
+      transferCount: 0,
+      poapCount: 0,
+      emailReservationCount: 0,
     });
   }
 }

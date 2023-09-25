@@ -4,26 +4,26 @@ import { CompassProvider } from '../../ports/CompassProvider/CompassProvider';
 import axios from 'axios';
 // TODO: Change variable type any to a more specific type
 
-const COMPASS_BASE_URL = 'https://compass.poap.tech/v1/graphql';
+const DEFAULT_COMPASS_BASE_URL = 'https://public.compass.poap.tech/v1/graphql';
 
 /**
  * A class that implements the `CompassProvider` interface for fetching data from the Poap API.
- *
  * @class
  * @implements {CompassProvider}
  */
 export class PoapCompass implements CompassProvider {
+  private apiKey: string;
+  private baseUrl: string;
+
   /**
    * Creates a new instance of the `PoapCompass` class.
-   *
    * @constructor
-   * @param {string} apiKey - The API key to use for requests.
-   * @param {HttpProvider} HttpProvider - An instance of the `HttpProvider` class for making HTTP requests.
+   * @param {PoapCompassConfig} config - Configuration object containing the API key and optional base URL.
    */
-  constructor(
-    private apiKey: string,
-    private baseUrl: string = COMPASS_BASE_URL,
-  ) {}
+  constructor(config: PoapCompassConfig) {
+    this.apiKey = config.apiKey;
+    this.baseUrl = config.baseUrl || DEFAULT_COMPASS_BASE_URL;
+  }
 
   /**
    * Fetches data from the Poap GraphQL API.
@@ -89,4 +89,15 @@ export class PoapCompass implements CompassProvider {
       throw error;
     }
   }
+}
+
+/**
+ * Configuration interface for the PoapCompass class.
+ * @interface
+ * @property {string} apiKey - The API key to use for requests to the Poap API.
+ * @property {string} [baseUrl] - Optional base URL for the Poap API. If not provided, a default will be used.
+ */
+export interface PoapCompassConfig {
+  apiKey: string;
+  baseUrl?: string;
 }
