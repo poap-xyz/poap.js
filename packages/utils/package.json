@@ -1,6 +1,6 @@
 {
   "name": "@poap-xyz/utils",
-  "version": "0.0.39",
+  "version": "1.0.0",
   "description": "Utils module for the poap.js library",
   "type": "module",
   "main": "dist/cjs/index.cjs",
@@ -27,6 +27,5 @@
   },
   "engines": {
     "node": ">=18"
-  },
-  "stableVersion": "0.0.39"
+  }
 }

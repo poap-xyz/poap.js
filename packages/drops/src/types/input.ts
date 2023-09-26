@@ -8,12 +8,12 @@ export enum DropsSortFields {
 
 export interface FetchDropsInput extends PaginationInput {
   name?: string;
-  sort_field?: DropsSortFields;
-  sort_dir?: Order;
+  sortField?: DropsSortFields;
+  sortDir?: Order;
   from?: string;
   to?: string;
   ids?: number[];
-  is_private?: boolean;
+  isPrivate?: boolean;
 }
 
 export interface CreateDropsInput {
@@ -21,19 +21,19 @@ export interface CreateDropsInput {
   description: string;
   city: string;
   country: string;
-  start_date: string;
-  end_date: string;
-  expiry_date: string;
-  event_url: string;
-  virtual_event: boolean;
+  startDate: string;
+  endDate: string;
+  expiryDate: string;
+  eventUrl: string;
+  virtualEvent: boolean;
   image: Blob;
   filename: string;
   contentType: string;
-  secret_code: string;
-  event_template_id?: number | null;
+  secretCode: string;
+  eventTemplateId?: number | null;
   email: string;
-  requested_codes?: number;
-  private_event?: boolean;
+  requestedCodes?: number;
+  privateEvent?: boolean;
 }
 
 export type UpdateDropsInput = CreateDropsInput;

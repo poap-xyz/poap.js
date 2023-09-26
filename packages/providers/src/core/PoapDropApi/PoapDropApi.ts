@@ -17,17 +17,19 @@ const DEFAULT_DROP_BASE_URL = 'https://api.poap.tech';
  * @implements {DropApiProvider}
  */
 export class PoapDropApi implements DropApiProvider {
+  private apiKey: string;
+  private baseUrl: string;
+
   /**
    * Creates a new instance of the `PoapDropApi` class.
    *
    * @constructor
-   * @param {string} apiKey - The API key to use for requests.
-   * @param {string} baseUrl - Base url for the Poap Drop API.
+   * @param {PoapDropApiConfig} config - Configuration object containing the API key and optional base URL.
    */
-  constructor(
-    private apiKey: string,
-    private baseUrl: string = DEFAULT_DROP_BASE_URL,
-  ) {}
+  constructor(config: PoapDropApiConfig) {
+    this.apiKey = config.apiKey;
+    this.baseUrl = config.baseUrl || DEFAULT_DROP_BASE_URL;
+  }
 
   /**
    * Creates a new drop on the Poap Drop API.
@@ -55,6 +57,7 @@ export class PoapDropApi implements DropApiProvider {
       headers: {},
     });
   }
+
   /**
    * Updates an existing drop on the Poap Drop API.
    *
@@ -98,4 +101,16 @@ export class PoapDropApi implements DropApiProvider {
 
     return await response.json();
   }
+}
+
+/**
+ * Configuration interface for the PoapDropApi class.
+ *
+ * @interface
+ * @property {string} apiKey - The API key to use for requests.
+ * @property {string} [baseUrl] - Optional base URL to override the default one.
+ */
+export interface PoapDropApiConfig {
+  apiKey: string;
+  baseUrl?: string;
 }

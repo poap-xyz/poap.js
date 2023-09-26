@@ -4,12 +4,17 @@ import { PoapCompass, PoapDropApi } from '@poap-xyz/providers';
 import { fetch_multiple_drops } from './methods/fetch_multiple_drops';
 import { fetch_single_drop } from './methods/fetch_single_drop';
 import { create_drop } from './methods/create_drop';
+import { getRequiredEnvVar } from './methods/get_required_env_var';
+
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 async function main(): Promise<void> {
   // Use your library here
   const client = new DropsClient(
-    new PoapCompass('you_api_key'),
-    new PoapDropApi('you_api_key'),
+    new PoapCompass({ apiKey: getRequiredEnvVar('API_KEY') }),
+    new PoapDropApi({ apiKey: getRequiredEnvVar('API_KEY') }),
   );
   // Multiple Drops
   await measurePerformance(

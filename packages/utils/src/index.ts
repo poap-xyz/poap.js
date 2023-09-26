@@ -1,3 +1,4 @@
+export { MintingStatus } from './types/mintingStatus';
 export { Chain } from './types/chain';
 export { Order } from './types/filter';
 export { PaginationInput } from './types/input';
@@ -6,7 +7,7 @@ export { PaginatedResult } from './types/pagination';
 export { nextCursor } from './functions/nextCursor';
 export {
   filterUndefinedProperties,
-  creatUndefinedOrder,
+  createUndefinedOrder,
   createFilter,
   creatEqFilter,
   creatNeqFilter,

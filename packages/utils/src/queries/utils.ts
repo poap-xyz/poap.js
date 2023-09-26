@@ -11,7 +11,7 @@ export function filterUndefinedProperties<T extends Record<string, any>>(
   return filteredObj;
 }
 
-export function creatUndefinedOrder(
+export function createUndefinedOrder(
   key: string | undefined,
   value?: string | undefined,
 ): Record<string, any> {
