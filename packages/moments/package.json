@@ -1,6 +1,6 @@
 {
   "name": "@poap-xyz/moments",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Moments module for the poap.js library",
   "main": "dist/cjs/index.cjs",
   "module": "dist/esm/index.mjs",
@@ -26,8 +26,8 @@
     "build": "rollup -c --bundleConfigAsCjs"
   },
   "dependencies": {
-    "@poap-xyz/providers": "1.0.0",
-    "@poap-xyz/utils": "1.0.0",
+    "@poap-xyz/providers": "0.1.0",
+    "@poap-xyz/utils": "0.1.0",
     "uuid": "^9.0.0"
   },
   "engines": {

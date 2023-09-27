@@ -1,5 +1,4 @@
 import { AuthenticationProvider } from '../../ports';
-import axios from 'axios';
 
 const DEFAULT_OAUTH_SERVER = 'auth.accounts.poap.xyz';
 
@@ -24,27 +23,34 @@ export class AuthenticationProviderHttp implements AuthenticationProvider {
       return this.tokenData.accessToken;
     }
 
-    const response = await axios.post(
+    const response = await fetch(
       `https://${this.oAuthServerDomain}/oauth/token`,
       {
-        client_id: this.clientId,
-        client_secret: this.clientSecret,
-        audience,
-        grant_type: 'client_credentials',
-      },
-      {
+        method: 'POST',
         headers: {
-          'content-type': 'application/json',
+          'Content-Type': 'application/json',
         },
+        body: JSON.stringify({
+          client_id: this.clientId,
+          client_secret: this.clientSecret,
+          audience,
+          grant_type: 'client_credentials',
+        }),
       },
     );
 
+    if (!response.ok) {
+      throw new Error(`Network response was not ok: ${response.statusText}`);
+    }
+
+    const responseData = await response.json();
+
     this.tokenData = {
-      accessToken: response.data.access_token,
-      expiresAt: Date.now() + response.data.expires_in * 1000,
+      accessToken: responseData.access_token,
+      expiresAt: Date.now() + responseData.expires_in * 1000,
     };
 
-    return response.data.access_token;
+    return responseData.access_token;
   }
 
   private isTokenExpired(): boolean {

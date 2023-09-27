@@ -71,7 +71,9 @@ export class PoapDropApi implements DropApiProvider {
     return await this.secureFetch(`${this.baseUrl}/events`, {
       method: 'PUT',
       body: JSON.stringify(input),
-      headers: {},
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
   }
 
