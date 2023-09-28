@@ -18,15 +18,17 @@ Creates a new instance of the `POAPReservation` class with the specified propert
 
 ## Properties
 
-- `email` (`string`): The email address where the POAP token is reserved.
-- `dropId` (`number`): The identifier of the drop associated with the POAP reservation.
-- `imageUrl` (`string`): The URL of the image representing the POAP reservation or the associated event.
-- `city` (`string`): The city where the associated event took place.
-- `country` (`string`): The country where the associated event took place.
-- `description` (`string`): A description of the associated event or the POAP reservation.
-- `startDate` (`Date`): The start date of the associated event.
-- `endDate` (`Date`): The end date of the associated event.
-- `name` (`string`): The name of the associated event or the POAP reservation.
+| Property        | Type     | Description                                                      |
+|-----------------|----------|------------------------------------------------------------------|
+| `email`         | `string` | The email address where the POAP token is reserved.              |
+| `dropId`        | `number` | The identifier of the drop associated with the POAP reservation. |
+| `imageUrl`      | `string` | The URL of the image representing the POAP reservation or the associated event. |
+| `city`          | `string` | The city where the associated event took place.                  |
+| `country`       | `string` | The country where the associated event took place.               |
+| `description`   | `string` | A description of the associated event or the POAP reservation.   |
+| `startDate`     | `Date`   | The start date of the associated event.                          |
+| `endDate`       | `Date`   | The end date of the associated event.                            |
+| `name`          | `string` | The name of the associated event or the POAP reservation.        |
 
 ## POAPReservationProperties Interface
 
