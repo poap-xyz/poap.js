@@ -8,10 +8,10 @@ The `PoapMintStatus` interface represents the status of a minting operation for 
 
 ```typescript
 export interface PoapMintStatus {
-  minted: boolean;  // Indicates whether the POAP token has been minted.
-  isActive: boolean;  // Indicates whether the mint code is active.
-  secretCode: string;  // The secret code associated with the minting operation.
-  poapId: number;  // The identifier of the minted POAP token.
+  minted: boolean;
+  isActive: boolean;
+  secretCode: string;
+  poapId: number;
 }
 ```
 
