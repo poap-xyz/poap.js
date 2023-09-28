@@ -82,7 +82,3 @@ We welcome contributions! Please see the `CONTRIBUTING.md` file for guidelines o
 - [`CodeAlreadyMintedError`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/errors.md/CodeAlreadyMintedError)
 - [`CodeExpiredError`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/errors.md/CodeExpiredError)
 - [`FinishedWithError`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/errors.md/FinishedWithError)
-
-## PoapsClient Documentation Section
-
-(Refer to the documentation created earlier for detailed information on `PoapsClient`)
