@@ -74,14 +74,14 @@ We welcome contributions! Please see the \`CONTRIBUTING.md\` file for guidelines
 ## Exports
 
 - [\`PoapsClient\`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/PoapsClient.md)
-- \`POAP\`
-- \`POAPReservation\`
-- \`FetchPoapsInput\`
-- \`PoapMintStatus\`
-- \`PoapsSortFields\`
-- \`CodeAlreadyMintedError\`
-- \`CodeExpiredError\`
-- \`FinishedWithError\`
+- [\`POAP\`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/POAP.md)
+- [\`POAPReservation\`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/POAPReservation.md)
+- [\`FetchPoapsInput\`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/inputs.md/FetchPoapsInput)
+- [\`PoapMintStatus\`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/responses.md/PoapMintStatus)
+- [\`PoapsSortFields\`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/inputs.md/PoapsSortFields)
+- [\`CodeAlreadyMintedError\`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/errors.md/CodeAlreadyMintedError)
+- [\`CodeExpiredError\`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/errors.md/CodeExpiredError)
+- [\`FinishedWithError\`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/errors.md/FinishedWithError)
 
 ## PoapsClient Documentation Section
 
