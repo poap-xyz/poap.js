@@ -4,20 +4,20 @@ This section documents the input types defined for fetching and managing POAPs (
 
 ## PoapsSortFields
 
-The \`PoapsSortFields\` enumeration defines the available fields by which POAPs can be sorted.
+The `PoapsSortFields` enumeration defines the available fields by which POAPs can be sorted.
 
-\`\`\`typescript
+```typescript
 export enum PoapsSortFields {
   MintedOn = 'minted_on',  // Represents sorting by the date when a Poap was minted.
   Id = 'id',  // Represents sorting by the ID of a Poap.
 }
-\`\`\`
+```
 
 ## FetchPoapsInput
 
-The \`FetchPoapsInput\` interface represents the input fields for fetching POAPs and extends \`PaginationInput\` to provide pagination capability.
+The `FetchPoapsInput` interface represents the input fields for fetching POAPs and extends `PaginationInput` to provide pagination capability.
 
-\`\`\`typescript
+```typescript
 export interface FetchPoapsInput extends PaginationInput {
   name?: string;  // Optional filter for the name of a Poap.
   chain?: Chain;  // Optional filter for the blockchain chain of a Poap.
@@ -30,27 +30,27 @@ export interface FetchPoapsInput extends PaginationInput {
   sortDir?: Order;  // Direction in which to sort the results.
   filterByZeroAddress?: boolean;  // Filter to include/exclude Poaps with zero addresses.
 }
-\`\`\`
+```
 
 ## WalletMintInput
 
-The \`WalletMintInput\` interface represents the input fields required to mint a POAP for a wallet.
+The `WalletMintInput` interface represents the input fields required to mint a POAP for a wallet.
 
-\`\`\`typescript
+```typescript
 export interface WalletMintInput {
   mintCode: string;  // The mint code for the Poap.
   address: string;  // The address of the wallet to mint the Poap to.
 }
-\`\`\`
+```
 
 ## EmailReservationInput
 
-The \`EmailReservationInput\` interface represents the input fields required to reserve a POAP via email.
+The `EmailReservationInput` interface represents the input fields required to reserve a POAP via email.
 
-\`\`\`typescript
+```typescript
 export interface EmailReservationInput {
   mintCode: string;  // The mint code for the Poap.
   email: string;  // The email address to reserve the Poap to.
   sendEmail?: boolean;  // Optional field to specify whether to send an email notification.
 }
-\`\`\`
+```

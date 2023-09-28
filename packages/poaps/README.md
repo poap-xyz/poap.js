@@ -18,19 +18,19 @@ This package doesn't require any additional dependencies for installation.
 
 ### NPM
 
-\`\`\`bash
+```bash
 npm install @poap-xyz/poaps
-\`\`\`
+```
 
 ### Yarn
 
-\`\`\`bash
+```bash
 yarn add @poap-xyz/poaps
-\`\`\`
+```
 
 ## Usage
 
-\`\`\`javascript
+```javascript
 import { PoapsClient } from '@poap-xyz/poaps';
 import {
   AuthenticationProviderHttp,
@@ -53,7 +53,7 @@ const client = new PoapsClient(
     ),
   }),
 );
-\`\`\`
+```
 
 ## Documentation
 
@@ -65,7 +65,7 @@ For example scripts and usage, please check the [examples](https://github.com/po
 
 ## Contributing
 
-We welcome contributions! Please see the \`CONTRIBUTING.md\` file for guidelines on how to get involved.
+We welcome contributions! Please see the `CONTRIBUTING.md` file for guidelines on how to get involved.
 
 ## License
 
@@ -73,16 +73,16 @@ We welcome contributions! Please see the \`CONTRIBUTING.md\` file for guidelines
 
 ## Exports
 
-- [\`PoapsClient\`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/PoapsClient.md)
-- [\`POAP\`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/POAP.md)
-- [\`POAPReservation\`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/POAPReservation.md)
-- [\`FetchPoapsInput\`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/inputs.md/FetchPoapsInput)
-- [\`PoapMintStatus\`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/responses.md/PoapMintStatus)
-- [\`PoapsSortFields\`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/inputs.md/PoapsSortFields)
-- [\`CodeAlreadyMintedError\`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/errors.md/CodeAlreadyMintedError)
-- [\`CodeExpiredError\`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/errors.md/CodeExpiredError)
-- [\`FinishedWithError\`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/errors.md/FinishedWithError)
+- [`PoapsClient`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/PoapsClient.md)
+- [`POAP`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/POAP.md)
+- [`POAPReservation`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/POAPReservation.md)
+- [`FetchPoapsInput`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/inputs.md/FetchPoapsInput)
+- [`PoapMintStatus`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/responses.md/PoapMintStatus)
+- [`PoapsSortFields`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/inputs.md/PoapsSortFields)
+- [`CodeAlreadyMintedError`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/errors.md/CodeAlreadyMintedError)
+- [`CodeExpiredError`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/errors.md/CodeExpiredError)
+- [`FinishedWithError`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/errors.md/FinishedWithError)
 
 ## PoapsClient Documentation Section
 
-(Refer to the documentation created earlier for detailed information on \`PoapsClient\`)
+(Refer to the documentation created earlier for detailed information on `PoapsClient`)
