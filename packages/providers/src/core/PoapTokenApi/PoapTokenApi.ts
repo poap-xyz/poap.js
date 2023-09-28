@@ -8,7 +8,6 @@ import {
 import { MintCodeInput } from './../../ports/TokensApiProvider/Types/input';
 import { AuthenticationProvider } from './../../ports/AuthenticationProvider/AuthenticationProvider';
 import { TokensApiProvider } from './../../ports/TokensApiProvider/TokensApiProvider';
-import axios, { AxiosInstance } from 'axios';
 
 const DEFAULT_DROP_BASE_URL = 'https://api.poap.tech';
 
@@ -23,7 +22,6 @@ export class PoapTokenApi implements TokensApiProvider {
   private apiKey: string;
   private baseUrl: string;
   private authenticationProvider?: AuthenticationProvider;
-  private poapApi: AxiosInstance;
   /**
    * Constructs a new instance of the `PoapTokenApi` class.
    *
@@ -41,9 +39,6 @@ export class PoapTokenApi implements TokensApiProvider {
     this.apiKey = apiKey;
     this.baseUrl = baseUrl;
     this.authenticationProvider = authenticationProvider;
-    this.poapApi = axios.create({
-      timeout: 10000, // 10 seconds
-    });
   }
 
   /**
@@ -73,8 +68,10 @@ export class PoapTokenApi implements TokensApiProvider {
       `${this.baseUrl}/actions/claim-qr`,
       {
         method: 'POST',
-        body: input,
-        headers: {},
+        body: JSON.stringify(input),
+        headers: {
+          'Content-Type': 'application/json',
+        },
       },
     );
   }
@@ -111,13 +108,14 @@ export class PoapTokenApi implements TokensApiProvider {
       Authorization: await this.getAuthorizationToken(),
     };
 
-    return (
-      await this.poapApi(url, {
-        method: options.method,
-        data: options.body,
-        headers: headersWithApiKey,
-      })
-    ).data;
+    const response = await fetch(url, {
+      method: options.method,
+      body: options.body,
+      headers: headersWithApiKey,
+      signal: AbortSignal.timeout(10000),
+    });
+
+    return await response.json();
   }
 
   /**

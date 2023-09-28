@@ -1,6 +1,6 @@
 {
   "name": "@poap-xyz/drops",
-  "version": "0.0.39",
+  "version": "0.1.0",
   "description": "Drops module for the poap.js library",
   "main": "dist/cjs/index.cjs",
   "module": "dist/esm/index.mjs",
@@ -25,8 +25,11 @@
   "scripts": {
     "build": "rollup -c --bundleConfigAsCjs"
   },
+  "engines": {
+    "node": ">=18"
+  },
   "dependencies": {
-    "@poap-xyz/providers": "0.0.39",
-    "@poap-xyz/utils": "0.0.39"
+    "@poap-xyz/providers": "0.1.0",
+    "@poap-xyz/utils": "0.1.0"
   }
 }

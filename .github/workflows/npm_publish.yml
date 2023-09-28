@@ -10,19 +10,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '16.x'
-        registry-url: 'https://registry.npmjs.org'
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+          registry-url: 'https://registry.npmjs.org'
 
-    - name: Install dependencies
-      run: yarn install --frozen-lockfile
-  
-    - name: Check package versions and publish
-      run: yarn publish
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Check package versions and publish
+        run: yarn publish
     env:
       NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -25,6 +25,9 @@ const toPOAPdate = (date: Date): string => {
 };
 
 export const create_drop = async (client: DropsClient): Promise<void> => {
+  const buffer = await fs.promises.readFile('src/assets/poap.png');
+  const image = new Blob([buffer], { type: 'image/png' });
+
   const createDrop: CreateDropsInput = {
     name: 'Test ' + toPOAPdate(today),
     description: 'Description',
@@ -36,7 +39,7 @@ export const create_drop = async (client: DropsClient): Promise<void> => {
     eventUrl: 'https://poap.xyz/',
     virtualEvent: true,
     secretCode: '123456',
-    image: await fs.promises.readFile('src/assets/poap.png'),
+    image,
     filename: 'file.png',
     contentType: 'image/png',
     eventTemplateId: 1,
