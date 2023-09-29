@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-`@poap-xyz/poaps` is a JavaScript library providing an interface for interacting with POAPs (Proof of Attendance Protocol tokens), allowing you to fetch information about POAP tokens, their on-chain data, their related drop and metadata, all in a simplified manner.
+`@poap-xyz/poaps` is a JavaScript library providing an interface for interacting with POAPs , allowing you to fetch information about POAP tokens, their on-chain data, their related drop and metadata, all in a simplified manner.
 
 ## Features
 

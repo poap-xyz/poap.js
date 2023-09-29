@@ -33,31 +33,31 @@ async function main(): Promise<void> {
       ),
     }),
   );
-  // Multiple Poaps
+  // Multiple POAPs
   await measurePerformance(
     () => fetch_multiple_poaps(client),
     'fetch_multiple_poaps',
   );
-  // One Poap by id
+  // One POAP by id
   await measurePerformance(
     () => fetch_single_poap(client),
     'fetch_single_poap',
   );
-  // Multiple Poaps by collector
+  // Multiple POAPs by collector
   await measurePerformance(
     () => fetch_multiple_poaps_by_collector(client),
     'fetch_multiple_poaps_by_collector',
   );
-  // Multiple Poaps by drop
+  // Multiple POAPs by drop
   await measurePerformance(
     () => fetch_multiple_poaps_by_drop_id(client),
     'fetch_multiple_poaps_by_drop_id',
   );
-  // mint Sync Poap
+  // mint Sync POAP
   await measurePerformance(() => mint_sync_poap(client), 'mint_sync_poap');
-  // mint Async Poap
+  // mint Async POAP
   await measurePerformance(() => mint_async_poap(client), 'mint_async_poap');
-  // Email Reservation Poap
+  // Email Reservation POAP
   await measurePerformance(
     () => email_reservation_poap(client),
     'email_reservation_poap',

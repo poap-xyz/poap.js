@@ -6,7 +6,7 @@ import { PoapMintStatus } from '../types';
  * @class PoapIndexed
  * @extends {RetryableTask}
  *
- * Represents a utility class designed to periodically check if a POAP (Proof of Attendance Protocol) token is indexed.
+ * Represents a utility class designed to periodically check if a POAP  token is indexed.
  * This class extends `RetryableTask` to utilize its backoff retry mechanism in case the token hasn't been indexed yet.
  */
 export class PoapIndexed extends RetryableTask {

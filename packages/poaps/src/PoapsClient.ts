@@ -24,7 +24,7 @@ import { PoapIndexed } from './utils/PoapIndexed';
 import { PoapMintStatus } from './types/response';
 
 /**
- * Represents a client for interacting with POAPs (Proof of Attendance Protocol tokens).
+ * Represents a client for interacting with POAPs .
  * @class
  */
 export class PoapsClient {

@@ -1,6 +1,6 @@
 # Error Handling Documentation
 
-This section documents the custom error classes defined for handling specific error scenarios while interacting with POAP (Proof of Attendance Protocol) tokens.
+This section documents the custom error classes defined for handling specific error scenarios while interacting with POAP tokens.
 
 ## CodeAlreadyMintedError
 

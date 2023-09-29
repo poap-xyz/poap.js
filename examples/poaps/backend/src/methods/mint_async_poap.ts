@@ -2,7 +2,7 @@ import { PoapsClient } from '@poap-xyz/poaps';
 import { handleError } from '../utils/handleError';
 
 /**
- * Attempts to mint a POAP (Proof of Attendance Protocol) token asynchronously based on a predefined QR hash and address.
+ * Attempts to mint a POAP  token asynchronously based on a predefined QR hash and address.
  * After successfully minting, the function fetches and logs the details of the minted POAP.
  * In the event of an error during the process, the error is captured and managed by a separate utility function.
  *

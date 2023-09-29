@@ -2,7 +2,7 @@
 
 ## Description
 
-`PoapsClient` is a class representing a client for interacting with POAPs (Proof of Attendance Protocol tokens).
+`PoapsClient` is a class representing a client for interacting with POAPs .
 
 ## Constructor
 

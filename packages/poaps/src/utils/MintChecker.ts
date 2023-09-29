@@ -4,7 +4,7 @@ import { FinishedWithError } from '../errors/FinishedWithError';
 import { RetryableTask } from './RetryableTask';
 
 /**
- * A utility class designed to continually check the status of a Poap token mint.
+ * A utility class designed to continually check the status of a POAP token mint.
  * If a mint is still pending or in process, it implements a backoff retry mechanism.
  */
 export class MintChecker extends RetryableTask {

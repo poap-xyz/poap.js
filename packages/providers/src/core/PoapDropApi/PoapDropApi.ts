@@ -13,7 +13,7 @@ import axios, { AxiosInstance } from 'axios';
 const DEFAULT_DROP_BASE_URL = 'https://api.poap.tech';
 
 /**
- * A class that implements the `DropApiProvider` interface for interacting with the Poap Drop API.
+ * A class that implements the `DropApiProvider` interface for interacting with the POAP Drop API.
  *
  * @class
  * @implements {DropApiProvider}
@@ -38,7 +38,7 @@ export class PoapDropApi implements DropApiProvider {
   }
 
   /**
-   * Creates a new drop on the Poap Drop API.
+   * Creates a new drop on the POAP Drop API.
    *
    * @async
    * @function
@@ -70,7 +70,7 @@ export class PoapDropApi implements DropApiProvider {
   }
 
   /**
-   * Updates an existing drop on the Poap Drop API.
+   * Updates an existing drop on the POAP Drop API.
    *
    * @async
    * @function
@@ -88,7 +88,7 @@ export class PoapDropApi implements DropApiProvider {
 
   // TODO: Change variable type any to a more specific type
   /**
-   * Sends a secure HTTP request to the Poap Drop API.
+   * Sends a secure HTTP request to the POAP Drop API.
    *
    * @async
    * @private
