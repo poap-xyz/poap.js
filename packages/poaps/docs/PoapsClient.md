@@ -69,7 +69,7 @@ Retrieves mint code details for a specific QR hash.
 
 #### Returns
 
-A promise that resolves to the mint code details.
+A promise that resolves to the mint code details, [`PoapMintStatus`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/responses.md/PoapMintStatus).
 
 ### `getMintStatus`
 
@@ -118,7 +118,7 @@ Awaits until a specific POAP, identified by its QR hash, is indexed.
 
 #### Returns
 
-A promise that resolves to details of the indexed POAP.
+A promise that resolves to details of the indexed POAP, [`PoapMintStatus`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/responses.md/PoapMintStatus).
 
 ### `mintAsync`
 
