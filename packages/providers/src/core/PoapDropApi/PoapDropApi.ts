@@ -7,8 +7,6 @@ import {
   DropResponse,
   UpdateDropInput,
 } from '../../ports/DropApiProvider/Types';
-import FormData from 'form-data';
-import axios, { AxiosInstance } from 'axios';
 
 const DEFAULT_DROP_BASE_URL = 'https://api.poap.tech';
 
@@ -21,7 +19,6 @@ const DEFAULT_DROP_BASE_URL = 'https://api.poap.tech';
 export class PoapDropApi implements DropApiProvider {
   private apiKey: string;
   private baseUrl: string;
-  private poapApi: AxiosInstance;
 
   /**
    * Creates a new instance of the `PoapDropApi` class.
@@ -32,9 +29,6 @@ export class PoapDropApi implements DropApiProvider {
   constructor(config: PoapDropApiConfig) {
     this.apiKey = config.apiKey;
     this.baseUrl = config.baseUrl || DEFAULT_DROP_BASE_URL;
-    this.poapApi = axios.create({
-      timeout: 10000, // 10 seconds
-    });
   }
 
   /**
@@ -51,10 +45,7 @@ export class PoapDropApi implements DropApiProvider {
     for (const key in input) {
       if (Object.prototype.hasOwnProperty.call(input, key)) {
         if (key === 'image') {
-          form.append(key, input[key], {
-            filename: input['filename'],
-            contentType: input['contentType'],
-          });
+          form.append(key, input[key]);
         } else {
           form.append(key, (input[key] as string) + '');
         }
@@ -63,9 +54,7 @@ export class PoapDropApi implements DropApiProvider {
     return await this.secureFetch(`${this.baseUrl}/events`, {
       method: 'POST',
       body: form,
-      headers: {
-        ...form.getHeaders(),
-      },
+      headers: {},
     });
   }
 
@@ -82,7 +71,9 @@ export class PoapDropApi implements DropApiProvider {
     return await this.secureFetch(`${this.baseUrl}/events`, {
       method: 'PUT',
       body: JSON.stringify(input),
-      headers: {},
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
   }
 
@@ -104,13 +95,13 @@ export class PoapDropApi implements DropApiProvider {
       'x-api-key': this.apiKey,
     };
 
-    return (
-      await this.poapApi(url, {
-        method: options.method,
-        data: options.body,
-        headers: headersWithApiKey,
-      })
-    ).data;
+    const response = await fetch(url, {
+      method: options.method,
+      body: options.body,
+      headers: headersWithApiKey,
+    });
+
+    return await response.json();
   }
 }
 

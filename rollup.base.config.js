@@ -2,7 +2,6 @@ import typescript from 'rollup-plugin-typescript2';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
-import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import path from 'path';
 
 const pkg = require(path.resolve(process.cwd(), 'package.json'));
@@ -20,7 +19,6 @@ const configs = [
     },
     cache: false,
     plugins: [
-      peerDepsExternal(), // Automatically externalize dependencies
       nodeResolve({ browser: true }),
       typescript({
         tsconfig: `./tsconfig.json`,
@@ -46,12 +44,11 @@ const configs = [
       },
     ],
     plugins: [
-      peerDepsExternal(), // Automatically externalize dependencies
       typescript({
         tsconfig: `./tsconfig.json`,
       }),
       nodeResolve({
-        preferBuiltins: false,
+        preferBuiltins: true,
       }),
       commonjs(),
       json(),

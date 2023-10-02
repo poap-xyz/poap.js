@@ -14,7 +14,10 @@ async function main(): Promise<void> {
   // Use your library here
   const client = new DropsClient(
     new PoapCompass({ apiKey: getRequiredEnvVar('API_KEY') }),
-    new PoapDropApi({ apiKey: getRequiredEnvVar('API_KEY') }),
+    new PoapDropApi({
+      apiKey: getRequiredEnvVar('API_KEY'),
+      baseUrl: getRequiredEnvVar('POAP_DROPS_BASE_URL'),
+    }),
   );
   // Multiple Drops
   await measurePerformance(

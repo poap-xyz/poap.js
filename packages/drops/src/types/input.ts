@@ -26,7 +26,7 @@ export interface CreateDropsInput {
   expiryDate: string;
   eventUrl: string;
   virtualEvent: boolean;
-  image: Buffer;
+  image: Blob;
   filename: string;
   contentType: string;
   secretCode: string;

@@ -13,7 +13,7 @@ export interface CreateDropInput {
   expiry_date: string;
   event_url: string;
   virtual_event: boolean;
-  image: Buffer;
+  image: Blob;
   filename: string;
   contentType: string;
   secret_code: string;

@@ -1,6 +1,6 @@
 {
   "name": "@poap-xyz/utils",
-  "version": "0.0.39",
+  "version": "0.1.0",
   "description": "Utils module for the poap.js library",
   "type": "module",
   "main": "dist/cjs/index.cjs",
@@ -24,5 +24,8 @@
   "homepage": "https://github.com/poap-xyz/poap.js#readme",
   "scripts": {
     "build": "rollup -c --bundleConfigAsCjs"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }

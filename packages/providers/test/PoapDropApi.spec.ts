@@ -1,27 +1,20 @@
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
 import { PoapDropApi } from '../src/core/PoapDropApi/PoapDropApi';
 import {
   CreateDropInput,
   UpdateDropInput,
 } from '../src/ports/DropApiProvider/Types/input';
 import { DropResponse } from '../src/ports/DropApiProvider/Types/response';
+import { mock } from 'node:test';
 
 describe('PoapDropApi', () => {
-  let mock;
   let apiKey;
   let baseUrl;
   let api;
 
   beforeEach(() => {
-    mock = new MockAdapter(axios);
     apiKey = 'test-api-key';
     baseUrl = 'https://api.poap.test';
     api = new PoapDropApi({ apiKey, baseUrl });
-  });
-
-  afterEach(() => {
-    mock.reset();
   });
 
   describe('createDrop', () => {
@@ -36,7 +29,7 @@ describe('PoapDropApi', () => {
         expiry_date: '2023-01-31T00:00:00.000Z',
         event_url: 'https://example.com/test-event',
         virtual_event: true,
-        image: Buffer.from('Test Image'),
+        image: new Blob([Buffer.from('Test Image')], { type: 'image/png' }),
         filename: 'test-image.png',
         contentType: 'image/png',
         secret_code: 'test123',
@@ -69,8 +62,12 @@ describe('PoapDropApi', () => {
         created_date: '2023-01-01T00:00:00.000Z',
       };
 
-      mock.onPost(`${baseUrl}/events`).reply(200, mockResponse);
-
+      mock.method(global, 'fetch', () => {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve(mockResponse),
+        });
+      });
       const result = await api.createDrop(input);
       expect(result).toEqual(mockResponse);
     });
@@ -116,7 +113,12 @@ describe('PoapDropApi', () => {
         created_date: '2023-01-01T00:00:00.000Z',
       };
 
-      mock.onPut(`${baseUrl}/events`).reply(200, mockResponse);
+      mock.method(global, 'fetch', () => {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve(mockResponse),
+        });
+      });
 
       const result = await api.updateDrop(input);
       expect(result).toEqual(mockResponse);

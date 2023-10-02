@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CompassProvider } from '../../ports/CompassProvider/CompassProvider';
-import axios from 'axios';
-// TODO: Change variable type any to a more specific type
 
 const DEFAULT_COMPASS_BASE_URL = 'https://public.compass.poap.tech/v1/graphql';
 
@@ -44,19 +42,19 @@ export class PoapCompass implements CompassProvider {
     const endpoint = this.baseUrl;
 
     try {
-      const response = await axios(endpoint, {
+      const response = await fetch(endpoint, {
         method: 'POST',
-        data: {
+        body: JSON.stringify({
           query,
           variables,
-        },
+        }),
         headers: {
           'Content-Type': 'application/json',
           'x-api-key': this.apiKey,
         },
       });
 
-      const json = response.data;
+      const json = await response.json();
 
       if (json.errors) {
         throw new Error(
