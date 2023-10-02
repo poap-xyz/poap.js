@@ -45,11 +45,9 @@ const client = new PoapsClient(
   }),
   new PoapTokenApi({
     apiKey: 'YOUR_API_KEY',
-    baseUrl: 'POAP_TOKEN_BASE_URL',
     authenticationProvider: new AuthenticationProviderHttp(
       'YOUR_CLIENT_ID',
       'YOUR_CLIENT_SECRET',
-      'YOUR_OAUTH_SERVER_DOMAIN',
     ),
   }),
 );

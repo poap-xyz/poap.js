@@ -24,15 +24,15 @@ constructor(
 async fetch(input: FetchPoapsInput): Promise<PaginatedResult<POAP>>
 ```
 
-Fetches a list of POAP tokens based on the given input criteria.
+Fetches a list of [`POAP`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/POAP.md) tokens based on the given input criteria.
 
 #### Parameters
 
-- `input` (`FetchPoapsInput`): Criteria for fetching POAP tokens.
+- `input` ([`FetchPoapsInput`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/inputs.md/FetchPoapsInput)): Criteria for fetching POAP tokens.
 
 #### Returns
 
-A promise that resolves to a paginated list of POAP tokens.
+A promise that resolves to a paginated list of [`POAP`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/POAP.md) tokens.
 
 ### `getSecretCode`
 
@@ -52,8 +52,8 @@ A promise that resolves to the associated secret code.
 
 #### Throws
 
-- `CodeAlreadyMintedError`: Thrown when the POAP code has already been minted.
-- `CodeExpiredError`: Thrown when the POAP code is expired.
+- [`CodeAlreadyMintedError`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/errors.md/CodeAlreadyMintedError): Thrown when the POAP code has already been minted.
+- [`CodeExpiredError`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/errors.md/CodeExpiredError): Thrown when the POAP code is expired.
 
 ### `getMintCode`
 
@@ -130,11 +130,16 @@ Begins an asynchronous mint process and provides a unique queue ID in return.
 
 #### Parameters
 
-- `input` (`WalletMintInput`): Details required for the mint.
+- `input` ([`WalletMintInput`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/inputs.md/WalletMintInput)): Details required for the mint.
 
 #### Returns
 
 A promise that resolves to a unique queue ID for the initiated mint.
+
+#### Throws
+
+- [`CodeAlreadyMintedError`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/errors.md/CodeAlreadyMintedError): Thrown when the POAP code has already been minted.
+- [`CodeExpiredError`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/errors.md/CodeExpiredError): Thrown when the POAP code is expired.
 
 ### `mintSync`
 
@@ -146,11 +151,17 @@ Starts a synchronous mint process.
 
 #### Parameters
 
-- `input` (`WalletMintInput`): Details needed for the mint.
+- `input` ([`WalletMintInput`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/inputs.md/WalletMintInput)): Details needed for the mint.
 
 #### Returns
 
-A promise that resolves to the associated POAP upon successful mint completion.
+A promise that resolves to the associated [`POAP`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/POAP.md) upon successful mint completion.
+
+#### Throws
+
+- [`CodeAlreadyMintedError`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/errors.md/CodeAlreadyMintedError): Thrown when the POAP code has already been minted.
+- [`CodeExpiredError`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/errors.md/CodeExpiredError): Thrown when the POAP code is expired.
+- [`FinishedWithError`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/errors.md/FinishedWithError): Thrown when a minting operation encounters an error.
 
 ### `emailReservation`
 
@@ -164,11 +175,16 @@ Reserves a POAP against an email address and provides reservation details.
 
 #### Parameters
 
-- `input` (`EmailReservationInput`): Information for the reservation.
+- `input` ([`EmailReservationInput`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/inputs.md/EmailReservationInput)): Information for the reservation.
 
 #### Returns
 
-A promise that resolves to the reservation details of the POAP.
+A promise that resolves to the reservation details of the [`POAPReservation`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/POAPReservation.md).
+
+#### Throws
+
+- [`CodeAlreadyMintedError`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/errors.md/CodeAlreadyMintedError): Thrown when the POAP code has already been minted.
+- [`CodeExpiredError`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/errors.md/CodeExpiredError): Thrown when the POAP code is expired.
 
 ## Related Types
 
@@ -176,6 +192,8 @@ A promise that resolves to the reservation details of the POAP.
 - [`POAP`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/POAP.md)
 - [`POAPReservation`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/POAPReservation.md)
 - [`FetchPoapsInput`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/inputs.md/FetchPoapsInput)
+- [`WalletMintInput`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/inputs.md/WalletMintInput)
+- [`EmailReservationInput`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/inputs.md/EmailReservationInput)
 - [`PoapMintStatus`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/responses.md/PoapMintStatus)
 - [`PoapsSortFields`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/inputs.md/PoapsSortFields)
 - [`CodeAlreadyMintedError`](https://github.com/poap-xyz/poap.js/tree/main/packages/poaps/docs/errors.md/CodeAlreadyMintedError)

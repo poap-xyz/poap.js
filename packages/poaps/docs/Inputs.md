@@ -71,9 +71,9 @@ The `EmailReservationInput` interface represents the input fields required to re
 
 | Property    | Type       | Description                                                      |
 | ----------- | ---------- | ---------------------------------------------------------------- |
-| `mintCode`  | `string`   | The mint code for the POAP.                                      |
-| `email`     | `string`   | The email address for reserving the POAP                         |
-| `sendEmail` | `boolean?` | Optional field to specify whether to send an email notification. |
+| `mintCode`  | `string`   | The mint code for the POAP, essential for identifying the specific POAP being reserved. |
+| `email`     | `string`   | The email address for reserving the POAP, where the reservation confirmation and next steps will be sent. |
+| `sendEmail` | `boolean?` | Optional field to specify whether to send an email notification. If set to true or omitted, an email containing the next steps will be sent to the provided email address. If set to false, no email will be sent, although the POAP is still reserved. |
 
 ```typescript
 export interface EmailReservationInput {
