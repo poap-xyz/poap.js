@@ -128,9 +128,9 @@ export class PoapsClient {
   }
 
   /**
-   * Retrieves mint code details for a specific QR hash.
+   * Retrieves mint code details for a specific Mint Code.
    * @async
-   * @param {string} mintCode - The QR hash for which to get the mint code.
+   * @param {string} mintCode - The Mint Code for which to get the mint code.
    * @returns {Promise<GetMintCodeResponse>} The mint code details.
    */
   async getMintCode(mintCode: string): Promise<PoapMintStatus> {
@@ -168,9 +168,9 @@ export class PoapsClient {
   }
 
   /**
-   * Awaits until a specific POAP, identified by its QR hash, is indexed.
+   * Awaits until a specific POAP, identified by its Mint Code, is indexed on our database.
    * @async
-   * @param {string} mintCode - The QR hash identifying the POAP to be indexed.
+   * @param {string} mintCode - The Mint Code identifying the POAP to be indexed.
    * @returns {Promise<GetMintCodeResponse>} Details of the indexed POAP.
    */
   async waitPoapIndexed(mintCode: string): Promise<PoapMintStatus> {
@@ -223,7 +223,7 @@ export class PoapsClient {
   }
 
   /**
-   * Reserves a POAP against an email address and provides reservation details.
+   * Reserves a POAP to an email address and provides reservation details.
    * @async
    * @param {EmailReservationInput} input - Information for the reservation.
    * @returns {Promise<POAPReservation>} The reservation details of the POAP.

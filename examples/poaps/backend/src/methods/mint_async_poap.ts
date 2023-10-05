@@ -2,7 +2,7 @@ import { PoapsClient } from '@poap-xyz/poaps';
 import { handleError } from '../utils/handleError';
 
 /**
- * Attempts to mint a POAP  token asynchronously based on a predefined QR hash and address.
+ * Attempts to mint a POAP  token asynchronously based on a predefined Mint Code and address.
  * After successfully minting, the function fetches and logs the details of the minted POAP.
  * In the event of an error during the process, the error is captured and managed by a separate utility function.
  *
@@ -24,7 +24,7 @@ export const mint_async_poap = async (client: PoapsClient): Promise<void> => {
     // Wait for the mint's status to transition from 'IN_PROCESS' or 'PENDING' states
     await client.waitMintStatus(queueUid, 'your_mint_code');
 
-    // Wait for the minted POAP to be indexed and fetch the mint code information related to the QR hash
+    // Wait for the minted POAP to be indexed and fetch the mint code information related to the Mint Code
     const getMintCodeResponse = await client.waitPoapIndexed('your_mint_code');
 
     // Retrieve and log the specifics of the minted POAP

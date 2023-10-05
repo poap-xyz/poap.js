@@ -44,7 +44,7 @@ export class PoapTokenApi implements TokensApiProvider {
   /**
    * Retrieves the mint code details.
    *
-   * @param {string} code - The unique QR hash for the mint.
+   * @param {string} code - The unique Mint Code for the mint.
    * @returns {Promise<GetMintCodeResponse>} Details of the mint code.
    */
   async getMintCode(code: string): Promise<GetMintCodeResponse> {

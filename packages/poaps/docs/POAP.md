@@ -2,7 +2,7 @@
 
 ## Description
 
-The `POAP` class represents a POAP token with various attributes pertaining to the token itself, the event it's associated with, and its ownership details.
+The `POAP` class represents a POAP token with various attributes pertaining to the token itself, the drop it's associated with, and its ownership details.
 
 ## Constructor
 
@@ -18,20 +18,20 @@ Creates a new instance of the `POAP` class with specified properties.
 
 ## Properties
 
-| Property           | Type     | Description                                                               |
-| ------------------ | -------- | ------------------------------------------------------------------------- |
-| `id`               | `number` | The unique identifier of the POAP token.                                  |
-| `collectorAddress` | `string` | The address of the collector owning the POAP token.                       |
-| `transferCount`    | `number` | The number of times the POAP token has been transferred.                  |
-| `mintedOn`         | `Date`   | The date and time when the POAP token was minted.                         |
-| `dropId`           | `number` | The identifier of the drop associated with the POAP token.                |
-| `imageUrl`         | `string` | The URL of the image representing the POAP token or the associated event. |
-| `city`             | `string` | The city where the associated event took place.                           |
-| `country`          | `string` | The country where the associated event took place.                        |
-| `description`      | `string` | A description of the associated event or the POAP token.                  |
-| `startDate`        | `Date`   | The start date of the associated event.                                   |
-| `endDate`          | `Date`   | The end date of the associated event.                                     |
-| `name`             | `string` | The name of the associated event or the POAP token.                       |
+| Property           | Type     | Description                                                              |
+| ------------------ | -------- | ------------------------------------------------------------------------ |
+| `id`               | `number` | The unique identifier of the POAP token.                                 |
+| `collectorAddress` | `string` | The address of the collector owning the POAP token.                      |
+| `transferCount`    | `number` | The number of times the POAP token has been transferred.                 |
+| `mintedOn`         | `Date`   | The date and time when the POAP token was minted.                        |
+| `dropId`           | `number` | The identifier of the drop associated with the POAP token.               |
+| `imageUrl`         | `string` | The URL of the image representing the POAP token or the associated drop. |
+| `city`             | `string` | The city where the associated drop took place.                           |
+| `country`          | `string` | The country where the associated drop took place.                        |
+| `description`      | `string` | A description of the associated drop or the POAP token.                  |
+| `startDate`        | `Date`   | The start date of the associated drop.                                   |
+| `endDate`          | `Date`   | The end date of the associated drop.                                     |
+| `name`             | `string` | The name of the associated drop.                                         |
 
 ## PoapProperties Interface
 
