@@ -1,6 +1,6 @@
 # Input Types Documentation
 
-This section documents the input types defined for fetching and managing POAPs .
+This section documents the input types used to fetch and manage POAPs .
 
 ## PoapsSortFields
 
@@ -52,7 +52,7 @@ export interface FetchPoapsInput extends PaginationInput {
 
 ## WalletMintInput
 
-The `WalletMintInput` interface represents the input fields required to mint a POAP for a wallet.
+The `WalletMintInput` interface represents the input fields required to mint a POAP for an Ethereum wallet address.
 
 | Property   | Type     | Description                                    |
 | ---------- | -------- | ---------------------------------------------- |
@@ -69,10 +69,10 @@ export interface WalletMintInput {
 
 The `EmailReservationInput` interface represents the input fields required to reserve a POAP via email.
 
-| Property    | Type       | Description                                                      |
-| ----------- | ---------- | ---------------------------------------------------------------- |
-| `mintCode`  | `string`   | The mint code for the POAP, essential for identifying the specific POAP being reserved. |
-| `email`     | `string`   | The email address for reserving the POAP, where the reservation confirmation and next steps will be sent. |
+| Property    | Type       | Description                                                                                                                                                                                                                                             |
+| ----------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `mintCode`  | `string`   | The mint code for the POAP, essential for identifying the specific POAP being reserved.                                                                                                                                                                 |
+| `email`     | `string`   | The email address for reserving the POAP, where the reservation confirmation and next steps will be sent.                                                                                                                                               |
 | `sendEmail` | `boolean?` | Optional field to specify whether to send an email notification. If set to true or omitted, an email containing the next steps will be sent to the provided email address. If set to false, no email will be sent, although the POAP is still reserved. |
 
 ```typescript

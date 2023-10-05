@@ -2,14 +2,14 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-`@poap-xyz/poaps` is a JavaScript library providing an interface for interacting with POAPs , allowing you to fetch information about POAP tokens, their on-chain data, their related drop and metadata, all in a simplified manner.
+`@poap-xyz/poaps` is a JavaScript library providing an interface for interacting with POAPs , making it easy to fetch information about POAP tokens like their on-chain data, their related drop information and metadata.
 
 ## Features
 
-- Fetch single or multiple POAP tokens.
+- Fetch one or multiple POAP tokens at once.
 - Search over minted POAPs by their collector or the drop they belong to.
-- Manage asynchronous and synchronous mint processes.
-- Reserve POAP against an email address.
+- Mint POAPs synchronously or asynchronously mint processes.
+- Reserve a POAP to an email address.
 - Obtain mint status, POAP indexed status, and more.
 
 ## Installation
@@ -41,10 +41,10 @@ import {
 // Create a new instance of PoapsClient
 const client = new PoapsClient(
   new PoapCompass({
-    apiKey: 'YOUR_API_KEY',
+    apiKey: 'YOUR_COMPASS_API_KEY',
   }),
   new PoapTokenApi({
-    apiKey: 'YOUR_API_KEY',
+    apiKey: 'YOUR_POAP_TOKEN_API_KEY',
     authenticationProvider: new AuthenticationProviderHttp(
       'YOUR_CLIENT_ID',
       'YOUR_CLIENT_SECRET',

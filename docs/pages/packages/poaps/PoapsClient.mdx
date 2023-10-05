@@ -61,11 +61,11 @@ A promise that resolves to the associated secret code.
 async getMintCode(mintCode: string): Promise<PoapMintStatus>
 ```
 
-Retrieves mint code details for a specific QR hash.
+Retrieves mint code details for a specific Mint Code.
 
 #### Parameters
 
-- `mintCode` (`string`): The QR hash for which to get the mint code.
+- `mintCode` (`string`): The Mint Code for which to get the mint code.
 
 #### Returns
 
@@ -98,7 +98,7 @@ Awaits until the mint's status changes from 'IN_PROCESS' or 'PENDING'.
 #### Parameters
 
 - `queueUid` (`string`): The unique ID of the mint.
-- `mintCode` (`string`): The QR hash for the mint.
+- `mintCode` (`string`): The Mint Code for the mint.
 
 #### Returns
 
@@ -110,11 +110,11 @@ A promise that resolves when the mint's status changes.
 async waitPoapIndexed(mintCode: string): Promise<PoapMintStatus>
 ```
 
-Awaits until a specific POAP, identified by its QR hash, is indexed.
+Awaits until a specific POAP, identified by its Mint Code, is indexed on our database.
 
 #### Parameters
 
-- `mintCode` (`string`): The QR hash identifying the POAP to be indexed.
+- `mintCode` (`string`): The Mint Code identifying the POAP to be indexed.
 
 #### Returns
 
@@ -171,7 +171,7 @@ async emailReservation(
 ): Promise<POAPReservation>
 ```
 
-Reserves a POAP against an email address and provides reservation details.
+Reserves a POAP to an email address and provides reservation details.
 
 #### Parameters
 

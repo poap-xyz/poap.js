@@ -40,7 +40,7 @@ export class FinishedWithError extends Error {
 }
 ```
 
-### Usage
+## Usage
 
 These custom error classes allow for more precise error handling and better debugging, by providing specific error messages based on the type of error encountered. They extend the native JavaScript `Error` class and can be used in a similar manner, with the added benefit of POAP-specific error messages.
 
@@ -50,11 +50,15 @@ Below are examples demonstrating how one might use the `PoapsClient` class along
 
 ```typescript
 // Importing necessary classes and error types
-import { PoapsClient, WalletMintInput, EmailReservationInput } from '@poap-xyz/poap-client';
+import {
+  PoapsClient,
+  WalletMintInput,
+  EmailReservationInput,
+} from '@poap-xyz/poap-client';
 import {
   CodeAlreadyMintedError,
   CodeExpiredError,
-  FinishedWithError
+  FinishedWithError,
 } from '@poap-xyz/poap-errors';
 
 // Initializing the PoapsClient with providers
@@ -63,13 +67,13 @@ const poapsClient = new PoapsClient(compassProvider, tokensApiProvider);
 // Defining the WalletMintInput
 const walletMintInput: WalletMintInput = {
   mintCode: 'some-mint-code',
-  address: '0x1234567890abcdef1234567890abcdef12345678'
+  address: '0x1234567890abcdef1234567890abcdef12345678',
 };
 
 // Defining the EmailReservationInput
 const emailReservationInput: EmailReservationInput = {
   mintCode: 'some-other-mint-code',
-  email: 'example@example.com'
+  email: 'example@example.com',
 };
 
 // Attempting to mint a POAP token synchronously
@@ -91,7 +95,9 @@ async function mintPoap() {
 // Attempting to get the secret code for a mint code
 async function getSecret() {
   try {
-    const secretCode = await poapsClient.getSecretCode(walletMintInput.mintCode);
+    const secretCode = await poapsClient.getSecretCode(
+      walletMintInput.mintCode,
+    );
     console.log('Secret code retrieved:', secretCode);
   } catch (error) {
     if (error instanceof CodeAlreadyMintedError) {
@@ -110,7 +116,9 @@ async function getSecret() {
 // Attempting to reserve a POAP via email
 async function reservePoap() {
   try {
-    const reservation = await poapsClient.emailReservation(emailReservationInput);
+    const reservation = await poapsClient.emailReservation(
+      emailReservationInput,
+    );
     console.log('POAP reserved successfully:', reservation);
   } catch (error) {
     if (error instanceof CodeAlreadyMintedError) {
