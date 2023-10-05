@@ -1,0 +1,201 @@
+# PoapsClient
+
+## Description
+
+`PoapsClient` is a class representing a client for interacting with POAPs .
+
+## Constructor
+
+```typescript
+constructor(
+  private compassProvider: CompassProvider,
+  private tokensApiProvider: TokensApiProvider
+)
+```
+
+- `compassProvider` (`CompassProvider`): The provider for the POAP compass API.
+- `tokensApiProvider` (`TokensApiProvider`): The provider for the Tokens API.
+
+## Methods
+
+### `fetch`
+
+```typescript
+async fetch(input: FetchPoapsInput): Promise<PaginatedResult<POAP>>
+```
+
+Fetches a list of [`POAP`](/packages/poaps/POAP) tokens based on the given input criteria.
+
+#### Parameters
+
+- `input` ([`FetchPoapsInput`](/packages/poaps/Inputs#fetchpoapsinput)): Criteria for fetching POAP tokens.
+
+#### Returns
+
+A promise that resolves to a paginated list of [`POAP`](/packages/poaps/POAP) tokens.
+
+### `getSecretCode`
+
+```typescript
+private async getSecretCode(mintCode: string): Promise<string>
+```
+
+Retrieves the secret code associated with a POAP code.
+
+#### Parameters
+
+- `mintCode` (`string`): The POAP code for which to get the secret.
+
+#### Returns
+
+A promise that resolves to the associated secret code.
+
+#### Throws
+
+- [`CodeAlreadyMintedError`](/packages/poaps/Errors#codeAlreadyMintedError): Thrown when the POAP code has already been minted.
+- [`CodeExpiredError`](/packages/poaps/Errors#codeExpiredError): Thrown when the POAP code is expired.
+
+### `getMintCode`
+
+```typescript
+async getMintCode(mintCode: string): Promise<PoapMintStatus>
+```
+
+Retrieves mint code details for a specific Mint Code.
+
+#### Parameters
+
+- `mintCode` (`string`): The Mint Code for which to get the mint code.
+
+#### Returns
+
+A promise that resolves to the mint code details, [`PoapMintStatus`](/packages/poaps/responses/PoapMintStatus).
+
+### `getMintStatus`
+
+```typescript
+async getMintStatus(queueUid: string): Promise<MintingStatus>
+```
+
+Fetches the current status of a mint based on its unique ID.
+
+#### Parameters
+
+- `queueUid` (`string`): The unique ID of the mint.
+
+#### Returns
+
+A promise that resolves to the current status of the mint.
+
+### `waitMintStatus`
+
+```typescript
+async waitMintStatus(queueUid: string, mintCode: string): Promise<void>
+```
+
+Awaits until the mint's status changes from 'IN_PROCESS' or 'PENDING'.
+
+#### Parameters
+
+- `queueUid` (`string`): The unique ID of the mint.
+- `mintCode` (`string`): The Mint Code for the mint.
+
+#### Returns
+
+A promise that resolves when the mint's status changes.
+
+### `waitPoapIndexed`
+
+```typescript
+async waitPoapIndexed(mintCode: string): Promise<PoapMintStatus>
+```
+
+Awaits until a specific POAP, identified by its Mint Code, is indexed on our database.
+
+#### Parameters
+
+- `mintCode` (`string`): The Mint Code identifying the POAP to be indexed.
+
+#### Returns
+
+A promise that resolves to details of the indexed POAP, [`PoapMintStatus`](/packages/poaps/responses/PoapMintStatus).
+
+### `mintAsync`
+
+```typescript
+async mintAsync(input: WalletMintInput): Promise<string>
+```
+
+Begins an asynchronous mint process and provides a unique queue ID in return.
+
+#### Parameters
+
+- `input` ([`WalletMintInput`](/packages/poaps/Inputs#walletmintinput)): Details required for the mint.
+
+#### Returns
+
+A promise that resolves to a unique queue ID for the initiated mint.
+
+#### Throws
+
+- [`CodeAlreadyMintedError`](/packages/poaps/Errors#codeAlreadyMintedError): Thrown when the POAP code has already been minted.
+- [`CodeExpiredError`](/packages/poaps/Errors#codeExpiredError): Thrown when the POAP code is expired.
+
+### `mintSync`
+
+```typescript
+async mintSync(input: WalletMintInput): Promise<POAP>
+```
+
+Starts a synchronous mint process.
+
+#### Parameters
+
+- `input` ([`WalletMintInput`](/packages/poaps/Inputs#walletmintinput)): Details needed for the mint.
+
+#### Returns
+
+A promise that resolves to the associated [`POAP`](/packages/poaps/POAP) upon successful mint completion.
+
+#### Throws
+
+- [`CodeAlreadyMintedError`](/packages/poaps/Errors#codeAlreadyMintedError): Thrown when the POAP code has already been minted.
+- [`CodeExpiredError`](/packages/poaps/Errors#codeExpiredError): Thrown when the POAP code is expired.
+- [`FinishedWithError`](/packages/poaps/Errors#finishedWithError): Thrown when a minting operation encounters an error.
+
+### `emailReservation`
+
+```typescript
+async emailReservation(
+  input: EmailReservationInput
+): Promise<POAPReservation>
+```
+
+Reserves a POAP to an email address and provides reservation details.
+
+#### Parameters
+
+- `input` ([`EmailReservationInput`](/packages/poaps/Inputs#emailreservationinput)): Information for the reservation.
+
+#### Returns
+
+A promise that resolves to the reservation details of the [`POAPReservation`](/packages/poaps/POAPReservation).
+
+#### Throws
+
+- [`CodeAlreadyMintedError`](/packages/poaps/Errors#codeAlreadyMintedError): Thrown when the POAP code has already been minted.
+- [`CodeExpiredError`](/packages/poaps/Errors#codeExpiredError): Thrown when the POAP code is expired.
+
+## Related Types
+
+- [`PoapsClient`](/packages/poaps/PoapsClient)
+- [`POAP`](/packages/poaps/POAP)
+- [`POAPReservation`](/packages/poaps/POAPReservation)
+- [`FetchPoapsInput`](/packages/poaps/Inputs#fetchpoapsinput)
+- [`WalletMintInput`](/packages/poaps/Inputs#walletmintinput)
+- [`EmailReservationInput`](/packages/poaps/Inputs#emailreservationinput)
+- [`PoapMintStatus`](/packages/poaps/responses/PoapMintStatus)
+- [`PoapsSortFields`](/packages/poaps/Inputs#PoapsSortFields)
+- [`CodeAlreadyMintedError`](/packages/poaps/Errors#codeAlreadyMintedError)
+- [`CodeExpiredError`](/packages/poaps/Errors#codeExpiredError)
+- [`FinishedWithError`](/packages/poaps/Errors#finishedWithError)

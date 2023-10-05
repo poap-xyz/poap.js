@@ -6,7 +6,7 @@ import { PoapMintStatus } from '../types';
  * @class PoapIndexed
  * @extends {RetryableTask}
  *
- * Represents a utility class designed to periodically check if a POAP (Proof of Attendance Protocol) token is indexed.
+ * Represents a utility class designed to periodically check if a POAP  token is indexed on our database.
  * This class extends `RetryableTask` to utilize its backoff retry mechanism in case the token hasn't been indexed yet.
  */
 export class PoapIndexed extends RetryableTask {
@@ -15,7 +15,7 @@ export class PoapIndexed extends RetryableTask {
   /**
    * Creates an instance of the PoapIndexed class.
    *
-   * @param {string} mintCode - A unique QR hash representing the token.
+   * @param {string} mintCode - A unique Mint Code representing the token.
    * @param {TokensApiProvider} tokensApiProvider - An instance of the TokensApiProvider used to check the indexing status of the token.
    */
   constructor(mintCode: string, tokensApiProvider: TokensApiProvider) {
@@ -24,7 +24,7 @@ export class PoapIndexed extends RetryableTask {
   }
 
   /**
-   * Periodically checks if the POAP token, represented by its QR hash, is indexed.
+   * Periodically checks if the POAP token, represented by its Mint Code, is indexed on our database.
    * This method will continue retrying with an increasing delay until either the token is indexed or it reaches the maximum allowed retries.
    *
    * @returns {Promise<GetClaimCodeResponse>} A promise that either resolves with the indexed token's mint code response or rejects due to reaching the max retry limit.

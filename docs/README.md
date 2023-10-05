@@ -1,6 +1,6 @@
 # POAP.js Documentation Website
 
-This is a documentation website for POAP.js, a library for integrating with the POAP (Proof of Attendance Protocol) platform in JavaScript applications.
+This is a documentation website for POAP.js, a library for integrating with the POAP platform in JavaScript applications.
 
 ## Getting Started
 

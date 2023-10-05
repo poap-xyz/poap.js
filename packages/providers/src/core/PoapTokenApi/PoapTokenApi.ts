@@ -12,7 +12,7 @@ import { TokensApiProvider } from './../../ports/TokensApiProvider/TokensApiProv
 const DEFAULT_DROP_BASE_URL = 'https://api.poap.tech';
 
 /**
- * Represents the main interface to interact with the Poap Drop API.
+ * Represents the main interface to interact with the POAP Drop API.
  *
  * @export
  * @class PoapTokenApi
@@ -44,7 +44,7 @@ export class PoapTokenApi implements TokensApiProvider {
   /**
    * Retrieves the mint code details.
    *
-   * @param {string} code - The unique QR hash for the mint.
+   * @param {string} code - The unique Mint Code for the mint.
    * @returns {Promise<GetMintCodeResponse>} Details of the mint code.
    */
   async getMintCode(code: string): Promise<GetMintCodeResponse> {
@@ -93,7 +93,7 @@ export class PoapTokenApi implements TokensApiProvider {
   }
 
   /**
-   * Sends a secure HTTP request to the Poap API with proper headers.
+   * Sends a secure HTTP request to the POAP API with proper headers.
    *
    * @private
    * @template R - Type of the expected response data.

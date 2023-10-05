@@ -5,7 +5,7 @@ import { CompassProvider } from '../../ports/CompassProvider/CompassProvider';
 const DEFAULT_COMPASS_BASE_URL = 'https://public.compass.poap.tech/v1/graphql';
 
 /**
- * A class that implements the `CompassProvider` interface for fetching data from the Poap API.
+ * A class that implements the `CompassProvider` interface for fetching data from the POAP API.
  * @class
  * @implements {CompassProvider}
  */
@@ -24,7 +24,7 @@ export class PoapCompass implements CompassProvider {
   }
 
   /**
-   * Fetches data from the Poap GraphQL API.
+   * Fetches data from the POAP GraphQL API.
    *
    * @async
    * @private
@@ -92,8 +92,8 @@ export class PoapCompass implements CompassProvider {
 /**
  * Configuration interface for the PoapCompass class.
  * @interface
- * @property {string} apiKey - The API key to use for requests to the Poap API.
- * @property {string} [baseUrl] - Optional base URL for the Poap API. If not provided, a default will be used.
+ * @property {string} apiKey - The API key to use for requests to the POAP API.
+ * @property {string} [baseUrl] - Optional base URL for the POAP API. If not provided, a default will be used.
  */
 export interface PoapCompassConfig {
   apiKey: string;
