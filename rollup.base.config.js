@@ -19,7 +19,10 @@ const configs = [
     },
     cache: false,
     plugins: [
-      nodeResolve({ browser: true }),
+      nodeResolve({
+        browser: true,
+        preferBuiltins: true,
+      }),
       typescript({
         tsconfig: `./tsconfig.json`,
       }),
