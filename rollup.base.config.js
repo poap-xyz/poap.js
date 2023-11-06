@@ -47,13 +47,13 @@ const configs = [
       },
     ],
     plugins: [
+      nodePolyfills(),
       nodeResolve({
         preferBuiltins: true,
       }),
       typescript({
         tsconfig: `./tsconfig.json`,
       }),
-      nodePolyfills(),
       commonjs(),
       json(),
     ],
