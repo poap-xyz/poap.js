@@ -21,7 +21,7 @@ const configs = [
     plugins: [
       nodeResolve({
         browser: true,
-        preferBuiltins: true,
+        preferBuiltins: false,
       }),
       typescript({
         tsconfig: `./tsconfig.json`,
@@ -51,7 +51,7 @@ const configs = [
         tsconfig: `./tsconfig.json`,
       }),
       nodeResolve({
-        preferBuiltins: true,
+        preferBuiltins: false,
       }),
       commonjs(),
       json(),
