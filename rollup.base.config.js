@@ -3,7 +3,6 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 import path from 'path';
-import nodePolyfills from 'rollup-plugin-node-polyfills';
 
 const pkg = require(path.resolve(process.cwd(), 'package.json'));
 
@@ -47,12 +46,11 @@ const configs = [
       },
     ],
     plugins: [
-      nodePolyfills(),
-      nodeResolve({
-        preferBuiltins: true,
-      }),
       typescript({
         tsconfig: `./tsconfig.json`,
+      }),
+      nodeResolve({
+        preferBuiltins: true,
       }),
       commonjs(),
       json(),
