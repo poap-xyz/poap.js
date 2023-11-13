@@ -3,6 +3,7 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 import path from 'path';
+import nodePolyfills from 'rollup-plugin-node-polyfills';
 
 const pkg = require(path.resolve(process.cwd(), 'package.json'));
 
@@ -19,9 +20,11 @@ const configs = [
     },
     cache: false,
     plugins: [
-      nodeResolve({ browser: true }),
       typescript({
         tsconfig: `./tsconfig.json`,
+      }),
+      nodeResolve({
+        browser: true,
       }),
       commonjs(),
       json(),
@@ -43,14 +46,17 @@ const configs = [
         exports: 'named',
       },
     ],
+    external: ['axios'],
     plugins: [
       typescript({
         tsconfig: `./tsconfig.json`,
       }),
       nodeResolve({
         preferBuiltins: true,
+        browser: false,
       }),
       commonjs(),
+      nodePolyfills(),
       json(),
     ],
   },
