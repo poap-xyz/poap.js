@@ -6,6 +6,5 @@ DIRS=(
   "packages/providers"
   "packages/drops"
   "packages/poaps"
-  "packages/performance"
   "packages/moments"
 )

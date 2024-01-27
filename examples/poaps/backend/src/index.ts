@@ -1,4 +1,3 @@
-import { measurePerformance } from '@poap-xyz/performance';
 import { PoapsClient } from '@poap-xyz/poaps';
 import {
   AuthenticationProviderHttp,
@@ -34,34 +33,19 @@ async function main(): Promise<void> {
     }),
   );
   // Multiple POAPs
-  await measurePerformance(
-    () => fetch_multiple_poaps(client),
-    'fetch_multiple_poaps',
-  );
+  await fetch_multiple_poaps(client);
   // One POAP by id
-  await measurePerformance(
-    () => fetch_single_poap(client),
-    'fetch_single_poap',
-  );
+  await fetch_single_poap(client);
   // Multiple POAPs by collector
-  await measurePerformance(
-    () => fetch_multiple_poaps_by_collector(client),
-    'fetch_multiple_poaps_by_collector',
-  );
+  await fetch_multiple_poaps_by_collector(client);
   // Multiple POAPs by drop
-  await measurePerformance(
-    () => fetch_multiple_poaps_by_drop_id(client),
-    'fetch_multiple_poaps_by_drop_id',
-  );
+  await fetch_multiple_poaps_by_drop_id(client);
   // mint Sync POAP
-  await measurePerformance(() => mint_sync_poap(client), 'mint_sync_poap');
+  await mint_sync_poap(client);
   // mint Async POAP
-  await measurePerformance(() => mint_async_poap(client), 'mint_async_poap');
+  await mint_async_poap(client);
   // Email Reservation POAP
-  await measurePerformance(
-    () => email_reservation_poap(client),
-    'email_reservation_poap',
-  );
+  await email_reservation_poap(client);
 }
 
 main().catch((error) => {

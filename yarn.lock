@@ -893,12 +893,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@poap-xyz/performance@*, @poap-xyz/performance@workspace:packages/performance":
-  version: 0.0.0-use.local
-  resolution: "@poap-xyz/performance@workspace:packages/performance"
-  languageName: unknown
-  linkType: soft
-
 "@poap-xyz/poaps@*, @poap-xyz/poaps@workspace:packages/poaps":
   version: 0.0.0-use.local
   resolution: "@poap-xyz/poaps@workspace:packages/poaps"
@@ -1806,7 +1800,6 @@ __metadata:
   resolution: "backend-drops-example@workspace:examples/drops/backend"
   dependencies:
     "@poap-xyz/drops": "*"
-    "@poap-xyz/performance": "*"
     "@poap-xyz/providers": "*"
     "@poap-xyz/utils": "*"
     "@types/node": ^18.16.0
@@ -1825,7 +1818,6 @@ __metadata:
   resolution: "backend-moments-example@workspace:examples/moments/backend"
   dependencies:
     "@poap-xyz/moments": "*"
-    "@poap-xyz/performance": "*"
     "@poap-xyz/providers": "*"
     "@poap-xyz/utils": "*"
     "@types/mime": ^3.0.1
@@ -1845,7 +1837,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "backend-poaps-example@workspace:examples/poaps/backend"
   dependencies:
-    "@poap-xyz/performance": "*"
     "@poap-xyz/poaps": "*"
     "@poap-xyz/providers": "*"
     "@poap-xyz/utils": "*"
