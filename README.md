@@ -12,7 +12,7 @@
 
 # POAP.js
 
-![Build Status](https://github.com/poap-xyz/poap.js/actions/workflows/npm_publish_tag.yml/badge.svg)
+![Build Status](https://github.com/poap-xyz/poap.js/actions/workflows/npm_publish.yml/badge.svg)
 
 The POAP.js is a collection of SDKs and utilities for interacting with the POAP ecosystem. The library provides a set of
 classes and methods to simplify working with them.
