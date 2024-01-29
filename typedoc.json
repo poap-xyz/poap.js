@@ -3,8 +3,9 @@
   "entryPoints": [
     "./packages/drops/src",
     "./packages/moments/src",
+    "./packages/poaps/src",
     "./packages/providers/src",
-    "./packages/types/src"
+    "./packages/utils/src"
   ],
   "exclude": ["**/node_modules/**", "**/*.spec.ts"],
   "out": "docs",
