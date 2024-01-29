@@ -30,7 +30,7 @@ If you find any issues with the documentation or want to improve it, please subm
 
 ## Code of Conduct
 
-By participating in this project, you are expected to uphold our [Code of Conduct](https://github.com/poap-xyz/poap.js/blob/main/documentation/CODE_OF_CONDUCT.md).
+By participating in this project, you are expected to uphold our [Code of Conduct](https://github.com/poap-xyz/poap.js/blob/main/.github/CODE_OF_CONDUCT.md).
 
 ## License
 
