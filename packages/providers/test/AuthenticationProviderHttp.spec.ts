@@ -6,6 +6,7 @@ describe('AuthenticationProviderHttp', () => {
   const CLIENT_ID = 'CLIENT_ID';
   const CLIENT_SECRET = 'CLIENT_SECRET';
   const ACCESS_TOKEN = 'ACCESS_TOKEN';
+  const ACCESS_TOKEN_2 = 'ACCESS_TOKEN_2';
   const EXPIRES_IN = 3600;
   const AUDIENCE = 'audience.test';
   const AUTH_SERVER = 'auth.test';
@@ -80,15 +81,18 @@ describe('AuthenticationProviderHttp', () => {
       });
     });
 
+    jest.useFakeTimers();
+
     const accessToken1 = await provider.getJWT(AUDIENCE);
 
     jest.advanceTimersByTime(EXPIRES_IN * 1000 + 1);
 
     mock.method(global, 'fetch', () => {
       return Promise.resolve({
+        ok: true,
         json: () =>
           Promise.resolve({
-            access_token: ACCESS_TOKEN,
+            access_token: ACCESS_TOKEN_2,
             expires_in: EXPIRES_IN,
           }),
       });
@@ -97,8 +101,9 @@ describe('AuthenticationProviderHttp', () => {
     const accessToken2 = await provider.getJWT(AUDIENCE);
 
     expect(accessToken1).toEqual(ACCESS_TOKEN);
-    expect(accessToken2).toEqual(ACCESS_TOKEN);
+    expect(accessToken2).toEqual(ACCESS_TOKEN_2);
 
+    jest.useRealTimers();
     mock.reset();
   });
 });
