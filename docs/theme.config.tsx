@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 const SITE_ROOT = 'https://sdk.poap.tech';
 
 const config: DocsThemeConfig = {
-  logo: <Image src={'/poap-logo.svg'} alt="as" width={40} height={40} />,
+  logo: <Image src={'/poap-logo.svg'} alt="POAP" width={40} height={40} />,
   project: {
     link: 'https://github.com/poap-xyz/poap.js',
   },
