@@ -9,7 +9,6 @@
     "format": "prettier --write 'packages/**/src/**/*.ts'",
     "publish": "bash ./publish-update-packages.sh",
     "publish-beta": "bash ./publish-beta-packages.sh",
-    "docs": "typedoc",
     "test": "jest"
   },
   "repository": {
@@ -48,7 +47,6 @@
     "rollup-plugin-typescript2": "^0.36.0",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
-    "typedoc": "^0.25.7",
     "typescript": "^5.3.3"
   },
   "workspaces": [
