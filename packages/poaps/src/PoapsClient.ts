@@ -150,9 +150,8 @@ export class PoapsClient {
    * @returns {Promise<MintingStatus>} The current status of the mint.
    */
   async getMintStatus(queueUid: string): Promise<MintingStatus> {
-    const mintStatusResponse = await this.tokensApiProvider.mintStatus(
-      queueUid,
-    );
+    const mintStatusResponse =
+      await this.tokensApiProvider.mintStatus(queueUid);
     return mintStatusResponse.status;
   }
 
