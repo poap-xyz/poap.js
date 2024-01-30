@@ -18,15 +18,15 @@
   },
   "homepage": "https://github.com/poap-xyz/poap.js/tree/master/docs#readme",
   "dependencies": {
-    "next": "^13.0.6",
-    "nextra": "latest",
-    "nextra-theme-docs": "latest",
+    "next": "^14.1.0",
+    "nextra": "^2.13.2",
+    "nextra-theme-docs": "^2.13.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@svgr/webpack": "^7.0.0",
-    "@types/node": "18.11.10",
-    "typescript": "^4.9.3"
+    "@svgr/webpack": "^8.1.0",
+    "@types/node": "20.11.10",
+    "typescript": "^5.3.3"
   }
 }
