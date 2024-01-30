@@ -12,7 +12,7 @@ const config: DocsThemeConfig = {
   },
   docsRepositoryBase: 'https://github.com/poap-xyz/poap.js/tree/master/docs',
   footer: {
-    text: 'POAP © 2023',
+    text: `POAP © 2023-${new Date().getFullYear()}`,
   },
   useNextSeoProps() {
     return {
