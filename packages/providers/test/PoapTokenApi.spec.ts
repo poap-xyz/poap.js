@@ -1,10 +1,10 @@
-import { MintingStatus } from '@poap-xyz/utils';
 import {
   GetMintCodeResponse,
   MintCodeInput,
-  MintStatusResponse,
   PoapTokenApi,
   PostMintCodeResponse,
+  Transaction,
+  TransactionStatus,
 } from '../src';
 import { mock } from 'node:test';
 
@@ -131,27 +131,70 @@ describe('PoapTokenApi', () => {
   });
 
   describe('mintStatus', () => {
-    it('should retrieve the status of a mint by its unique identifier', async () => {
-      const mockUid = 'mockUid12345';
-      const mockResponse: MintStatusResponse = {
-        uid: 1002,
-        operation: 'MINT',
-        status: MintingStatus.FINISH,
-        result: {
-          tx_hash: '0xDEF123ABC456',
-          error: '',
-        },
-      };
+    const QR_HASH = 'mockQrHash1';
 
+    it('should retrieve a Transaction associated with a mint-link when exists', async () => {
+      //GIVEN
+      const transaction: Transaction = {
+        tx_hash: '0xABC123DEF456',
+        status: TransactionStatus.passed,
+      };
       mock.method(global, 'fetch', () => {
         return Promise.resolve({
           ok: true,
-          json: () => Promise.resolve(mockResponse),
+          json: () =>
+            Promise.resolve({
+              total: 1,
+              transactions: [{ ...transaction }],
+            }),
         });
       });
 
-      const result = await api.getMintTransaction(mockUid);
-      expect(result).toEqual(mockResponse);
+      //WHEN
+      const result = await api.getMintTransaction(QR_HASH);
+
+      //THEN
+      expect(result).toEqual(transaction);
+    });
+
+    it('should return null when no Transaction is associated with a mint-link', async () => {
+      //GIVEN
+      mock.method(global, 'fetch', () => {
+        return Promise.resolve({
+          ok: true,
+          json: () =>
+            Promise.resolve({
+              total: 0,
+              transactions: [],
+            }),
+        });
+      });
+
+      //WHEN
+      const result = await api.getMintTransaction(QR_HASH);
+
+      //THEN
+      expect(result).toBeNull();
+    });
+
+    it('should return null when the Transaction associated with a mint-link is waiting', async () => {
+      //GIVEN
+      mock.method(global, 'fetch', () => {
+        return Promise.resolve({
+          ok: true,
+          json: () =>
+            Promise.resolve({
+              total: 1,
+              transactions: [{ status: TransactionStatus.waiting }],
+            }),
+        });
+      });
+
+      //WHEN
+      const result = await api.getMintTransaction(QR_HASH);
+
+      //THEN
+      expect(result).toBeNull();
     });
   });
 });
