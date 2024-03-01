@@ -1,27 +1,30 @@
-import { CompassProvider, TokensApiProvider } from '@poap-xyz/providers';
+import {
+  CompassProvider,
+  TokensApiProvider,
+  Transaction,
+} from '@poap-xyz/providers';
 import { POAP } from './domain/Poap';
 import { POAPReservation } from './domain/POAPReservation';
-import { PaginatedPoapsResponse, PAGINATED_POAPS_QUERY } from './queries';
+import { PAGINATED_POAPS_QUERY, PaginatedPoapsResponse } from './queries';
 import {
-  FetchPoapsInput,
   EmailReservationInput,
+  FetchPoapsInput,
+  PoapMintStatus,
   WalletMintInput,
 } from './types';
 import {
-  PaginatedResult,
-  nextCursor,
-  createBetweenFilter,
-  creatEqFilter,
-  createInFilter,
-  createUndefinedOrder,
   creatAddressFilter,
-  MintingStatus,
+  createBetweenFilter,
+  createInFilter,
+  creatEqFilter,
+  createUndefinedOrder,
+  nextCursor,
+  PaginatedResult,
 } from '@poap-xyz/utils';
 import { CodeAlreadyMintedError } from './errors/CodeAlreadyMintedError';
 import { CodeExpiredError } from './errors/CodeExpiredError';
 import { MintChecker } from './utils/MintChecker';
 import { PoapIndexed } from './utils/PoapIndexed';
-import { PoapMintStatus } from './types/response';
 
 /**
  * Represents a client for interacting with POAPs .
@@ -107,31 +110,10 @@ export class PoapsClient {
   }
 
   /**
-   * Retrieves the secret code associated with a POAP code.
-   * @async
-   * @param {string} mintCode - The POAP code for which to get the secret.
-   * @returns {Promise<string>} The associated secret code.
-   * @throws {CodeAlreadyMintedError} Thrown when the POAP code has already been minted.
-   * @throws {CodeExpiredError} Thrown when the POAP code is expired.
-   */
-  private async getSecretCode(mintCode: string): Promise<string> {
-    const getCodeResponse = await this.getMintCode(mintCode);
-
-    if (getCodeResponse.minted == true) {
-      throw new CodeAlreadyMintedError(mintCode);
-    }
-    if (getCodeResponse.isActive == false) {
-      throw new CodeExpiredError(mintCode);
-    }
-
-    return getCodeResponse.secretCode;
-  }
-
-  /**
    * Retrieves mint code details for a specific Mint Code.
    * @async
    * @param {string} mintCode - The Mint Code for which to get the mint code.
-   * @returns {Promise<GetMintCodeResponse>} The mint code details.
+   * @returns {Promise<PoapMintStatus>} The Mint status.
    */
   async getMintCode(mintCode: string): Promise<PoapMintStatus> {
     const getMintCodeRaw = await this.tokensApiProvider.getMintCode(mintCode);
@@ -144,25 +126,25 @@ export class PoapsClient {
   }
 
   /**
-   * Fetches the current status of a mint based on its unique ID.
-   * @async
-   * @param {string} queueUid - The unique ID of the mint.
-   * @returns {Promise<MintingStatus>} The current status of the mint.
+   * Gets the Transaction associated with the mint.
+   * The Transaction could change in case of a bump.
+   * It returns null if the mint has no transaction associated.
+   *
+   * @param {string} qrHash - The qrHash of the mint.
+   * @returns {Promise<Transaction> | null} The Transaction associated with the mint. Null if no transaction is found.
    */
-  async getMintStatus(queueUid: string): Promise<MintingStatus> {
-    const mintStatusResponse =
-      await this.tokensApiProvider.mintStatus(queueUid);
-    return mintStatusResponse.status;
+  public async getMintTransaction(qrHash: string): Promise<Transaction | null> {
+    return await this.tokensApiProvider.getMintTransaction(qrHash);
   }
 
   /**
-   * Awaits until the mint's status changes from 'IN_PROCESS' or 'PENDING'.
+   * Awaits until we have a final Transaction status for a specific Mint Code.
    * @async
-   * @param {string} queueUid - The unique ID of the mint.
    * @returns {Promise<void>}
+   * @param mintCode - The Mint Code
    */
-  async waitMintStatus(queueUid: string, mintCode: string): Promise<void> {
-    const checker = new MintChecker(queueUid, this.tokensApiProvider, mintCode);
+  public async waitMintStatus(mintCode: string): Promise<void> {
+    const checker = new MintChecker(this.tokensApiProvider, mintCode);
     await checker.checkMintStatus();
   }
 
@@ -170,9 +152,9 @@ export class PoapsClient {
    * Awaits until a specific POAP, identified by its Mint Code, is indexed on our database.
    * @async
    * @param {string} mintCode - The Mint Code identifying the POAP to be indexed.
-   * @returns {Promise<GetMintCodeResponse>} Details of the indexed POAP.
+   * @returns {Promise<PoapMintStatus>} - The status of the POAP mint.
    */
-  async waitPoapIndexed(mintCode: string): Promise<PoapMintStatus> {
+  public async waitPoapIndexed(mintCode: string): Promise<PoapMintStatus> {
     const checker = new PoapIndexed(mintCode, this.tokensApiProvider);
     return await checker.waitPoapIndexed();
   }
@@ -181,19 +163,16 @@ export class PoapsClient {
    * Begins an asynchronous mint process and provides a unique queue ID in return.
    * @async
    * @param {WalletMintInput} input - Details required for the mint.
-   * @returns {Promise<string>} A unique queue ID for the initiated mint.
    */
-  async mintAsync(input: WalletMintInput): Promise<string> {
+  public async mintAsync(input: WalletMintInput): Promise<void> {
     const secretCode = await this.getSecretCode(input.mintCode);
 
-    const response = await this.tokensApiProvider.postMintCode({
+    await this.tokensApiProvider.postMintCode({
       address: input.address,
       qr_hash: input.mintCode,
       secret: secretCode,
       sendEmail: false,
     });
-
-    return response.queue_uid;
   }
 
   /**
@@ -206,9 +185,9 @@ export class PoapsClient {
    * @throws {FinishedWithError} If there's an error concluding the mint process.
    */
   async mintSync(input: WalletMintInput): Promise<POAP> {
-    const queueUid = await this.mintAsync(input);
+    await this.mintAsync(input);
 
-    await this.waitMintStatus(queueUid, input.mintCode);
+    await this.waitMintStatus(input.mintCode);
 
     const getCodeResponse = await this.waitPoapIndexed(input.mintCode);
 
@@ -227,7 +206,7 @@ export class PoapsClient {
    * @param {EmailReservationInput} input - Information for the reservation.
    * @returns {Promise<POAPReservation>} The reservation details of the POAP.
    */
-  async emailReservation(
+  public async emailReservation(
     input: EmailReservationInput,
   ): Promise<POAPReservation> {
     const secretCode = await this.getSecretCode(input.mintCode);
@@ -250,5 +229,26 @@ export class PoapsClient {
       endDate: new Date(response.event.end_date),
       name: response.event.name,
     });
+  }
+
+  /**
+   * Retrieves the secret code associated with a POAP code.
+   * @async
+   * @param {string} mintCode - The POAP code for which to get the secret.
+   * @returns {Promise<string>} The associated secret code.
+   * @throws {CodeAlreadyMintedError} Thrown when the POAP code has already been minted.
+   * @throws {CodeExpiredError} Thrown when the POAP code is expired.
+   */
+  private async getSecretCode(mintCode: string): Promise<string> {
+    const getCodeResponse = await this.getMintCode(mintCode);
+
+    if (getCodeResponse.minted) {
+      throw new CodeAlreadyMintedError(mintCode);
+    }
+    if (!getCodeResponse.isActive) {
+      throw new CodeExpiredError(mintCode);
+    }
+
+    return getCodeResponse.secretCode;
   }
 }

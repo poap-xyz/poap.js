@@ -1,5 +1,8 @@
-import { MintingStatus } from '@poap-xyz/utils';
-import { TokensApiProvider, MintStatusResponse } from '@poap-xyz/providers';
+import {
+  TokensApiProvider,
+  Transaction,
+  TransactionStatus,
+} from '@poap-xyz/providers';
 import { FinishedWithError } from '../errors/FinishedWithError';
 import { RetryableTask } from './RetryableTask';
 
@@ -8,57 +11,17 @@ import { RetryableTask } from './RetryableTask';
  * If a mint is still pending or in process, it implements a backoff retry mechanism.
  */
 export class MintChecker extends RetryableTask {
-  private queueUid: string;
   private mintCode: string;
 
   /**
    * Constructs a new instance of the MintChecker class.
    *
-   * @param {string} queueUid - The unique identifier for the token mint.
    * @param {string} mintCode - The unique code for the token mint.
    * @param {TokensApiProvider} tokensApiProvider - The provider to fetch the mint status.
    */
-  constructor(
-    queueUid: string,
-    tokensApiProvider: TokensApiProvider,
-    mintCode: string,
-  ) {
+  constructor(tokensApiProvider: TokensApiProvider, mintCode: string) {
     super(tokensApiProvider);
-    this.queueUid = queueUid;
     this.mintCode = mintCode;
-  }
-
-  /**
-   * Determines if a retry should be performed based on the provided minting status.
-   *
-   * @private
-   * @param {MintingStatus} status - The current minting status.
-   * @returns {boolean} Returns true if a retry should be performed, otherwise false.
-   */
-  private shouldRetry(status: MintingStatus): boolean {
-    return (
-      status === MintingStatus.IN_PROCESS || status === MintingStatus.PENDING
-    );
-  }
-
-  /**
-   * Handles any error statuses from the mint status response.
-   * If the minting process finishes with an error, an exception will be thrown.
-   *
-   * @private
-   * @param {MintStatusResponse} mintStatusResponse - The response from the mint status check.
-   * @throws {FinishedWithError} Throws an error if the minting process finished with an error.
-   */
-  private handleErrorStatus(
-    mintStatusResponse: MintStatusResponse,
-    mintCode: string,
-  ): void {
-    if (
-      mintStatusResponse.status === MintingStatus.FINISH_WITH_ERROR &&
-      mintStatusResponse.result?.error
-    ) {
-      throw new FinishedWithError(mintStatusResponse.result?.error, mintCode);
-    }
   }
 
   /**
@@ -71,17 +34,53 @@ export class MintChecker extends RetryableTask {
    */
   public async checkMintStatus(): Promise<void> {
     try {
-      const mintStatusResponse = await this.tokensApiProvider.mintStatus(
-        this.queueUid,
+      const transaction = await this.tokensApiProvider.getMintTransaction(
+        this.mintCode,
       );
 
-      if (this.shouldRetry(mintStatusResponse.status)) {
+      if (this.shouldRetry(transaction)) {
         await this.backoffAndRetry(() => this.checkMintStatus());
       } else {
-        this.handleErrorStatus(mintStatusResponse, this.mintCode);
+        this.handleErrorStatus(transaction, this.mintCode);
       }
     } catch (e) {
+      if (e instanceof FinishedWithError) {
+        throw e;
+      }
+
       await this.backoffAndRetry(() => this.checkMintStatus());
+    }
+  }
+
+  /**
+   * Determines if a retry should be performed based on the provided minting status.
+   *
+   * @private
+   * @returns {boolean} Returns true if a retry should be performed, otherwise false.
+   * @param transaction - The transaction to check for retry.
+   */
+  private shouldRetry(transaction: Transaction | null): boolean {
+    return !transaction || transaction.status === TransactionStatus.pending;
+  }
+
+  /**
+   * Handles any error statuses from the mint status response.
+   * If the minting process finishes with an error, an exception will be thrown.
+   *
+   * @private
+   * @param {Transaction} transaction - The transaction to check for errors.
+   * @param mintCode
+   * @throws {FinishedWithError} Throws an error if the minting process finished with an error.
+   */
+  private handleErrorStatus(
+    transaction: Transaction | null,
+    mintCode: string,
+  ): void {
+    if (transaction?.status === TransactionStatus.failed) {
+      throw new FinishedWithError(
+        'The Transaction associated with this mint failed',
+        mintCode,
+      );
     }
   }
 }
