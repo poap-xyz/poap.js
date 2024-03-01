@@ -150,7 +150,7 @@ describe('PoapTokenApi', () => {
         });
       });
 
-      const result = await api.mintStatus(mockUid);
+      const result = await api.getMintTransaction(mockUid);
       expect(result).toEqual(mockResponse);
     });
   });

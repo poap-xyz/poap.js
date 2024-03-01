@@ -913,7 +913,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@poap-xyz/providers@workspace:packages/providers"
   dependencies:
-    "@poap-xyz/utils": 0.1.0
+    "@poap-xyz/utils": 0.1.3
     axios: ^1.3.5
     axios-mock-adapter: ^1.21.4
   languageName: unknown
@@ -929,7 +929,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@poap-xyz/utils@*, @poap-xyz/utils@workspace:packages/utils":
+"@poap-xyz/utils@*, @poap-xyz/utils@0.1.3, @poap-xyz/utils@workspace:packages/utils":
   version: 0.0.0-use.local
   resolution: "@poap-xyz/utils@workspace:packages/utils"
   languageName: unknown

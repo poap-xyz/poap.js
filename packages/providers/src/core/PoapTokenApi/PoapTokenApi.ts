@@ -1,13 +1,15 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { MissingAuthenticationProviderError } from './../../ports/AuthenticationProvider/errors/MissingAuthenticationProviderError';
+import { MissingAuthenticationProviderError } from '../../ports/AuthenticationProvider/errors/MissingAuthenticationProviderError';
 import {
-  PostMintCodeResponse,
-  MintStatusResponse,
+  AuthenticationProvider,
   GetMintCodeResponse,
-} from './../../ports/TokensApiProvider/Types/response';
-import { MintCodeInput } from './../../ports/TokensApiProvider/Types/input';
-import { AuthenticationProvider } from './../../ports/AuthenticationProvider/AuthenticationProvider';
-import { TokensApiProvider } from './../../ports/TokensApiProvider/TokensApiProvider';
+  MintCodeInput,
+  PostMintCodeResponse,
+  TokensApiProvider,
+} from '../../ports';
+import {
+  Transaction,
+  TransactionStatus,
+} from '../../ports/TokensApiProvider/Types';
 
 const DEFAULT_DROP_BASE_URL = 'https://api.poap.tech';
 
@@ -22,6 +24,7 @@ export class PoapTokenApi implements TokensApiProvider {
   private apiKey: string;
   private baseUrl: string;
   private authenticationProvider?: AuthenticationProvider;
+
   /**
    * Constructs a new instance of the `PoapTokenApi` class.
    *
@@ -77,19 +80,32 @@ export class PoapTokenApi implements TokensApiProvider {
   }
 
   /**
-   * Checks the status of a mint by its unique identifier.
+   * Gets the Transaction associated with the mint.
+   * The Transaction could change in case of a bump.
+   * It returns null if the mint has no transaction associated.
    *
-   * @param {string} uid - The unique identifier for the mint.
-   * @returns {Promise<MintStatusResponse>} Status details of the mint.
+   * @param {string} qrHash - The qrHash of the mint.
+   * @returns {Promise<Transaction> | null} The Transaction associated with the mint. Null if no transaction is found.
    */
-  async mintStatus(uid: string): Promise<MintStatusResponse> {
-    return await this.secureFetch<MintStatusResponse>(
-      `${this.baseUrl}/queue-message/${uid}`,
-      {
-        method: 'GET',
-        headers: {},
-      },
-    );
+  async getMintTransaction(qrHash: string): Promise<Transaction | null> {
+    const transactions = await this.secureFetch<{
+      total: number;
+      transactions: Transaction[];
+    }>(`${this.baseUrl}/transactions?qr_hash=${qrHash}`, {
+      method: 'GET',
+    });
+
+    if (transactions.total === 0) {
+      return null;
+    }
+
+    const status = transactions.transactions[0].status;
+
+    if (status === TransactionStatus.waiting) {
+      return null;
+    }
+
+    return transactions.transactions[0];
   }
 
   /**
@@ -101,7 +117,7 @@ export class PoapTokenApi implements TokensApiProvider {
    * @param {any} options - Configuration options for the HTTP request.
    * @returns {Promise<R>} A promise that resolves with the parsed API response.
    */
-  private async secureFetch<R>(url: string, options: any): Promise<R> {
+  private async secureFetch<R>(url: string, options: RequestInit): Promise<R> {
     const headersWithApiKey = {
       ...options.headers,
       'x-api-key': this.apiKey,
@@ -109,6 +125,7 @@ export class PoapTokenApi implements TokensApiProvider {
     };
 
     const response = await fetch(url, {
+      ...options,
       method: options.method,
       body: options.body,
       headers: headersWithApiKey,
