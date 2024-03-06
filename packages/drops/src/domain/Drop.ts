@@ -11,6 +11,7 @@ export class Drop {
   locationType: string;
   dropUrl: string;
   imageUrl: string;
+  originalImageUrl: string;
   animationUrl: string;
   year: number;
   timezone: string;
@@ -35,6 +36,7 @@ export class Drop {
     this.locationType = properties.locationType;
     this.dropUrl = properties.dropUrl;
     this.imageUrl = properties.imageUrl;
+    this.originalImageUrl = properties.originalImageUrl;
     this.animationUrl = properties.animationUrl;
     this.year = properties.year;
     this.startDate = properties.startDate;
@@ -65,6 +67,7 @@ export class Drop {
       locationType: this.locationType,
       dropUrl: this.dropUrl,
       imageUrl: this.imageUrl,
+      originalImageUrl: this.originalImageUrl,
       animationUrl: this.animationUrl,
       year: this.year,
       timezone: this.timezone,
@@ -92,6 +95,7 @@ export interface SerializableDrop {
   locationType: string;
   dropUrl: string;
   imageUrl: string;
+  originalImageUrl: string;
   animationUrl: string;
   year: number;
   timezone: string;
@@ -117,6 +121,7 @@ export interface DropProperties {
   locationType: string;
   dropUrl: string;
   imageUrl: string;
+  originalImageUrl: string;
   animationUrl: string;
   year: number;
   timezone: string;
