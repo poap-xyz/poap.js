@@ -8,7 +8,7 @@ export const fetch_single_drop = async (client: DropsClient): Promise<void> => {
       sortDir: Order.ASC,
       limit: 10,
       offset: 0,
-      ids: [1],
+      ids: [36933],
     });
     console.log(data);
   } catch (error) {
