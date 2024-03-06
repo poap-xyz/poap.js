@@ -1,10 +1,15 @@
 import {
   CompassProvider,
   DropApiProvider,
-  DropResponse,
+  DropResponse as ProviderDropResponse,
 } from '@poap-xyz/providers';
 import { Drop } from './domain/Drop';
-import { PaginatedDropsResponse, PAGINATED_DROPS_QUERY } from './queries';
+import {
+  PaginatedDropsResponse,
+  PAGINATED_DROPS_QUERY,
+  DropImageResponse,
+  DropResponse,
+} from './queries';
 import { CreateDropsInput, FetchDropsInput, UpdateDropsInput } from './types';
 import {
   PaginatedResult,
@@ -15,6 +20,7 @@ import {
   createFilter,
   createInFilter,
 } from '@poap-xyz/utils';
+import { DropImage } from './types/dropImage';
 
 /**
  * Represents a client for working with POAP drops.
@@ -72,39 +78,43 @@ export class DropsClient {
       variables,
     );
 
-    const drops = data.drops.map(
-      (drop) =>
-        new Drop({
-          id: Number(drop.id),
-          fancyId: drop.fancy_id,
-          name: drop.name,
-          description: drop.description,
-          city: drop.city,
-          country: drop.country,
-          channel: drop.channel,
-          platform: drop.platform,
-          locationType: drop.location_type,
-          dropUrl: drop.drop_url,
-          imageUrl: drop.image_url,
-          animationUrl: drop.animation_url,
-          year: Number(drop.year),
-          startDate: new Date(drop.start_date),
-          timezone: drop.timezone,
-          private: drop.private,
-          createdDate: new Date(drop.created_date),
-          poapCount: drop.stats_by_chain_aggregate.aggregate.sum
-            ? Number(drop.stats_by_chain_aggregate.aggregate.sum.poap_count)
-            : 0,
-          transferCount: drop.stats_by_chain_aggregate.aggregate.sum
-            ? Number(drop.stats_by_chain_aggregate.aggregate.sum.transfer_count)
-            : 0,
-          emailReservationCount: drop.email_claims_stats
-            ? Number(drop.email_claims_stats.total)
-            : 0,
-          expiryDate: new Date(drop.expiry_date),
-          endDate: new Date(drop.end_date),
-        }),
-    );
+    const drops = data.drops.map((drop) => {
+      const { imageUrl, originalImageUrl, dropImage } =
+        this.computeDropImages(drop);
+
+      return new Drop({
+        id: Number(drop.id),
+        fancyId: drop.fancy_id,
+        name: drop.name,
+        description: drop.description,
+        city: drop.city,
+        country: drop.country,
+        channel: drop.channel,
+        platform: drop.platform,
+        locationType: drop.location_type,
+        dropUrl: drop.drop_url,
+        imageUrl,
+        originalImageUrl,
+        animationUrl: drop.animation_url,
+        year: Number(drop.year),
+        startDate: new Date(drop.start_date),
+        timezone: drop.timezone,
+        private: drop.private,
+        createdDate: new Date(drop.created_date),
+        poapCount: drop.stats_by_chain_aggregate.aggregate.sum
+          ? Number(drop.stats_by_chain_aggregate.aggregate.sum.poap_count)
+          : 0,
+        transferCount: drop.stats_by_chain_aggregate.aggregate.sum
+          ? Number(drop.stats_by_chain_aggregate.aggregate.sum.transfer_count)
+          : 0,
+        emailReservationCount: drop.email_claims_stats
+          ? Number(drop.email_claims_stats.total)
+          : 0,
+        expiryDate: new Date(drop.expiry_date),
+        endDate: new Date(drop.end_date),
+        dropImage,
+      });
+    });
 
     return new PaginatedResult<Drop>(
       drops,
@@ -169,7 +179,7 @@ export class DropsClient {
     return this.formatDrop(repsonse);
   }
 
-  private formatDrop(drop: DropResponse): Drop {
+  private formatDrop(drop: ProviderDropResponse): Drop {
     return new Drop({
       id: drop.id,
       fancyId: drop.fancy_id,
@@ -182,6 +192,7 @@ export class DropsClient {
       locationType: drop.location_type,
       dropUrl: drop.event_url,
       imageUrl: drop.image_url,
+      originalImageUrl: drop.image_url,
       animationUrl: drop.animation_url,
       year: drop.year,
       startDate: new Date(drop.start_date),
@@ -194,5 +205,34 @@ export class DropsClient {
       poapCount: 0,
       emailReservationCount: 0,
     });
+  }
+
+  private computeDropImages(drop: DropResponse): {
+    imageUrl: string;
+    originalImageUrl: string;
+    dropImage?: DropImage;
+  } {
+    const dropImage = this.mapDropImage(drop.drop_image);
+    return {
+      dropImage,
+      imageUrl: dropImage?.crop?.url || drop.image_url,
+      originalImageUrl: dropImage?.original?.url || drop.image_url,
+    };
+  }
+
+  private mapDropImage(response?: DropImageResponse): DropImage | undefined {
+    if (!response) return response;
+
+    const images = response.gateways.reduce(
+      (acc, gateway) => ({ ...acc, [gateway.type.toLowerCase()]: gateway }),
+      {},
+    );
+
+    return {
+      id: response.id,
+      publicId: response.public_id,
+      mimeType: response.mime_type,
+      ...images,
+    };
   }
 }
