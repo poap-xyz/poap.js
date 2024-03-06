@@ -1,3 +1,5 @@
+import { DropImage } from '../types/dropImage';
+
 /* eslint-disable max-statements */
 export class Drop {
   id: number;
@@ -11,6 +13,7 @@ export class Drop {
   locationType: string;
   dropUrl: string;
   imageUrl: string;
+  originalImageUrl: string;
   animationUrl: string;
   year: number;
   timezone: string;
@@ -22,6 +25,7 @@ export class Drop {
   poapCount: number;
   transferCount: number;
   emailReservationCount: number;
+  dropImage?: DropImage;
 
   constructor(properties: DropProperties) {
     this.id = properties.id;
@@ -35,6 +39,7 @@ export class Drop {
     this.locationType = properties.locationType;
     this.dropUrl = properties.dropUrl;
     this.imageUrl = properties.imageUrl;
+    this.originalImageUrl = properties.originalImageUrl;
     this.animationUrl = properties.animationUrl;
     this.year = properties.year;
     this.startDate = properties.startDate;
@@ -46,6 +51,7 @@ export class Drop {
     this.emailReservationCount = properties.emailReservationCount;
     this.expiryDate = properties.expiryDate;
     this.endDate = properties.endDate;
+    this.dropImage = properties.dropImage;
   }
 
   public getTotalMinted(): number {
@@ -65,6 +71,7 @@ export class Drop {
       locationType: this.locationType,
       dropUrl: this.dropUrl,
       imageUrl: this.imageUrl,
+      originalImageUrl: this.originalImageUrl,
       animationUrl: this.animationUrl,
       year: this.year,
       timezone: this.timezone,
@@ -92,6 +99,7 @@ export interface SerializableDrop {
   locationType: string;
   dropUrl: string;
   imageUrl: string;
+  originalImageUrl: string;
   animationUrl: string;
   year: number;
   timezone: string;
@@ -117,6 +125,7 @@ export interface DropProperties {
   locationType: string;
   dropUrl: string;
   imageUrl: string;
+  originalImageUrl: string;
   animationUrl: string;
   year: number;
   timezone: string;
@@ -128,4 +137,5 @@ export interface DropProperties {
   poapCount: number;
   transferCount: number;
   emailReservationCount: number;
+  dropImage?: DropImage;
 }

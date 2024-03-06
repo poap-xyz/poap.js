@@ -1,3 +1,5 @@
+import { DropImageGatewayType } from '../types/dropImage';
+
 export const PAGINATED_DROPS_QUERY = `
   query PaginatedDrops(
     $limit: Int!
@@ -36,9 +38,38 @@ export const PAGINATED_DROPS_QUERY = `
       email_claims_stats {
         total
       }
+      drop_image {
+        id
+        public_id
+        mime_type
+        gateways {
+          id
+          image_id
+          type
+          url
+          filename
+          mime_type
+        }
+      }
     }
   }
 `;
+
+export interface DropImageGatewayResponse {
+  id: number;
+  image_id: string;
+  type: DropImageGatewayType;
+  url: string;
+  filename: string;
+  mime_type: string;
+}
+
+export interface DropImageResponse {
+  id: number;
+  public_id: string;
+  mime_type: string;
+  gateways: Array<DropImageGatewayResponse>;
+}
 
 export interface DropResponse {
   id: number;
@@ -71,6 +102,7 @@ export interface DropResponse {
   email_claims_stats: {
     total: number;
   };
+  drop_image?: DropImageResponse;
 }
 
 export interface PaginatedDropsResponse {
