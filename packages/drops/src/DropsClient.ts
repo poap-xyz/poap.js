@@ -8,16 +8,9 @@ import {
   PaginatedDropsResponse,
   PAGINATED_DROPS_QUERY,
   DropImageResponse,
-  DropImageQueryResponse,
-  DROP_IMAGE_QUERY,
+  DropResponse,
 } from './queries';
-import {
-  CreateDropsInput,
-  FetchDropsInput,
-  UpdateDropsInput,
-  DropImage,
-  DropImageGatewayType,
-} from './types';
+import { CreateDropsInput, FetchDropsInput, UpdateDropsInput } from './types';
 import {
   PaginatedResult,
   nextCursor,
@@ -27,6 +20,7 @@ import {
   createFilter,
   createInFilter,
 } from '@poap-xyz/utils';
+import { DropImage } from './types/dropImage';
 
 /**
  * Represents a client for working with POAP drops.
@@ -45,21 +39,6 @@ export class DropsClient {
     private compassProvider: CompassProvider,
     private dropApiProvider: DropApiProvider,
   ) {}
-
-  /**
-   * Fetches the drop image object containing the original as well as the
-   * cropped image URLs for the specified drop id.
-   *
-   * @param id - The drop id.
-   * @returns The drop image object.
-   */
-  async fetchDropImage(id: number): Promise<DropImage | undefined> {
-    const { data } = await this.compassProvider.request<DropImageQueryResponse>(
-      DROP_IMAGE_QUERY,
-      { id },
-    );
-    return this.mapDropImage(data.drops[0]);
-  }
 
   /**
    * Fetches drops based on the specified input.
@@ -100,7 +79,7 @@ export class DropsClient {
     );
 
     const drops = data.drops.map((drop) => {
-      const dropImage = this.mapDropImage(drop);
+      const { imageUrl, originalImageUrl } = this.computeDropImages(drop);
 
       return new Drop({
         id: Number(drop.id),
@@ -113,6 +92,8 @@ export class DropsClient {
         platform: drop.platform,
         locationType: drop.location_type,
         dropUrl: drop.drop_url,
+        imageUrl,
+        originalImageUrl,
         animationUrl: drop.animation_url,
         year: Number(drop.year),
         startDate: new Date(drop.start_date),
@@ -130,7 +111,6 @@ export class DropsClient {
           : 0,
         expiryDate: new Date(drop.expiry_date),
         endDate: new Date(drop.end_date),
-        ...dropImage,
       });
     });
 
@@ -149,7 +129,7 @@ export class DropsClient {
    * @returns {Promise<Drop>} The newly created drop.
    */
   async create(input: CreateDropsInput): Promise<Drop> {
-    const response = await this.dropApiProvider.createDrop({
+    const repsonse = await this.dropApiProvider.createDrop({
       name: input.name,
       description: input.description,
       city: input.city,
@@ -168,7 +148,7 @@ export class DropsClient {
       requested_codes: input.requestedCodes,
       private_event: input.privateEvent,
     });
-    return this.formatDrop(response);
+    return this.formatDrop(repsonse);
   }
 
   /**
@@ -225,22 +205,25 @@ export class DropsClient {
     });
   }
 
-  /**
-   * Maps the response drop_image object into a DropImage object.
-   *
-   * @param drop - The response drop with drop_image object.
-   * @returns The mapped DropImage object.
-   */
-  private mapDropImage(drop: DropImageResponse): DropImage {
-    const images = drop.drop_image?.gateways?.reduce(
-      (acc, gateway) => ({ ...acc, [gateway.type]: gateway.url }),
+  private computeDropImages(drop: DropResponse): {
+    imageUrl: string;
+    originalImageUrl: string;
+  } {
+    const dropImage = this.mapDropImage(drop.drop_image);
+    return {
+      imageUrl: dropImage?.crop || drop.image_url,
+      originalImageUrl: dropImage?.original || drop.image_url,
+    };
+  }
+
+  private mapDropImage(response?: DropImageResponse): DropImage | undefined {
+    if (!response) return response;
+
+    const images = response.gateways.reduce(
+      (acc, gateway) => ({ ...acc, [gateway.type.toLowerCase()]: gateway.url }),
       {},
     );
 
-    return {
-      originalImageUrl:
-        images?.[DropImageGatewayType.ORIGINAL] || drop.image_url,
-      imageUrl: images?.[DropImageGatewayType.CROP] || drop.image_url,
-    };
+    return { ...images };
   }
 }

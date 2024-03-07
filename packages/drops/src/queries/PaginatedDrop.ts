@@ -1,4 +1,4 @@
-import { DropImageGatewaysResponse } from './DropImage';
+import { DropImageGatewayType } from '../types/dropImage';
 
 export const PAGINATED_DROPS_QUERY = `
   query PaginatedDrops(
@@ -48,6 +48,15 @@ export const PAGINATED_DROPS_QUERY = `
   }
 `;
 
+export interface DropImageGatewayResponse {
+  type: DropImageGatewayType;
+  url: string;
+}
+
+export interface DropImageResponse {
+  gateways: Array<DropImageGatewayResponse>;
+}
+
 export interface DropResponse {
   id: number;
   fancy_id: string;
@@ -79,7 +88,7 @@ export interface DropResponse {
   email_claims_stats: {
     total: number;
   };
-  drop_image?: DropImageGatewaysResponse;
+  drop_image?: DropImageResponse;
 }
 
 export interface PaginatedDropsResponse {
