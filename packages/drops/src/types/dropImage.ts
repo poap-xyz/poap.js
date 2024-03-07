@@ -4,6 +4,6 @@ export enum DropImageGatewayType {
 }
 
 export interface DropImage {
-  original?: string;
-  crop?: string;
+  imageUrl: string;
+  originalImageUrl: string;
 }
