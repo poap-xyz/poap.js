@@ -14,13 +14,13 @@
 ### NPM
 
 ```bash
-npm install @poap-xyz/providers axios form-data
+npm install @poap-xyz/providers axios
 ```
 
 ### Yarn
 
 ```bash
-yarn add @poap-xyz/providers axios form-data
+yarn add @poap-xyz/providers axios
 ```
 
 ## Documentation
