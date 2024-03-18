@@ -1,6 +1,7 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { CompassProvider } from '../../ports/CompassProvider/CompassProvider';
+import { CompassErrors } from '../../ports/CompassProvider/types/CompassErrors';
+import { CompassError } from '../../ports/CompassProvider/types/CompassError';
+import { CompassRequestError } from '../../ports/CompassProvider/errors/CompassRequestError';
 
 const DEFAULT_COMPASS_BASE_URL = 'https://public.compass.poap.tech/v1/graphql';
 
@@ -31,18 +32,18 @@ export class PoapCompass implements CompassProvider {
    * @function
    * @name PoapCompass#fetchGraphQL
    * @param {string} query - The GraphQL query to fetch.
-   * @param {Record<string, any>} variables - The variables to include with the query.
+   * @param {Record<string, unknown>} variables - The variables to include with the query.
    * @returns {Promise<R>} A Promise that resolves with the result of the query.
    * @template R - The type of the result.
    */
-  private async fetchGraphQL<R = any>(
+  private async fetchGraphQL<R>(
     query: string,
-    variables: Record<string, any>,
+    variables: Record<string, unknown>,
   ): Promise<R> {
-    const endpoint = this.baseUrl;
+    let response: Response;
 
     try {
-      const response = await fetch(endpoint, {
+      response = await fetch(this.baseUrl, {
         method: 'POST',
         body: JSON.stringify({
           query,
@@ -53,19 +54,48 @@ export class PoapCompass implements CompassProvider {
           'x-api-key': this.apiKey,
         },
       });
-
-      const json = await response.json();
-
-      if (json.errors) {
-        throw new Error(
-          `Error fetching GraphQL data: ${JSON.stringify(json.errors)}`,
-        );
-      }
-
-      return json;
-    } catch (error) {
-      throw new Error(`Network error, received status code ${error}`);
+    } catch (error: unknown) {
+      throw new Error(`Network error, received error ${error}`);
     }
+
+    if (response.status !== 200) {
+      throw new Error(
+        `Response error, received status code ${response.status}`,
+      );
+    }
+
+    const body = await response.json();
+
+    if (this.isError(body)) {
+      throw new CompassRequestError(body);
+    }
+
+    return body;
+  }
+
+  /**
+   * Returns true when the given response is a GraphQL error response.
+   *
+   * @private
+   * @function
+   * @name PoapCompass#isError
+   * @param {unknown} response - Some response from the GraphQL server.
+   * @returns {boolean}
+   */
+  private isError(response: unknown): response is CompassErrors {
+    return (
+      response != null &&
+      typeof response === 'object' &&
+      'errors' in response &&
+      Array.isArray(response.errors) &&
+      response.errors.every(
+        (error: unknown): error is CompassError =>
+          error != null &&
+          typeof error === 'object' &&
+          'message' in error &&
+          typeof error.message === 'string',
+      )
+    );
   }
 
   /**
@@ -75,17 +105,15 @@ export class PoapCompass implements CompassProvider {
    * @function
    * @name PoapCompass#request
    * @param {string} query - The GraphQL query to execute.
-   * @param {any} variables - The variables to include with the query.
+   * @param {Record<string, unknown>} [variables] - The variables to include with the query.
    * @returns {Promise<T>} A Promise that resolves with the result of the query.
    * @template T - The type of the result.
    */
-  async request<T>(query: string, variables: any): Promise<T> {
-    try {
-      const data = await this.fetchGraphQL<T>(query, variables);
-      return data;
-    } catch (error) {
-      throw error;
-    }
+  async request<T>(
+    query: string,
+    variables?: Record<string, unknown>,
+  ): Promise<T> {
+    return await this.fetchGraphQL<T>(query, variables ?? {});
   }
 }
 
