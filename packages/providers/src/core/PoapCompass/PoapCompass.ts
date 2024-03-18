@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { CompassProvider } from '../../ports/CompassProvider/CompassProvider';
 
 const DEFAULT_COMPASS_BASE_URL = 'https://public.compass.poap.tech/v1/graphql';
@@ -31,13 +29,13 @@ export class PoapCompass implements CompassProvider {
    * @function
    * @name PoapCompass#fetchGraphQL
    * @param {string} query - The GraphQL query to fetch.
-   * @param {Record<string, any>} variables - The variables to include with the query.
+   * @param {Record<string, unknown>} variables - The variables to include with the query.
    * @returns {Promise<R>} A Promise that resolves with the result of the query.
    * @template R - The type of the result.
    */
-  private async fetchGraphQL<R = any>(
+  private async fetchGraphQL<R>(
     query: string,
-    variables: Record<string, any>,
+    variables: Record<string, unknown>,
   ): Promise<R> {
     const endpoint = this.baseUrl;
 
@@ -75,17 +73,15 @@ export class PoapCompass implements CompassProvider {
    * @function
    * @name PoapCompass#request
    * @param {string} query - The GraphQL query to execute.
-   * @param {any} variables - The variables to include with the query.
+   * @param {Record<string, unknown>} [variables] - The variables to include with the query.
    * @returns {Promise<T>} A Promise that resolves with the result of the query.
    * @template T - The type of the result.
    */
-  async request<T>(query: string, variables: any): Promise<T> {
-    try {
-      const data = await this.fetchGraphQL<T>(query, variables);
-      return data;
-    } catch (error) {
-      throw error;
-    }
+  async request<T>(
+    query: string,
+    variables: Record<string, unknown>,
+  ): Promise<T> {
+    return await this.fetchGraphQL<T>(query, variables ?? {});
   }
 }
 
