@@ -17,6 +17,7 @@ describe('PoapCompass', () => {
     mock.method(global, 'fetch', () => {
       return Promise.resolve({
         ok: true,
+        status: 200,
         json: () => Promise.resolve(responseData),
       });
     });
@@ -35,6 +36,7 @@ describe('PoapCompass', () => {
     mock.method(global, 'fetch', () => {
       return Promise.resolve({
         ok: true,
+        status: 200,
         json: () => Promise.resolve(responseData),
       });
     });
