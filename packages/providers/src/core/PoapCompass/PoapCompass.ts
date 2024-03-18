@@ -111,7 +111,7 @@ export class PoapCompass implements CompassProvider {
    */
   async request<T>(
     query: string,
-    variables: Record<string, unknown>,
+    variables?: Record<string, unknown>,
   ): Promise<T> {
     return await this.fetchGraphQL<T>(query, variables ?? {});
   }
