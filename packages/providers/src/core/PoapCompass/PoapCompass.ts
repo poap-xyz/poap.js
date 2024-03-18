@@ -1,4 +1,7 @@
 import { CompassProvider } from '../../ports/CompassProvider/CompassProvider';
+import { CompassErrors } from '../../ports/CompassProvider/types/CompassErrors';
+import { CompassError } from '../../ports/CompassProvider/types/CompassError';
+import { CompassRequestError } from '../../ports/CompassProvider/errors/CompassRequestError';
 
 const DEFAULT_COMPASS_BASE_URL = 'https://public.compass.poap.tech/v1/graphql';
 
@@ -37,10 +40,10 @@ export class PoapCompass implements CompassProvider {
     query: string,
     variables: Record<string, unknown>,
   ): Promise<R> {
-    const endpoint = this.baseUrl;
+    let response: Response;
 
     try {
-      const response = await fetch(endpoint, {
+      response = await fetch(this.baseUrl, {
         method: 'POST',
         body: JSON.stringify({
           query,
@@ -51,19 +54,48 @@ export class PoapCompass implements CompassProvider {
           'x-api-key': this.apiKey,
         },
       });
-
-      const json = await response.json();
-
-      if (json.errors) {
-        throw new Error(
-          `Error fetching GraphQL data: ${JSON.stringify(json.errors)}`,
-        );
-      }
-
-      return json;
-    } catch (error) {
-      throw new Error(`Network error, received status code ${error}`);
+    } catch (error: unknown) {
+      throw new Error(`Network error, received error ${error}`);
     }
+
+    if (response.status !== 200) {
+      throw new Error(
+        `Response error, received status code ${response.status}`,
+      );
+    }
+
+    const body = await response.json();
+
+    if (this.isError(body)) {
+      throw new CompassRequestError(body);
+    }
+
+    return body;
+  }
+
+  /**
+   * Returns true when the given response is a GraphQL error response.
+   *
+   * @private
+   * @function
+   * @name PoapCompass#isError
+   * @param {unknown} response - Some response from the GraphQL server.
+   * @returns {boolean}
+   */
+  private isError(response: unknown): response is CompassErrors {
+    return (
+      response != null &&
+      typeof response === 'object' &&
+      'errors' in response &&
+      Array.isArray(response.errors) &&
+      response.errors.every(
+        (error: unknown): error is CompassError =>
+          error != null &&
+          typeof error === 'object' &&
+          'message' in error &&
+          typeof error.message === 'string',
+      )
+    );
   }
 
   /**
