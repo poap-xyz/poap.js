@@ -1,4 +1,5 @@
 import { PoapCompass } from '../src/core/PoapCompass/PoapCompass';
+import { CompassRequestError } from '../src/ports/CompassProvider/errors/CompassRequestError';
 import { mock } from 'node:test';
 
 describe('PoapCompass', () => {
@@ -16,6 +17,7 @@ describe('PoapCompass', () => {
     mock.method(global, 'fetch', () => {
       return Promise.resolve({
         ok: true,
+        status: 200,
         json: () => Promise.resolve(responseData),
       });
     });
@@ -34,15 +36,14 @@ describe('PoapCompass', () => {
     mock.method(global, 'fetch', () => {
       return Promise.resolve({
         ok: true,
+        status: 200,
         json: () => Promise.resolve(responseData),
       });
     });
 
     const poapCompass = new PoapCompass(apiKey);
 
-    await expect(poapCompass.request(query, variables)).rejects.toThrowError(
-      /Error fetching GraphQL data/,
-    );
+    await expect(poapCompass.request(query, variables)).rejects.toThrow(CompassRequestError);
   });
 
   it('should throw a network error when the request fails', async () => {
