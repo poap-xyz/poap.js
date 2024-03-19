@@ -55,10 +55,12 @@ export class PoapCompass implements CompassProvider {
         },
       });
     } catch (error: unknown) {
+      console.log('error', error);
       throw new Error(`Network error, received error ${error}`);
     }
 
     if (response.status !== 200) {
+      console.log('error', response.status);
       throw new Error(
         `Response error, received status code ${response.status}`,
       );
@@ -67,6 +69,7 @@ export class PoapCompass implements CompassProvider {
     const body = await response.json();
 
     if (this.isError(body)) {
+      console.log('error', body);
       throw new CompassRequestError(body);
     }
 
