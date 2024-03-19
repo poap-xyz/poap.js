@@ -5,7 +5,8 @@ export {
   GetMintCodeResponse,
   PostMintCodeResponse,
   MintCodeInput,
-  MintStatusResponse,
+  Transaction,
+  TransactionStatus,
 } from './TokensApiProvider';
 
 export { HttpProvider } from './HttpProvider/HttpProvider';

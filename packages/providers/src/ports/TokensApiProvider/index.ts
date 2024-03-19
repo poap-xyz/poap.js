@@ -3,5 +3,6 @@ export {
   GetMintCodeResponse,
   PostMintCodeResponse,
   MintCodeInput,
-  MintStatusResponse,
+  Transaction,
+  TransactionStatus,
 } from './Types';

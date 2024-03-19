@@ -16,13 +16,13 @@ import { handleError } from '../utils/handleError';
 export const mint_async_poap = async (client: PoapsClient): Promise<void> => {
   try {
     // Initiate the asynchronous mint process
-    const queueUid: string = await client.mintAsync({
+    await client.mintAsync({
       mintCode: 'your_mint_code',
       address: 'your_address',
     });
 
     // Wait for the mint's status to transition from 'IN_PROCESS' or 'PENDING' states
-    await client.waitMintStatus(queueUid, 'your_mint_code');
+    await client.waitMintStatus('your_mint_code');
 
     // Wait for the minted POAP to be indexed and fetch the mint code information related to the Mint Code
     const getMintCodeResponse = await client.waitPoapIndexed('your_mint_code');

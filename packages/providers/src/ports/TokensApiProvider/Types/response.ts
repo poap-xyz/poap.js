@@ -1,5 +1,3 @@
-import { MintingStatus } from '@poap-xyz/utils';
-
 export interface GetMintCodeResponse {
   id: number;
   qr_hash: string;
@@ -35,16 +33,6 @@ export interface PostMintCodeResponse {
   event: Drop;
 }
 
-export interface MintStatusResponse {
-  uid: number;
-  operation: string;
-  status: MintingStatus;
-  result: {
-    tx_hash: string;
-    error: string;
-  } | null;
-}
-
 interface Drop {
   id: number;
   fancy_id: string;
@@ -63,4 +51,16 @@ interface Drop {
   virtual_event: boolean;
   event_template_id?: number | null;
   private_event: boolean;
+}
+
+export enum TransactionStatus {
+  pending = 'pending',
+  passed = 'passed',
+  failed = 'failed',
+  waiting = 'waiting_tx',
+}
+
+export interface Transaction {
+  tx_hash: string;
+  status: TransactionStatus;
 }
