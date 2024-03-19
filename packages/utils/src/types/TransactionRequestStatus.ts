@@ -1,4 +1,4 @@
-export enum MintingStatus {
+export enum TransactionRequestStatus {
   PENDING = 'PENDING',
   IN_PROCESS = 'IN_PROCESS',
   FINISH = 'FINISH',

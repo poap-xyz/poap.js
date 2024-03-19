@@ -1,4 +1,4 @@
-export { MintingStatus } from './types/mintingStatus';
+export { TransactionRequestStatus } from './types/TransactionRequestStatus';
 export { Chain } from './types/chain';
 export { Order } from './types/filter';
 export { PaginationInput } from './types/input';
