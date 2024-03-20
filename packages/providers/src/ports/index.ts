@@ -12,3 +12,5 @@ export {
 export { HttpProvider } from './HttpProvider/HttpProvider';
 export { CompassProvider } from './CompassProvider/CompassProvider';
 export { AuthenticationProvider } from './AuthenticationProvider/AuthenticationProvider';
+
+export { CompassRequestError } from './CompassProvider/errors/CompassRequestError'
