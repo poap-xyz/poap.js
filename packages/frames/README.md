@@ -6,40 +6,51 @@
 
 ## Features
 
-- Create a Drop
-- Update a Drop attributes
-- Fetch a single Drop
-- Fetch multiple Drops
+- Generate the frame meta tags
+- Generate the frame HTML markup
 
 ## Installation
 
 ### NPM
 
 ```bash
-npm install @poap-xyz/drops @poap-xyz/utils @poap-xyz/providers axios
+npm install @poap-xyz/frames
 ```
 
 ### Yarn
 
 ```bash
-yarn add @poap-xyz/drops @poap-xyz/utils @poap-xyz/providers axios
+yarn add @poap-xyz/frames
 ```
 
 ## Usage
 
-```javascript
-import { DropsClient } from '@poap-xyz/drops';
-import { PoapCompass, PoapDropApi } from '@poap-xyz/providers';
+### Meta tags
 
-const client = new DropsClient(
-  new PoapCompass('you_api_key'),
-  new PoapDropApi('your_api_key'),
-);
+```javascript
+const frame = useMemo(() => new Frame({ ... });
+return (
+  <>
+    <NextSeo
+    title="Hello World"
+    description="..."
+    openGraph={{ images: [...] }}
+    additionalMetaTags={frame.toMetaTags()}
+    />
+    <div>...</div>
+  </>
+)
 ```
 
-## Documentation
+### HTML render
 
-For more detailed documentation, please visit [this link](https://documentation.poap.tech/docs).
+```javascript
+// /api/frame.ts
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const frame = new Frame({ ... });
+  return res.status(200).send(frame.render());
+}
+```
 
 ## Examples
 
@@ -51,4 +62,4 @@ We welcome contributions! Please see the `CONTRIBUTING.md` file for guidelines.
 
 ## License
 
-@poap-xyz/drops is released under the [MIT License](https://opensource.org/licenses/MIT).
+@poap-xyz/frames is released under the [MIT License](https://opensource.org/licenses/MIT).
