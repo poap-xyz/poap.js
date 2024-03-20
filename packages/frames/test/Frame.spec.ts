@@ -1,4 +1,4 @@
-import { Frame, FrameAspectRatio, FrameButtonAction } from '../src/frame';
+import { Frame, FrameAspectRatio, FrameButtonAction } from '../src';
 
 const BASE_FRAME = new Frame({
   title: 'Hello World',
