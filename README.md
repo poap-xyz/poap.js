@@ -157,6 +157,17 @@ Please ensure that your code adheres to the project's code style and passes all 
         <br />
         <a href="#" title="Code">💻</a>
     </td>
+    <td align="center">
+        <a href="https://github.com/reobin">
+            <img src="https://avatars.githubusercontent.com/u/5920450?v=4" width="100px;" alt=""/>
+            <br />
+            <sub>
+            <b>Robin Gagnon</b>
+            </sub>
+        </a>
+        <br />
+        <a href="#" title="Code">💻</a>
+    </td>
   </tr>
 </table>
 
