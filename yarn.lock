@@ -893,8 +893,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@poap-xyz/frames@workspace:packages/frames"
   dependencies:
-    "@poap-xyz/providers": 0.1.7
-    "@poap-xyz/utils": 0.1.7
     next-seo: ^6.4.0
   languageName: unknown
   linkType: soft
