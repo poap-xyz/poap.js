@@ -29,8 +29,8 @@
       "providers": ["providers/src/*"],
       "drops": ["drops/src"],
       "utils": ["utils/src"],
-      "poaps": ["poaps/src"]
-    }
+      "poaps": ["poaps/src"],
+    },
   },
   "exclude": ["node_modules", "dist"],
   "references": [
@@ -38,6 +38,7 @@
     { "path": "./packages/drops" },
     { "path": "./packages/providers" },
     { "path": "./packages/utils" },
-    { "path": "./packages/poaps" }
-  ]
+    { "path": "./packages/poaps" },
+    { "path": "./packages/frames" },
+  ],
 }

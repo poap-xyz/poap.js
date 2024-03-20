@@ -41,6 +41,7 @@ module.exports = {
           './packages/providers/tsconfig.json',
           './packages/utils/tsconfig.json',
           './packages/poaps/tsconfig.json',
+          './packages/frames/tsconfig.json',
           './tsconfig.json',
         ],
       },
