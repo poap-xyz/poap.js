@@ -1,9 +1,9 @@
+import { MintCodeInput } from './types/MintCodeInput';
 import {
   GetMintCodeResponse,
-  MintCodeInput,
   PostMintCodeResponse,
-  Transaction,
-} from './Types';
+} from './types/MintCodeResponse';
+import { Transaction } from './types/Transaction';
 
 /**
  * Provides methods for interacting with a Tokens API.

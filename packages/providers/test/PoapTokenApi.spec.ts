@@ -1,11 +1,13 @@
 import {
-  GetMintCodeResponse,
-  MintCodeInput,
-  PoapTokenApi,
-  PostMintCodeResponse,
   Transaction,
   TransactionStatus,
-} from '../src';
+} from '../src/ports/TokensApiProvider/types/Transaction';
+import {MintCodeInput } from '../src/ports/TokensApiProvider/types/MintCodeInput';
+import {
+  GetMintCodeResponse,
+  PostMintCodeResponse,
+} from '../src/ports/TokensApiProvider/types/MintCodeResponse';
+import { PoapTokenApi } from '../src/core/PoapTokenApi/PoapTokenApi';
 import { mock } from 'node:test';
 
 describe('PoapTokenApi', () => {
