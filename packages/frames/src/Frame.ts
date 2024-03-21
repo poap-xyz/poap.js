@@ -104,8 +104,18 @@ export class Frame {
    * @returns The HTML representation of the frame.
    */
   public render(): string {
-    const metaTags = this.toMetaTags().map((tag) => Frame.renderTag(tag)).join('');
-    return `<html><head><title>${this.title}</title>${metaTags}</head><body></body></html>`;
+    const metaTags = this.toMetaTags().map((tag) => Frame.renderTag(tag));
+
+    return [
+      '<!DOCTYPE html>',
+      '<html>',
+      '<head>',
+      `<title>${this.title}</title>`,
+      ...metaTags,
+      '</head>',
+      `<body><img src="${this.image}" alt="${this.title}" /></body>`,
+      '</html>',
+    ].join('');
   }
 
   /**
