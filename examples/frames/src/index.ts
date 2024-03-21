@@ -14,8 +14,10 @@ function runFrameExample(name: string, frame: Frame): void {
   console.log(name);
   console.log('meta tags:');
   console.log(frame.toMetaTags());
-  console.log('html:');
+  console.log('full html:');
   console.log(frame.render());
+  console.log('meta tags:');
+  console.log(frame.renderMetaTags());
   console.log('---------');
 }
 

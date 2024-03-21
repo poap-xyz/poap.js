@@ -104,3 +104,36 @@ describe('Frame.render', () => {
     expect(FRAME_WITH_BUTTONS.render()).toBe(expectedHTML.join(''));
   });
 });
+
+describe('Frame.renderMetaTags', () => {
+  it('should return the correct meta tags for a base frame', () => {
+    const expectedHTML = [
+      '<meta property="og:title" content="Hello World" />',
+      '<meta property="og:image" content="https://placehold.co/600x600" />',
+      '<meta name="fc:frame" content="vNext" />',
+      '<meta name="fc:frame:image" content="https://placehold.co/600x600" />',
+      '<meta name="fc:frame:image:aspect_ratio" content="1:1" />',
+      '<meta name="fc:frame:post_url" content="https://poap.xyz" />',
+    ];
+    expect(BASE_FRAME.renderMetaTags()).toBe(expectedHTML.join(''));
+  });
+
+  it('should return the correct meta tags for a frame with buttons', () => {
+    const expectedHTML = [
+      '<meta property="og:title" content="Hello World" />',
+      '<meta property="og:image" content="https://placehold.co/600x600" />',
+      '<meta name="fc:frame" content="vNext" />',
+      '<meta name="fc:frame:image" content="https://placehold.co/600x600" />',
+      '<meta name="fc:frame:image:aspect_ratio" content="1:1" />',
+      '<meta name="fc:frame:post_url" content="https://poap.xyz" />',
+      '<meta name="fc:frame:button:1" content="Button 1" />',
+      '<meta name="fc:frame:button:2" content="Button 2" />',
+      '<meta name="fc:frame:button:2:action" content="post" />',
+      '<meta name="fc:frame:button:2:target" content="https://poap.xyz" />',
+      '<meta name="fc:frame:button:3" content="Button 3" />',
+      '<meta name="fc:frame:button:3:action" content="link" />',
+      '<meta name="fc:frame:button:3:target" content="https://poap.xyz" />',
+    ];
+    expect(FRAME_WITH_BUTTONS.renderMetaTags()).toBe(expectedHTML.join(''));
+  });
+});
