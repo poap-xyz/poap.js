@@ -1,10 +1,11 @@
-import { AuthenticationProvider, PoapMomentsApi } from '../src';
+import { AuthenticationProvider } from '../src/ports/AuthenticationProvider/AuthenticationProvider';
+import { PoapMomentsApi } from '../src/core/PoapMomentsApi/PoapMomentsApi';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
-import { InvalidMediaError } from '../src';
+import { InvalidMediaError } from '../src/ports/MomentsApiProvider/errors/InvalidMediaError';
 import { mock, MockProxy } from 'jest-mock-extended';
 import { MediaStatus } from '../src/ports/MomentsApiProvider/types/MediaStatus';
-import { CreateMomentInput } from '../src/ports/MomentsApiProvider';
+import { CreateMomentInput } from '../src/ports/MomentsApiProvider/types/CreateMomentInput';
 
 describe('PoapMomentsApi', () => {
   const BASE_URL = 'https://moments.test';
