@@ -7,4 +7,5 @@ DIRS=(
   "packages/drops"
   "packages/poaps"
   "packages/moments"
+  "packages/frames"
 )
