@@ -1,4 +1,4 @@
-import { CreateDropInput, DropResponse, UpdateDropInput } from './Types';
+import { CreateDropInput, DropResponse, UpdateDropInput } from './types';
 
 /**
  * Provides methods for interacting with a drop API.

@@ -6,7 +6,7 @@ import {
   CreateDropInput,
   DropResponse,
   UpdateDropInput,
-} from '../../ports/DropApiProvider/Types';
+} from '../../ports/DropApiProvider/types';
 
 const DEFAULT_DROP_BASE_URL = 'https://api.poap.tech';
 
