@@ -32,10 +32,10 @@ const frame = useMemo(() => new Frame({ ... });
 return (
   <>
     <NextSeo
-    title="Hello World"
-    description="..."
-    openGraph={{ images: [...] }}
-    additionalMetaTags={frame.toMetaTags()}
+      title="Hello World"
+      description="..."
+      openGraph={{ images: [...] }}
+      additionalMetaTags={frame.toMetaTags()}
     />
     <div>...</div>
   </>
