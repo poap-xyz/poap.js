@@ -2,11 +2,11 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { DropApiProvider } from '../../ports/DropApiProvider/DropApiProvider';
+import { DropResponse } from '../../ports/DropApiProvider/types/DropResponse';
 import {
   CreateDropInput,
-  DropResponse,
   UpdateDropInput,
-} from '../../ports/DropApiProvider/types';
+} from '../../ports/DropApiProvider/types/DropInput';
 
 const DEFAULT_DROP_BASE_URL = 'https://api.poap.tech';
 

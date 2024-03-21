@@ -1,4 +1,4 @@
-import { AuthenticationProvider } from '../../ports';
+import { AuthenticationProvider } from '../../ports/AuthenticationProvider/AuthenticationProvider';
 
 const DEFAULT_OAUTH_SERVER = 'auth.accounts.poap.xyz';
 
