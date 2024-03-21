@@ -1,1 +1,1 @@
-export { PoapCompass } from './PoapCompass';
+export * from './PoapCompass';

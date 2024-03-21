@@ -1,2 +1,2 @@
-export { AuthenticationProvider } from './AuthenticationProvider';
-export { MissingAuthenticationProviderError } from './errors';
+export * from './AuthenticationProvider';
+export * from './errors';

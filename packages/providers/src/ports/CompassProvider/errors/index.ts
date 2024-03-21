@@ -1,1 +1,1 @@
-export { CompassRequestError } from './CompassRequestError';
+export * from './CompassRequestError';

@@ -1,1 +1,1 @@
-export { PoapDropApi } from './PoapDropApi';
+export * from './PoapDropApi';

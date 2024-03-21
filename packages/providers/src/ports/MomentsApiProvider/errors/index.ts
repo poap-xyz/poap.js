@@ -1,1 +1,1 @@
-export { InvalidMediaError } from './InvalidMediaError';
+export * from './InvalidMediaError';

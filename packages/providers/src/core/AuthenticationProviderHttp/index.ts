@@ -1,1 +1,1 @@
-export { AuthenticationProviderHttp } from './AuthenticationProviderHttp';
+export * from './AuthenticationProviderHttp';

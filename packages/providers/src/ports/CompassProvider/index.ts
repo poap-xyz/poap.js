@@ -1,3 +1,3 @@
-export { CompassProvider } from './CompassProvider';
-export { CompassRequestError } from './errors';
-export { CompassError, CompassErrors } from './types';
+export * from './CompassProvider';
+export * from './errors';
+export * from './types';

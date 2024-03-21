@@ -1,1 +1,1 @@
-export { PoapMomentsApi } from './PoapMomentsApi';
+export * from './PoapMomentsApi';

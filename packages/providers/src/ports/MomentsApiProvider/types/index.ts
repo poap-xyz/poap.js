@@ -1,3 +1,3 @@
-export { CreateMomentInput } from './CreateMomentInput';
-export { CreateMomentResponse } from './CreateMomentResponse';
-export { MediaStatus } from './MediaStatus';
+export * from './CreateMomentInput';
+export * from './CreateMomentResponse';
+export * from './MediaStatus';

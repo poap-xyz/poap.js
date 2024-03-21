@@ -1,1 +1,1 @@
-export { PoapTokenApi, PoapTokenApiOptions } from './PoapTokenApi';
+export * from './PoapTokenApi';

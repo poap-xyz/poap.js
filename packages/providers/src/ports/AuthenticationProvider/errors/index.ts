@@ -1,1 +1,1 @@
-export { MissingAuthenticationProviderError } from './MissingAuthenticationProviderError';
+export * from './MissingAuthenticationProviderError';
