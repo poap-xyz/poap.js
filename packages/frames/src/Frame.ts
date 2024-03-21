@@ -150,26 +150,41 @@ export class Frame {
       tags.push({ name: 'fc:frame:post_url', content: this.postUrl });
     }
 
-    if (this.buttons) {
-      this.buttons.forEach((button, index) => {
-        tags.push({
-          name: `fc:frame:button:${index + 1}`,
-          content: button.label,
-        });
+    if (!this.buttons) {
+      return tags;
+    }
 
-        if (button.action) {
-          tags.push({
-            name: `fc:frame:button:${index + 1}:action`,
-            content: button.action,
-          });
-        }
+    tags.push(
+      ...this.buttons.flatMap((button, index) =>
+        Frame.buttonToMetaTag(button, index + 1),
+      ),
+    );
 
-        if (button.target) {
-          tags.push({
-            name: `fc:frame:button:${index + 1}:target`,
-            content: button.target,
-          });
-        }
+    return tags;
+  }
+
+  private static buttonToMetaTag(
+    button: FrameButton,
+    index: number,
+  ): MetaTag[] {
+    const tags = [
+      {
+        name: `fc:frame:button:${index}`,
+        content: button.label,
+      },
+    ];
+
+    if (button.action) {
+      tags.push({
+        name: `fc:frame:button:${index}:action`,
+        content: button.action,
+      });
+    }
+
+    if (button.target) {
+      tags.push({
+        name: `fc:frame:button:${index}:target`,
+        content: button.target,
       });
     }
 
