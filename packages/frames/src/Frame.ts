@@ -44,9 +44,9 @@ interface FrameConstructorProps {
    */
   image: string;
   /**
-   * The URL to be used in the post request. Required.
+   * The URL to be used in the post request.
    */
-  postUrl: string;
+  postUrl?: string;
   /**
    * Aspect-ratio of the image. Required.
    */
@@ -72,9 +72,9 @@ export class Frame {
    */
   image: string;
   /**
-   * The URL to be used in the post request. Required.
+   * The URL to be used in the post request.
    */
-  postUrl: string;
+  postUrl?: string;
   /**
    * Aspect-ratio of the image. Required.
    */
