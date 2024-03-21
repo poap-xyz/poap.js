@@ -1,4 +1,4 @@
-import { CreateMomentInput, CreateMomentResponse } from './Types';
+import { CreateMomentInput, CreateMomentResponse } from './types';
 
 /**
  * Provides methods for interacting with a moments API.
