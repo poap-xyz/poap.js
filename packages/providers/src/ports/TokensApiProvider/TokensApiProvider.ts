@@ -3,7 +3,7 @@ import {
   MintCodeInput,
   PostMintCodeResponse,
   Transaction,
-} from './Types';
+} from './types';
 
 /**
  * Provides methods for interacting with a Tokens API.

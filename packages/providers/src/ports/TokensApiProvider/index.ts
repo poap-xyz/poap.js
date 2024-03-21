@@ -5,4 +5,4 @@ export {
   MintCodeInput,
   Transaction,
   TransactionStatus,
-} from './Types';
+} from './types';

@@ -9,7 +9,7 @@ import {
 import {
   Transaction,
   TransactionStatus,
-} from '../../ports/TokensApiProvider/Types';
+} from '../../ports/TokensApiProvider/types';
 
 const DEFAULT_DROP_BASE_URL = 'https://api.poap.tech';
 
