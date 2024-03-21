@@ -1,2 +1,2 @@
-export * from './Types';
-export { DropApiProvider } from './DropApiProvider';
+export * from './types';
+export * from './DropApiProvider';

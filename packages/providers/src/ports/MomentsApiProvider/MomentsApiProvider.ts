@@ -1,4 +1,6 @@
-import { CreateMomentInput, CreateMomentResponse } from './Types';
+import { CreateMomentInput } from './types/CreateMomentInput';
+import { CreateMomentResponse } from './types/CreateMomentResponse';
+import { MediaStatus } from './types/MediaStatus';
 
 /**
  * Provides methods for interacting with a moments API.
@@ -46,4 +48,11 @@ export interface MomentsApiProvider {
    * @returns {Promise<void>} A Promise that resolves when the media processing is complete
    */
   waitForMediaProcessing(mediaKey: string, timeOut?: number): Promise<void>;
+
+  /**
+   * Fetches the media processing status.
+   * @param {string} mediaKey - The key for the media file
+   * @returns {Promise<MediaStatus>} - A Promise that resolves with the media processing status
+   */
+  fetchMediaStatus(mediaKey: string): Promise<MediaStatus>;
 }

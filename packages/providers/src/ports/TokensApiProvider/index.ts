@@ -1,8 +1,2 @@
-export { TokensApiProvider } from './TokensApiProvider';
-export {
-  GetMintCodeResponse,
-  PostMintCodeResponse,
-  MintCodeInput,
-  Transaction,
-  TransactionStatus,
-} from './Types';
+export * from './TokensApiProvider';
+export * from './types';
