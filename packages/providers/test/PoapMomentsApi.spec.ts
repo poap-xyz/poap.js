@@ -3,7 +3,7 @@ import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import { InvalidMediaError } from '../src';
 import { mock, MockProxy } from 'jest-mock-extended';
-import { MediaStatus } from '../src/core/PoapMomentsApi/Types/MediaStatus';
+import { MediaStatus } from '../src/ports/MomentsApiProvider/types/MediaStatus';
 import { CreateMomentInput } from '../src/ports/MomentsApiProvider';
 
 describe('PoapMomentsApi', () => {

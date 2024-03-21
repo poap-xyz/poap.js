@@ -4,4 +4,4 @@ export { PoapCompass } from './PoapCompass';
 export { AuthenticationProviderHttp } from './AuthenticationProviderHttp';
 export { PoapTokenApi, PoapTokenApiOptions } from './PoapTokenApi';
 
-export { InvalidMediaError } from './PoapMomentsApi/errors/InvalidMediaError';
+export { InvalidMediaError } from '../ports/MomentsApiProvider/errors/InvalidMediaError';
