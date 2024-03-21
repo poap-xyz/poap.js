@@ -1,5 +1,5 @@
-export * from './MomentsApiProvider/MomentsApiProvider';
-export * from './DropApiProvider/DropApiProvider';
+export { MomentsApiProvider } from './MomentsApiProvider/MomentsApiProvider';
+export { DropApiProvider } from './DropApiProvider/DropApiProvider';
 export {
   TokensApiProvider,
   GetMintCodeResponse,
