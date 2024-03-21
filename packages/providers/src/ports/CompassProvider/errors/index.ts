@@ -1,0 +1,1 @@
+export { CompassRequestError } from './CompassRequestError';
