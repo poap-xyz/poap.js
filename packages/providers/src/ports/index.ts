@@ -1,5 +1,5 @@
-export { MomentsApiProvider } from './MomentsApiProvider/MomentsApiProvider';
-export { DropApiProvider } from './DropApiProvider/DropApiProvider';
+export { MomentsApiProvider, CreateMomentInput, CreateMomentResponse } from './MomentsApiProvider';
+export { DropApiProvider, CreateDropInput, UpdateDropInput, DropResponse } from './DropApiProvider';
 export {
   TokensApiProvider,
   GetMintCodeResponse,
