@@ -33,17 +33,20 @@ export class PoapCompass implements CompassProvider {
    * @name PoapCompass#fetchGraphQL
    * @param {string} query - The GraphQL query to fetch.
    * @param {Record<string, unknown>} variables - The variables to include with the query.
+   * @param {AbortSignal} signal - When given, the request can be aborted with its controller.
    * @returns {Promise<R>} A Promise that resolves with the result of the query.
    * @template R - The type of the result.
    */
   private async fetchGraphQL<R>(
     query: string,
     variables: Record<string, unknown>,
+    signal?: AbortSignal,
   ): Promise<R> {
     let response: Response;
 
     try {
       response = await fetch(this.baseUrl, {
+        signal,
         method: 'POST',
         body: JSON.stringify({
           query,
@@ -106,14 +109,16 @@ export class PoapCompass implements CompassProvider {
    * @name PoapCompass#request
    * @param {string} query - The GraphQL query to execute.
    * @param {Record<string, unknown>} [variables] - The variables to include with the query.
+   * @param {AbortSignal} signal - When given, the request can be aborted with its controller.
    * @returns {Promise<T>} A Promise that resolves with the result of the query.
    * @template T - The type of the result.
    */
   async request<T>(
     query: string,
     variables?: Record<string, unknown>,
+    signal?: AbortSignal,
   ): Promise<T> {
-    return await this.fetchGraphQL<T>(query, variables ?? {});
+    return await this.fetchGraphQL<T>(query, variables ?? {}, signal);
   }
 }
 
