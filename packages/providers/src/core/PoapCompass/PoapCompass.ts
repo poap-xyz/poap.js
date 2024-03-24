@@ -21,7 +21,7 @@ export class PoapCompass implements CompassProvider {
    */
   constructor(config: PoapCompassConfig) {
     this.apiKey = config.apiKey;
-    this.baseUrl = config.baseUrl || DEFAULT_COMPASS_BASE_URL;
+    this.baseUrl = config.baseUrl ?? DEFAULT_COMPASS_BASE_URL;
   }
 
   /**
