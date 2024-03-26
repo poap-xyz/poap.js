@@ -2,6 +2,7 @@ import { CompassProvider } from '../../ports/CompassProvider/CompassProvider';
 import { CompassErrors } from '../../ports/CompassProvider/types/CompassErrors';
 import { CompassError } from '../../ports/CompassProvider/types/CompassError';
 import { CompassRequestError } from '../../ports/CompassProvider/errors/CompassRequestError';
+import { CompassMissingDataError } from '../../ports/CompassProvider/errors/CompassMissingDataError';
 
 const DEFAULT_COMPASS_BASE_URL = 'https://public.compass.poap.tech/v1/graphql';
 
@@ -69,11 +70,29 @@ export class PoapCompass implements CompassProvider {
 
     const body = await response.json();
 
-    if (this.isError(body)) {
-      throw new CompassRequestError(body);
-    }
+    this.handleResponseErrors(body);
 
     return body;
+  }
+
+  /**
+   * Throws error when the response contains error or does not contain any data.
+   *
+   * @private
+   * @function
+   * @name PoapCompass#handleResponseErrors
+   * @param {unknown} response - Some response from the GraphQL server.
+   * @throws {CompassRequestError} when the response contains errors.
+   * @throws {CompassMissingDataError} when the response doesn't contain any data.
+   */
+  private handleResponseErrors(response: unknown): void {
+    if (this.isError(response)) {
+      throw new CompassRequestError(response);
+    }
+
+    if (!this.hasData(response)) {
+      throw new CompassMissingDataError();
+    }
   }
 
   /**
@@ -98,6 +117,25 @@ export class PoapCompass implements CompassProvider {
           'message' in error &&
           typeof error.message === 'string',
       )
+    );
+  }
+
+  /**
+   * Returns true when the given response is a GraphQL data response.
+   *
+   * @private
+   * @function
+   * @name PoapCompass#hasData
+   * @param {unknown} response - Some response from the GraphQL server.
+   * @returns {boolean}
+   */
+  private hasData(response: unknown): response is { data: unknown } {
+    return (
+      response != null &&
+      typeof response === 'object' &&
+      'data' in response &&
+      response.data != null &&
+      typeof response.data === 'object'
     );
   }
 
