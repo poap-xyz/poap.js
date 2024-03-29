@@ -1,3 +1,4 @@
+import chunk from 'lodash.chunk';
 import { CompassProvider } from '../../ports/CompassProvider/CompassProvider';
 import { CompassErrors } from '../../ports/CompassProvider/types/CompassErrors';
 import { CompassError } from '../../ports/CompassProvider/types/CompassError';
@@ -12,6 +13,11 @@ const DEFAULT_COMPASS_BASE_URL = 'https://public.compass.poap.tech/v1/graphql';
  * @implements {CompassProvider}
  */
 export class PoapCompass implements CompassProvider {
+  /**
+   * Maximum number of request to do at the time in a batch.
+   */
+  public static BATCH_SIZE = 5;
+
   private apiKey: string;
   private baseUrl: string;
 
@@ -139,24 +145,33 @@ export class PoapCompass implements CompassProvider {
     );
   }
 
-  /**
-   * Executes a GraphQL query using the `fetchGraphQL` method.
-   *
-   * @async
-   * @function
-   * @name PoapCompass#request
-   * @param {string} query - The GraphQL query to execute.
-   * @param {Record<string, unknown>} [variables] - The variables to include with the query.
-   * @param {AbortSignal} signal - When given, the request can be aborted with its controller.
-   * @returns {Promise<T>} A Promise that resolves with the result of the query.
-   * @template T - The type of the result.
-   */
   async request<T>(
     query: string,
     variables?: Record<string, unknown>,
     signal?: AbortSignal,
   ): Promise<T> {
     return await this.fetchGraphQL<T>(query, variables ?? {}, signal);
+  }
+
+  async batch<T>(
+    query: string,
+    variables: Record<string, unknown>[],
+    signal?: AbortSignal,
+  ): Promise<T[]> {
+    const results: T[] = [];
+    const chunks: Record<string, unknown>[][] = chunk(
+      variables,
+      PoapCompass.BATCH_SIZE,
+    );
+
+    for (const chunk of chunks) {
+      const responses = await Promise.all(
+        chunk.map((variables) => this.request<T>(query, variables, signal)),
+      );
+      results.push(...responses);
+    }
+
+    return results;
   }
 }
 
