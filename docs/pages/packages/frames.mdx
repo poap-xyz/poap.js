@@ -1,0 +1,90 @@
+# @poap-xyz/frames
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+
+@poap-xyz/frames is a package to ease the use of [Farcaster Frames](https://docs.farcaster.xyz/learn/what-is-farcaster/frames).
+
+## Features
+
+- Get the list of meta tags to add to an HTML page head
+- Build and render the HTML page representing the frame
+
+## Installation
+
+### NPM
+
+```bash
+npm install @poap-xyz/frames
+```
+
+### Yarn
+
+```bash
+yarn add @poap-xyz/frames
+```
+
+## Usage
+
+### Get the list of meta tags
+
+```typescript
+// pages/index.tsx
+import { NextSeo } from 'next-seo';
+import { Frame, FrameAspectRatio } from '@poap-xyz/frames';
+
+export default function Component() {
+  const frame = new Frame({
+    title: 'Hello Frames!',
+    image: '<image_url>',
+    aspectRatio: FrameAspectRatio.SQUARE,
+  });
+
+  return (
+    <>
+      <NextSeo
+        title="Hello Frames!"
+        description="page description"
+        openGraph={{ images: [{ url: '<image_url>' }] }}
+        additionalMetaTags={frame.toMetaTags()}
+      />
+      <div>page content...</div>
+    </>
+  )
+}
+```
+
+### Build and render the HTML page representing the frame
+
+```typescript
+// pages/api/frame.ts
+import { NextApiRequest, NextApiResponse } from 'next';
+import { Frame, FrameAspectRatio } from '@poap-xyz/frames';
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
+  const frame = new Frame({
+    title: 'Hello Frames!',
+    image: '<image_url>',
+    aspectRatio: FrameAspectRatio.SQUARE,
+  });
+  return res.status(200).send(frame.render());
+}
+```
+
+## Documentation
+
+For more detailed documentation on POAP topics, please visit [this link](https://documentation.poap.tech/docs).
+
+## Examples
+
+For example scripts and usage, please check the [examples](https://github.com/poap-xyz/poap.js/tree/main/examples).
+
+## Contributing
+
+We welcome contributions! Please see the `CONTRIBUTING.md` file for guidelines.
+
+## License
+
+@poap-xyz/frames is released under the [MIT License](https://opensource.org/licenses/MIT).
