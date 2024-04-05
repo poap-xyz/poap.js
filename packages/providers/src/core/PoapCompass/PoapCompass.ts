@@ -1,3 +1,5 @@
+import { CompassUnauthorizedError } from './../../ports/CompassProvider/errors/CompassUnauthorizedError';
+import { CompassBadRequestError } from './../../ports/CompassProvider/errors/CompassBadRequestError';
 import { CompassProvider } from '../../ports/CompassProvider/CompassProvider';
 import { CompassErrors } from '../../ports/CompassProvider/types/CompassErrors';
 import { CompassError } from '../../ports/CompassProvider/types/CompassError';
@@ -21,7 +23,7 @@ export class PoapCompass implements CompassProvider {
    * @param {PoapCompassConfig} config - Configuration object containing the API key and optional base URL.
    */
   constructor(config: PoapCompassConfig) {
-    this.apiKey = config.apiKey;
+    this.apiKey = config.apiKey ?? '';
     this.baseUrl = config.baseUrl ?? DEFAULT_COMPASS_BASE_URL;
   }
 
@@ -62,11 +64,7 @@ export class PoapCompass implements CompassProvider {
       throw new Error(`Network error, received error ${error}`);
     }
 
-    if (response.status !== 200) {
-      throw new Error(
-        `Response error, received status code ${response.status}`,
-      );
-    }
+    this.handleHttpStatus(response);
 
     const body = await response.json();
 
@@ -121,6 +119,34 @@ export class PoapCompass implements CompassProvider {
   }
 
   /**
+   * Handles HTTP status codes and throws corresponding errors.
+   *
+   * @private
+   * @function
+   * @name PoapCompass#handleHttpStatus
+   * @param {Response} response - The response from the fetch call.
+   * @throws {CompassUnauthorizedError} for 401 Unauthorized status codes.
+   * @throws {CompassBadRequestError} for 400 Bad Request status codes.
+   * @throws {Error} for other non-200 status codes.
+   */
+  private handleHttpStatus(response: Response): void {
+    switch (response.status) {
+      case 400:
+        throw new CompassBadRequestError();
+      case 401:
+        throw new CompassUnauthorizedError();
+      case 200:
+        return; // OK
+      default:
+        // For simplicity, throwing a generic error for all other statuses.
+        // You can add more cases for other statuses as needed.
+        throw new Error(
+          `Response error, received status code ${response.status}`,
+        );
+    }
+  }
+
+  /**
    * Returns true when the given response is a GraphQL data response.
    *
    * @private
@@ -167,6 +193,6 @@ export class PoapCompass implements CompassProvider {
  * @property {string} [baseUrl] - Optional base URL for the POAP API. If not provided, a default will be used.
  */
 export interface PoapCompassConfig {
-  apiKey: string;
+  apiKey?: string;
   baseUrl?: string;
 }

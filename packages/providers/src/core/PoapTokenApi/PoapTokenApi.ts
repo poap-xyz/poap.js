@@ -35,7 +35,7 @@ export class PoapTokenApi implements TokensApiProvider {
    * @param {AuthenticationProvider} [options.authenticationProvider] - Optional provider for JWT authentication.
    */
   constructor({
-    apiKey,
+    apiKey = '',
     baseUrl = DEFAULT_DROP_BASE_URL,
     authenticationProvider,
   }: PoapTokenApiOptions) {
@@ -160,7 +160,7 @@ export class PoapTokenApi implements TokensApiProvider {
  * @property {AuthenticationProvider} [authenticationProvider] - Optional provider for JWT authentication.
  */
 export interface PoapTokenApiOptions {
-  apiKey: string;
+  apiKey?: string;
   baseUrl?: string;
   authenticationProvider?: AuthenticationProvider;
 }

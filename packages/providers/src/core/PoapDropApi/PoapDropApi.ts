@@ -1,6 +1,3 @@
-/* eslint-disable max-statements */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { DropApiProvider } from '../../ports/DropApiProvider/DropApiProvider';
 import { DropResponse } from '../../ports/DropApiProvider/types/DropResponse';
 import {
@@ -77,7 +74,6 @@ export class PoapDropApi implements DropApiProvider {
     });
   }
 
-  // TODO: Change variable type any to a more specific type
   /**
    * Sends a secure HTTP request to the POAP Drop API.
    *
@@ -85,11 +81,12 @@ export class PoapDropApi implements DropApiProvider {
    * @private
    * @function
    * @name PoapDropApi#secureFetch
-   * @param {string} url - The URL for the HTTP request.
-   * @param {any} options - The options for the HTTP request.
-   * @returns {Promise<any>} A Promise that resolves with the response from the API.
+   * @template R - Type of the expected response data.
+   * @param {string} url - The complete URL for the HTTP request.
+   * @param {any} options - Configuration options for the HTTP request.
+   * @returns {Promise<R>} A promise that resolves with the parsed API response.
    */
-  private async secureFetch(url: string, options: any): Promise<any> {
+  private async secureFetch<R>(url: string, options: RequestInit): Promise<R> {
     const headersWithApiKey = {
       ...options.headers,
       'x-api-key': this.apiKey,
