@@ -4,13 +4,15 @@ import {
   DropResponse as ProviderDropResponse,
 } from '@poap-xyz/providers';
 import { Drop } from './domain/Drop';
+import { PaginatedDropsResponse, PAGINATED_DROPS_QUERY } from './queries';
 import {
-  PaginatedDropsResponse,
-  PAGINATED_DROPS_QUERY,
+  CreateDropsInput,
   DropImageResponse,
   DropResponse,
-} from './queries';
-import { CreateDropsInput, FetchDropsInput, UpdateDropsInput } from './types';
+  FetchDropsInput,
+  SearchDropsInput,
+  UpdateDropsInput,
+} from './types';
 import {
   PaginatedResult,
   nextCursor,
@@ -19,8 +21,12 @@ import {
   createBetweenFilter,
   createFilter,
   createInFilter,
+  Order,
+  isNumeric,
+  removeSpecialCharacters,
 } from '@poap-xyz/utils';
 import { DropImage } from './types/dropImage';
+import { SEARCH_DROPS_QUERY, SearchDropsResponse } from './queries/SearchDrops';
 
 /**
  * Represents a client for working with POAP drops.
@@ -32,8 +38,8 @@ export class DropsClient {
    * Creates a new DropsClient object.
    *
    * @constructor
-   * @param {CompassProvider} CompassProvider - The provider for the POAP compass API.
-   * @param {DropApiProvider} DropApiProvider - The provider for the POAP drop API.
+   * @param {CompassProvider} compassProvider - The provider for the POAP compass API.
+   * @param {DropApiProvider} dropApiProvider - The provider for the POAP drop API.
    */
   constructor(
     private compassProvider: CompassProvider,
@@ -78,41 +84,48 @@ export class DropsClient {
       variables,
     );
 
-    const drops = data.drops.map((drop) => {
-      const { imageUrl, originalImageUrl } = this.computeDropImages(drop);
+    const drops = data.drops.map(
+      (drop: DropResponse): Drop => this.mapDrop(drop),
+    );
 
-      return new Drop({
-        id: Number(drop.id),
-        fancyId: drop.fancy_id,
-        name: drop.name,
-        description: drop.description,
-        city: drop.city,
-        country: drop.country,
-        channel: drop.channel,
-        platform: drop.platform,
-        locationType: drop.location_type,
-        dropUrl: drop.drop_url,
-        imageUrl,
-        originalImageUrl,
-        animationUrl: drop.animation_url,
-        year: Number(drop.year),
-        startDate: new Date(drop.start_date),
-        timezone: drop.timezone,
-        private: drop.private,
-        createdDate: new Date(drop.created_date),
-        poapCount: drop.stats_by_chain_aggregate.aggregate.sum
-          ? Number(drop.stats_by_chain_aggregate.aggregate.sum.poap_count)
-          : 0,
-        transferCount: drop.stats_by_chain_aggregate.aggregate.sum
-          ? Number(drop.stats_by_chain_aggregate.aggregate.sum.transfer_count)
-          : 0,
-        emailReservationCount: drop.email_claims_stats
-          ? Number(drop.email_claims_stats.total)
-          : 0,
-        expiryDate: new Date(drop.expiry_date),
-        endDate: new Date(drop.end_date),
-      });
-    });
+    return new PaginatedResult<Drop>(
+      drops,
+      nextCursor(drops.length, limit, offset),
+    );
+  }
+
+  /**
+   * Searches drops based on the specified input.
+   *
+   * @async
+   * @method
+   * @param {SearchDropsInput} input - The input for searching drops.
+   * @returns {Promise<PaginatedResult<Drop>>} A paginated result of drops.
+   */
+  async search(input: SearchDropsInput): Promise<PaginatedResult<Drop>> {
+    const { search, offset, limit } = input;
+
+    if (!search) {
+      return new PaginatedResult<Drop>([], null);
+    }
+
+    const variables = {
+      limit,
+      offset,
+      ...(isNumeric(search) && { orderBy: { id: Order.ASC } }),
+      args: {
+        search: removeSpecialCharacters(search),
+      },
+    };
+
+    const { data } = await this.compassProvider.request<SearchDropsResponse>(
+      SEARCH_DROPS_QUERY,
+      variables,
+    );
+
+    const drops = data.search_drops.map(
+      (drop: DropResponse): Drop => this.mapDrop(drop),
+    );
 
     return new PaginatedResult<Drop>(
       drops,
@@ -225,5 +238,41 @@ export class DropsClient {
     );
 
     return { ...images };
+  }
+
+  private mapDrop(drop: DropResponse): Drop {
+    const { imageUrl, originalImageUrl } = this.computeDropImages(drop);
+
+    return new Drop({
+      id: Number(drop.id),
+      fancyId: drop.fancy_id,
+      name: drop.name,
+      description: drop.description,
+      city: drop.city,
+      country: drop.country,
+      channel: drop.channel,
+      platform: drop.platform,
+      locationType: drop.location_type,
+      dropUrl: drop.drop_url,
+      imageUrl,
+      originalImageUrl,
+      animationUrl: drop.animation_url,
+      year: Number(drop.year),
+      startDate: new Date(drop.start_date),
+      timezone: drop.timezone,
+      private: drop.private,
+      createdDate: new Date(drop.created_date),
+      poapCount: drop.stats_by_chain_aggregate.aggregate.sum
+        ? Number(drop.stats_by_chain_aggregate.aggregate.sum.poap_count)
+        : 0,
+      transferCount: drop.stats_by_chain_aggregate.aggregate.sum
+        ? Number(drop.stats_by_chain_aggregate.aggregate.sum.transfer_count)
+        : 0,
+      emailReservationCount: drop.email_claims_stats
+        ? Number(drop.email_claims_stats.total)
+        : 0,
+      expiryDate: new Date(drop.expiry_date),
+      endDate: new Date(drop.end_date),
+    });
   }
 }
