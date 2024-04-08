@@ -4,13 +4,13 @@ This is a documentation website for POAP.js, a library for integrating with the 
 
 ## Getting Started
 
-To get started with this website, you'll need to install its dependencies and start the development server. You can do this using NPM:
+To get started with this website, you'll need to install its dependencies and start the development server. You can do this using yarn:
 
 ### NPM
 
 ```bash
-npm install
-npm run dev
+yarn install
+yarn dev
 ```
 
 Once the development server is running, you can view the website in your web browser by navigating to `http://localhost:3000`.
