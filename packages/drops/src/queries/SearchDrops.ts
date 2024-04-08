@@ -1,13 +1,18 @@
 import { DropResponse } from '../types/DropResponse';
 
-export const PAGINATED_DROPS_QUERY = `
-  query PaginatedDrops(
+export const SEARCH_DROPS_QUERY = `
+  query SearchDrops(
     $limit: Int!
     $offset: Int!
+    $args: search_drops_args!
     $orderBy: [drops_order_by!]
-    $where: drops_bool_exp
   ) {
-    drops(limit: $limit, offset: $offset, order_by: $orderBy, where: $where) {
+    search_drops(
+      limit: $limit
+      offset: $offset
+      args: $args
+      order_by: $orderBy
+    ) {
       id
       fancy_id
       name
@@ -48,8 +53,8 @@ export const PAGINATED_DROPS_QUERY = `
   }
 `;
 
-export interface PaginatedDropsResponse {
+export interface SearchDropsResponse {
   data: {
-    drops: DropResponse[];
+    search_drops: DropResponse[];
   };
 }

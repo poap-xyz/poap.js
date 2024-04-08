@@ -122,7 +122,7 @@ export class Frame {
    * Generates the meta tags used for the frame.
    *
    * @example
-   * const frame = useMemo(() => new Frame({ ... });
+   * const frame = new Frame({ ... });
    * return (
    *   <>
    *     <NextSeo
