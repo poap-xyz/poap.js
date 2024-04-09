@@ -15,9 +15,9 @@ export interface CompassProvider {
    * @returns {Promise<T>} A Promise that resolves with the result of the query.
    * @template T - The type of the result.
    */
-  request<T>(
+  request<T, V = { readonly [variable: string]: unknown }>(
     query: string,
-    variables?: null | undefined | { readonly [variable: string]: unknown },
+    variables?: null | undefined | V,
     signal?: AbortSignal,
   ): Promise<T>;
 }
