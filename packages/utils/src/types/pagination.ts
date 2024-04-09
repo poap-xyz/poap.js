@@ -33,3 +33,18 @@ export class PaginatedResult<T> {
     this.nextCursor = nextCursor;
   }
 }
+
+/**
+ * Variables pass to queries that do pagination.
+ */
+export interface PaginatedVariables {
+  /**
+   * When the page results start.
+   */
+  offset: number;
+
+  /**
+   * How many results to retrieve.
+   */
+  limit: number;
+}

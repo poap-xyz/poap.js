@@ -26,7 +26,11 @@ import {
   removeSpecialCharacters,
 } from '@poap-xyz/utils';
 import { DropImage } from './types/dropImage';
-import { SEARCH_DROPS_QUERY, SearchDropsResponse } from './queries/SearchDrops';
+import {
+  SEARCH_DROPS_QUERY,
+  SearchDropsResponse,
+  SearchDropsVariables,
+} from './queries/SearchDrops';
 
 /**
  * Represents a client for working with POAP drops.
@@ -109,7 +113,7 @@ export class DropsClient {
       return new PaginatedResult<Drop>([], null);
     }
 
-    const variables = {
+    const variables: SearchDropsVariables = {
       limit,
       offset,
       ...(isNumeric(search) && { orderBy: { id: Order.ASC } }),
@@ -118,10 +122,10 @@ export class DropsClient {
       },
     };
 
-    const { data } = await this.compassProvider.request<SearchDropsResponse>(
-      SEARCH_DROPS_QUERY,
-      variables,
-    );
+    const { data } = await this.compassProvider.request<
+      SearchDropsResponse,
+      SearchDropsVariables
+    >(SEARCH_DROPS_QUERY, variables);
 
     const drops = data.search_drops.map(
       (drop: DropResponse): Drop => this.mapDrop(drop),

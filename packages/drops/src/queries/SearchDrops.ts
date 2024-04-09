@@ -1,3 +1,4 @@
+import { Order, PaginatedVariables } from '@poap-xyz/utils';
 import { DropResponse } from '../types/DropResponse';
 
 export const SEARCH_DROPS_QUERY = `
@@ -57,4 +58,11 @@ export interface SearchDropsResponse {
   data: {
     search_drops: DropResponse[];
   };
+}
+
+export interface SearchDropsVariables extends PaginatedVariables {
+  args: {
+    search: string;
+  };
+  orderBy?: { id: Order.ASC };
 }
