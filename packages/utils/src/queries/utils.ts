@@ -75,7 +75,7 @@ export function createAddressFilter(
 export function createInFilter(
   key: string,
   values?: Array<string | number>,
-): Record<string, any> {
+): { [key: string]: { _in: Array<string | number> } } {
   return values && values.length ? { [key]: { _in: values } } : {};
 }
 
