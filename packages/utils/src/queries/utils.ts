@@ -31,10 +31,10 @@ export function createEqFilter(
   return value ? { [key]: { _eq: value } } : {};
 }
 
-export function creatNeqFilter(
+export function createNeqFilter(
   key: string,
   value?: string | number,
-): Record<string, any> {
+): { [key: string]: { _neq: string | number } } {
   return value ? { [key]: { _neq: value } } : {};
 }
 
