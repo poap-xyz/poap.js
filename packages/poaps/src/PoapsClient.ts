@@ -14,7 +14,7 @@ import {
   WalletMintInput,
 } from './types';
 import {
-  creatAddressFilter,
+  createAddressFilter,
   createBetweenFilter,
   createEqFilter,
   createInFilter,
@@ -68,7 +68,7 @@ export class PoapsClient {
       offset,
       orderBy: createOrderBy<PoapsSortFields>(sortField, sortDir),
       where: {
-        ...creatAddressFilter(
+        ...createAddressFilter(
           'collector_address',
           filterByZeroAddress,
           collectorAddress,

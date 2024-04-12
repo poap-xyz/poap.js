@@ -50,25 +50,26 @@ export function createBoolFilter(
     : {};
 }
 
-export function filterZeroAddress(filter: boolean): Record<string, any> {
-  return filter ? { _neq: '0x0000000000000000000000000000000000000000' } : {};
-}
-
-export function creatAddressFilter(
+export function createAddressFilter(
   key: string,
-  filter: boolean,
+  filterZeroAddress: boolean,
   value?: string,
-): Record<string, any> {
-  const addressFilter = {
-    [key]: {
-      ...filterZeroAddress(filter),
-    },
+): {
+  [key: string]: {
+    _neq?: string;
+    _eq?: string;
   };
-
-  if (value) {
-    addressFilter[key]._eq = value.toLocaleLowerCase();
-  }
-  return filter || value ? addressFilter : {};
+} {
+  return filterZeroAddress || value
+    ? {
+        [key]: {
+          ...(filterZeroAddress
+            ? { _neq: '0x0000000000000000000000000000000000000000' }
+            : {}),
+          ...(value ? { _eq: value.toLowerCase() } : {}),
+        },
+      }
+    : {};
 }
 
 export function createInFilter(
