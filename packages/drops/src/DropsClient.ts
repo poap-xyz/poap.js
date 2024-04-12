@@ -4,7 +4,11 @@ import {
   DropResponse as ProviderDropResponse,
 } from '@poap-xyz/providers';
 import { Drop } from './domain/Drop';
-import { PaginatedDropsResponse, PAGINATED_DROPS_QUERY } from './queries';
+import {
+  PAGINATED_DROPS_QUERY,
+  PaginatedDropsResponse,
+  PaginatedDropsVariables,
+} from './queries/PaginatedDrop';
 import {
   CreateDropsInput,
   DropImageResponse,
@@ -72,7 +76,7 @@ export class DropsClient {
       isPrivate,
     } = input;
 
-    const variables = {
+    const variables: PaginatedDropsVariables = {
       limit,
       offset,
       orderBy: createOrderBy<DropsSortFields>(sortField, sortDir),
@@ -84,10 +88,10 @@ export class DropsClient {
       },
     };
 
-    const { data } = await this.compassProvider.request<PaginatedDropsResponse>(
-      PAGINATED_DROPS_QUERY,
-      variables,
-    );
+    const { data } = await this.compassProvider.request<
+      PaginatedDropsResponse,
+      PaginatedDropsVariables
+    >(PAGINATED_DROPS_QUERY, variables);
 
     const drops = data.drops.map(
       (drop: DropResponse): Drop => this.mapDrop(drop),

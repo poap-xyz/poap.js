@@ -1,4 +1,8 @@
-import { OrderByVariables, PaginatedVariables } from '@poap-xyz/utils';
+import {
+  FilterVariables,
+  OrderByVariables,
+  PaginatedVariables,
+} from '@poap-xyz/utils';
 import { DropResponse } from '../types/DropResponse';
 
 export const PAGINATED_DROPS_QUERY = `
@@ -55,8 +59,6 @@ export interface PaginatedDropsResponse {
   };
 }
 
-export type PaginatedDropsVariables = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  where: Record<string, any>;
-} & PaginatedVariables &
-  OrderByVariables;
+export type PaginatedDropsVariables = FilterVariables &
+  OrderByVariables &
+  PaginatedVariables;
