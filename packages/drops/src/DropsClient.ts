@@ -9,6 +9,7 @@ import {
   CreateDropsInput,
   DropImageResponse,
   DropResponse,
+  DropsSortFields,
   FetchDropsInput,
   SearchDropsInput,
   UpdateDropsInput,
@@ -17,13 +18,13 @@ import {
   PaginatedResult,
   nextCursor,
   creatPrivateFilter,
-  createUndefinedOrder,
   createBetweenFilter,
   createFilter,
   createInFilter,
   Order,
   isNumeric,
   removeSpecialCharacters,
+  createOrderBy,
 } from '@poap-xyz/utils';
 import { DropImage } from './types/dropImage';
 import {
@@ -74,7 +75,7 @@ export class DropsClient {
     const variables = {
       limit,
       offset,
-      orderBy: createUndefinedOrder(sortField, sortDir),
+      orderBy: createOrderBy<DropsSortFields>(sortField, sortDir),
       where: {
         ...creatPrivateFilter('private', isPrivate),
         ...createFilter('name', name),

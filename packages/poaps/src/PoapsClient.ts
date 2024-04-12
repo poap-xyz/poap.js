@@ -10,14 +10,15 @@ import {
   EmailReservationInput,
   FetchPoapsInput,
   PoapMintStatus,
+  PoapsSortFields,
   WalletMintInput,
 } from './types';
 import {
   creatAddressFilter,
   createBetweenFilter,
   createInFilter,
+  createOrderBy,
   creatEqFilter,
-  createUndefinedOrder,
   nextCursor,
   PaginatedResult,
 } from '@poap-xyz/utils';
@@ -65,7 +66,7 @@ export class PoapsClient {
     const variables = {
       limit,
       offset,
-      orderBy: createUndefinedOrder(sortField, sortDir),
+      orderBy: createOrderBy<PoapsSortFields>(sortField, sortDir),
       where: {
         ...creatAddressFilter(
           'collector_address',
