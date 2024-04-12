@@ -9,6 +9,8 @@ export interface Filter {
   };
 }
 
+type FilterWhere = Filter | { [key: string]: FilterWhere };
+
 export interface FilterVariables {
-  where: Filter;
+  where: FilterWhere;
 }
