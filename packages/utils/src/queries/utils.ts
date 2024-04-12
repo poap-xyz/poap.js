@@ -38,10 +38,10 @@ export function creatNeqFilter(
   return value ? { [key]: { _neq: value } } : {};
 }
 
-export function creatPrivateFilter(
+export function createBoolFilter(
   key: string,
   value?: boolean,
-): Record<string, any> {
+): { [key: string]: { _eq: 'true' | 'false' } } {
   return typeof value === 'boolean'
     ? { [key]: { _eq: value ? 'true' : 'false' } }
     : {};
