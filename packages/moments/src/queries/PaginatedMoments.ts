@@ -1,3 +1,9 @@
+import {
+  FilterVariables,
+  OrderByVariables,
+  PaginatedVariables,
+} from '@poap-xyz/utils';
+
 export const PAGINATED_MOMENTS_QUERY = `
   query PaginatedMoments(
     $limit: Int!
@@ -34,3 +40,7 @@ export interface MomentsQueryResponse {
     moments: MomentResponse[];
   };
 }
+
+export type MomentsQueryVariables = FilterVariables &
+  OrderByVariables &
+  PaginatedVariables;
