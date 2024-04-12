@@ -24,10 +24,10 @@ export function createFilter(key: string, value?: string): Record<string, any> {
   return value ? { [key]: { _ilike: `%${value}%` } } : {};
 }
 
-export function creatEqFilter(
+export function createEqFilter(
   key: string,
   value?: string | number,
-): Record<string, any> {
+): { [key: string]: { _eq: string | number } } {
   return value ? { [key]: { _eq: value } } : {};
 }
 

@@ -16,9 +16,9 @@ import {
 import {
   creatAddressFilter,
   createBetweenFilter,
+  createEqFilter,
   createInFilter,
   createOrderBy,
-  creatEqFilter,
   nextCursor,
   PaginatedResult,
 } from '@poap-xyz/utils';
@@ -73,8 +73,8 @@ export class PoapsClient {
           filterByZeroAddress,
           collectorAddress,
         ),
-        ...creatEqFilter('chain', chain),
-        ...creatEqFilter('drop_id', dropId),
+        ...createEqFilter('chain', chain),
+        ...createEqFilter('drop_id', dropId),
         ...createBetweenFilter('minted_on', mintedDateFrom, mintedDateTo),
         ...createInFilter('id', ids),
       },
