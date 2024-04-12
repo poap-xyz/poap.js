@@ -1,6 +1,3 @@
-/* eslint-disable max-statements */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { DropApiProvider } from '../../ports/DropApiProvider/DropApiProvider';
 import { DropResponse } from '../../ports/DropApiProvider/types/DropResponse';
 import {
@@ -51,7 +48,7 @@ export class PoapDropApi implements DropApiProvider {
         }
       }
     }
-    return await this.secureFetch(`${this.baseUrl}/events`, {
+    return await this.secureFetch<DropResponse>(`${this.baseUrl}/events`, {
       method: 'POST',
       body: form,
       headers: {},
@@ -68,7 +65,7 @@ export class PoapDropApi implements DropApiProvider {
    * @returns {Promise<DropResponse>} A Promise that resolves with the response from the API.
    */
   async updateDrop(input: UpdateDropInput): Promise<DropResponse> {
-    return await this.secureFetch(`${this.baseUrl}/events`, {
+    return await this.secureFetch<DropResponse>(`${this.baseUrl}/events`, {
       method: 'PUT',
       body: JSON.stringify(input),
       headers: {
@@ -77,7 +74,6 @@ export class PoapDropApi implements DropApiProvider {
     });
   }
 
-  // TODO: Change variable type any to a more specific type
   /**
    * Sends a secure HTTP request to the POAP Drop API.
    *
@@ -86,10 +82,10 @@ export class PoapDropApi implements DropApiProvider {
    * @function
    * @name PoapDropApi#secureFetch
    * @param {string} url - The URL for the HTTP request.
-   * @param {any} options - The options for the HTTP request.
-   * @returns {Promise<any>} A Promise that resolves with the response from the API.
+   * @param {RequestInit} options - The options for the HTTP request.
+   * @returns {Promise<R>} A Promise that resolves with the response from the API.
    */
-  private async secureFetch(url: string, options: any): Promise<any> {
+  private async secureFetch<R>(url: string, options: RequestInit): Promise<R> {
     const headersWithApiKey = {
       ...options.headers,
       'x-api-key': this.apiKey,
