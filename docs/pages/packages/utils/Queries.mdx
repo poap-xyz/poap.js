@@ -11,11 +11,13 @@ sort order, for example:
 ```graphql
 query MyDrops(
   $orderBy: [drops_order_by!]
-  $where: {
-    drop_id: { _in: [14] }
-  }
 ) {
-  drops(order_by: $orderBy) {
+  drops(
+    order_by: $orderBy
+    where: {
+      drop_id: { _in: [14] }
+    }
+  ) {
     id
     name
   }
