@@ -2,8 +2,8 @@ import { CompassProvider, PoapMomentsApi } from '@poap-xyz/providers';
 import {
   createBetweenFilter,
   createEqFilter,
-  createFilter,
   createInFilter,
+  createLikeFilter,
   filterUndefinedProperties,
   nextCursor,
   PaginatedResult,
@@ -160,7 +160,7 @@ export class MomentsClient {
       where: {
         ...createEqFilter('token_id', token_id),
         ...createInFilter('drop_id', drop_ids),
-        ...createFilter('author', author),
+        ...createLikeFilter('author', author),
         ...createBetweenFilter('created_on', from, to),
         ...createEqFilter('id', id),
       },

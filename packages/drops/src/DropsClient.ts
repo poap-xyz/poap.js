@@ -18,13 +18,13 @@ import {
   PaginatedResult,
   nextCursor,
   createBetweenFilter,
-  createFilter,
   createInFilter,
   Order,
   isNumeric,
   removeSpecialCharacters,
   createOrderBy,
   createBoolFilter,
+  createLikeFilter,
 } from '@poap-xyz/utils';
 import { DropImage } from './types/dropImage';
 import {
@@ -78,7 +78,7 @@ export class DropsClient {
       orderBy: createOrderBy<DropsSortFields>(sortField, sortDir),
       where: {
         ...createBoolFilter('private', isPrivate),
-        ...createFilter('name', name),
+        ...createLikeFilter('name', name),
         ...createBetweenFilter('created_date', from, to),
         ...createInFilter('id', ids),
       },

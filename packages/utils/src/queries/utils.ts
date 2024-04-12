@@ -20,7 +20,10 @@ export function createOrderBy<E extends string = string>(
   return key && value ? { [key]: value } : {};
 }
 
-export function createFilter(key: string, value?: string): Record<string, any> {
+export function createLikeFilter(
+  key: string,
+  value?: string,
+): { [key: string]: { _ilike: string } } {
   return value ? { [key]: { _ilike: `%${value}%` } } : {};
 }
 
