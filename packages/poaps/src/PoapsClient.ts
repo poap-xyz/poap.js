@@ -5,19 +5,24 @@ import {
 } from '@poap-xyz/providers';
 import { POAP } from './domain/Poap';
 import { POAPReservation } from './domain/POAPReservation';
-import { PAGINATED_POAPS_QUERY, PaginatedPoapsResponse } from './queries';
+import {
+  PAGINATED_POAPS_QUERY,
+  PaginatedPoapsResponse,
+  PaginatedPoapsVariables,
+} from './queries';
 import {
   EmailReservationInput,
   FetchPoapsInput,
   PoapMintStatus,
+  PoapsSortFields,
   WalletMintInput,
 } from './types';
 import {
-  creatAddressFilter,
+  createAddressFilter,
   createBetweenFilter,
+  createEqFilter,
   createInFilter,
-  creatEqFilter,
-  createUndefinedOrder,
+  createOrderBy,
   nextCursor,
   PaginatedResult,
 } from '@poap-xyz/utils';
@@ -62,27 +67,28 @@ export class PoapsClient {
       filterByZeroAddress = true,
     } = input;
 
-    const variables = {
+    const variables: PaginatedPoapsVariables = {
       limit,
       offset,
-      orderBy: createUndefinedOrder(sortField, sortDir),
+      orderBy: createOrderBy<PoapsSortFields>(sortField, sortDir),
       where: {
-        ...creatAddressFilter(
+        ...createAddressFilter(
           'collector_address',
           filterByZeroAddress,
           collectorAddress,
         ),
-        ...creatEqFilter('chain', chain),
-        ...creatEqFilter('drop_id', dropId),
+        ...createEqFilter('chain', chain),
+        ...createEqFilter('drop_id', dropId),
         ...createBetweenFilter('minted_on', mintedDateFrom, mintedDateTo),
         ...createInFilter('id', ids),
       },
     };
 
-    const { data } = await this.compassProvider.request<PaginatedPoapsResponse>(
-      PAGINATED_POAPS_QUERY,
-      variables,
-    );
+    const { data } = await this.compassProvider.request<
+      PaginatedPoapsResponse,
+      PaginatedPoapsVariables
+    >(PAGINATED_POAPS_QUERY, variables);
+
     const poaps = data.poaps.map((poap) => {
       const { drop } = poap;
       const mintedOn = new Date(0);

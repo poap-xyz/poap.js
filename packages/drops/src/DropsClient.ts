@@ -4,11 +4,16 @@ import {
   DropResponse as ProviderDropResponse,
 } from '@poap-xyz/providers';
 import { Drop } from './domain/Drop';
-import { PaginatedDropsResponse, PAGINATED_DROPS_QUERY } from './queries';
+import {
+  PAGINATED_DROPS_QUERY,
+  PaginatedDropsResponse,
+  PaginatedDropsVariables,
+} from './queries/PaginatedDrop';
 import {
   CreateDropsInput,
   DropImageResponse,
   DropResponse,
+  DropsSortFields,
   FetchDropsInput,
   SearchDropsInput,
   UpdateDropsInput,
@@ -16,17 +21,21 @@ import {
 import {
   PaginatedResult,
   nextCursor,
-  creatPrivateFilter,
-  createUndefinedOrder,
   createBetweenFilter,
-  createFilter,
   createInFilter,
   Order,
   isNumeric,
   removeSpecialCharacters,
+  createOrderBy,
+  createBoolFilter,
+  createLikeFilter,
 } from '@poap-xyz/utils';
 import { DropImage } from './types/dropImage';
-import { SEARCH_DROPS_QUERY, SearchDropsResponse } from './queries/SearchDrops';
+import {
+  SEARCH_DROPS_QUERY,
+  SearchDropsResponse,
+  SearchDropsVariables,
+} from './queries/SearchDrops';
 
 /**
  * Represents a client for working with POAP drops.
@@ -67,22 +76,22 @@ export class DropsClient {
       isPrivate,
     } = input;
 
-    const variables = {
+    const variables: PaginatedDropsVariables = {
       limit,
       offset,
-      orderBy: createUndefinedOrder(sortField, sortDir),
+      orderBy: createOrderBy<DropsSortFields>(sortField, sortDir),
       where: {
-        ...creatPrivateFilter('private', isPrivate),
-        ...createFilter('name', name),
+        ...createBoolFilter('private', isPrivate),
+        ...createLikeFilter('name', name),
         ...createBetweenFilter('created_date', from, to),
         ...createInFilter('id', ids),
       },
     };
 
-    const { data } = await this.compassProvider.request<PaginatedDropsResponse>(
-      PAGINATED_DROPS_QUERY,
-      variables,
-    );
+    const { data } = await this.compassProvider.request<
+      PaginatedDropsResponse,
+      PaginatedDropsVariables
+    >(PAGINATED_DROPS_QUERY, variables);
 
     const drops = data.drops.map(
       (drop: DropResponse): Drop => this.mapDrop(drop),
@@ -109,7 +118,7 @@ export class DropsClient {
       return new PaginatedResult<Drop>([], null);
     }
 
-    const variables = {
+    const variables: SearchDropsVariables = {
       limit,
       offset,
       ...(isNumeric(search) && { orderBy: { id: Order.ASC } }),
@@ -118,10 +127,10 @@ export class DropsClient {
       },
     };
 
-    const { data } = await this.compassProvider.request<SearchDropsResponse>(
-      SEARCH_DROPS_QUERY,
-      variables,
-    );
+    const { data } = await this.compassProvider.request<
+      SearchDropsResponse,
+      SearchDropsVariables
+    >(SEARCH_DROPS_QUERY, variables);
 
     const drops = data.search_drops.map(
       (drop: DropResponse): Drop => this.mapDrop(drop),

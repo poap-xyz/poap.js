@@ -1,8 +1,7 @@
 {
   "name": "@poap-xyz/utils",
-  "version": "0.1.8",
+  "version": "0.2.0",
   "description": "Utils module for the poap.js library",
-  "type": "module",
   "main": "dist/cjs/index.cjs",
   "module": "dist/esm/index.mjs",
   "typings": "dist/cjs/index.d.ts",
@@ -12,6 +11,7 @@
     "import": "./dist/esm/index.mjs",
     "browser": "./dist/umd/index.js"
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/poap-xyz/poap.js.git"

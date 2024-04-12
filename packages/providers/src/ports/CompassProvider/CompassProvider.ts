@@ -10,14 +10,14 @@ export interface CompassProvider {
    * @function
    * @name CompassProvider#request
    * @param {string} query - The query string to execute.
-   * @param {Record<string, unknown>} [variables] - The variables to pass with the query.
+   * @param {null | undefined | { readonly [variable: string]: unknown }} [variables] - The variables to pass with the query.
    * @param {AbortSignal} signal - When given, the request can be aborted with its controller.
-   * @returns {Promise<T>} A Promise that resolves with the result of the query.
-   * @template T - The type of the result.
+   * @returns {Promise<{ data: D }>} A Promise that resolves with the result of the query.
+   * @template D - The type of the result's data.
    */
-  request<T>(
+  request<D, V = { readonly [variable: string]: unknown }>(
     query: string,
-    variables?: Record<string, unknown>,
+    variables?: null | undefined | V,
     signal?: AbortSignal,
-  ): Promise<T>;
+  ): Promise<{ data: D }>;
 }

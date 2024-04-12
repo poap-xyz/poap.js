@@ -1,5 +1,5 @@
 import { FetchMomentsInput, Moment, MomentsClient } from '@poap-xyz/moments';
-import { PaginatedResult } from '@poap-xyz/utils';
+import { Order, PaginatedResult } from '@poap-xyz/utils';
 
 export const fetch_moments_by_drop_ids = async (
   client: MomentsClient,
@@ -9,7 +9,7 @@ export const fetch_moments_by_drop_ids = async (
     offset: 0,
     limit: 10,
     drop_ids: [1],
-    idOrder: 'desc',
+    idOrder: Order.DESC,
   };
   console.log(input);
 

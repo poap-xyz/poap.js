@@ -1,4 +1,18 @@
-import { PaginationInput } from '@poap-xyz/utils';
+import { Order, PaginationInput } from '@poap-xyz/utils';
+
+/**
+ * Enum to define available fields for sorting Moments.
+ *
+ * @export
+ * @enum {string}
+ */
+export enum MomentsSortFields {
+  StartDate = 'start_date',
+  TokenId = 'token_id',
+  DropId = 'drop_id',
+  Id = 'id',
+}
+
 /**
  * Interface representing the input needed to fetch moments.
  * @interface
@@ -16,10 +30,10 @@ import { PaginationInput } from '@poap-xyz/utils';
  * @property {number} [drop_id] - The drop ID to filter moments by (optional).
  */
 export interface FetchMomentsInput extends PaginationInput {
-  createdOrder?: string;
-  tokenIdOrder?: string;
-  dropIdOrder?: string;
-  idOrder?: string;
+  createdOrder?: Order;
+  tokenIdOrder?: Order;
+  dropIdOrder?: Order;
+  idOrder?: Order;
   author?: string;
   from?: string;
   to?: string;

@@ -1,10 +1,10 @@
 import { CompassProvider, PoapMomentsApi } from '@poap-xyz/providers';
 import {
   createBetweenFilter,
-  createFilter,
+  createEqFilter,
   createInFilter,
-  creatEqFilter,
-  filterUndefinedProperties,
+  createLikeFilter,
+  createOrderBy,
   nextCursor,
   PaginatedResult,
 } from '@poap-xyz/utils';
@@ -12,11 +12,15 @@ import { Moment } from '../domain/Moment';
 import {
   MomentResponse,
   MomentsQueryResponse,
+  MomentsQueryVariables,
   PAGINATED_MOMENTS_QUERY,
 } from '../queries';
 import { CreateMomentInput } from './dtos/create/CreateInput';
 import { CreateSteps } from './dtos/create/CreateSteps';
-import { FetchMomentsInput } from './dtos/fetch/FetchMomentsInput';
+import {
+  FetchMomentsInput,
+  MomentsSortFields,
+} from './dtos/fetch/FetchMomentsInput';
 import { CreateMedia } from './dtos/create/CreateMedia';
 
 export class MomentsClient {
@@ -148,28 +152,37 @@ export class MomentsClient {
     tokenIdOrder,
     dropIdOrder,
   }: FetchMomentsInput): Promise<PaginatedResult<Moment>> {
-    const variables = {
+    const variables: MomentsQueryVariables = {
       limit,
       offset,
-      orderBy: filterUndefinedProperties({
-        start_date: createdOrder,
-        token_id: tokenIdOrder,
-        drop_id: dropIdOrder,
-        id: idOrder,
-      }),
+      orderBy: {
+        ...createOrderBy<MomentsSortFields>(
+          MomentsSortFields.StartDate,
+          createdOrder,
+        ),
+        ...createOrderBy<MomentsSortFields>(
+          MomentsSortFields.TokenId,
+          tokenIdOrder,
+        ),
+        ...createOrderBy<MomentsSortFields>(
+          MomentsSortFields.DropId,
+          dropIdOrder,
+        ),
+        ...createOrderBy<MomentsSortFields>(MomentsSortFields.Id, idOrder),
+      },
       where: {
-        ...creatEqFilter('token_id', token_id),
+        ...createEqFilter('token_id', token_id),
         ...createInFilter('drop_id', drop_ids),
-        ...createFilter('author', author),
+        ...createLikeFilter('author', author),
         ...createBetweenFilter('created_on', from, to),
-        ...creatEqFilter('id', id),
+        ...createEqFilter('id', id),
       },
     };
 
-    const response = await this.CompassProvider.request<MomentsQueryResponse>(
-      PAGINATED_MOMENTS_QUERY,
-      variables,
-    );
+    const response = await this.CompassProvider.request<
+      MomentsQueryResponse,
+      MomentsQueryVariables
+    >(PAGINATED_MOMENTS_QUERY, variables);
 
     const momentsResponse: Moment[] = response.data.moments.map(
       this.getMomentFromMomentResponse,

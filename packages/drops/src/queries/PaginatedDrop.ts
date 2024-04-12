@@ -1,3 +1,8 @@
+import {
+  FilterVariables,
+  OrderByVariables,
+  PaginatedVariables,
+} from '@poap-xyz/utils';
 import { DropResponse } from '../types/DropResponse';
 
 export const PAGINATED_DROPS_QUERY = `
@@ -49,7 +54,9 @@ export const PAGINATED_DROPS_QUERY = `
 `;
 
 export interface PaginatedDropsResponse {
-  data: {
-    drops: DropResponse[];
-  };
+  drops: DropResponse[];
 }
+
+export type PaginatedDropsVariables = FilterVariables &
+  OrderByVariables &
+  PaginatedVariables;
