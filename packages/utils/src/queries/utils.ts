@@ -1,5 +1,3 @@
-import { Order } from '../types/order';
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export function filterUndefinedProperties<T extends Record<string, any>>(
   obj: T,
@@ -11,11 +9,4 @@ export function filterUndefinedProperties<T extends Record<string, any>>(
     }
   }
   return filteredObj;
-}
-
-export function createOrderBy<E extends string = string>(
-  key: E | undefined,
-  value?: Order | undefined,
-): { [key: string]: Order } {
-  return key && value ? { [key]: value } : {};
 }
