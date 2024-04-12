@@ -3,7 +3,7 @@ export interface Filter {
     _eq?: string | number;
     _neq?: string | number;
     _ilike?: string;
-    _in: Array<string | number>;
+    _in?: Array<string | number>;
     _gte?: string;
     _lte?: string;
   };
