@@ -1,3 +1,9 @@
+import {
+  FilterVariables,
+  OrderByVariables,
+  PaginatedVariables,
+} from '@poap-xyz/utils';
+
 export const PAGINATED_POAPS_QUERY = `
   query PaginatedPoaps(
     $limit: Int!
@@ -47,3 +53,7 @@ export interface PaginatedPoapsResponse {
     poaps: PoapsResponse[];
   };
 }
+
+export type PaginatedPoapsVariables = FilterVariables &
+  OrderByVariables &
+  PaginatedVariables;

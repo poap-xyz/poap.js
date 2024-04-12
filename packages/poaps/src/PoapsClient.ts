@@ -5,7 +5,11 @@ import {
 } from '@poap-xyz/providers';
 import { POAP } from './domain/Poap';
 import { POAPReservation } from './domain/POAPReservation';
-import { PAGINATED_POAPS_QUERY, PaginatedPoapsResponse } from './queries';
+import {
+  PAGINATED_POAPS_QUERY,
+  PaginatedPoapsResponse,
+  PaginatedPoapsVariables,
+} from './queries';
 import {
   EmailReservationInput,
   FetchPoapsInput,
@@ -63,7 +67,7 @@ export class PoapsClient {
       filterByZeroAddress = true,
     } = input;
 
-    const variables = {
+    const variables: PaginatedPoapsVariables = {
       limit,
       offset,
       orderBy: createOrderBy<PoapsSortFields>(sortField, sortDir),
@@ -80,10 +84,11 @@ export class PoapsClient {
       },
     };
 
-    const { data } = await this.compassProvider.request<PaginatedPoapsResponse>(
-      PAGINATED_POAPS_QUERY,
-      variables,
-    );
+    const { data } = await this.compassProvider.request<
+      PaginatedPoapsResponse,
+      PaginatedPoapsVariables
+    >(PAGINATED_POAPS_QUERY, variables);
+
     const poaps = data.poaps.map((poap) => {
       const { drop } = poap;
       const mintedOn = new Date(0);
