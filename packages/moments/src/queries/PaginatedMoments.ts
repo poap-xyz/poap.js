@@ -36,9 +36,7 @@ export interface MomentResponse {
 }
 
 export interface MomentsQueryResponse {
-  data: {
-    moments: MomentResponse[];
-  };
+  moments: MomentResponse[];
 }
 
 export type MomentsQueryVariables = FilterVariables &

@@ -165,12 +165,12 @@ export class PoapCompass implements CompassProvider {
     );
   }
 
-  async request<T, V = { readonly [variable: string]: unknown }>(
+  async request<D, V = { readonly [variable: string]: unknown }>(
     query: string,
     variables?: null | undefined | V,
     signal?: AbortSignal,
-  ): Promise<T> {
-    return await this.fetchGraphQL<T>(query, variables ?? {}, signal);
+  ): Promise<{ data: D }> {
+    return await this.fetchGraphQL<{ data: D }>(query, variables ?? {}, signal);
   }
 }
 

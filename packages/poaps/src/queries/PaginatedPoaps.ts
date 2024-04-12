@@ -49,9 +49,7 @@ export interface PoapsResponse {
 }
 
 export interface PaginatedPoapsResponse {
-  data: {
-    poaps: PoapsResponse[];
-  };
+  poaps: PoapsResponse[];
 }
 
 export type PaginatedPoapsVariables = FilterVariables &

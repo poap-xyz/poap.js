@@ -54,9 +54,7 @@ export const PAGINATED_DROPS_QUERY = `
 `;
 
 export interface PaginatedDropsResponse {
-  data: {
-    drops: DropResponse[];
-  };
+  drops: DropResponse[];
 }
 
 export type PaginatedDropsVariables = FilterVariables &

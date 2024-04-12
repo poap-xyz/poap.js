@@ -55,9 +55,7 @@ export const SEARCH_DROPS_QUERY = `
 `;
 
 export interface SearchDropsResponse {
-  data: {
-    search_drops: DropResponse[];
-  };
+  search_drops: DropResponse[];
 }
 
 export interface SearchDropsVariables extends PaginatedVariables {
