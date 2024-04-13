@@ -59,7 +59,7 @@ export function createNotNullAddressFilter(
   key: string,
   filterZeroAddress = true,
   filterDeadAddress = true,
-): FieldFilter<Partial<NeqFilter<string>> & Partial<NinFilter<string>>> {
+): FieldFilter<NeqFilter<string>> | FieldFilter<NinFilter<string>> {
   if (filterZeroAddress && filterDeadAddress) {
     return {
       [key]: {
