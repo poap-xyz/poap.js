@@ -1,16 +1,22 @@
-export interface Filter {
+interface FieldFilter {
   [key: string]: {
-    _eq?: string | number;
-    _neq?: string | number;
+    _eq?: string | number | boolean;
+    _neq?: string | number | boolean;
     _ilike?: string;
-    _in?: Array<string | number>;
+    _in?: Array<string | number | boolean>;
     _gte?: string;
     _lte?: string;
   };
 }
 
-type FilterWhere = Filter | { [key: string]: FilterWhere };
+interface ConditionFilter {
+  _or?: Filter[];
+  _and?: Filter[];
+  _not?: Filter;
+}
+
+type Filter = FieldFilter | ConditionFilter | { [key: string]: Filter };
 
 export interface FilterVariables {
-  where: FilterWhere;
+  where: Filter;
 }
