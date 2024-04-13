@@ -4,6 +4,7 @@ interface FieldFilter {
     _neq?: string | number | boolean;
     _ilike?: string;
     _in?: Array<string | number | boolean>;
+    _nin?: Array<string | number | boolean>;
     _gte?: string;
     _lte?: string;
   };
