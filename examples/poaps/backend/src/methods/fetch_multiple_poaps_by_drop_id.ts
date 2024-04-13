@@ -11,7 +11,8 @@ export const fetch_multiple_poaps_by_drop_id = async (
       limit: 10,
       offset: 0,
       dropId: 3,
-      filterByZeroAddress: true,
+      filterZeroAddress: true,
+      filterDeadAddress: true,
     });
     console.log(data);
     console.log('The first 10 POAP tokens minted for the drop 14.');

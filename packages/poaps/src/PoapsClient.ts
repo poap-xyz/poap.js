@@ -22,6 +22,7 @@ import {
   createBetweenFilter,
   createEqFilter,
   createInFilter,
+  createNotNullAddressFilter,
   createOrderBy,
   nextCursor,
   PaginatedResult,
@@ -64,7 +65,8 @@ export class PoapsClient {
       dropId,
       sortField,
       sortDir,
-      filterByZeroAddress = true,
+      filterZeroAddress = true,
+      filterDeadAddress = true,
     } = input;
 
     const variables: PaginatedPoapsVariables = {
@@ -72,10 +74,11 @@ export class PoapsClient {
       offset,
       orderBy: createOrderBy<PoapsSortFields>(sortField, sortDir),
       where: {
-        ...createAddressFilter(
+        ...createAddressFilter('collector_address', collectorAddress),
+        ...createNotNullAddressFilter(
           'collector_address',
-          filterByZeroAddress,
-          collectorAddress,
+          filterZeroAddress,
+          filterDeadAddress,
         ),
         ...createEqFilter('chain', chain),
         ...createEqFilter('drop_id', dropId),
