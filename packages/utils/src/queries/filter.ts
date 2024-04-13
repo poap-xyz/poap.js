@@ -42,38 +42,41 @@ export function createBoolFilter(
     : {};
 }
 
-// eslint-disable-next-line complexity
 export function createAddressFilter(
   key: string,
   value?: string,
-  filterZeroAddress?: boolean,
-  filterDeadAddress?: boolean,
-): FieldFilter<
-  Partial<EqFilter<string>> &
-    Partial<NeqFilter<string>> &
-    Partial<NinFilter<string>>
-> {
-  return filterZeroAddress || filterDeadAddress || value
+): FieldFilter<Partial<EqFilter<string>>> {
+  return value
     ? {
         [key]: {
-          ...(filterZeroAddress && filterDeadAddress
-            ? {
-                _nin: [
-                  '0x0000000000000000000000000000000000000000',
-                  '0x000000000000000000000000000000000000dead',
-                ],
-              }
-            : {}),
-          ...(filterZeroAddress && !filterDeadAddress
-            ? { _neq: '0x0000000000000000000000000000000000000000' }
-            : {}),
-          ...(!filterZeroAddress && filterDeadAddress
-            ? { _neq: '0x000000000000000000000000000000000000dead' }
-            : {}),
-          ...(value ? { _eq: value.toLowerCase() } : {}),
+          _eq: value.toLowerCase(),
         },
       }
     : {};
+}
+
+export function createNotNullAddressFilter(
+  key: string,
+  filterZeroAddress = true,
+  filterDeadAddress = true,
+): FieldFilter<Partial<NeqFilter<string>> & Partial<NinFilter<string>>> {
+  if (filterZeroAddress && filterDeadAddress) {
+    return {
+      [key]: {
+        _nin: [
+          '0x0000000000000000000000000000000000000000',
+          '0x000000000000000000000000000000000000dead',
+        ],
+      },
+    };
+  }
+  if (filterZeroAddress) {
+    return { [key]: { _neq: '0x0000000000000000000000000000000000000000' } };
+  }
+  if (filterDeadAddress) {
+    return { [key]: { _neq: '0x000000000000000000000000000000000000dead' } };
+  }
+  return {};
 }
 
 export function createInFilter(

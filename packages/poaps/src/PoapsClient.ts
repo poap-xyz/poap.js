@@ -22,6 +22,7 @@ import {
   createBetweenFilter,
   createEqFilter,
   createInFilter,
+  createNotNullAddressFilter,
   createOrderBy,
   nextCursor,
   PaginatedResult,
@@ -73,9 +74,9 @@ export class PoapsClient {
       offset,
       orderBy: createOrderBy<PoapsSortFields>(sortField, sortDir),
       where: {
-        ...createAddressFilter(
+        ...createAddressFilter('collector_address', collectorAddress),
+        ...createNotNullAddressFilter(
           'collector_address',
-          collectorAddress,
           filterZeroAddress,
           filterDeadAddress,
         ),
