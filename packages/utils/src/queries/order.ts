@@ -1,8 +1,8 @@
-import { Order } from '../types/order';
+import { Order, OrderBy } from '../types/order';
 
 export function createOrderBy<E extends string = string>(
   key: E | undefined,
   value?: Order | undefined,
-): { [key: string]: Order } {
+): OrderBy {
   return key && value ? { [key]: value } : {};
 }

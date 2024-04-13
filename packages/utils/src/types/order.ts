@@ -3,6 +3,10 @@ export enum Order {
   DESC = 'desc',
 }
 
+export interface OrderBy {
+  [key: string]: Order;
+}
+
 export interface OrderByVariables {
-  orderBy: { [key: string]: Order } | Array<{ [key: string]: Order }>;
+  orderBy: OrderBy | Array<OrderBy>;
 }
