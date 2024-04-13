@@ -45,7 +45,7 @@ export function createBoolFilter(
 export function createAddressFilter(
   key: string,
   value?: string,
-): FieldFilter<Partial<EqFilter<string>>> {
+): FieldFilter<EqFilter<string>> {
   return value
     ? {
         [key]: {
