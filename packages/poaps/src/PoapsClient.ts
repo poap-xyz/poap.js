@@ -64,7 +64,8 @@ export class PoapsClient {
       dropId,
       sortField,
       sortDir,
-      filterByZeroAddress = true,
+      filterZeroAddress = true,
+      filterDeadAddress = true,
     } = input;
 
     const variables: PaginatedPoapsVariables = {
@@ -74,8 +75,9 @@ export class PoapsClient {
       where: {
         ...createAddressFilter(
           'collector_address',
-          filterByZeroAddress,
           collectorAddress,
+          filterZeroAddress,
+          filterDeadAddress,
         ),
         ...createEqFilter('chain', chain),
         ...createEqFilter('drop_id', dropId),

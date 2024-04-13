@@ -42,16 +42,33 @@ export function createBoolFilter(
     : {};
 }
 
+// eslint-disable-next-line complexity
 export function createAddressFilter(
   key: string,
-  filterZeroAddress: boolean,
   value?: string,
-): FieldFilter<Partial<EqFilter<string>> & Partial<NeqFilter<string>>> {
-  return filterZeroAddress || value
+  filterZeroAddress?: boolean,
+  filterDeadAddress?: boolean,
+): FieldFilter<
+  Partial<EqFilter<string>> &
+    Partial<NeqFilter<string>> &
+    Partial<NinFilter<string>>
+> {
+  return filterZeroAddress || filterDeadAddress || value
     ? {
         [key]: {
-          ...(filterZeroAddress
+          ...(filterZeroAddress && filterDeadAddress
+            ? {
+                _nin: [
+                  '0x0000000000000000000000000000000000000000',
+                  '0x000000000000000000000000000000000000dead',
+                ],
+              }
+            : {}),
+          ...(filterZeroAddress && !filterDeadAddress
             ? { _neq: '0x0000000000000000000000000000000000000000' }
+            : {}),
+          ...(!filterZeroAddress && filterDeadAddress
+            ? { _neq: '0x000000000000000000000000000000000000dead' }
             : {}),
           ...(value ? { _eq: value.toLowerCase() } : {}),
         },

@@ -41,7 +41,9 @@ export interface FetchPoapsInput extends PaginationInput {
   /** Direction in which to sort the results. */
   sortDir?: Order;
   /** Filter to include/exclude POAPs with zero addresses. */
-  filterByZeroAddress?: boolean;
+  filterZeroAddress?: boolean;
+  /** Filter out dead addresses? */
+  filterDeadAddress?: boolean;
 }
 
 /**
