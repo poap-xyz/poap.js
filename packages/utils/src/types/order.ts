@@ -4,5 +4,5 @@ export enum Order {
 }
 
 export interface OrderByVariables {
-  orderBy: { [key: string]: Order };
+  orderBy: { [key: string]: Order } | Array<{ [key: string]: Order }>;
 }
