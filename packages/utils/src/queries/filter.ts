@@ -14,22 +14,22 @@ import {
 
 export function createLikeFilter(
   key: string,
-  value?: Value,
-): FieldFilter<LikeFilter> {
+  value?: string,
+): FieldFilter<LikeFilter<string>> {
   return value ? { [key]: { _ilike: `%${value}%` } } : {};
 }
 
-export function createEqFilter(
+export function createEqFilter<V = Value>(
   key: string,
-  value?: Value,
-): FieldFilter<EqFilter> {
+  value?: V,
+): FieldFilter<EqFilter<V>> {
   return value ? { [key]: { _eq: value } } : {};
 }
 
-export function createNeqFilter(
+export function createNeqFilter<V = Value>(
   key: string,
-  value?: Value,
-): FieldFilter<NeqFilter> {
+  value?: V,
+): FieldFilter<NeqFilter<V>> {
   return value ? { [key]: { _neq: value } } : {};
 }
 
@@ -79,40 +79,54 @@ export function createNotNullAddressFilter(
   return {};
 }
 
-export function createInFilter(
+export function createInFilter<V = Value>(
   key: string,
-  values?: Array<Value>,
-): FieldFilter<InFilter> {
+  values?: Array<V>,
+): FieldFilter<InFilter<V>> {
   return values && values.length > 0 ? { [key]: { _in: values } } : {};
 }
 
-export function createNinFilter(
+export function createNinFilter<V = Value>(
   key: string,
-  values?: Array<Value>,
-): FieldFilter<NinFilter> {
+  values?: Array<V>,
+): FieldFilter<NinFilter<V>> {
   return values && values.length > 0 ? { [key]: { _nin: values } } : {};
 }
 
-export function createLtFilter(
+export function createLtFilter<V = Value>(
   key: string,
-  value?: Value,
-): FieldFilter<LtFilter> {
+  value?: V,
+): FieldFilter<LtFilter<V>> {
   return value ? { [key]: { _lt: value } } : {};
 }
 
-export function createGtFilter(
+export function createLteFilter<V = Value>(
   key: string,
-  value?: Value,
-): FieldFilter<GtFilter> {
+  value?: V,
+): FieldFilter<LteFilter<V>> {
+  return value ? { [key]: { _lte: value } } : {};
+}
+
+export function createGtFilter<V = Value>(
+  key: string,
+  value?: V,
+): FieldFilter<GtFilter<V>> {
   return value ? { [key]: { _gt: value } } : {};
 }
 
-export function createBetweenFilter(
+export function createGteFilter<V = Value>(
   key: string,
-  from?: Value,
-  to?: Value,
-): FieldFilter<Partial<GteFilter> & Partial<LteFilter>> {
-  const betweenFilter: Partial<GteFilter> & Partial<LteFilter> = {};
+  value?: V,
+): FieldFilter<GteFilter<V>> {
+  return value ? { [key]: { _gte: value } } : {};
+}
+
+export function createBetweenFilter<V = Value>(
+  key: string,
+  from?: V,
+  to?: V,
+): FieldFilter<Partial<GteFilter<V>> & Partial<LteFilter<V>>> {
+  const betweenFilter: Partial<GteFilter<V>> & Partial<LteFilter<V>> = {};
   if (from) {
     betweenFilter._gte = from;
   }
