@@ -1,4 +1,4 @@
-type Value = string | number | boolean;
+export type Value = string | number | boolean;
 
 export interface EqFilter<V = Value> {
   _eq: V;
