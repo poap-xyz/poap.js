@@ -58,6 +58,9 @@ export interface ConditionFilter {
 
 export type Filter = FieldFilter | ConditionFilter | { [key: string]: Filter };
 
+/**
+ * Filter query variables.
+ */
 export interface FilterVariables {
   where: Filter;
 }

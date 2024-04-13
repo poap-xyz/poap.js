@@ -1,4 +1,19 @@
 /**
+ * Accepted values to paginate.
+ */
+export interface PaginationInput {
+  /**
+   * How many items to retrieve.
+   */
+  limit: number;
+
+  /**
+   * Where to start fetching.
+   */
+  offset: number;
+}
+
+/**
  * Represents a paginated result.
  *
  * @class PaginatedResult
