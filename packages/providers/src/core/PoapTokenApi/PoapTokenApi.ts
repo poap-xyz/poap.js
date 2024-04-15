@@ -114,7 +114,7 @@ export class PoapTokenApi implements TokensApiProvider {
    * @private
    * @template R - Type of the expected response data.
    * @param {string} url - The complete URL for the HTTP request.
-   * @param {any} options - Configuration options for the HTTP request.
+   * @param {RequestInit} options - Configuration options for the HTTP request.
    * @returns {Promise<R>} A promise that resolves with the parsed API response.
    */
   private async secureFetch<R>(url: string, options: RequestInit): Promise<R> {

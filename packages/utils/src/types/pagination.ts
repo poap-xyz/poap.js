@@ -1,4 +1,19 @@
 /**
+ * Accepted values to paginate.
+ */
+export interface PaginationInput {
+  /**
+   * How many items to retrieve.
+   */
+  limit: number;
+
+  /**
+   * Where to start fetching.
+   */
+  offset: number;
+}
+
+/**
  * Represents a paginated result.
  *
  * @class PaginatedResult
@@ -32,4 +47,19 @@ export class PaginatedResult<T> {
     this.items = items;
     this.nextCursor = nextCursor;
   }
+}
+
+/**
+ * Variables pass to queries that do pagination.
+ */
+export interface PaginatedVariables {
+  /**
+   * When the page results start.
+   */
+  offset: number;
+
+  /**
+   * How many results to retrieve.
+   */
+  limit: number;
 }

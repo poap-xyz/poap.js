@@ -23,7 +23,9 @@ async function main(): Promise<void> {
   });
 
   // We use Compass for read operations
-  const compass = new PoapCompass('your_api_key');
+  const compass = new PoapCompass({
+    apiKey: 'your_api_key',
+  });
 
   // Use your library here
   const client = new MomentsClient(momentsApi, compass);
