@@ -1,7 +1,9 @@
-import { PostCollectionsInput } from './../../ports/CollectionsApiProvider/types/PostCollectionsInput';
-import { CollectionResponse } from './../../ports/CollectionsApiProvider/types/CollectionResponse';
+import { CollectionsUnauthorizedError } from './../../ports/CollectionsApiProvider/errors/CollectionsUnauthorizedError';
+import { CollectionsBadRequestError } from '../../ports/CollectionsApiProvider/errors/CollectionsBadRequestError';
+import { PostCollectionsInput } from '../../ports/CollectionsApiProvider/types/PostCollectionsInput';
+import { CollectionResponse } from '../../ports/CollectionsApiProvider/types/CollectionResponse';
 import { PutCollectionsInput } from '../../ports/CollectionsApiProvider/types/PutCollectionsInput';
-import { CollectionsApiProvider } from './../../ports/CollectionsApiProvider/CollectionsApiProvider';
+import { CollectionsApiProvider } from '../../ports/CollectionsApiProvider/CollectionsApiProvider';
 
 const DEFAULT_COLLECTIONS_BASE_URL = 'https://collections.poap.tech';
 /**
@@ -23,7 +25,7 @@ export class PoapCollectionsApi implements CollectionsApiProvider {
    * @param {string} [baseUrl='https://collections.poap.tech'] - The base URL for the Collections API.
    * If not provided, a default URL is used.
    */
-  constructor(baseUrl: string) {
+  constructor({ baseUrl }: PoapCollectionsConfig) {
     this.baseUrl = baseUrl || DEFAULT_COLLECTIONS_BASE_URL;
   }
 
@@ -107,6 +109,45 @@ export class PoapCollectionsApi implements CollectionsApiProvider {
       headers: headersWithApiKey,
     });
 
+    this.handleResponseStatus(response);
+
     return await response.json();
   }
+
+  /**
+   * Handles HTTP status codes and throws corresponding errors.
+   *
+   * @private
+   * @function
+   * @name PPoapCollectionsApi#handleHttpStatus
+   * @param {Response} response - The response from the fetch call.
+   * @throws {CollectionsUnauthorizedError} for 401 Unauthorized status codes.
+   * @throws {CollectionsBadRequestError} for 400 Bad Request status codes.
+   * @throws {Error} for other non-200 status codes.
+   */
+  private handleResponseStatus(response: Response): void {
+    switch (response.status) {
+      case 400:
+        throw new CollectionsBadRequestError();
+      case 401:
+        throw new CollectionsUnauthorizedError();
+      case 200:
+        return; // OK
+      default:
+        // For simplicity, throwing a generic error for all other statuses.
+        // You can add more cases for other statuses as needed.
+        throw new Error(
+          `Response error, received status code ${response.status}`,
+        );
+    }
+  }
+}
+
+/**
+ * Configuration interface for the PoapCollections class.
+ * @interface
+ * @property {string} [baseUrl] - Optional base URL for the POAP API. If not provided, a default will be used.
+ */
+export interface PoapCollectionsConfig {
+  baseUrl?: string;
 }

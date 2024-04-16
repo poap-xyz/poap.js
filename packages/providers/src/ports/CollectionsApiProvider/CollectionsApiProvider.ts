@@ -2,17 +2,9 @@ import { PutCollectionsInput } from './types/PutCollectionsInput';
 import { CollectionResponse } from './types/CollectionResponse';
 import { PostCollectionsInput } from './types/PostCollectionsInput';
 
-/**
- * The `CollectionsApiProvider` interface defines the contract for an API provider
- * that interacts with a collections API. Implementations of this interface are expected
- * to provide methods for posting new collections and updating existing collections,
- * using the POAP (Proof of Attendance Protocol) Collections API or a similar API.
- *
- * @interface CollectionsApiProvider
- */
 export interface CollectionsApiProvider {
   /**
-   * Posts a new collection to the API.
+   * Creates a new collection to the API.
    *
    * This method is responsible for creating a new collection entity in the database
    * or storage being used, based on the provided collection data and access token for

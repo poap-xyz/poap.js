@@ -2,23 +2,41 @@ import { SectionResponse } from './SectionResponse';
 
 /**
  * Represents the response structure for a collection entity.
- *
- * This interface details the properties returned for a collection in the system, including
- * metadata about the collection such as its creator, title, description, and visual identifiers.
- * It also includes temporal information and details about the ownership and structural components
- * of the collection.
  */
 export interface CollectionResponse {
+  /** Unique identifier for the collection. */
   id: number;
+
+  /** SEO-friendly URL segment for the collection. */
   slug: string;
+
+  /** User or entity that created the collection. */
   createdBy: string;
+
+  /** Title of the collection. */
   title: string;
-  description: string;
+
+  /** Detailed description of the collection. Can be nullable. */
+  description: string | null;
+
+  /** URL to the banner image of the collection. Can be nullable. */
   bannerImageUrl: string | null;
+
+  /** URL to the logo image of the collection. Can be nullable. */
   logoImageUrl: string | null;
+
+  /** Date and time when the collection was created. */
   createdOn: Date;
+
+  /** Date and time when the collection was last updated. */
   updatedOn: Date;
+
+  /** Year associated with the collection. Can be nullable. */
   year: number | null;
+
+  /** Ethereum address of the collection's owner. Must be a valid address. */
   ownerAddress: string;
+
+  /** List of sections within the collection. */
   sections: SectionResponse[];
 }
