@@ -10,5 +10,4 @@ export interface PutCollectionsInput {
   sections: UpdateOrCreateSection[];
   collectionId: number;
   year: number | null;
-  ownerAddress: string;
 }
