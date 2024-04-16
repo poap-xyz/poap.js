@@ -1,2 +1,2 @@
-export * from './PatchCollectionsInput';
+export * from './PutCollectionsInput';
 export * from './PostCollectionsInput';

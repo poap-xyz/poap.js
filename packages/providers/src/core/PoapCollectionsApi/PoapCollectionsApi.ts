@@ -1,6 +1,6 @@
 import { PostCollectionsInput } from './../../ports/CollectionsApiProvider/types/PostCollectionsInput';
 import { CollectionResponse } from './../../ports/CollectionsApiProvider/types/CollectionResponse';
-import { PatchCollectionsInput } from './../../ports/CollectionsApiProvider/types/PatchCollectionsInput';
+import { PutCollectionsInput } from '../../ports/CollectionsApiProvider/types/PutCollectionsInput';
 import { CollectionsApiProvider } from './../../ports/CollectionsApiProvider/CollectionsApiProvider';
 
 const DEFAULT_COLLECTIONS_BASE_URL = 'https://collections.poap.tech';
@@ -54,23 +54,23 @@ export class PoapCollectionsApi implements CollectionsApiProvider {
   }
 
   /**
-   * Applies a patch to an existing collection in the POAP Collections API.
+   * Applies a update to an existing collection in the POAP Collections API.
    *
    * @public
    * @async
-   * @param {PatchCollectionsInput} patchCollectionsInput - The patch data and collection ID.
+   * @param {PutCollectionsInput} putCollectionsInput - The put data and collection ID.
    * @param {string} accessToken - The access token for authorization.
    * @returns {Promise<CollectionResponse>} A promise that resolves with the updated collection response from the API.
    */
-  public async patchCollection(
-    patchCollectionsInput: PatchCollectionsInput,
+  public async putCollection(
+    putCollectionsInput: PutCollectionsInput,
     accessToken: string,
   ): Promise<CollectionResponse> {
     return await this.secureFetch<CollectionResponse>(
-      `${this.baseUrl}/collections/${patchCollectionsInput.collectionId}`,
+      `${this.baseUrl}/collections/${putCollectionsInput.collectionId}`,
       {
         method: 'PATCH',
-        body: JSON.stringify(patchCollectionsInput),
+        body: JSON.stringify(putCollectionsInput),
         headers: {
           'Content-Type': 'application/json',
         },

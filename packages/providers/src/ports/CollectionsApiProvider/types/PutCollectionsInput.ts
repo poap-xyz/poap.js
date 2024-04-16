@@ -1,6 +1,6 @@
 import { UpdateOrCreateSection } from './UpdateOrCreateSection';
 
-export interface PatchCollectionsInput {
+export interface PutCollectionsInput {
   title: string;
   description: string;
   createdBy: string;
