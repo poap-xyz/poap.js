@@ -1,6 +1,6 @@
 {
   "name": "@poap-xyz/poaps",
-  "version": "0.2.1",
+  "version": "0.2.3",
   "description": "Poaps module for the poap.js library",
   "main": "dist/cjs/index.cjs",
   "module": "dist/esm/index.mjs",
@@ -26,8 +26,8 @@
     "build": "rollup -c --bundleConfigAsCjs"
   },
   "dependencies": {
-    "@poap-xyz/providers": "0.2.1",
-    "@poap-xyz/utils": "0.2.1"
+    "@poap-xyz/providers": "0.2.3",
+    "@poap-xyz/utils": "0.2.3"
   },
   "engines": {
     "node": ">=18"
