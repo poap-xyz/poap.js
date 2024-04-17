@@ -3,11 +3,11 @@
  */
 export interface ItemResponse {
   /** Unique identifier for the item, must be a positive integer. */
-  id: number; // minimum: 1
+  id: number;
 
   /** Identifier of the drop associated with the item, must be a positive integer. */
-  dropId: number; // minimum: 1
+  dropId: number;
 
   /** Identifier of the collection that contains the item, must be a positive integer. */
-  collectionId: number; // minimum: 1
+  collectionId: number;
 }

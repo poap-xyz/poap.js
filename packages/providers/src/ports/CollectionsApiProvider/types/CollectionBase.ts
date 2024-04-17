@@ -7,7 +7,7 @@ export interface CollectionBase {
   /** Title of the collection. */
   title: string;
 
-  /** Identifier of the user or entity responsible for the collection. */
+  /** Identifier of the user or entity responsible for the collection. Can be any string you want, for exaple: POAP */
   createdBy: string;
 
   /** Detailed description of the collection. Can be nullable. */

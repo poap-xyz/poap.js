@@ -1,17 +1,12 @@
-import { CollectionsUnauthorizedError } from './../../ports/CollectionsApiProvider/errors/CollectionsUnauthorizedError';
+import { UpdateCollectionInput } from '../../ports/CollectionsApiProvider/types/UpdateCollectionInput';
+import { CreateCollectionInput } from '../../ports/CollectionsApiProvider/types/CreateCollectionInput';
+import { CollectionsUnauthorizedError } from '../../ports/CollectionsApiProvider/errors/CollectionsUnauthorizedError';
 import { CollectionsBadRequestError } from '../../ports/CollectionsApiProvider/errors/CollectionsBadRequestError';
-import { PostCollectionsInput } from '../../ports/CollectionsApiProvider/types/PostCollectionsInput';
 import { CollectionResponse } from '../../ports/CollectionsApiProvider/types/CollectionResponse';
-import { PutCollectionsInput } from '../../ports/CollectionsApiProvider/types/PutCollectionsInput';
 import { CollectionsApiProvider } from '../../ports/CollectionsApiProvider/CollectionsApiProvider';
 
 const DEFAULT_COLLECTIONS_BASE_URL = 'https://collections.poap.tech';
 /**
- * The `PoapCollectionsApi` class provides methods to interact with the POAP Collections API,
- * allowing for the creation and modification of POAP collections.
- *
- * It requires an authToken for authorization and uses a provided or default base URL for API requests.
- *
  * @class PoapCollectionsApi
  * @implements {CollectionsApiProvider}
  */
@@ -25,28 +20,28 @@ export class PoapCollectionsApi implements CollectionsApiProvider {
    * @param {string} [baseUrl='https://collections.poap.tech'] - The base URL for the Collections API.
    * If not provided, a default URL is used.
    */
-  constructor({ baseUrl }: PoapCollectionsConfig) {
+  constructor({ baseUrl }: PoapCollectionsApiConfig) {
     this.baseUrl = baseUrl || DEFAULT_COLLECTIONS_BASE_URL;
   }
 
   /**
-   * Posts a new collection to the POAP Collections API.
+   * Create a new collection to the POAP Collections API.
    *
    * @public
    * @async
-   * @param {PostCollectionsInput} postCollectionsInput - The collection data to be posted.
+   * @param {CreateCollectionInput} createCollectionInput - The collection data to be posted.
    * @param {string} accessToken - The access token for authorization.
    * @returns {Promise<CollectionResponse>} A promise that resolves with the collection response from the API.
    */
-  public async postCollection(
-    postCollectionsInput: PostCollectionsInput,
+  public async createCollection(
+    createCollectionInput: CreateCollectionInput,
     accessToken: string,
   ): Promise<CollectionResponse> {
     return await this.secureFetch<CollectionResponse>(
       `${this.baseUrl}/collections`,
       {
         method: 'POST',
-        body: JSON.stringify(postCollectionsInput),
+        body: JSON.stringify(createCollectionInput),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -60,19 +55,19 @@ export class PoapCollectionsApi implements CollectionsApiProvider {
    *
    * @public
    * @async
-   * @param {PutCollectionsInput} putCollectionsInput - The put data and collection ID.
+   * @param {UpdateCollectionInput} updateCollectionInput - The new collection data to be updated.
    * @param {string} accessToken - The access token for authorization.
    * @returns {Promise<CollectionResponse>} A promise that resolves with the updated collection response from the API.
    */
-  public async putCollection(
-    putCollectionsInput: PutCollectionsInput,
+  public async updateCollection(
+    updateCollectionInput: UpdateCollectionInput,
     accessToken: string,
   ): Promise<CollectionResponse> {
     return await this.secureFetch<CollectionResponse>(
-      `${this.baseUrl}/collections/${putCollectionsInput.collectionId}`,
+      `${this.baseUrl}/collections/${updateCollectionInput.collectionId}`,
       {
-        method: 'PATCH',
-        body: JSON.stringify(putCollectionsInput),
+        method: 'PUT',
+        body: JSON.stringify(updateCollectionInput),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -84,7 +79,7 @@ export class PoapCollectionsApi implements CollectionsApiProvider {
   /**
    * Sends a secure HTTP request to the POAP Collections API.
    *
-   * This method is used internally by `postCollection` and `patchCollection` to send HTTP requests.
+   * This method is used internally by `createCollection` and `patchCollection` to send HTTP requests.
    *
    * @private
    * @async
@@ -144,10 +139,10 @@ export class PoapCollectionsApi implements CollectionsApiProvider {
 }
 
 /**
- * Configuration interface for the PoapCollections class.
+ * Configuration interface for the PoapCollectionsApi class.
  * @interface
- * @property {string} [baseUrl] - Optional base URL for the POAP API. If not provided, a default will be used.
+ * @property {string} [baseUrl] - Optional base URL for the POAP Collections API. If not provided, a default will be used.
  */
-export interface PoapCollectionsConfig {
+export interface PoapCollectionsApiConfig {
   baseUrl?: string;
 }
