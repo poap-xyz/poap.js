@@ -75,11 +75,13 @@ export class PoapsClient {
       orderBy: createOrderBy<PoapsSortFields>(sortField, sortDir),
       where: {
         ...createAddressFilter('collector_address', collectorAddress),
-        ...createNotNullAddressFilter(
-          'collector_address',
-          filterZeroAddress,
-          filterDeadAddress,
-        ),
+        ...(collectorAddress == undefined
+          ? createNotNullAddressFilter(
+              'collector_address',
+              filterZeroAddress,
+              filterDeadAddress,
+            )
+          : {}),
         ...createEqFilter('chain', chain),
         ...createEqFilter('drop_id', dropId),
         ...createBetweenFilter('minted_on', mintedDateFrom, mintedDateTo),

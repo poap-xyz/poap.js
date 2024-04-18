@@ -57,8 +57,8 @@ export function createAddressFilter(
 
 export function createNotNullAddressFilter(
   key: string,
-  filterZeroAddress = true,
-  filterDeadAddress = true,
+  filterZeroAddress?: boolean,
+  filterDeadAddress?: boolean,
 ): FieldFilter<NeqFilter<string>> | FieldFilter<NinFilter<string>> {
   if (filterZeroAddress && filterDeadAddress) {
     return {
