@@ -6,13 +6,18 @@ export enum Order {
   DESC = 'desc',
 }
 
-export interface OrderBy {
+export interface FieldOrderBy {
   [key: string]: Order;
 }
+
+export type OrderBy =
+  | FieldOrderBy
+  | { [key: string]: FieldOrderBy }
+  | Array<OrderBy>;
 
 /**
  * Order by query variables.
  */
 export interface OrderByVariables {
-  orderBy: OrderBy | Array<OrderBy>;
+  orderBy: OrderBy;
 }
