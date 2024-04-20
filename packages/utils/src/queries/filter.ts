@@ -26,7 +26,7 @@ export function createEqFilter<V = Value>(
   key: string,
   value?: V,
 ): FieldFilter<EqFilter<V>> {
-  return value ? createField<EqFilter<V>>('key', { _eq: value }) : {};
+  return value ? createField<EqFilter<V>>(key, { _eq: value }) : {};
 }
 
 export function createNeqFilter<V = Value>(
