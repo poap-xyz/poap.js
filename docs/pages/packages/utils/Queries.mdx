@@ -28,8 +28,8 @@ And an enum that let you choose what fields you want to order by:
 
 ```typescript
 enum MyDropSortFields {
-  Id = 'id',
-  Name = 'name',
+  ID = 'id',
+  NAME = 'name',
 }
 ```
 
@@ -39,7 +39,7 @@ You can then build the variable `$orderBy` with `createOrderBy`:
 import { Order, OrderByVariables, createOrderBy } from '@poap-xyz/utils';
 
 const variables: OrderByVariables = {
-  orderBy: createOrderBy<MyDropSortFields>(MyDropSortFields.Name, Order.ASC),
+  orderBy: createOrderBy<MyDropSortFields>(MyDropSortFields.NAME, Order.ASC),
 };
 ```
 
@@ -79,3 +79,28 @@ The possible filters to create are:
 - `createInFilter`: if the field is contained in any of the given values.
 - `createNinFilter`: not contained in the given values.
 - `createBetweenFilter`: from and to values, mostly used for dates.
+
+### Use of DOT notation
+
+All keys can be given as dot separated of nested entries when the field to filter is located inside
+another entity. For example, when you have the query:
+
+```graphql
+query Collectors($where: collectors_bool_exp) {
+  collectors(where: $where) {
+    address
+  }
+}
+```
+
+And you would like to retrieve the list of collector's addresses of a certain drop, then you can
+build the variables as:
+
+```typescript
+const variables: FilterVariables = {
+  where: {
+    ...createEqFilter('poaps.drop_id', 14),
+    ...createNotNullAddressFilter('address'),
+  },
+};
+```
