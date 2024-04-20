@@ -12,6 +12,7 @@ import {
   NinFilter,
   Value,
 } from '../types/filter';
+import { ZERO_ADDRESS, DEAD_ADDRESS } from '../constants';
 
 export function createLikeFilter(
   key: string,
@@ -63,20 +64,17 @@ export function createNotNullAddressFilter(
 ): FieldFilter<NeqFilter<string>> | FieldFilter<NinFilter<string>> {
   if (filterZeroAddress && filterDeadAddress) {
     return createField<NinFilter<string>>(key, {
-      _nin: [
-        '0x0000000000000000000000000000000000000000',
-        '0x000000000000000000000000000000000000dead',
-      ],
+      _nin: [ZERO_ADDRESS, DEAD_ADDRESS],
     });
   }
   if (filterZeroAddress) {
     return createField<NeqFilter<string>>(key, {
-      _neq: '0x0000000000000000000000000000000000000000',
+      _neq: ZERO_ADDRESS,
     });
   }
   if (filterDeadAddress) {
     return createField<NeqFilter<string>>(key, {
-      _neq: '0x000000000000000000000000000000000000dead',
+      _neq: DEAD_ADDRESS,
     });
   }
   return {};
