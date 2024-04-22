@@ -1,3 +1,4 @@
+import { createField } from './field';
 import {
   EqFilter,
   FieldFilter,
@@ -11,26 +12,29 @@ import {
   NinFilter,
   Value,
 } from '../types/filter';
+import { ZERO_ADDRESS, DEAD_ADDRESS } from '../constants';
 
 export function createLikeFilter(
   key: string,
   value?: string,
 ): FieldFilter<LikeFilter<string>> {
-  return value ? { [key]: { _ilike: `%${value}%` } } : {};
+  return value
+    ? createField<LikeFilter<string>>(key, { _ilike: `%${value}%` })
+    : {};
 }
 
 export function createEqFilter<V = Value>(
   key: string,
   value?: V,
 ): FieldFilter<EqFilter<V>> {
-  return value ? { [key]: { _eq: value } } : {};
+  return value ? createField<EqFilter<V>>(key, { _eq: value }) : {};
 }
 
 export function createNeqFilter<V = Value>(
   key: string,
   value?: V,
 ): FieldFilter<NeqFilter<V>> {
-  return value ? { [key]: { _neq: value } } : {};
+  return value ? createField<NeqFilter<V>>(key, { _neq: value }) : {};
 }
 
 export function createBoolFilter(
@@ -38,7 +42,9 @@ export function createBoolFilter(
   value?: boolean,
 ): FieldFilter<EqFilter<'true' | 'false'>> {
   return typeof value === 'boolean'
-    ? { [key]: { _eq: value ? 'true' : 'false' } }
+    ? createField<EqFilter<'true' | 'false'>>(key, {
+        _eq: value ? 'true' : 'false',
+      })
     : {};
 }
 
@@ -47,34 +53,29 @@ export function createAddressFilter(
   value?: string,
 ): FieldFilter<EqFilter<string>> {
   return value
-    ? {
-        [key]: {
-          _eq: value.toLowerCase(),
-        },
-      }
+    ? createField<EqFilter<string>>(key, { _eq: value.toLowerCase() })
     : {};
 }
 
 export function createNotNullAddressFilter(
   key: string,
-  filterZeroAddress?: boolean,
-  filterDeadAddress?: boolean,
+  filterZeroAddress = true,
+  filterDeadAddress = true,
 ): FieldFilter<NeqFilter<string>> | FieldFilter<NinFilter<string>> {
   if (filterZeroAddress && filterDeadAddress) {
-    return {
-      [key]: {
-        _nin: [
-          '0x0000000000000000000000000000000000000000',
-          '0x000000000000000000000000000000000000dead',
-        ],
-      },
-    };
+    return createField<NinFilter<string>>(key, {
+      _nin: [ZERO_ADDRESS, DEAD_ADDRESS],
+    });
   }
   if (filterZeroAddress) {
-    return { [key]: { _neq: '0x0000000000000000000000000000000000000000' } };
+    return createField<NeqFilter<string>>(key, {
+      _neq: ZERO_ADDRESS,
+    });
   }
   if (filterDeadAddress) {
-    return { [key]: { _neq: '0x000000000000000000000000000000000000dead' } };
+    return createField<NeqFilter<string>>(key, {
+      _neq: DEAD_ADDRESS,
+    });
   }
   return {};
 }
@@ -83,42 +84,46 @@ export function createInFilter<V = Value>(
   key: string,
   values?: Array<V>,
 ): FieldFilter<InFilter<V>> {
-  return values && values.length > 0 ? { [key]: { _in: values } } : {};
+  return values && values.length > 0
+    ? createField<InFilter<V>>(key, { _in: values })
+    : {};
 }
 
 export function createNinFilter<V = Value>(
   key: string,
   values?: Array<V>,
 ): FieldFilter<NinFilter<V>> {
-  return values && values.length > 0 ? { [key]: { _nin: values } } : {};
+  return values && values.length > 0
+    ? createField<NinFilter<V>>(key, { _nin: values })
+    : {};
 }
 
 export function createLtFilter<V = Value>(
   key: string,
   value?: V,
 ): FieldFilter<LtFilter<V>> {
-  return value ? { [key]: { _lt: value } } : {};
+  return value ? createField<LtFilter<V>>(key, { _lt: value }) : {};
 }
 
 export function createLteFilter<V = Value>(
   key: string,
   value?: V,
 ): FieldFilter<LteFilter<V>> {
-  return value ? { [key]: { _lte: value } } : {};
+  return value ? createField<LteFilter<V>>(key, { _lte: value }) : {};
 }
 
 export function createGtFilter<V = Value>(
   key: string,
   value?: V,
 ): FieldFilter<GtFilter<V>> {
-  return value ? { [key]: { _gt: value } } : {};
+  return value ? createField<GtFilter<V>>(key, { _gt: value }) : {};
 }
 
 export function createGteFilter<V = Value>(
   key: string,
   value?: V,
 ): FieldFilter<GteFilter<V>> {
-  return value ? { [key]: { _gte: value } } : {};
+  return value ? createField<GteFilter<V>>(key, { _gte: value }) : {};
 }
 
 export function createBetweenFilter<V = Value>(
@@ -133,5 +138,10 @@ export function createBetweenFilter<V = Value>(
   if (to) {
     betweenFilter._lte = to;
   }
-  return from || to ? { [key]: betweenFilter } : {};
+  return from || to
+    ? createField<Partial<GteFilter<V>> & Partial<LteFilter<V>>>(
+        key,
+        betweenFilter,
+      )
+    : {};
 }

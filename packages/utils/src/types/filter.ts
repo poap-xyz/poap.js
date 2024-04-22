@@ -47,7 +47,7 @@ export type AnyFilter = Partial<EqFilter> &
   Partial<LteFilter>;
 
 export type FieldFilter<F = AnyFilter> = {
-  [key: string]: F;
+  [key: string]: FieldFilter<F> | F;
 };
 
 export interface ConditionFilter {
@@ -56,7 +56,10 @@ export interface ConditionFilter {
   _not?: Filter;
 }
 
-export type Filter = FieldFilter | ConditionFilter | { [key: string]: Filter };
+export type Filter =
+  | ConditionFilter
+  | FieldFilter
+  | { [key: string]: ConditionFilter | FieldFilter };
 
 /**
  * Filter query variables.

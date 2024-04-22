@@ -6,14 +6,9 @@ export enum Order {
   DESC = 'desc',
 }
 
-export interface FieldOrderBy {
-  [key: string]: Order;
-}
+export type FieldOrderBy = { [key: string]: FieldOrderBy | Order };
 
-export type OrderBy =
-  | FieldOrderBy
-  | { [key: string]: FieldOrderBy }
-  | Array<OrderBy>;
+export type OrderBy = FieldOrderBy | Array<FieldOrderBy>;
 
 /**
  * Order by query variables.
