@@ -18,7 +18,7 @@ export class PoapCompass implements CompassProvider {
   /**
    * Maximum number of request to do at the time in a batch.
    */
-  public static BATCH_SIZE = 5;
+  protected batchSize = 5;
 
   private apiKey: string;
   private baseUrl: string;
@@ -185,7 +185,7 @@ export class PoapCompass implements CompassProvider {
     signal?: AbortSignal,
   ): Promise<{ data: D }[]> {
     const results: { data: D }[] = [];
-    const chunks: V[][] = chunk(variables, PoapCompass.BATCH_SIZE);
+    const chunks: V[][] = chunk(variables, this.batchSize);
 
     for (const chunk of chunks) {
       const responses = await Promise.all(
