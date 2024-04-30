@@ -1,0 +1,88 @@
+# Compass Provider
+
+To query Compass, a simple request wrapper is provided. To initialize it you'll need an API key.
+
+```typescript
+import { PoapCompass } from '@poap-xyz/providers';
+
+const compass = new PoapCompass({
+  apiKey: 'my-secret-api-key',
+});
+```
+
+## Requests
+
+Query requests can be made by giving the query in string and optionally the variables to pass. All
+success requests are returned as an object with a `data` property which the structure differs
+depending on the query done. When the request fail, errors are thrown instead.
+
+### Quering
+
+To do a query request, a response data type is needed and, in the case the query accepts variables,
+a type for its structure is also needed.
+
+For example, if we want to retrieve the last POAP token ids we could have the query:
+
+```typescript
+const query = `
+  query LastTokenIds($limit: Int!) {
+    poaps(limit: $limit, order_by: { id: desc }) {
+      id
+    }
+  }
+`;
+```
+
+Which will return the type:
+
+```typescript
+type LastTokenIdsResponse = {
+  poaps: Array<{
+    id: number;
+  }>;
+};
+```
+
+And have the variables type:
+
+```typescript
+type LastTokenIdsVariables = {
+  limit: number;
+};
+```
+
+Then the query can be executed:
+
+```typescript
+const lastTokenIds: number[] = [];
+try {
+  const { data } = await compass.request<
+    LastTokenIdsResponse,
+    LastTokenIdsVariables
+  >(query, { limit: 3 });
+
+  lastTokenIds.push(
+    ...data.poaps.map((poap) => poap.id)
+  );
+} catch (error: unknown) {
+  console.error(error)
+}
+```
+
+### Errors
+
+There are two types of errors, HTTP errors and requests errors. The former are thrown when there is
+an issue with the HTTP requests itself and the later when the query has some malformed or
+unavailable structure.
+
+#### HTTP errors
+
+When the HTTP request is malformed a `CompassBadRequestError` is thrown, which should not happen
+unless there is a migration to be made. When the API key given is incorrect or expired, then a
+`CompassUnauthorizedError` error will be thrown.
+
+#### Query errors
+
+All errors derived from a malformed structure on the query will throw a `CompassRequestError` which
+has a public property called `errors` of the type `CompassError` with more information about what
+went wrong.

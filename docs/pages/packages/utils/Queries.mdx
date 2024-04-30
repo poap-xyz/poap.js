@@ -1,0 +1,106 @@
+# Queries Utils
+
+When building Compass queries, it might be useful to have some little utilities to not repeat the
+same code many times. There two types of utils for queries, building orders and building filters.
+
+## Order By
+
+When you have a query that accepts an `$orderBy` variable that let you input the field name and the
+sort order, for example:
+
+```graphql
+query MyDrops(
+  $orderBy: [drops_order_by!]
+) {
+  drops(
+    order_by: $orderBy
+    where: {
+      drop_id: { _in: [14] }
+    }
+  ) {
+    id
+    name
+  }
+}
+```
+
+And an enum that let you choose what fields you want to order by:
+
+```typescript
+enum MyDropSortFields {
+  ID = 'id',
+  NAME = 'name',
+}
+```
+
+You can then build the variable `$orderBy` with `createOrderBy`:
+
+```typescript
+import { Order, OrderByVariables, createOrderBy } from '@poap-xyz/utils';
+
+const variables: OrderByVariables = {
+  orderBy: createOrderBy<MyDropSortFields>(MyDropSortFields.NAME, Order.ASC),
+};
+```
+
+## Filters
+
+There are many filters with different types and for different results, normally you will have a
+query that accepts a `$where` variable and then you can construct the variables with the use of the
+filters utils.
+
+For example:
+
+```typescript
+import {
+  FilterVariables,
+  createBoolFilter,
+  createLikeFilter,
+  createBetweenFilter,
+} from '@poap-xyz/utils';
+
+const variables: FilterVariables = {
+  where: {
+    ...createBoolFilter('private', true),
+    ...createLikeFilter('name', 'My Awesome POAP'),
+    ...createBetweenFilter('created_date', '2023-12-23', '2024-02-28'),
+  },
+};
+```
+
+The possible filters to create are:
+
+- `createLikeFilter`: searchs for the value to be included case-unsensitive in the field.
+- `createEqFilter`: match exact field value.
+- `createNeqFilter`: match not equal field value.
+- `createBoolFilter`: when the value is true or false.
+- `createAddressFilter`: given the address match it case-unsensitive.
+- `createNotNullAddressFilter`: excludes the zero and/or dead addresses.
+- `createInFilter`: if the field is contained in any of the given values.
+- `createNinFilter`: not contained in the given values.
+- `createBetweenFilter`: from and to values, mostly used for dates.
+
+### Use of DOT notation
+
+All keys can be given as dot separated of nested entries when the field to filter is located inside
+another entity. For example, when you have the query:
+
+```graphql
+query Collectors($where: collectors_bool_exp) {
+  collectors(where: $where) {
+    address
+  }
+}
+```
+
+And you would like to retrieve the list of collector's addresses of a certain drop, then you can
+build the variables as:
+
+```typescript
+const variables: FilterVariables = {
+  where: {
+    ...createEqFilter('poaps.drop_id', 14),
+    ...createNotNullAddressFilter('address'),
+  },
+};
+```

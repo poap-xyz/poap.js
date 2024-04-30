@@ -10,6 +10,7 @@
 - Update a Drop attributes
 - Fetch a single Drop
 - Fetch multiple Drops
+- Search Drops
 
 ## Installation
 

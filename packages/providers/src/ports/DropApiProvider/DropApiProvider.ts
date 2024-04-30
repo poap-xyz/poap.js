@@ -1,7 +1,4 @@
-import {
-  CreateDropInput,
-  UpdateDropInput,
-} from './types/DropInput';
+import { CreateDropInput, UpdateDropInput } from './types/DropInput';
 import { DropResponse } from './types/DropResponse';
 
 /**
