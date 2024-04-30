@@ -86,3 +86,63 @@ unless there is a migration to be made. When the API key given is incorrect or e
 All errors derived from a malformed structure on the query will throw a `CompassRequestError` which
 has a public property called `errors` of the type `CompassError` with more information about what
 went wrong.
+
+## Batch Requests
+
+It is possible to do many requests that only differs on the variables given to the same
+query. Such requests will be done in batch not to overload the server.
+
+For example, if what we want is to retrieve collectors of a drop:
+
+```typescript
+const total = 800; // Number of collectors we want to retrieve
+const limit = 100; // Number of collectors we retrieve per page
+
+const MY_DROP_COLLECTORS_QUERY = `
+  query MyDropCollectors(
+    $offset: Int
+    $limit: Int
+  ) {
+    poaps(
+      where: {
+        drop_id: { _eq: 151249 }
+      }
+      offset: $offset
+      limit: $limit
+    ) {
+      collector_address
+    }
+  }
+`;
+
+type CollectorsQueryResponse = {
+  poaps: Array<{
+    collector_address: string;
+  }>;
+};
+
+const responses = await compass.batch<
+  CollectorsQueryResponse,
+  PaginatedVariables
+>(
+  MY_DROP_COLLECTORS_QUERY,
+  Array.from(
+    { length: Math.ceil(total / limit) },
+    (_, page): PaginatedVariables => ({
+      offset: page * limit,
+      limit: limit,
+    }),
+  ),
+);
+
+const collectors = responses.reduce(
+  (addresses, response) => [
+    ...addresses,
+    ...response.data.poaps.map((poap) => poap.collector_address),
+  ],
+  [],
+);
+```
+
+In this case, we are doing eight requests but in two groups requested in parallel, one of
+five and one of three requests.
