@@ -80,4 +80,32 @@ describe('PoapCompass', () => {
       );
     });
   });
+
+  describe('batch', () => {
+    it('should execute many GraphQL requests', async () => {
+      const query = 'query { test }';
+      const variables = [{ key: 'value-0' }, { key: 'value-1' }];
+      const responseData0 = { data: { test: 'result-0' } };
+      const responseData1 = { data: { test: 'result-1' } };
+
+      fetchMock.mockOnce(() =>
+        Promise.resolve({
+          ok: true,
+          status: 200,
+          body: JSON.stringify(responseData0),
+        }),
+      );
+      fetchMock.mockOnce(() =>
+        Promise.resolve({
+          ok: true,
+          status: 200,
+          body: JSON.stringify(responseData1),
+        }),
+      );
+
+      const result = await poapCompass.batch(query, variables);
+
+      expect(result).toEqual([responseData0, responseData1]);
+    });
+  });
 });
