@@ -2,6 +2,8 @@ import { enableFetchMocks } from 'jest-fetch-mock';
 import { PoapCompass } from '../src/core/PoapCompass/PoapCompass';
 import { CompassRequestError } from '../src/ports/CompassProvider/errors/CompassRequestError';
 import { CompassMissingDataError } from '../src/ports/CompassProvider/errors/CompassMissingDataError';
+import { CompassBadRequestError } from '../src/ports/CompassProvider/errors/CompassBadRequestError';
+import { CompassUnauthorizedError } from '../src/ports/CompassProvider/errors/CompassUnauthorizedError';
 
 enableFetchMocks();
 
@@ -29,6 +31,46 @@ describe('PoapCompass', () => {
       );
 
       const result = await poapCompass.request(query, variables);
+
+      expect(result).toEqual(responseData);
+    });
+
+    it('should allow changing the base url', async () => {
+      const query = 'query { test }';
+      const variables = { key: 'value' };
+      const responseData = { data: { test: 'result' } };
+
+      fetchMock.mockOnce(() =>
+        Promise.resolve({
+          ok: true,
+          status: 200,
+          body: JSON.stringify(responseData),
+        }),
+      );
+
+      poapCompass = new PoapCompass({
+        baseUrl: 'another-compass.poap.tech',
+        apiKey: 'test',
+      });
+
+      const result = await poapCompass.request(query, variables);
+
+      expect(result).toEqual(responseData);
+    });
+
+    it('should allow passing no variables', async () => {
+      const query = 'query { test }';
+      const responseData = { data: { test: 'result' } };
+
+      fetchMock.mockOnce(() =>
+        Promise.resolve({
+          ok: true,
+          status: 200,
+          body: JSON.stringify(responseData),
+        }),
+      );
+
+      const result = await poapCompass.request(query);
 
       expect(result).toEqual(responseData);
     });
@@ -66,6 +108,58 @@ describe('PoapCompass', () => {
 
       await expect(poapCompass.request(query, variables)).rejects.toThrow(
         CompassRequestError,
+      );
+    });
+
+    it('should throw a bad request error when the query is invalid', async () => {
+      const query = 'query { invalid_query }';
+      const variables = { key: 'value' };
+
+      fetchMock.mockOnce(() =>
+        Promise.resolve({
+          ok: true,
+          status: 400,
+        }),
+      );
+
+      await expect(poapCompass.request(query, variables)).rejects.toThrow(
+        CompassBadRequestError,
+      );
+    });
+
+    it('should throw an unauthorized error when the api key is invalid', async () => {
+      const query = 'query { test }';
+      const variables = { key: 'value' };
+
+      fetchMock.mockOnce(() =>
+        Promise.resolve({
+          ok: true,
+          status: 401,
+        }),
+      );
+
+      poapCompass = new PoapCompass({
+        apiKey: 'invalid',
+      });
+
+      await expect(poapCompass.request(query, variables)).rejects.toThrow(
+        CompassUnauthorizedError,
+      );
+    });
+
+    it('should throw an unknown error when the response is from an unknonw status code', async () => {
+      const query = 'query { test }';
+      const variables = { key: 'value' };
+
+      fetchMock.mockOnce(() =>
+        Promise.resolve({
+          ok: true,
+          status: 100,
+        }),
+      );
+
+      await expect(poapCompass.request(query, variables)).rejects.toThrow(
+        /Response error/,
       );
     });
 
