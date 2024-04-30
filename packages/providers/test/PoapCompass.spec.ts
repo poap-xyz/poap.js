@@ -4,83 +4,80 @@ import { CompassRequestError } from '../src/ports/CompassProvider/errors/Compass
 import { CompassMissingDataError } from '../src/ports/CompassProvider/errors/CompassMissingDataError';
 
 describe('PoapCompass', () => {
-  let apiKey: string;
+  let poapCompass: PoapCompass;
 
   beforeEach(() => {
-    apiKey = 'test-api-key';
+    poapCompass = new PoapCompass({
+      apiKey: 'test',
+    });
   });
 
-  it('should execute a GraphQL query successfully', async () => {
-    const query = 'query { test }';
-    const variables = { key: 'value' };
-    const responseData = { data: { test: 'result' } };
+  describe('request', () => {
+    it('should execute a GraphQL query successfully', async () => {
+      const query = 'query { test }';
+      const variables = { key: 'value' };
+      const responseData = { data: { test: 'result' } };
 
-    mock.method(global, 'fetch', () => {
-      return Promise.resolve({
-        ok: true,
-        status: 200,
-        json: () => Promise.resolve(responseData),
+      mock.method(global, 'fetch', () => {
+        return Promise.resolve({
+          ok: true,
+          status: 200,
+          json: () => Promise.resolve(responseData),
+        });
       });
+
+      const result = await poapCompass.request(query, variables);
+
+      expect(result).toEqual(responseData);
     });
 
-    const poapCompass = new PoapCompass({ apiKey });
-    const result = await poapCompass.request(query, variables);
+    it('should throw an error when the API returns no data', async () => {
+      const query = 'query { test }';
+      const variables = { key: 'value' };
+      const responseData = {};
 
-    expect(result).toEqual(responseData);
-  });
-
-  it('should throw an error when the API returns no data', async () => {
-    const query = 'query { test }';
-    const variables = { key: 'value' };
-    const responseData = {};
-
-    mock.method(global, 'fetch', () => {
-      return Promise.resolve({
-        ok: true,
-        status: 200,
-        json: () => Promise.resolve(responseData),
+      mock.method(global, 'fetch', () => {
+        return Promise.resolve({
+          ok: true,
+          status: 200,
+          json: () => Promise.resolve(responseData),
+        });
       });
+
+      await expect(poapCompass.request(query, variables)).rejects.toThrow(
+        CompassMissingDataError,
+      );
     });
 
-    const poapCompass = new PoapCompass({ apiKey });
+    it('should throw an error when the API returns an error', async () => {
+      const query = 'query { test }';
+      const variables = { key: 'value' };
+      const responseData = { errors: [{ message: 'Error message' }] };
 
-    await expect(poapCompass.request(query, variables)).rejects.toThrow(
-      CompassMissingDataError,
-    );
-  });
-
-  it('should throw an error when the API returns an error', async () => {
-    const query = 'query { test }';
-    const variables = { key: 'value' };
-    const responseData = { errors: [{ message: 'Error message' }] };
-
-    mock.method(global, 'fetch', () => {
-      return Promise.resolve({
-        ok: true,
-        status: 200,
-        json: () => Promise.resolve(responseData),
+      mock.method(global, 'fetch', () => {
+        return Promise.resolve({
+          ok: true,
+          status: 200,
+          json: () => Promise.resolve(responseData),
+        });
       });
+
+      await expect(poapCompass.request(query, variables)).rejects.toThrow(
+        CompassRequestError,
+      );
     });
 
-    const poapCompass = new PoapCompass({ apiKey });
+    it('should throw a network error when the request fails', async () => {
+      const query = 'query { test }';
+      const variables = { key: 'value' };
 
-    await expect(poapCompass.request(query, variables)).rejects.toThrow(
-      CompassRequestError,
-    );
-  });
+      mock.method(global, 'fetch', () => {
+        return Promise.reject(new Error('Network error'));
+      });
 
-  it('should throw a network error when the request fails', async () => {
-    const query = 'query { test }';
-    const variables = { key: 'value' };
-
-    mock.method(global, 'fetch', () => {
-      return Promise.reject(new Error('Network error'));
+      await expect(poapCompass.request(query, variables)).rejects.toThrow(
+        /Network error/,
+      );
     });
-
-    const poapCompass = new PoapCompass({ apiKey });
-
-    await expect(poapCompass.request(query, variables)).rejects.toThrow(
-      /Network error/,
-    );
   });
 });
