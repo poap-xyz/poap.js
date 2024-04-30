@@ -1,7 +1,9 @@
-import { mock } from 'node:test';
+import { enableFetchMocks } from 'jest-fetch-mock';
 import { PoapCompass } from '../src/core/PoapCompass/PoapCompass';
 import { CompassRequestError } from '../src/ports/CompassProvider/errors/CompassRequestError';
 import { CompassMissingDataError } from '../src/ports/CompassProvider/errors/CompassMissingDataError';
+
+enableFetchMocks();
 
 describe('PoapCompass', () => {
   let poapCompass: PoapCompass;
@@ -18,13 +20,13 @@ describe('PoapCompass', () => {
       const variables = { key: 'value' };
       const responseData = { data: { test: 'result' } };
 
-      mock.method(global, 'fetch', () => {
-        return Promise.resolve({
+      fetchMock.mockOnce(() =>
+        Promise.resolve({
           ok: true,
           status: 200,
-          json: () => Promise.resolve(responseData),
-        });
-      });
+          body: JSON.stringify(responseData),
+        }),
+      );
 
       const result = await poapCompass.request(query, variables);
 
@@ -36,13 +38,13 @@ describe('PoapCompass', () => {
       const variables = { key: 'value' };
       const responseData = {};
 
-      mock.method(global, 'fetch', () => {
-        return Promise.resolve({
+      fetchMock.mockOnce(() =>
+        Promise.resolve({
           ok: true,
           status: 200,
-          json: () => Promise.resolve(responseData),
-        });
-      });
+          body: JSON.stringify(responseData),
+        }),
+      );
 
       await expect(poapCompass.request(query, variables)).rejects.toThrow(
         CompassMissingDataError,
@@ -54,13 +56,13 @@ describe('PoapCompass', () => {
       const variables = { key: 'value' };
       const responseData = { errors: [{ message: 'Error message' }] };
 
-      mock.method(global, 'fetch', () => {
-        return Promise.resolve({
+      fetchMock.mockOnce(() =>
+        Promise.resolve({
           ok: true,
           status: 200,
-          json: () => Promise.resolve(responseData),
-        });
-      });
+          body: JSON.stringify(responseData),
+        }),
+      );
 
       await expect(poapCompass.request(query, variables)).rejects.toThrow(
         CompassRequestError,
@@ -71,9 +73,7 @@ describe('PoapCompass', () => {
       const query = 'query { test }';
       const variables = { key: 'value' };
 
-      mock.method(global, 'fetch', () => {
-        return Promise.reject(new Error('Network error'));
-      });
+      fetchMock.mockOnce(() => Promise.reject(new Error('Network error')));
 
       await expect(poapCompass.request(query, variables)).rejects.toThrow(
         /Network error/,

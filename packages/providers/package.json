@@ -31,7 +31,8 @@
     "lodash.chunk": "^4.2.0"
   },
   "devDependencies": {
-    "axios-mock-adapter": "^1.21.4"
+    "axios-mock-adapter": "^1.21.4",
+    "jest-fetch-mock": "^3.0.3"
   },
   "engines": {
     "node": ">=18"
