@@ -1,3 +1,4 @@
+import chunk from 'lodash.chunk';
 import { CompassProvider } from '../../ports/CompassProvider/CompassProvider';
 import { CompassErrors } from '../../ports/CompassProvider/types/CompassErrors';
 import { CompassError } from '../../ports/CompassProvider/types/CompassError';
@@ -14,6 +15,11 @@ const DEFAULT_COMPASS_BASE_URL = 'https://public.compass.poap.tech/v1/graphql';
  * @implements {CompassProvider}
  */
 export class PoapCompass implements CompassProvider {
+  /**
+   * Maximum number of request to do at the time in a batch.
+   */
+  protected batchSize = 5;
+
   private apiKey: string;
   private baseUrl: string;
 
@@ -171,6 +177,24 @@ export class PoapCompass implements CompassProvider {
     signal?: AbortSignal,
   ): Promise<{ data: D }> {
     return await this.fetchGraphQL<{ data: D }>(query, variables ?? {}, signal);
+  }
+
+  async batch<D, V = { readonly [variable: string]: unknown }>(
+    query: string,
+    variables: V[],
+    signal?: AbortSignal,
+  ): Promise<{ data: D }[]> {
+    const results: { data: D }[] = [];
+    const chunks: V[][] = chunk(variables, this.batchSize);
+
+    for (const chunk of chunks) {
+      const responses = await Promise.all(
+        chunk.map((variables) => this.request<D, V>(query, variables, signal)),
+      );
+      results.push(...responses);
+    }
+
+    return results;
   }
 }
 
