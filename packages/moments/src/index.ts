@@ -3,4 +3,4 @@ export { MomentsClient } from './client/MomentsClient';
 export { CreateMomentInput } from './client/dtos/create/CreateInput';
 export { CreateSteps } from './client/dtos/create/CreateSteps';
 export { FetchMomentsInput } from './client/dtos/fetch/FetchMomentsInput';
-export { getMomentsDefaultClient } from './client/getMomentsDefaultClient';
+export { MomentsClientFactory } from './client/MomentsClientFactory/MomentsClientFactory';
