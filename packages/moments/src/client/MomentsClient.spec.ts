@@ -127,12 +127,9 @@ describe('MomentsClient', () => {
       await client.patchMoment(MOMENT_ID, input);
 
       // THEN
-      expect(poapMomentsAPIMocked.patchMoment).toHaveBeenCalledWith(
-        MOMENT_ID,
-        {
-          cid: MOMENT_CID,
-        },
-      );
+      expect(poapMomentsAPIMocked.patchMoment).toHaveBeenCalledWith(MOMENT_ID, {
+        cid: MOMENT_CID,
+      });
     });
   });
 });
