@@ -6,6 +6,7 @@ import { InvalidMediaError } from '../src/ports/MomentsApiProvider/errors/Invali
 import { mock, MockProxy } from 'jest-mock-extended';
 import { MediaStatus } from '../src/ports/MomentsApiProvider/types/MediaStatus';
 import { CreateMomentInput } from '../src/ports/MomentsApiProvider/types/CreateMomentInput';
+import { PatchMomentInput } from '../src/ports/MomentsApiProvider/types/PatchMomentInput';
 
 describe('PoapMomentsApi', () => {
   const BASE_URL = 'https://moments.test';
@@ -129,6 +130,30 @@ describe('PoapMomentsApi', () => {
     it('should throw error when AuthenticationProvider is not provided', async () => {
       api = new PoapMomentsApi({});
       await expect(api.createMoment(createMomentInput)).rejects.toThrow();
+    });
+  });
+
+  describe('patchMoment', () => {
+    const id = '1';
+    const patchMomentInput = {
+      cid: '0001-7ce5368171cc3d988157d7dab3d313d7bd43de3e-365e5b83699adce0825021d011f1bf73bd5ef9369d06e49645afbea2ef34f54e0557c1d4742c8bd6d1f7a02be4aa483c03888af0aa143d5aa7351e2baaf931231c.moment',
+    };
+  
+    it('should call patch with correct parameters', async () => {
+      axiosMocked.onPatch(`${BASE_URL}/moments/${id}`).reply(200);
+
+      const result = await api.patchMoment(id, patchMomentInput);
+      
+      expect(result).toBe(undefined)
+      expect(axiosMocked.history.patch.length).toBe(1);
+      expect(axiosMocked.history.patch[0].url).toBe(`${BASE_URL}/moments/${id}`);
+      expect(axiosMocked.history.patch[0].data).toBe(JSON.stringify(patchMomentInput));
+    });
+  
+  
+    it('should throw error when AuthenticationProvider is not provided', async () => {
+      api = new PoapMomentsApi({});
+      await expect(api.patchMoment(id, patchMomentInput)).rejects.toThrow();
     });
   });
 });

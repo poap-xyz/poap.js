@@ -20,6 +20,7 @@ export const PAGINATED_MOMENTS_QUERY = `
       media_key
       token_id
       description
+      cid
     }
   }
 `;
@@ -33,6 +34,7 @@ export interface MomentResponse {
   media_key: string;
   token_id: number;
   description?: string;
+  cid?: string;
 }
 
 export interface MomentsQueryResponse {

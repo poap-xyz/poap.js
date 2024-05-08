@@ -22,6 +22,7 @@ import {
   MomentsSortFields,
 } from './dtos/fetch/FetchMomentsInput';
 import { CreateMedia } from './dtos/create/CreateMedia';
+import { PatchMomentInput } from './dtos/patch/PatchInput';
 
 export class MomentsClient {
   constructor(
@@ -65,6 +66,7 @@ export class MomentsClient {
       response.dropId,
       response.tokenId,
       response.description,
+      response.cid,
     );
   }
 
@@ -196,6 +198,10 @@ export class MomentsClient {
     return result;
   }
 
+  public async patchMoment(id: string, input: PatchMomentInput): Promise<void> {
+    await this.poapMomentsApi.patchMoment(id, input);
+  }
+
   private getMomentFromMomentResponse(momentResponse: MomentResponse): Moment {
     return new Moment(
       momentResponse.id,
@@ -204,6 +210,7 @@ export class MomentsClient {
       momentResponse.drop_id,
       momentResponse.token_id,
       momentResponse.description,
+      momentResponse.cid,
     );
   }
 }

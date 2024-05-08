@@ -25,4 +25,9 @@ export interface CreateMomentResponse {
    * The description of the moment.
    */
   description?: string;
+
+  /**
+   * The description of the moment.
+   */
+  cid?: string;
 }

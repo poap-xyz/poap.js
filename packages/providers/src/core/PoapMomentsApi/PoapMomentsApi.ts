@@ -2,6 +2,7 @@ import axios, { AxiosError } from 'axios';
 import { InvalidMediaError } from '../../ports/MomentsApiProvider/errors/InvalidMediaError';
 import { CreateMomentResponse } from '../../ports/MomentsApiProvider/types/CreateMomentResponse';
 import { CreateMomentInput } from '../../ports/MomentsApiProvider/types/CreateMomentInput';
+import { PatchMomentInput } from '../../ports/MomentsApiProvider/types/PatchMomentInput';
 import { MomentsApiProvider } from '../../ports/MomentsApiProvider/MomentsApiProvider';
 import { AuthenticationProvider } from '../../ports/AuthenticationProvider/AuthenticationProvider';
 import { MediaStatus } from '../../ports/MomentsApiProvider/types/MediaStatus';
@@ -162,6 +163,20 @@ export class PoapMomentsApi implements MomentsApiProvider {
 
       throw error;
     }
+  }
+
+  /**
+   * Update a moment using the provided input
+   * @param {string} id - The moment id
+   * @param {PatchMomentInput} input - The input for updating a moment
+   */
+  public async patchMoment(id: string, input: PatchMomentInput): Promise<void> {
+    await axios.patch(`${this.baseUrl}/moments/${id}`, input, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: await this.getAuthorizationToken(),
+      },
+    });
   }
 
   private async getAuthorizationToken(): Promise<string> {

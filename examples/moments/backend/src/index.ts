@@ -38,6 +38,8 @@ async function main(): Promise<void> {
   await fetch_single_moment(client);
   // Fetch moments by drop ids
   await fetch_moments_by_drop_ids(client);
+  // Patch Moment
+  // await patch_moment(client);
 }
 
 main().catch(() => {
