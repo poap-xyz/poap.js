@@ -32,6 +32,11 @@ export class Moment {
    */
   public readonly description?: string;
 
+  /**
+   * The cid of the moment in Registry
+   */
+  public readonly cid?: string;
+
   constructor(
     id: string,
     author: string,
@@ -39,6 +44,7 @@ export class Moment {
     dropId: number,
     tokenId?: number,
     description?: string,
+    cid?: string,
   ) {
     this.id = id;
     this.author = author;
@@ -46,5 +52,6 @@ export class Moment {
     this.dropId = dropId;
     this.tokenId = tokenId;
     this.description = description;
+    this.cid = cid;
   }
 }

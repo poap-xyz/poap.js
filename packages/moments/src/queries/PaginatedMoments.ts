@@ -16,10 +16,9 @@ export const PAGINATED_MOMENTS_QUERY = `
       created_on
       drop_id
       id
-      gateways
-      media_key
       token_id
       description
+      cid
     }
   }
 `;
@@ -29,10 +28,9 @@ export interface MomentResponse {
   created_on: string;
   drop_id: number;
   id: string;
-  gateways: string[];
-  media_key: string;
   token_id: number;
   description?: string;
+  cid?: string;
 }
 
 export interface MomentsQueryResponse {
