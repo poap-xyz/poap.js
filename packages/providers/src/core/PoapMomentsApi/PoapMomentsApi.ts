@@ -171,7 +171,9 @@ export class PoapMomentsApi implements MomentsApiProvider {
    * @param {PatchMomentInput} input - The input for updating a moment
    */
   public async patchMoment(id: string, input: PatchMomentInput): Promise<void> {
-    await axios.patch(`${this.baseUrl}/moments/${id}`, input, {
+    await fetch(`${this.baseUrl}/moments/${id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(input),
       headers: {
         'Content-Type': 'application/json',
         Authorization: await this.getAuthorizationToken(),
