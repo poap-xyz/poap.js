@@ -45,6 +45,18 @@ const configs = [
         sourcemap: true,
         exports: 'named',
       },
+      {
+        file: pkg.main.replace('.js', '.d.cts'),
+        format: 'cjs',
+        sourcemap: false,
+        exports: 'named',
+      },
+      {
+        file: pkg.module.replace('.js', '.d.mts'),
+        format: 'esm',
+        sourcemap: false,
+        exports: 'named',
+      },
     ],
     external: ['axios'],
     plugins: [
