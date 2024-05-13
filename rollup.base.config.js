@@ -7,6 +7,12 @@ import nodePolyfills from 'rollup-plugin-node-polyfills';
 
 const pkg = require(path.resolve(process.cwd(), 'package.json'));
 
+const replaceExtension = (filePath, newExtension) => {
+  const currentExtension = path.extname(filePath);
+  const fileNameWithoutExtension = filePath.slice(0, -currentExtension.length);
+  return `${fileNameWithoutExtension}.${newExtension}`;
+};
+
 const configs = [
   {
     context: 'window',
@@ -43,6 +49,18 @@ const configs = [
         file: pkg.module,
         format: 'esm',
         sourcemap: true,
+        exports: 'named',
+      },
+      {
+        file: replaceExtension(pkg.typings, 'd.cts'),
+        format: 'cjs',
+        sourcemap: false,
+        exports: 'named',
+      },
+      {
+        file: replaceExtension(pkg.module, 'd.mts'),
+        format: 'esm',
+        sourcemap: false,
         exports: 'named',
       },
     ],
