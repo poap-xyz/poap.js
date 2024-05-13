@@ -12,7 +12,7 @@ for dir in "${DIRS[@]}"; do
   fi
 
   # Run the build command
-  if ! npm run build; then
+  if ! rollup -c --bundleConfigAsCjs rollup.base.config.js; then
     echo "Error: Failed to run 'npm run build' in directory: packages/$dir"
     exit 1
   fi
