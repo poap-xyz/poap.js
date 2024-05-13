@@ -884,8 +884,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@poap-xyz/drops@workspace:packages/drops"
   dependencies:
-    "@poap-xyz/providers": 0.2.8
-    "@poap-xyz/utils": 0.2.8
+    "@poap-xyz/providers": 0.3.0
+    "@poap-xyz/utils": 0.3.0
   languageName: unknown
   linkType: soft
 
@@ -901,8 +901,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@poap-xyz/moments@workspace:packages/moments"
   dependencies:
-    "@poap-xyz/providers": 0.2.8
-    "@poap-xyz/utils": 0.2.8
+    "@poap-xyz/providers": 0.3.0
+    "@poap-xyz/utils": 0.3.0
     "@types/uuid": ^9.0.2
     uuid: ^9.0.0
   languageName: unknown
@@ -912,16 +912,16 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@poap-xyz/poaps@workspace:packages/poaps"
   dependencies:
-    "@poap-xyz/providers": 0.2.8
-    "@poap-xyz/utils": 0.2.8
+    "@poap-xyz/providers": 0.3.0
+    "@poap-xyz/utils": 0.3.0
   languageName: unknown
   linkType: soft
 
-"@poap-xyz/providers@*, @poap-xyz/providers@0.2.8, @poap-xyz/providers@workspace:packages/providers":
+"@poap-xyz/providers@*, @poap-xyz/providers@0.3.0, @poap-xyz/providers@workspace:packages/providers":
   version: 0.0.0-use.local
   resolution: "@poap-xyz/providers@workspace:packages/providers"
   dependencies:
-    "@poap-xyz/utils": 0.2.8
+    "@poap-xyz/utils": 0.3.0
     axios: ^1.6.8
     axios-mock-adapter: ^1.21.4
     jest-fetch-mock: ^3.0.3
@@ -929,7 +929,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@poap-xyz/utils@*, @poap-xyz/utils@0.2.8, @poap-xyz/utils@workspace:packages/utils":
+"@poap-xyz/utils@*, @poap-xyz/utils@0.3.0, @poap-xyz/utils@workspace:packages/utils":
   version: 0.0.0-use.local
   resolution: "@poap-xyz/utils@workspace:packages/utils"
   languageName: unknown
