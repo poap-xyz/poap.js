@@ -154,6 +154,17 @@ Please ensure that your code adheres to the project's code style and passes all 
         <a href="#" title="Code">💻</a>
     </td>
     <td align="center">
+        <a href="https://github.com/fermartin17">
+            <img src="https://avatars.githubusercontent.com/u/29874071?s=400&u=a94953c5866546f0f7228fda74943ff1b53af621&v=4" width="100px;" alt=""/>
+            <br />
+            <sub>
+            <b>Fernando Martin</b>
+            </sub>
+        </a>
+        <br />
+        <a href="#" title="Code">💻</a>
+    </td>
+    <td align="center">
         <a href="https://github.com/reobin">
             <img src="https://avatars.githubusercontent.com/u/5920450?v=4" width="100px;" alt=""/>
             <br />
