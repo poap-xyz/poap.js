@@ -1,4 +1,4 @@
-import { MomentsClient, CreateMomentInput } from '@poap-xyz/moments';
+import { CreateMomentInput, MomentsClient } from '@poap-xyz/moments';
 import fs from 'fs';
 import mime from 'mime';
 
@@ -18,7 +18,7 @@ export const create_moment = async (client: MomentsClient): Promise<void> => {
      */
     tokenId: 6568008,
     author: '0x82AB2941Cf555CED5ad7Ed232a5B5f6083815FBC',
-    medias: [
+    media: [
       {
         fileBinary: fileBuffer,
         fileType: mimeType,

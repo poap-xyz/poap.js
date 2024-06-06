@@ -32,9 +32,9 @@ export class MomentsClient {
 
   public async createMoment(input: CreateMomentInput): Promise<Moment> {
     let mediaKeys: string[] = [];
-    if (input.medias && input.medias.length > 0) {
+    if (input.media && input.media.length > 0) {
       mediaKeys = await this.uploadMedias(
-        input.medias,
+        input.media,
         input.onStepUpdate,
         input.onFileUploadProgress,
         input.timeOut,
@@ -71,17 +71,17 @@ export class MomentsClient {
   }
 
   private async uploadMedias(
-    medias: CreateMedia[],
+    mediaArray: CreateMedia[],
     onStepUpdate?: (step: CreateSteps) => void | Promise<void>,
     onFileUploadProgress?: (progress: number) => void | Promise<void>,
     timeOut?: number,
   ): Promise<string[]> {
     void onStepUpdate?.(CreateSteps.UPLOADING_MEDIA);
     const mediaKeys: string[] = [];
-    const progressPerMedia = 1 / medias.length;
+    const progressPerMedia = 1 / mediaArray.length;
     let progress = 0;
 
-    for (const media of medias) {
+    for (const media of mediaArray) {
       const mediaOnFileUploadProgress = (mediaProgress: number): void => {
         const totalProgress = progressPerMedia * mediaProgress + progress;
         void onFileUploadProgress?.(totalProgress);
