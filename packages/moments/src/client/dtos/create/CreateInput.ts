@@ -11,7 +11,7 @@ import { CreateMedia } from './CreateMedia';
  * @property {string} timeOut - The amount of time to wait until media is processed.
  * @property {(step: CreateSteps) => void | Promise<void>} [onStepUpdate] - Optional callback function to be called when the step changes.
  * @property {(progress: number) => void | Promise<void>} [onFileProgress] - Optional callback function to be called when the file upload progress change - progress is a number between 0 and 1.
- * @property {CreateMedia[]} medias - The media to be uploaded.
+ * @property {CreateMedia[]} media - The media to be uploaded.
  */
 export interface CreateMomentInput {
   author: string;
@@ -21,5 +21,5 @@ export interface CreateMomentInput {
   timeOut?: number;
   onStepUpdate?: (step: CreateSteps) => void | Promise<void>;
   onFileUploadProgress?: (progress: number) => void | Promise<void>;
-  medias?: CreateMedia[];
+  media?: CreateMedia[];
 }

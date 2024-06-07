@@ -27,8 +27,8 @@ yarn add @poap-xyz/moments @poap-xyz/utils @poap-xyz/providers axio
 ## Usage
 
 ```javascript
-import { MomentsClient, CreateMomentInput, Moment } from '@poap-xyz/moments';
-import { PoapCompass, PoapMomentsApi, AuthenticationProviderHttp } from '@poap-xyz/providers';
+import {MomentsClient, CreateMomentInput, Moment} from '@poap-xyz/moments';
+import {PoapCompass, PoapMomentsApi, AuthenticationProviderHttp} from '@poap-xyz/providers';
 import fs from 'fs';
 
 // Set up the PoapMomentsApi with proper authentication
@@ -47,7 +47,7 @@ const client = new MomentsClient(
 const input: CreateMomentInput = {
     dropId: 110148,
     tokenId: 6568008, // Optional: The Token ID related to the moment
-    medias: [{
+    media: [{
         fileBinary: await fs.promises.readFile('src/assets/poap.png'),
         fileType: 'image/png',
     }],
@@ -63,16 +63,16 @@ const input: CreateMomentInput = {
 };
 const moment: Moment = await client.createMoment(input);
 ```
+
 Explanations for each step:
 
-| Step Name               | Explanation                                              |
-|-------------------------|----------------------------------------------------------|
-| `UPLOADING_MEDIA`       | The process of uploading media assets.                   |
-| `PROCESSING_MEDIA`      | The media assets are being processed after upload.       |
-| `PROCESSING_MEDIA_ERROR`| An error occurred during the media processing phase.     |
-| `UPLOADING_MOMENT`      | The process of uploading the moment's data.              |
-| `FINISHED`              | The entire operation of creating the moment is complete. |
-
+| Step Name                | Explanation                                              |
+|--------------------------|----------------------------------------------------------|
+| `UPLOADING_MEDIA`        | The process of uploading media assets.                   |
+| `PROCESSING_MEDIA`       | The media assets are being processed after upload.       |
+| `PROCESSING_MEDIA_ERROR` | An error occurred during the media processing phase.     |
+| `UPLOADING_MOMENT`       | The process of uploading the moment's data.              |
+| `FINISHED`               | The entire operation of creating the moment is complete. |
 
 ## Documentation
 

@@ -50,7 +50,7 @@ describe('MomentsClient', () => {
       const inputs: CreateMomentInput = {
         dropId: DROP_ID,
         tokenId: TOKEN_ID,
-        medias: MEDIAS_TO_CREATE,
+        media: MEDIAS_TO_CREATE,
         author: AUTHOR,
         onStepUpdate,
         description: DESCRIPTION,
