@@ -85,13 +85,9 @@ available functionality.
 
 ## Documentation
 
-The library is well-documented using TypeDoc. To generate the documentation, run the following command:
+You can find the documentation in this link: [POAP.js Documentation](https://sdk.poap.tech/)
 
-```bash
-yarn docs
-```
-
-The generated documentation will be available in the docs/ directory.
+The documentation is located in the `docs` folder.
 
 ## Contributing
 
