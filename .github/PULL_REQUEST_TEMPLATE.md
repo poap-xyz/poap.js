@@ -13,7 +13,7 @@ Fixes # (issue)
 
 ## Checklist
 
-- [ ] I have read the [CONTRIBUTING](https://github.com/poap-xyz/poap.js/blob/main/documentation/CONTRIBUTING.md) document.
+- [ ] I have read the [CONTRIBUTING](https://github.com/poap-xyz/poap.js/blob/main/.github/CONTRIBUTING.md) document.
 - [ ] I have added tests to cover my changes.
 - [ ] All new and existing tests passed.
 - [ ] I have updated the documentation accordingly.
