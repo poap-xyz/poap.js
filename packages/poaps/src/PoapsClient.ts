@@ -95,25 +95,7 @@ export class PoapsClient {
       PaginatedPoapsVariables
     >(PAGINATED_POAPS_QUERY, variables);
 
-    const poaps = data.poaps.map((poap) => {
-      const { drop } = poap;
-      const mintedOn = new Date(0);
-      mintedOn.setUTCSeconds(poap.minted_on);
-      return new POAP({
-        id: Number(poap.id),
-        collectorAddress: poap.collector_address,
-        transferCount: poap.transfer_count,
-        mintedOn,
-        dropId: Number(poap.drop_id),
-        imageUrl: drop.image_url,
-        city: drop.city,
-        country: drop.country,
-        description: drop.description,
-        startDate: new Date(drop.start_date),
-        name: drop.name,
-        endDate: new Date(drop.end_date),
-      });
-    });
+    const poaps = data.poaps.map((poap) => POAP.fromCompass(poap));
 
     return new PaginatedResult<POAP>(
       poaps,
