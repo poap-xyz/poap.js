@@ -1,0 +1,53 @@
+# Fetch Moments
+
+## List Moments
+
+```typescript
+import { Moment } from '@poap-xyz/moments';
+import { Order, PaginatedResult } from '@poap-xyz/utils';
+
+const dropId = 14;
+
+const paginatedMoments: PaginatedResult<Moment> = await client.fetch({
+  offset: 0,
+  limit: 10,
+  idOrder: Order.DESC,
+});
+```
+
+### By Drop
+
+```typescript
+import { Moment } from '@poap-xyz/moments';
+import { Order, PaginatedResult } from '@poap-xyz/utils';
+
+const dropId = 14;
+
+const paginatedMoments: PaginatedResult<Moment> = await client.fetch({
+  offset: 0,
+  limit: 10,
+  drop_ids: [dropId],
+  idOrder: Order.DESC,
+});
+```
+
+## Fetch single Moment
+
+```typescript
+import { Moment } from '@poap-xyz/moments';
+import { Order, PaginatedResult } from '@poap-xyz/utils';
+
+const momentId = '7284219b-1bc7-43b8-ab27-44749bdd91e1';
+
+const paginatedMoments: PaginatedResult<Moment> = await client.fetch({
+  offset: 0,
+  limit: 11,
+  id: momentId,
+});
+
+if (paginatedMoments.items.length === 0) {
+  throw new Error('My moment does not exists');
+}
+
+const moment = paginatedMoments.items[0];
+```
