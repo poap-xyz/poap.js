@@ -50,8 +50,7 @@
     "typescript": "^5.3.3"
   },
   "workspaces": [
-    "packages/*",
-    "examples/**"
+    "packages/*"
   ],
   "packageManager": "yarn@3.5.0"
 }
