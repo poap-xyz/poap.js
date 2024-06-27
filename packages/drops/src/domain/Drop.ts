@@ -1,4 +1,6 @@
-/* eslint-disable max-statements */
+import { DropResponse as ProviderDropResponse } from '@poap-xyz/providers';
+import { DropResponse } from '../types/DropResponse';
+
 export class Drop {
   id: number;
   fancyId: string;
@@ -74,16 +76,16 @@ export class Drop {
       private: this.private,
       startDate: this.startDate.toISOString(),
       createdDate: this.createdDate.toISOString(),
+      expiryDate: this.expiryDate.toISOString(),
+      endDate: this.endDate.toISOString(),
       poapCount: this.poapCount,
       transferCount: this.transferCount,
       emailReservationCount: this.emailReservationCount,
-      expiryDate: this.expiryDate.toISOString(),
-      endDate: this.endDate.toISOString(),
     };
   }
 }
 
-export interface SerializableDrop {
+interface SerializableDrop {
   id: number;
   fancyId: string;
   name: string;
@@ -102,14 +104,14 @@ export interface SerializableDrop {
   private: boolean;
   startDate: string; // ISO String representation of Date
   createdDate: string; // ISO String representation of Date
+  expiryDate: string; // ISO String representation of Date
+  endDate: string; // ISO String representation of Date
   poapCount: number;
   transferCount: number;
   emailReservationCount: number;
-  expiryDate: string; // ISO String representation of Date
-  endDate: string; // ISO String representation of Date
 }
 
-export interface DropProperties {
+interface DropProperties {
   id: number;
   fancyId: string;
   name: string;

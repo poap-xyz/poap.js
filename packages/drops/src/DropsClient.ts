@@ -1,23 +1,4 @@
-import {
-  CompassProvider,
-  DropApiProvider,
-  DropResponse as ProviderDropResponse,
-} from '@poap-xyz/providers';
-import { Drop } from './domain/Drop';
-import {
-  PAGINATED_DROPS_QUERY,
-  PaginatedDropsResponse,
-  PaginatedDropsVariables,
-} from './queries/PaginatedDrop';
-import {
-  CreateDropsInput,
-  DropImageResponse,
-  DropResponse,
-  DropsSortFields,
-  FetchDropsInput,
-  SearchDropsInput,
-  UpdateDropsInput,
-} from './types';
+import { CompassProvider, DropApiProvider } from '@poap-xyz/providers';
 import {
   PaginatedResult,
   nextCursor,
@@ -30,12 +11,23 @@ import {
   createBoolFilter,
   createLikeFilter,
 } from '@poap-xyz/utils';
-import { DropImage } from './types/dropImage';
+import { Drop } from './domain/Drop';
+import {
+  PAGINATED_DROPS_QUERY,
+  PaginatedDropsResponse,
+  PaginatedDropsVariables,
+} from './queries/PaginatedDrop';
 import {
   SEARCH_DROPS_QUERY,
   SearchDropsResponse,
   SearchDropsVariables,
 } from './queries/SearchDrops';
+import { DropResponse } from './types/DropResponse';
+import { DropsSortFields } from './types/DropsSortFields';
+import { CreateDropsInput } from './types/CreateDropsInput';
+import { UpdateDropsInput } from './types/UpdateDropsInput';
+import { FetchDropsInput } from './types/FetchDropsInput';
+import { SearchDropsInput } from './types/SearchDropsInput';
 
 /**
  * Represents a client for working with POAP drops.

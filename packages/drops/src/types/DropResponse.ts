@@ -1,5 +1,3 @@
-import { DropImageResponse } from './DropImageResponse';
-
 export interface DropResponse {
   id: number;
   fancy_id: string;
@@ -31,5 +29,10 @@ export interface DropResponse {
   email_claims_stats: {
     total: number;
   };
-  drop_image?: DropImageResponse;
+  drop_image: {
+    gateways: Array<{
+      type: 'CROP' | 'ORIGINAL';
+      url: string;
+    }>;
+  };
 }
