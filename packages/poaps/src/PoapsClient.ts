@@ -152,7 +152,7 @@ export class PoapsClient {
    * @returns {Promise<PoapMintStatus>} - The status of the POAP mint.
    */
   public async waitPoapIndexed(mintCode: string): Promise<PoapMintStatus> {
-    const checker = new PoapIndexed(mintCode, this.tokensApiProvider);
+    const checker = new PoapIndexed(this.tokensApiProvider, mintCode);
     return await checker.waitPoapIndexed();
   }
 
