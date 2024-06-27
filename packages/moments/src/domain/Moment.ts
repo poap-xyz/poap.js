@@ -40,6 +40,30 @@ export class Moment {
    */
   public readonly cid?: string;
 
+  public static fromCompass(response: MomentResponse): Moment {
+    return new Moment(
+      response.id,
+      response.author,
+      new Date(response.created_on),
+      response.drop_id,
+      response.token_id,
+      response.description,
+      response.cid,
+    );
+  }
+
+  public static fromCreated(response: CreateMomentResponse): Moment {
+    return new Moment(
+      response.id,
+      response.author,
+      response.createdOn,
+      response.dropId,
+      response.tokenId,
+      response.description,
+      response.cid,
+    );
+  }
+
   constructor(
     id: string,
     author: string,
