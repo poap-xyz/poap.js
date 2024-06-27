@@ -10,19 +10,16 @@ import {
 } from '@poap-xyz/utils';
 import { Moment } from '../domain/Moment';
 import {
-  MomentResponse,
   MomentsQueryResponse,
   MomentsQueryVariables,
   PAGINATED_MOMENTS_QUERY,
-} from '../queries';
+} from '../queries/PaginatedMoments';
+import { CreateMedia } from './dtos/create/CreateMedia';
 import { CreateMomentInput } from './dtos/create/CreateInput';
 import { CreateSteps } from './dtos/create/CreateSteps';
-import {
-  FetchMomentsInput,
-  MomentsSortFields,
-} from './dtos/fetch/FetchMomentsInput';
-import { CreateMedia } from './dtos/create/CreateMedia';
 import { PatchMomentInput } from './dtos/patch/PatchInput';
+import { FetchMomentsInput } from './dtos/fetch/FetchMomentsInput';
+import { MomentsSortFields } from './dtos/fetch/MomentsSortFields';
 
 export class MomentsClient {
   constructor(
@@ -57,19 +54,12 @@ export class MomentsClient {
       description: input.description,
       mediaKeys,
     });
-
     void input.onStepUpdate?.(CreateSteps.FINISHED);
-    return new Moment(
-      response.id,
-      response.author,
-      response.createdOn,
-      response.dropId,
-      response.tokenId,
-      response.description,
-      response.cid,
-    );
+
+    return Moment.fromCreated(response);
   }
 
+  // eslint-disable-next-line max-statements
   private async uploadMedias(
     mediaArray: CreateMedia[],
     onStepUpdate?: (step: CreateSteps) => void | Promise<void>,
@@ -125,17 +115,15 @@ export class MomentsClient {
     timeOut?: number,
   ): Promise<string> {
     const { url, key } = await this.poapMomentsApi.getSignedUrl();
+
     await this.poapMomentsApi.uploadFile(
       media.fileBinary,
       url,
       media.fileType,
       onFileUploadProgress,
     );
-    try {
-      await this.poapMomentsApi.waitForMediaProcessing(key, timeOut);
-    } catch (error) {
-      throw error;
-    }
+
+    await this.poapMomentsApi.waitForMediaProcessing(key, timeOut);
 
     return key;
   }
@@ -186,8 +174,8 @@ export class MomentsClient {
       MomentsQueryVariables
     >(PAGINATED_MOMENTS_QUERY, variables);
 
-    const momentsResponse: Moment[] = response.data.moments.map(
-      this.getMomentFromMomentResponse,
+    const momentsResponse: Moment[] = response.data.moments.map((moment) =>
+      Moment.fromCompass(moment),
     );
 
     const result = new PaginatedResult<Moment>(
@@ -200,17 +188,5 @@ export class MomentsClient {
 
   public async patchMoment(id: string, input: PatchMomentInput): Promise<void> {
     await this.poapMomentsApi.patchMoment(id, input);
-  }
-
-  private getMomentFromMomentResponse(momentResponse: MomentResponse): Moment {
-    return new Moment(
-      momentResponse.id,
-      momentResponse.author,
-      new Date(momentResponse.created_on),
-      momentResponse.drop_id,
-      momentResponse.token_id,
-      momentResponse.description,
-      momentResponse.cid,
-    );
   }
 }

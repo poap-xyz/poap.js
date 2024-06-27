@@ -1,4 +1,3 @@
-/* eslint-disable max-statements */
 export class POAPReservation {
   email: string;
   dropId: number;
@@ -23,7 +22,7 @@ export class POAPReservation {
   }
 }
 
-export interface POAPReservationProperties {
+interface POAPReservationProperties {
   email: string;
   dropId: number;
   imageUrl: string;

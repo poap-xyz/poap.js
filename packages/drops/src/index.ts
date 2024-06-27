@@ -1,8 +1,3 @@
 export { DropsClient } from './DropsClient';
-export { Drop, DropProperties, SerializableDrop } from './domain/Drop';
-export {
-  FetchDropsInput,
-  CreateDropsInput,
-  UpdateDropsInput,
-  DropsSortFields,
-} from './types';
+export { Drop } from './domain/Drop';
+export { DropsSortFields } from './types/DropsSortFields';

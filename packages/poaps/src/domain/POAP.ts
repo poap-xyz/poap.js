@@ -1,4 +1,5 @@
-/* eslint-disable max-statements */
+import { PoapsResponse } from '../queries/PaginatedPoaps';
+
 export class POAP {
   id: number;
   collectorAddress: string;
@@ -13,6 +14,27 @@ export class POAP {
   endDate: Date;
   name: string;
 
+  public static fromCompass(response: PoapsResponse): POAP {
+    const mintedOn = new Date(0);
+    mintedOn.setUTCSeconds(response.minted_on);
+
+    return new POAP({
+      id: Number(response.id),
+      collectorAddress: response.collector_address,
+      transferCount: response.transfer_count,
+      mintedOn,
+      dropId: Number(response.drop_id),
+      imageUrl: response.drop.image_url,
+      city: response.drop.city,
+      country: response.drop.country,
+      description: response.drop.description,
+      startDate: new Date(response.drop.start_date),
+      endDate: new Date(response.drop.end_date),
+      name: response.drop.name,
+    });
+  }
+
+  // eslint-disable-next-line max-statements
   constructor(properties: PoapProperties) {
     this.id = properties.id;
     this.collectorAddress = properties.collectorAddress;
@@ -29,7 +51,7 @@ export class POAP {
   }
 }
 
-export interface PoapProperties {
+interface PoapProperties {
   id: number;
   collectorAddress: string;
   transferCount: number;
@@ -40,6 +62,6 @@ export interface PoapProperties {
   country: string;
   description: string;
   startDate: Date;
-  name: string;
   endDate: Date;
+  name: string;
 }

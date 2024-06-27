@@ -1,3 +1,6 @@
+import { CreateMomentResponse } from '@poap-xyz/providers';
+import { MomentResponse } from '../queries/PaginatedMoments';
+
 /**
  * Represents a moment.
  */
@@ -36,6 +39,30 @@ export class Moment {
    * The cid of the moment in Registry
    */
   public readonly cid?: string;
+
+  public static fromCompass(response: MomentResponse): Moment {
+    return new Moment(
+      response.id,
+      response.author,
+      new Date(response.created_on),
+      response.drop_id,
+      response.token_id,
+      response.description,
+      response.cid,
+    );
+  }
+
+  public static fromCreated(response: CreateMomentResponse): Moment {
+    return new Moment(
+      response.id,
+      response.author,
+      response.createdOn,
+      response.dropId,
+      response.tokenId,
+      response.description,
+      response.cid,
+    );
+  }
 
   constructor(
     id: string,

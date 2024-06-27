@@ -1,6 +1,6 @@
 import { TokensApiProvider } from '@poap-xyz/providers';
 import { RetryableTask } from './RetryableTask';
-import { PoapMintStatus } from '../types';
+import { PoapMintStatus } from '../types/PoapMintStatus';
 
 /**
  * @class PoapIndexed
@@ -15,10 +15,10 @@ export class PoapIndexed extends RetryableTask {
   /**
    * Creates an instance of the PoapIndexed class.
    *
-   * @param {string} mintCode - A unique Mint Code representing the token.
    * @param {TokensApiProvider} tokensApiProvider - An instance of the TokensApiProvider used to check the indexing status of the token.
+   * @param {string} mintCode - A unique Mint Code representing the token.
    */
-  constructor(mintCode: string, tokensApiProvider: TokensApiProvider) {
+  constructor(tokensApiProvider: TokensApiProvider, mintCode: string) {
     super(tokensApiProvider);
     this.mintCode = mintCode;
   }
