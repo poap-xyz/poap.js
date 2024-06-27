@@ -1,8 +1,8 @@
-# @poap-xyz/drops
+# `@poap-xyz/drops`
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-@poap-xyz/drops is a package to interact with POAP Drops.
+`@poap-xyz/drops` is a package to interact with POAP Drops.
 
 ## Features
 
@@ -28,14 +28,14 @@ yarn add @poap-xyz/drops @poap-xyz/utils @poap-xyz/providers axios
 
 ## Usage
 
-```javascript
-  import { DropsClient } from '@poap-xyz/drops';
-  import { PoapCompass, PoapDropApi } from '@poap-xyz/providers';
+```typescript
+import { DropsClient } from '@poap-xyz/drops';
+import { PoapCompass, PoapDropApi } from '@poap-xyz/providers';
 
-  const client = new DropsClient(
-    new PoapCompass('you_api_key'),
-    new PoapDropApi('your_api_key'),
-  );
+const client = new DropsClient(
+  new PoapCompass('YOUR_COMPASS_API_KEY'),
+  new PoapDropApi('YOUR_POAP_API_KEY'),
+);
 ```
 
 ## Documentation
@@ -52,4 +52,4 @@ We welcome contributions! Please see the `CONTRIBUTING.md` file for guidelines.
 
 ## License
 
-@poap-xyz/drops is released under the [MIT License](https://opensource.org/licenses/MIT).
+`@poap-xyz/drops` is released under the [MIT License](https://opensource.org/licenses/MIT).
