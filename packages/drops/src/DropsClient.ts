@@ -86,7 +86,7 @@ export class DropsClient {
     >(PAGINATED_DROPS_QUERY, variables);
 
     const drops = data.drops.map(
-      (drop: DropResponse): Drop => this.mapDrop(drop),
+      (drop: DropResponse): Drop => Drop.fromCompass(drop),
     );
 
     return new PaginatedResult<Drop>(
@@ -125,7 +125,7 @@ export class DropsClient {
     >(SEARCH_DROPS_QUERY, variables);
 
     const drops = data.search_drops.map(
-      (drop: DropResponse): Drop => this.mapDrop(drop),
+      (drop: DropResponse): Drop => Drop.fromCompass(drop),
     );
 
     return new PaginatedResult<Drop>(
@@ -162,7 +162,7 @@ export class DropsClient {
       requested_codes: input.requestedCodes,
       private_event: input.privateEvent,
     });
-    return this.formatDrop(repsonse);
+    return Drop.fromProvider(repsonse);
   }
 
   /**
@@ -188,92 +188,6 @@ export class DropsClient {
       event_template_id: input.eventTemplateId,
       secret_code: input.secretCode,
     });
-    return this.formatDrop(repsonse);
-  }
-
-  private formatDrop(drop: ProviderDropResponse): Drop {
-    return new Drop({
-      id: drop.id,
-      fancyId: drop.fancy_id,
-      name: drop.name,
-      description: drop.description,
-      city: drop.city,
-      country: drop.country,
-      channel: drop.channel,
-      platform: drop.platform,
-      locationType: drop.location_type,
-      dropUrl: drop.event_url,
-      imageUrl: drop.image_url,
-      originalImageUrl: drop.image_url,
-      animationUrl: drop.animation_url,
-      year: drop.year,
-      startDate: new Date(drop.start_date),
-      timezone: drop.timezone,
-      private: drop.private_event,
-      createdDate: new Date(drop.created_date),
-      expiryDate: new Date(drop.expiry_date),
-      endDate: new Date(drop.end_date),
-      transferCount: 0,
-      poapCount: 0,
-      emailReservationCount: 0,
-    });
-  }
-
-  private computeDropImages(drop: DropResponse): {
-    imageUrl: string;
-    originalImageUrl: string;
-  } {
-    const dropImage = this.mapDropImage(drop.drop_image);
-    return {
-      imageUrl: dropImage?.crop || drop.image_url,
-      originalImageUrl: dropImage?.original || drop.image_url,
-    };
-  }
-
-  private mapDropImage(response?: DropImageResponse): DropImage | undefined {
-    if (!response) return response;
-
-    const images = response.gateways.reduce(
-      (acc, gateway) => ({ ...acc, [gateway.type.toLowerCase()]: gateway.url }),
-      {},
-    );
-
-    return { ...images };
-  }
-
-  private mapDrop(drop: DropResponse): Drop {
-    const { imageUrl, originalImageUrl } = this.computeDropImages(drop);
-
-    return new Drop({
-      id: Number(drop.id),
-      fancyId: drop.fancy_id,
-      name: drop.name,
-      description: drop.description,
-      city: drop.city,
-      country: drop.country,
-      channel: drop.channel,
-      platform: drop.platform,
-      locationType: drop.location_type,
-      dropUrl: drop.drop_url,
-      imageUrl,
-      originalImageUrl,
-      animationUrl: drop.animation_url,
-      year: Number(drop.year),
-      startDate: new Date(drop.start_date),
-      timezone: drop.timezone,
-      private: drop.private,
-      createdDate: new Date(drop.created_date),
-      poapCount: drop.stats_by_chain_aggregate.aggregate.sum
-        ? Number(drop.stats_by_chain_aggregate.aggregate.sum.poap_count)
-        : 0,
-      transferCount: drop.stats_by_chain_aggregate.aggregate.sum
-        ? Number(drop.stats_by_chain_aggregate.aggregate.sum.transfer_count)
-        : 0,
-      emailReservationCount: drop.email_claims_stats
-        ? Number(drop.email_claims_stats.total)
-        : 0,
-      expiryDate: new Date(drop.expiry_date),
-      endDate: new Date(drop.end_date),
-    });
+    return Drop.fromProvider(repsonse);
   }
 }

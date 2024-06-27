@@ -26,6 +26,79 @@ export class Drop {
   transferCount: number;
   emailReservationCount: number;
 
+  public static fromCompass(response: DropResponse): Drop {
+    const images: { crop: string; original: string } =
+      response.drop_image.gateways.reduce(
+        (images, gateway) => ({
+          ...images,
+          [gateway.type.toLowerCase()]: gateway.url,
+        }),
+        {
+          crop: response.image_url,
+          original: response.image_url,
+        },
+      );
+
+    return new Drop({
+      id: Number(response.id),
+      fancyId: response.fancy_id,
+      name: response.name,
+      description: response.description,
+      city: response.city,
+      country: response.country,
+      channel: response.channel,
+      platform: response.platform,
+      locationType: response.location_type,
+      dropUrl: response.drop_url,
+      imageUrl: images.crop,
+      originalImageUrl: images.original,
+      animationUrl: response.animation_url,
+      year: Number(response.year),
+      startDate: new Date(response.start_date),
+      timezone: response.timezone,
+      private: response.private,
+      createdDate: new Date(response.created_date),
+      expiryDate: new Date(response.expiry_date),
+      endDate: new Date(response.end_date),
+      poapCount: Number(
+        response.stats_by_chain_aggregate.aggregate.sum.poap_count,
+      ),
+      transferCount: Number(
+        response.stats_by_chain_aggregate.aggregate.sum.transfer_count,
+      ),
+      emailReservationCount: Number(response.email_claims_stats.total),
+    });
+  }
+
+  public static fromProvider(response: ProviderDropResponse): Drop {
+    return new Drop({
+      id: response.id,
+      fancyId: response.fancy_id,
+      name: response.name,
+      description: response.description,
+      city: response.city,
+      country: response.country,
+      channel: response.channel,
+      platform: response.platform,
+      locationType: response.location_type,
+      dropUrl: response.event_url,
+      imageUrl: response.image_url,
+      originalImageUrl: response.image_url,
+      animationUrl: response.animation_url,
+      year: response.year,
+      startDate: new Date(response.start_date),
+      timezone: response.timezone,
+      private: response.private_event,
+      createdDate: new Date(response.created_date),
+      expiryDate: new Date(response.expiry_date),
+      endDate: new Date(response.end_date),
+      transferCount: 0,
+      poapCount: 0,
+      emailReservationCount: 0,
+    });
+  }
+
+  // eslint-disable-next-line max-statements
   constructor(properties: DropProperties) {
     this.id = properties.id;
     this.fancyId = properties.fancyId;
