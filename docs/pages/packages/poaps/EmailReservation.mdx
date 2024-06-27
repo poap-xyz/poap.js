@@ -1,0 +1,11 @@
+# Email Reservation
+
+```typescript
+import { POAPReservation } from '@poap-xyz/poaps';
+
+const emailReservation: POAPReservation = await client.emailReservation({
+  mintCode: 'your_poap_code',
+  email: 'your@email.io',
+  sendEmail: true,
+});
+```

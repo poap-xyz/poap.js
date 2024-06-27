@@ -9,7 +9,11 @@ These custom error classes allow for more precise error handling and better debu
 Below example demonstrates how one might use the `PoapsClient` class along with the custom error handling.
 
 ```typescript
-import { FinishedWithError } from '@poap-xyz/poaps';
+import {
+  FinishedWithError,
+  CodeAlreadyMintedError,
+  CodeExpiredError,
+} from '@poap-xyz/poaps';
 
 try {
   const poap = await client.mintSync({

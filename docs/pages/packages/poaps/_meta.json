@@ -1,3 +1,6 @@
 {
-  "Errors": "Error Handling"
+  "EmailReservation": "Email Reservation",
+  "Mint": "Mint POAP",
+  "Errors": "Error Handling",
+  "FetchPOAPs": "Fetch POAPs"
 }

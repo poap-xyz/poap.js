@@ -1,0 +1,73 @@
+# Fetch POAPs
+
+## Fetch single POAP
+
+```typescript
+import { POAP } from '@poap-xyz/poaps';
+import { PaginatedResult } from '@poap-xyz/utils';
+
+const poapId = 999;
+
+const paginatedPOAPs: PaginatedResult<POAP> = await client.fetch({
+  offset: 0,
+  limit: 1,
+  ids: [poapId],
+});
+
+if (paginatedPOAPs.items.length === 0) {
+  throw new Error('My POAP was not found');
+}
+
+const poap = paginatedPOAPs.items[0];
+```
+
+## List POAPs
+
+```typescript
+import { POAP, PoapsSortFields } from '@poap-xyz/poaps';
+import { Order, PaginatedResult } from '@poap-xyz/utils';
+
+const paginatedPOAPs: PaginatedResult<POAP> = await client.fetch({
+  offset: 0,
+  limit: 10,
+  sortField: PoapsSortFields.MintedOn,
+  sortDir: Order.DESC,
+});
+```
+
+### By Collector
+
+```typescript
+import { POAP, PoapsSortFields } from '@poap-xyz/poaps';
+import { Order, PaginatedResult } from '@poap-xyz/utils';
+
+// The address of the collector.
+const collectorAddress = '0xf6B6F07862A02C85628B3A9688beae07fEA9C863';
+
+const collectorPOAPs: PaginatedResult<POAP> = await client.fetch({
+  offset: 0,
+  limit: 10,
+  sortField: PoapsSortFields.MintedOn,
+  sortDir: Order.ASC,
+  collectorAddress,
+});
+```
+
+### By Drop
+
+```typescript
+import { POAP, PoapsSortFields } from '@poap-xyz/poaps';
+import { Order, PaginatedResult } from '@poap-xyz/utils';
+
+const dropId = 14;
+
+const dropPOAPs: PaginatedResult<POAP> = await client.fetch({
+  offset: 0,
+  limit: 10,
+  sortField: PoapsSortFields.MintedOn,
+  sortDir: Order.ASC,
+  filterZeroAddress: true,
+  filterDeadAddress: true,
+  dropId,
+});
+```
