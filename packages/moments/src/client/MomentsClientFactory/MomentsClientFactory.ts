@@ -1,10 +1,10 @@
-import { MomentsClient } from 'moments';
 import {
   AuthenticationProvider,
   AuthenticationProviderHttp,
   PoapCompass,
   PoapMomentsApi,
 } from '@poap-xyz/providers';
+import { MomentsClient } from '../MomentsClient';
 import { GetMomentsDefaultClientOptions } from './options/GetMomentsDefaultClientOptions';
 
 export class MomentsClientFactory {

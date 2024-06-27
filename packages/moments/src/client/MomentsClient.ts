@@ -10,19 +10,16 @@ import {
 } from '@poap-xyz/utils';
 import { Moment } from '../domain/Moment';
 import {
-  MomentResponse,
   MomentsQueryResponse,
   MomentsQueryVariables,
   PAGINATED_MOMENTS_QUERY,
-} from '../queries';
+} from '../queries/PaginatedMoments';
+import { CreateMedia } from './dtos/create/CreateMedia';
 import { CreateMomentInput } from './dtos/create/CreateInput';
 import { CreateSteps } from './dtos/create/CreateSteps';
-import {
-  FetchMomentsInput,
-  MomentsSortFields,
-} from './dtos/fetch/FetchMomentsInput';
-import { CreateMedia } from './dtos/create/CreateMedia';
 import { PatchMomentInput } from './dtos/patch/PatchInput';
+import { FetchMomentsInput } from './dtos/fetch/FetchMomentsInput';
+import { MomentsSortFields } from './dtos/fetch/MomentsSortFields';
 
 export class MomentsClient {
   constructor(
@@ -125,17 +122,15 @@ export class MomentsClient {
     timeOut?: number,
   ): Promise<string> {
     const { url, key } = await this.poapMomentsApi.getSignedUrl();
+
     await this.poapMomentsApi.uploadFile(
       media.fileBinary,
       url,
       media.fileType,
       onFileUploadProgress,
     );
-    try {
-      await this.poapMomentsApi.waitForMediaProcessing(key, timeOut);
-    } catch (error) {
-      throw error;
-    }
+
+    await this.poapMomentsApi.waitForMediaProcessing(key, timeOut);
 
     return key;
   }

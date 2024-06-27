@@ -1,3 +1,6 @@
+import { CreateMomentResponse } from '@poap-xyz/providers';
+import { MomentResponse } from '../queries/PaginatedMoments';
+
 /**
  * Represents a moment.
  */
