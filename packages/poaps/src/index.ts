@@ -1,7 +1,7 @@
-export { PoapsSortFields, FetchPoapsInput } from './types/input';
-export { PoapMintStatus } from './types/response';
+export { PoapsSortFields } from './types/PoapsSortFields';
+export { PoapMintStatus } from './types/PoapMintStatus';
 export { PoapsClient } from './PoapsClient';
-export { POAP } from './domain/Poap';
+export { POAP } from './domain/POAP';
 export { POAPReservation } from './domain/POAPReservation';
 export { FinishedWithError } from './errors/FinishedWithError';
 export { CodeAlreadyMintedError } from './errors/CodeAlreadyMintedError';

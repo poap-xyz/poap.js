@@ -3,20 +3,6 @@ import {
   TokensApiProvider,
   Transaction,
 } from '@poap-xyz/providers';
-import { POAP } from './domain/Poap';
-import { POAPReservation } from './domain/POAPReservation';
-import {
-  PAGINATED_POAPS_QUERY,
-  PaginatedPoapsResponse,
-  PaginatedPoapsVariables,
-} from './queries';
-import {
-  EmailReservationInput,
-  FetchPoapsInput,
-  PoapMintStatus,
-  PoapsSortFields,
-  WalletMintInput,
-} from './types';
 import {
   createAddressFilter,
   createBetweenFilter,
@@ -27,18 +13,32 @@ import {
   nextCursor,
   PaginatedResult,
 } from '@poap-xyz/utils';
+import { POAP } from './domain/POAP';
+import { POAPReservation } from './domain/POAPReservation';
+import {
+  PAGINATED_POAPS_QUERY,
+  PaginatedPoapsResponse,
+  PaginatedPoapsVariables,
+} from './queries/PaginatedPoaps';
+import { FetchPoapsInput } from './types/FetchPoapsInput';
+import { PoapsSortFields } from './types/PoapsSortFields';
+import { PoapMintStatus } from './types/PoapMintStatus';
+import { WalletMintInput } from './types/WalletMintInput';
+import { EmailReservationInput } from './types/EmailReservationInput';
 import { CodeAlreadyMintedError } from './errors/CodeAlreadyMintedError';
 import { CodeExpiredError } from './errors/CodeExpiredError';
 import { MintChecker } from './utils/MintChecker';
 import { PoapIndexed } from './utils/PoapIndexed';
 
 /**
- * Represents a client for interacting with POAPs .
+ * Represents a client for interacting with POAPs.
+ *
  * @class
  */
 export class PoapsClient {
   /**
    * Initializes a new instance of the PoapsClient.
+   *
    * @param {CompassProvider} compassProvider - The provider for the POAP compass API.
    * @param {TokensApiProvider} tokensApiProvider - The provider for the Tokens API.
    */
@@ -49,6 +49,7 @@ export class PoapsClient {
 
   /**
    * Fetches a list of POAP tokens based on the given input criteria.
+   *
    * @async
    * @param {FetchPoapsInput} input - Criteria for fetching POAP tokens.
    * @returns {Promise<PaginatedResult<POAP>>} A paginated list of POAP tokens.
@@ -122,6 +123,7 @@ export class PoapsClient {
 
   /**
    * Retrieves mint code details for a specific Mint Code.
+   *
    * @async
    * @param {string} mintCode - The Mint Code for which to get the mint code.
    * @returns {Promise<PoapMintStatus>} The Mint status.
@@ -150,6 +152,7 @@ export class PoapsClient {
 
   /**
    * Awaits until we have a final Transaction status for a specific Mint Code.
+   *
    * @async
    * @returns {Promise<void>}
    * @param mintCode - The Mint Code
@@ -161,6 +164,7 @@ export class PoapsClient {
 
   /**
    * Awaits until a specific POAP, identified by its Mint Code, is indexed on our database.
+   *
    * @async
    * @param {string} mintCode - The Mint Code identifying the POAP to be indexed.
    * @returns {Promise<PoapMintStatus>} - The status of the POAP mint.
@@ -172,6 +176,7 @@ export class PoapsClient {
 
   /**
    * Begins an asynchronous mint process and provides a unique queue ID in return.
+   *
    * @async
    * @param {WalletMintInput} input - Details required for the mint.
    */
@@ -190,6 +195,7 @@ export class PoapsClient {
    * Starts a synchronous mint process. The method waits for the mint to be processed and then
    * fetches the associated POAP. It combines the asynchronous mint and subsequent status checking
    * into a synchronous process for ease of use.
+   *
    * @async
    * @param {WalletMintInput} input - Details needed for the mint.
    * @returns {Promise<POAP>} The associated POAP upon successful mint completion.
@@ -213,6 +219,7 @@ export class PoapsClient {
 
   /**
    * Reserves a POAP to an email address and provides reservation details.
+   *
    * @async
    * @param {EmailReservationInput} input - Information for the reservation.
    * @returns {Promise<POAPReservation>} The reservation details of the POAP.
@@ -244,6 +251,7 @@ export class PoapsClient {
 
   /**
    * Retrieves the secret code associated with a POAP code.
+   *
    * @async
    * @param {string} mintCode - The POAP code for which to get the secret.
    * @returns {Promise<string>} The associated secret code.

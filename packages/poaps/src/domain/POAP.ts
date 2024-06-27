@@ -1,4 +1,3 @@
-/* eslint-disable max-statements */
 export class POAP {
   id: number;
   collectorAddress: string;
@@ -13,6 +12,7 @@ export class POAP {
   endDate: Date;
   name: string;
 
+  // eslint-disable-next-line max-statements
   constructor(properties: PoapProperties) {
     this.id = properties.id;
     this.collectorAddress = properties.collectorAddress;
@@ -29,7 +29,7 @@ export class POAP {
   }
 }
 
-export interface PoapProperties {
+interface PoapProperties {
   id: number;
   collectorAddress: string;
   transferCount: number;
@@ -40,6 +40,6 @@ export interface PoapProperties {
   country: string;
   description: string;
   startDate: Date;
-  name: string;
   endDate: Date;
+  name: string;
 }

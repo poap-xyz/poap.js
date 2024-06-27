@@ -1,17 +1,5 @@
 import { Order, Chain, PaginationInput } from '@poap-xyz/utils';
-
-/**
- * Enum to define available fields for sorting POAPs.
- *
- * @export
- * @enum {string}
- */
-export enum PoapsSortFields {
-  /** Represents sorting by the date when a POAP was minted. */
-  MintedOn = 'minted_on',
-  /** Represents sorting by the ID of a POAP. */
-  Id = 'id',
-}
+import { PoapsSortFields } from './PoapsSortFields';
 
 /**
  * Represents the input fields for fetching POAPs.
@@ -44,27 +32,4 @@ export interface FetchPoapsInput extends PaginationInput {
   filterZeroAddress?: boolean;
   /** Filter out dead addresses? */
   filterDeadAddress?: boolean;
-}
-
-/**
- * Represents the input fields required to mint a POAP for a wallet.
- *
- * @export
- * @interface WalletMintInput
- */
-export interface WalletMintInput {
-  mintCode: string;
-  address: string;
-}
-
-/**
- * Represents the input fields required to reserve a POAP via email.
- *
- * @export
- * @interface EmailReservationInput
- */
-export interface EmailReservationInput {
-  mintCode: string;
-  email: string;
-  sendEmail?: boolean;
 }
