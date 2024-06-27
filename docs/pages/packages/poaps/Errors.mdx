@@ -10,13 +10,14 @@ Below example demonstrates how one might use the `PoapsClient` class along with 
 
 ```typescript
 import {
+  POAP,
   FinishedWithError,
   CodeAlreadyMintedError,
   CodeExpiredError,
 } from '@poap-xyz/poaps';
 
 try {
-  const poap = await client.mintSync({
+  const poap: POAP = await client.mintSync({
     mintCode: 'some-mint-code',
     address: '0x1234567890abcdef1234567890abcdef12345678',
   });

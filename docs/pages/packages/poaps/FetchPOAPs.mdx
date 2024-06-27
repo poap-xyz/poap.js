@@ -1,6 +1,10 @@
 # Fetch POAPs
 
+Once POAPs have been minted they could be fetched with `PoapsClient`.
+
 ## Fetch single POAP
+
+To retrieve one POAP it can be done with it's ID.
 
 ```typescript
 import { POAP } from '@poap-xyz/poaps';
@@ -18,10 +22,12 @@ if (paginatedPOAPs.items.length === 0) {
   throw new Error('My POAP was not found');
 }
 
-const poap = paginatedPOAPs.items[0];
+const poap: POAP = paginatedPOAPs.items[0];
 ```
 
 ## List POAPs
+
+Paginated POAPs are fetched using `offset` and `limit`. They can also be sorted.
 
 ```typescript
 import { POAP, PoapsSortFields } from '@poap-xyz/poaps';
@@ -36,6 +42,9 @@ const paginatedPOAPs: PaginatedResult<POAP> = await client.fetch({
 ```
 
 ### By Collector
+
+By giving a collector's address, the list of POAPs owned by that address can be
+fetched.
 
 ```typescript
 import { POAP, PoapsSortFields } from '@poap-xyz/poaps';
@@ -54,6 +63,9 @@ const collectorPOAPs: PaginatedResult<POAP> = await client.fetch({
 ```
 
 ### By Drop
+
+Get all the POAPs associated to a Drop by giving the ID, and optional filter out
+the zero and dead addresses.
 
 ```typescript
 import { POAP, PoapsSortFields } from '@poap-xyz/poaps';

@@ -1,6 +1,12 @@
 # Mint POAP
 
+Minting a POAP is an asynchronous process, but with `PoapsClient` it can simplified
+to only one method call.
+
 ## Async
+
+If you prefer to send the minting to the server and then wait for the POAP to be
+minted, and eventually, once indexed, the token ID can be retrieved.
 
 ```typescript
 import { POAP } from '@poap-xyz/poaps';
@@ -28,6 +34,8 @@ const poap: POAP = (
 ```
 
 ## Sync
+
+All the minting process can done automatically by `PoapsClient`.
 
 ```typescript
 import { POAP } from '@poap-xyz/poaps';

@@ -8,13 +8,16 @@ search in name and description.
 When searching for a whole word, use `fetch` method:
 
 ```typescript
-  const data: PaginatedResult<Drop> = await dropsClient.fetch({
-    sortField: DropsSortFields.Name,
-    sortDir: Order.ASC,
-    limit: 3,
-    offset: 0,
-    name: 'POAP',
-  });
+import { Drop } from '@poap-xyz/drops';
+import { PaginatedResult } from '@poap-xyz/utils';
+
+const paginatedDrops: PaginatedResult<Drop> = await dropsClient.fetch({
+  sortField: DropsSortFields.Name,
+  sortDir: Order.ASC,
+  limit: 3,
+  offset: 0,
+  name: 'POAP',
+});
 ```
 
 ## Fuzzy search
@@ -23,9 +26,12 @@ When given a generic search input, and to match any part of the words used in
 the name of the description, use `search` method:
 
 ```typescript
-  const data: PaginatedResult<Drop> = await dropsClient.search({
-    limit: 3,
-    offset: 0,
-    search: 'POAP',
-  });
+import { Drop } from '@poap-xyz/drops';
+import { PaginatedResult } from '@poap-xyz/utils';
+
+const paginatedDrops: PaginatedResult<Drop> = await dropsClient.search({
+  limit: 3,
+  offset: 0,
+  search: 'POAP',
+});
 ```

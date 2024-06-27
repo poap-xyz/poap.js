@@ -20,6 +20,9 @@ const paginatedDrops: PaginatedResult<Drop> = await client.fetch({
 By giving the Drop ID we want to find, we can filter the pagination to contain the Drop or not.
 
 ```typescript
+import { Drop } from '@poap-xyz/drops';
+import { PaginatedResult } from '@poap-xyz/utils';
+
 const dropId = 14;
 
 const paginatedDrops: PaginatedResult<Drop> = await client.fetch({
@@ -32,5 +35,5 @@ if (paginatedDrops.items.length === 0) {
   throw new Error('My super drop was not found');
 }
 
-const drop = paginatedDrops.items[0];
+const drop: Drop = paginatedDrops.items[0];
 ```
