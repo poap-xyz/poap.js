@@ -10,6 +10,7 @@ import {
   createOrderBy,
   createBoolFilter,
   createLikeFilter,
+  toPOAPDate,
 } from '@poap-xyz/utils';
 import { Drop } from './domain/Drop';
 import {
@@ -148,9 +149,18 @@ export class DropsClient {
       description: input.description,
       city: input.city,
       country: input.country,
-      start_date: input.startDate,
-      end_date: input.endDate,
-      expiry_date: input.expiryDate,
+      start_date:
+        input.startDate instanceof Date
+          ? toPOAPDate(input.startDate)
+          : input.startDate,
+      end_date:
+        input.endDate instanceof Date
+          ? toPOAPDate(input.endDate)
+          : input.endDate,
+      expiry_date:
+        input.expiryDate instanceof Date
+          ? toPOAPDate(input.expiryDate)
+          : input.expiryDate,
       event_url: input.eventUrl,
       virtual_event: input.virtualEvent,
       image: input.image,

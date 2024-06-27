@@ -3,9 +3,9 @@ export interface CreateDropsInput {
   description: string;
   city: string;
   country: string;
-  startDate: string;
-  endDate: string;
-  expiryDate: string;
+  startDate: string | Date;
+  endDate: string | Date;
+  expiryDate: string | Date;
   eventUrl: string;
   virtualEvent: boolean;
   image: Blob;
