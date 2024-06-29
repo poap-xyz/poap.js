@@ -1,3 +1,5 @@
 {
-  "UploadMoments": "Upload Moments"
+  "FetchMoments": "Fetch Moments",
+  "UploadMoments": "Upload Moments",
+  "UpdateMoment": "Update Moment"
 }

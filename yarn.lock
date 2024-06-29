@@ -880,16 +880,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@poap-xyz/drops@*, @poap-xyz/drops@workspace:packages/drops":
+"@poap-xyz/drops@workspace:packages/drops":
   version: 0.0.0-use.local
   resolution: "@poap-xyz/drops@workspace:packages/drops"
   dependencies:
-    "@poap-xyz/providers": 0.5.1
-    "@poap-xyz/utils": 0.5.1
+    "@poap-xyz/providers": 0.5.2
+    "@poap-xyz/utils": 0.5.2
   languageName: unknown
   linkType: soft
 
-"@poap-xyz/frames@*, @poap-xyz/frames@workspace:packages/frames":
+"@poap-xyz/frames@workspace:packages/frames":
   version: 0.0.0-use.local
   resolution: "@poap-xyz/frames@workspace:packages/frames"
   dependencies:
@@ -897,31 +897,31 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@poap-xyz/moments@*, @poap-xyz/moments@workspace:packages/moments":
+"@poap-xyz/moments@workspace:packages/moments":
   version: 0.0.0-use.local
   resolution: "@poap-xyz/moments@workspace:packages/moments"
   dependencies:
-    "@poap-xyz/providers": 0.5.1
-    "@poap-xyz/utils": 0.5.1
+    "@poap-xyz/providers": 0.5.2
+    "@poap-xyz/utils": 0.5.2
     "@types/uuid": ^9.0.2
     uuid: ^9.0.0
   languageName: unknown
   linkType: soft
 
-"@poap-xyz/poaps@*, @poap-xyz/poaps@workspace:packages/poaps":
+"@poap-xyz/poaps@workspace:packages/poaps":
   version: 0.0.0-use.local
   resolution: "@poap-xyz/poaps@workspace:packages/poaps"
   dependencies:
-    "@poap-xyz/providers": 0.5.1
-    "@poap-xyz/utils": 0.5.1
+    "@poap-xyz/providers": 0.5.2
+    "@poap-xyz/utils": 0.5.2
   languageName: unknown
   linkType: soft
 
-"@poap-xyz/providers@*, @poap-xyz/providers@0.5.1, @poap-xyz/providers@workspace:packages/providers":
+"@poap-xyz/providers@0.5.2, @poap-xyz/providers@workspace:packages/providers":
   version: 0.0.0-use.local
   resolution: "@poap-xyz/providers@workspace:packages/providers"
   dependencies:
-    "@poap-xyz/utils": 0.5.1
+    "@poap-xyz/utils": 0.5.2
     axios: ^1.6.8
     axios-mock-adapter: ^1.21.4
     jest-fetch-mock: ^3.0.3
@@ -929,7 +929,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@poap-xyz/utils@*, @poap-xyz/utils@0.5.1, @poap-xyz/utils@workspace:packages/utils":
+"@poap-xyz/utils@0.5.2, @poap-xyz/utils@workspace:packages/utils":
   version: 0.0.0-use.local
   resolution: "@poap-xyz/utils@workspace:packages/utils"
   languageName: unknown
@@ -1302,24 +1302,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/mime@npm:^3.0.1":
-  version: 3.0.3
-  resolution: "@types/mime@npm:3.0.3"
-  checksum: d905a6b4736cc60fb56b39776b77ba0e10983d39f0aefc0034dc895b6ef90780e2f2e0a8c576539adb2963741a5aa67a6924d8940b0f7250f69e3e68a57f93b5
-  languageName: node
-  linkType: hard
-
-"@types/node-fetch@npm:^2.6.3":
-  version: 2.6.8
-  resolution: "@types/node-fetch@npm:2.6.8"
-  dependencies:
-    "@types/node": "*"
-    form-data: ^4.0.0
-  checksum: f40e5e2fa3ca05a45453397e891776619739f093f913199c00c141735f8098e4f2ffdea04b9d608182aede2df9607605c71e0fdb97d2614899545ce81bac7005
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:*, @types/node@npm:^18.16.0":
+"@types/node@npm:*":
   version: 18.18.8
   resolution: "@types/node@npm:18.18.8"
   dependencies:
@@ -1800,17 +1783,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.3.6":
-  version: 1.6.0
-  resolution: "axios@npm:1.6.0"
-  dependencies:
-    follow-redirects: ^1.15.0
-    form-data: ^4.0.0
-    proxy-from-env: ^1.1.0
-  checksum: c7c9f2ae9e0b9bad7d6f9a4dff030930b12ee667dedf54c3c776714f91681feb743c509ac0796ae5c01e12c4ab4a2bee74905068dd200fbc1ab86f9814578fb0
-  languageName: node
-  linkType: hard
-
 "axios@npm:^1.6.8":
   version: 1.6.8
   resolution: "axios@npm:1.6.8"
@@ -1897,77 +1869,6 @@ __metadata:
   checksum: aa4ff2a8a728d9d698ed521e3461a109a1e66202b13d3494e41eea30729a5e7cc03b3a2d56c594423a135429c37bf63a9fa8b0b9ce275298be3095a88c69f6fb
   languageName: node
   linkType: hard
-
-"backend-drops-example@workspace:examples/drops/backend":
-  version: 0.0.0-use.local
-  resolution: "backend-drops-example@workspace:examples/drops/backend"
-  dependencies:
-    "@poap-xyz/drops": "*"
-    "@poap-xyz/providers": "*"
-    "@poap-xyz/utils": "*"
-    "@types/node": ^18.16.0
-    "@types/node-fetch": ^2.6.3
-    axios: ^1.6.8
-    dotenv: ^16.0.3
-    stream: ^0.0.2
-    ts-node: ^10.4.0
-    typescript: ^4.5.5
-  languageName: unknown
-  linkType: soft
-
-"backend-frames-example@workspace:examples/frames":
-  version: 0.0.0-use.local
-  resolution: "backend-frames-example@workspace:examples/frames"
-  dependencies:
-    "@poap-xyz/frames": "*"
-    "@poap-xyz/providers": "*"
-    "@poap-xyz/utils": "*"
-    "@types/node": ^18.16.0
-    "@types/node-fetch": ^2.6.3
-    axios: ^1.6.8
-    dotenv: ^16.0.3
-    stream: ^0.0.2
-    ts-node: ^10.4.0
-    typescript: ^4.5.5
-  languageName: unknown
-  linkType: soft
-
-"backend-moments-example@workspace:examples/moments/backend":
-  version: 0.0.0-use.local
-  resolution: "backend-moments-example@workspace:examples/moments/backend"
-  dependencies:
-    "@poap-xyz/moments": "*"
-    "@poap-xyz/providers": "*"
-    "@poap-xyz/utils": "*"
-    "@types/mime": ^3.0.1
-    "@types/node": ^18.16.0
-    "@types/node-fetch": ^2.6.3
-    axios: ^1.3.6
-    dotenv: ^16.0.3
-    form-data: ^4.0.0
-    mime: ^3.0.0
-    node-fetch: ^3.3.1
-    ts-node: ^10.4.0
-    typescript: ^4.5.5
-  languageName: unknown
-  linkType: soft
-
-"backend-poaps-example@workspace:examples/poaps/backend":
-  version: 0.0.0-use.local
-  resolution: "backend-poaps-example@workspace:examples/poaps/backend"
-  dependencies:
-    "@poap-xyz/poaps": "*"
-    "@poap-xyz/providers": "*"
-    "@poap-xyz/utils": "*"
-    "@types/node": ^18.16.0
-    axios: ^1.6.8
-    dotenv: ^16.0.3
-    perf_hooks: ^0.0.1
-    stream: ^0.0.2
-    ts-node: ^10.4.0
-    typescript: ^4.5.5
-  languageName: unknown
-  linkType: soft
 
 "balanced-match@npm:^1.0.0":
   version: 1.0.2
@@ -2521,13 +2422,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"data-uri-to-buffer@npm:^4.0.0":
-  version: 4.0.1
-  resolution: "data-uri-to-buffer@npm:4.0.1"
-  checksum: 0d0790b67ffec5302f204c2ccca4494f70b4e2d940fea3d36b09f0bb2b8539c2e86690429eb1f1dc4bcc9e4df0644193073e63d9ee48ac9fce79ec1506e4aa4c
-  languageName: node
-  linkType: hard
-
 "debug@npm:4, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.2, debug@npm:^4.3.4":
   version: 4.3.4
   resolution: "debug@npm:4.3.4"
@@ -2682,13 +2576,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv@npm:^16.0.3":
-  version: 16.3.1
-  resolution: "dotenv@npm:16.3.1"
-  checksum: 15d75e7279018f4bafd0ee9706593dd14455ddb71b3bcba9c52574460b7ccaf67d5cf8b2c08a5af1a9da6db36c956a04a1192b101ee102a3e0cf8817bbcf3dfd
-  languageName: node
-  linkType: hard
-
 "eastasianwidth@npm:^0.2.0":
   version: 0.2.0
   resolution: "eastasianwidth@npm:0.2.0"
@@ -2715,13 +2602,6 @@ __metadata:
     minimalistic-assert: ^1.0.1
     minimalistic-crypto-utils: ^1.0.1
   checksum: d56d21fd04e97869f7ffcc92e18903b9f67f2d4637a23c860492fbbff5a3155fd9ca0184ce0c865dd6eb2487d234ce9551335c021c376cd2d3b7cb749c7d10f4
-  languageName: node
-  linkType: hard
-
-"emitter-component@npm:^1.1.1":
-  version: 1.1.1
-  resolution: "emitter-component@npm:1.1.1"
-  checksum: 10e907f507a8c16a318e07595119e58b5c3267528d4e3b962ee9b14fd83c97599e7931ccb983ec551a8de8116955c1d6ae7d213c5b0c920b62c02b7cb8d7a4d7
   languageName: node
   linkType: hard
 
@@ -3258,16 +3138,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fetch-blob@npm:^3.1.2, fetch-blob@npm:^3.1.4":
-  version: 3.2.0
-  resolution: "fetch-blob@npm:3.2.0"
-  dependencies:
-    node-domexception: ^1.0.0
-    web-streams-polyfill: ^3.0.3
-  checksum: f19bc28a2a0b9626e69fd7cf3a05798706db7f6c7548da657cbf5026a570945f5eeaedff52007ea35c8bcd3d237c58a20bf1543bc568ab2422411d762dd3d5bf
-  languageName: node
-  linkType: hard
-
 "file-entry-cache@npm:^6.0.1":
   version: 6.0.1
   resolution: "file-entry-cache@npm:6.0.1"
@@ -3335,16 +3205,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"follow-redirects@npm:^1.15.0":
-  version: 1.15.3
-  resolution: "follow-redirects@npm:1.15.3"
-  peerDependenciesMeta:
-    debug:
-      optional: true
-  checksum: 584da22ec5420c837bd096559ebfb8fe69d82512d5585004e36a3b4a6ef6d5905780e0c74508c7b72f907d1fa2b7bd339e613859e9c304d0dc96af2027fd0231
-  languageName: node
-  linkType: hard
-
 "follow-redirects@npm:^1.15.6":
   version: 1.15.6
   resolution: "follow-redirects@npm:1.15.6"
@@ -3389,15 +3249,6 @@ __metadata:
     combined-stream: ^1.0.8
     mime-types: ^2.1.12
   checksum: 01135bf8675f9d5c61ff18e2e2932f719ca4de964e3be90ef4c36aacfc7b9cb2fceb5eca0b7e0190e3383fe51c5b37f4cb80b62ca06a99aaabfcfd6ac7c9328c
-  languageName: node
-  linkType: hard
-
-"formdata-polyfill@npm:^4.0.10":
-  version: 4.0.10
-  resolution: "formdata-polyfill@npm:4.0.10"
-  dependencies:
-    fetch-blob: ^3.1.2
-  checksum: 82a34df292afadd82b43d4a740ce387bc08541e0a534358425193017bf9fb3567875dc5f69564984b1da979979b70703aa73dee715a17b6c229752ae736dd9db
   languageName: node
   linkType: hard
 
@@ -5181,15 +5032,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mime@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "mime@npm:3.0.0"
-  bin:
-    mime: cli.js
-  checksum: f43f9b7bfa64534e6b05bd6062961681aeb406a5b53673b53b683f27fcc4e739989941836a355eef831f4478923651ecc739f4a5f6e20a76487b432bfd4db928
-  languageName: node
-  linkType: hard
-
 "mimic-fn@npm:^2.1.0":
   version: 2.1.0
   resolution: "mimic-fn@npm:2.1.0"
@@ -5370,13 +5212,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-domexception@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "node-domexception@npm:1.0.0"
-  checksum: ee1d37dd2a4eb26a8a92cd6b64dfc29caec72bff5e1ed9aba80c294f57a31ba4895a60fd48347cf17dd6e766da0ae87d75657dfd1f384ebfa60462c2283f5c7f
-  languageName: node
-  linkType: hard
-
 "node-fetch@npm:^2.6.12":
   version: 2.7.0
   resolution: "node-fetch@npm:2.7.0"
@@ -5388,17 +5223,6 @@ __metadata:
     encoding:
       optional: true
   checksum: d76d2f5edb451a3f05b15115ec89fc6be39de37c6089f1b6368df03b91e1633fd379a7e01b7ab05089a25034b2023d959b47e59759cb38d88341b2459e89d6e5
-  languageName: node
-  linkType: hard
-
-"node-fetch@npm:^3.3.1":
-  version: 3.3.2
-  resolution: "node-fetch@npm:3.3.2"
-  dependencies:
-    data-uri-to-buffer: ^4.0.0
-    fetch-blob: ^3.1.4
-    formdata-polyfill: ^4.0.10
-  checksum: 06a04095a2ddf05b0830a0d5302699704d59bda3102894ea64c7b9d4c865ecdff2d90fd042df7f5bc40337266961cb6183dcc808ea4f3000d024f422b462da92
   languageName: node
   linkType: hard
 
@@ -5732,13 +5556,6 @@ __metadata:
     safe-buffer: ^5.0.1
     sha.js: ^2.4.8
   checksum: 2c950a100b1da72123449208e231afc188d980177d021d7121e96a2de7f2abbc96ead2b87d03d8fe5c318face097f203270d7e27908af9f471c165a4e8e69c92
-  languageName: node
-  linkType: hard
-
-"perf_hooks@npm:^0.0.1":
-  version: 0.0.1
-  resolution: "perf_hooks@npm:0.0.1"
-  checksum: a38f6397943cd55b7780e1ae504f187d218a4c986afcdd674a68fc4937aa415f29e3e007c26e498b55e277052f1bee3028b348ce7509ad1a47c2e8d0d381bd87
   languageName: node
   linkType: hard
 
@@ -6539,15 +6356,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stream@npm:^0.0.2":
-  version: 0.0.2
-  resolution: "stream@npm:0.0.2"
-  dependencies:
-    emitter-component: ^1.1.1
-  checksum: 43d89e176c282234d452754f9b55a82c74ea68345bf6176af32c4c213801f88df7984c83ec5a735457705dddf4668373edb9f0ec270a7491e1d881631a763978
-  languageName: node
-  linkType: hard
-
 "string-length@npm:^4.0.1":
   version: 4.0.2
   resolution: "string-length@npm:4.0.2"
@@ -6862,44 +6670,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-node@npm:^10.4.0":
-  version: 10.9.1
-  resolution: "ts-node@npm:10.9.1"
-  dependencies:
-    "@cspotcode/source-map-support": ^0.8.0
-    "@tsconfig/node10": ^1.0.7
-    "@tsconfig/node12": ^1.0.7
-    "@tsconfig/node14": ^1.0.0
-    "@tsconfig/node16": ^1.0.2
-    acorn: ^8.4.1
-    acorn-walk: ^8.1.1
-    arg: ^4.1.0
-    create-require: ^1.1.0
-    diff: ^4.0.1
-    make-error: ^1.1.1
-    v8-compile-cache-lib: ^3.0.1
-    yn: 3.1.1
-  peerDependencies:
-    "@swc/core": ">=1.2.50"
-    "@swc/wasm": ">=1.2.50"
-    "@types/node": "*"
-    typescript: ">=2.7"
-  peerDependenciesMeta:
-    "@swc/core":
-      optional: true
-    "@swc/wasm":
-      optional: true
-  bin:
-    ts-node: dist/bin.js
-    ts-node-cwd: dist/bin-cwd.js
-    ts-node-esm: dist/bin-esm.js
-    ts-node-script: dist/bin-script.js
-    ts-node-transpile-only: dist/bin-transpile.js
-    ts-script: dist/bin-script-deprecated.js
-  checksum: 090adff1302ab20bd3486e6b4799e90f97726ed39e02b39e566f8ab674fd5bd5f727f43615debbfc580d33c6d9d1c6b1b3ce7d8e3cca3e20530a145ffa232c35
-  languageName: node
-  linkType: hard
-
 "ts-node@npm:^10.9.2":
   version: 10.9.2
   resolution: "ts-node@npm:10.9.2"
@@ -7048,16 +6818,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^4.5.5":
-  version: 4.9.5
-  resolution: "typescript@npm:4.9.5"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: ee000bc26848147ad423b581bd250075662a354d84f0e06eb76d3b892328d8d4440b7487b5a83e851b12b255f55d71835b008a66cbf8f255a11e4400159237db
-  languageName: node
-  linkType: hard
-
 "typescript@npm:^5.3.3":
   version: 5.3.3
   resolution: "typescript@npm:5.3.3"
@@ -7065,16 +6825,6 @@ __metadata:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 2007ccb6e51bbbf6fde0a78099efe04dc1c3dfbdff04ca3b6a8bc717991862b39fd6126c0c3ebf2d2d98ac5e960bcaa873826bb2bb241f14277034148f41f6a2
-  languageName: node
-  linkType: hard
-
-"typescript@patch:typescript@^4.5.5#~builtin<compat/typescript>":
-  version: 4.9.5
-  resolution: "typescript@patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=23ec76"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: ab417a2f398380c90a6cf5a5f74badd17866adf57f1165617d6a551f059c3ba0a3e4da0d147b3ac5681db9ac76a303c5876394b13b3de75fdd5b1eaa06181c9d
   languageName: node
   linkType: hard
 
@@ -7202,13 +6952,6 @@ __metadata:
   dependencies:
     makeerror: 1.0.12
   checksum: ad7a257ea1e662e57ef2e018f97b3c02a7240ad5093c392186ce0bcf1f1a60bbadd520d073b9beb921ed99f64f065efb63dfc8eec689a80e569f93c1c5d5e16c
-  languageName: node
-  linkType: hard
-
-"web-streams-polyfill@npm:^3.0.3":
-  version: 3.2.1
-  resolution: "web-streams-polyfill@npm:3.2.1"
-  checksum: b119c78574b6d65935e35098c2afdcd752b84268e18746606af149e3c424e15621b6f1ff0b42b2676dc012fc4f0d313f964b41a4b5031e525faa03997457da02
   languageName: node
   linkType: hard
 

@@ -1,6 +1,24 @@
+# Examples
+
+## Basic
+
+```typescript
+import { Frame, FrameAspectRatio } from '@poap-xyz/frames';
+
+const frame = new Frame({
+  title: 'Hello World',
+  image: 'https://placehold.co/600x600',
+  aspectRatio: FrameAspectRatio.SQUARE,
+  postUrl: 'https://poap.xyz',
+});
+```
+
+## With Buttons
+
+```typescript
 import { Frame, FrameAspectRatio, FrameButtonAction } from '@poap-xyz/frames';
 
-export const FRAME_WITH_BUTTONS = new Frame({
+const frameWithButtons = new Frame({
   title: 'Hello World',
   image: 'https://placehold.co/600x600',
   aspectRatio: FrameAspectRatio.SQUARE,
@@ -19,3 +37,4 @@ export const FRAME_WITH_BUTTONS = new Frame({
     },
   ],
 });
+```
