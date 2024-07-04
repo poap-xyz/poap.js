@@ -66,7 +66,7 @@ export class Drop {
       transferCount: Number(
         response.stats_by_chain_aggregate.aggregate.sum.transfer_count,
       ),
-      emailReservationCount: Number(response.email_claims_stats.total),
+      emailReservationCount: Number(response.email_claims_stats?.total) || 0,
     });
   }
 
