@@ -27,7 +27,7 @@ export interface DropResponse {
     };
   };
   email_claims_stats: {
-    total: number;
+    reserved: number;
   };
   drop_image: {
     gateways: Array<{

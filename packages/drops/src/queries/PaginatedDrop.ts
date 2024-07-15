@@ -41,7 +41,7 @@ export const PAGINATED_DROPS_QUERY = `
         }
       }
       email_claims_stats {
-        total
+        reserved
       }
       drop_image {
         gateways {
