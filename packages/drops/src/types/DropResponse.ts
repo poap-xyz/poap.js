@@ -34,5 +34,5 @@ export interface DropResponse {
       type: 'CROP' | 'ORIGINAL';
       url: string;
     }>;
-  };
+  } | null;
 }

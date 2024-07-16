@@ -27,17 +27,7 @@ export class Drop {
   emailReservationCount: number;
 
   public static fromCompass(response: DropResponse): Drop {
-    const images: { crop: string; original: string } =
-      response.drop_image.gateways.reduce(
-        (images, gateway) => ({
-          ...images,
-          [gateway.type.toLowerCase()]: gateway.url,
-        }),
-        {
-          crop: response.image_url,
-          original: response.image_url,
-        },
-      );
+    const images = Drop.getDropImageFromCompass(response);
 
     return new Drop({
       id: Number(response.id),
@@ -68,6 +58,26 @@ export class Drop {
       ),
       emailReservationCount: Number(response.email_claims_stats?.reserved) || 0,
     });
+  }
+
+  private static getDropImageFromCompass(response: DropResponse): {
+    crop: string;
+    original: string;
+  } {
+    const defaultImage = {
+      crop: response.image_url,
+      original: response.image_url,
+    };
+
+    return (
+      response.drop_image?.gateways.reduce(
+        (images, gateway) => ({
+          ...images,
+          [gateway.type.toLowerCase()]: gateway.url,
+        }),
+        defaultImage,
+      ) || defaultImage
+    );
   }
 
   public static fromProvider(response: ProviderDropResponse): Drop {
