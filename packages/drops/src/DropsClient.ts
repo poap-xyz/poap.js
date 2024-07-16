@@ -1,15 +1,14 @@
 import { CompassProvider, DropApiProvider } from '@poap-xyz/providers';
 import {
-  PaginatedResult,
-  nextCursor,
   createBetweenFilter,
-  createInFilter,
-  Order,
-  isNumeric,
-  removeSpecialCharacters,
-  createOrderBy,
   createBoolFilter,
+  createInFilter,
   createLikeFilter,
+  createOrderBy,
+  isNumeric,
+  nextCursor,
+  Order,
+  PaginatedResult,
   toPOAPDate,
 } from '@poap-xyz/utils';
 import { Drop } from './domain/Drop';
@@ -116,7 +115,7 @@ export class DropsClient {
       offset,
       ...(isNumeric(search) && { orderBy: { id: Order.ASC } }),
       args: {
-        search: removeSpecialCharacters(search),
+        search,
       },
     };
 
