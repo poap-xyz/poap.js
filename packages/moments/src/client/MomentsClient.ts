@@ -20,6 +20,7 @@ import { CreateSteps } from './dtos/create/CreateSteps';
 import { PatchMomentInput } from './dtos/patch/PatchInput';
 import { FetchMomentsInput } from './dtos/fetch/FetchMomentsInput';
 import { MomentsSortFields } from './dtos/fetch/MomentsSortFields';
+import { CreateAndUploadMomentInput } from './dtos/create/CreateAndUploadInput';
 
 export class MomentsClient {
   constructor(
@@ -27,10 +28,13 @@ export class MomentsClient {
     private CompassProvider: CompassProvider,
   ) {}
 
-  public async createMoment(input: CreateMomentInput): Promise<Moment> {
+  /** Uploads media files first, then creates the Moment. */
+  public async createMomentAndUploadMedia(
+    input: CreateAndUploadMomentInput,
+  ): Promise<Moment> {
     let mediaKeys: string[] = [];
     if (input.media && input.media.length > 0) {
-      mediaKeys = await this.uploadMedias(
+      mediaKeys = await this.uploadMediaList(
         input.media,
         input.onStepUpdate,
         input.onFileUploadProgress,
@@ -39,20 +43,25 @@ export class MomentsClient {
     }
 
     if (mediaKeys.length > 0) {
-      await this.awaitForMediasProcessing(
+      await this.awaitForMediaProcessing(
         mediaKeys,
         input.onStepUpdate,
         input.timeOut,
       );
     }
 
+    return this.createMoment({ ...input, mediaKeys });
+  }
+
+  /** Creates the Moment, attaching previously uploaded media when applicable. */
+  public async createMoment(input: CreateMomentInput): Promise<Moment> {
     void input.onStepUpdate?.(CreateSteps.UPLOADING_MOMENT);
     const response = await this.poapMomentsApi.createMoment({
       dropId: input.dropId,
       author: input.author,
       tokenId: input.tokenId,
       description: input.description,
-      mediaKeys,
+      mediaKeys: input.mediaKeys || [],
     });
     void input.onStepUpdate?.(CreateSteps.FINISHED);
 
@@ -60,7 +69,7 @@ export class MomentsClient {
   }
 
   // eslint-disable-next-line max-statements
-  private async uploadMedias(
+  public async uploadMediaList(
     mediaArray: CreateMedia[],
     onStepUpdate?: (step: CreateSteps) => void | Promise<void>,
     onFileUploadProgress?: (progress: number) => void | Promise<void>,
@@ -89,7 +98,7 @@ export class MomentsClient {
     return mediaKeys;
   }
 
-  private async awaitForMediasProcessing(
+  public async awaitForMediaProcessing(
     mediaKeys: string[],
     onStepUpdate?: (step: CreateSteps) => void | Promise<void>,
     timeOut?: number,
