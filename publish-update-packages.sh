@@ -35,11 +35,11 @@ for pkg in "${DIRS[@]}"; do
 
   else
     echo "No version change detected in $pkg"
+  fi
 
-    # Change back to the original directory
-    if ! cd - > /dev/null; then
-      echo "Error: Unable to change back to original directory"
-      exit 1
-    fi
+  # Change back to the original directory
+  if ! cd - > /dev/null; then
+    echo "Error: Unable to change back to original directory"
+    exit 1
   fi
 done
