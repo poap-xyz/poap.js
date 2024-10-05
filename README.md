@@ -69,20 +69,6 @@ yarn build
 yarn test
 ```
 
-## Examples
-
-The `examples` folder contains various examples to help you understand how to use the POAP Package Library. To run these
-examples, follow these steps:
-
-1. Replace the placeholder `'your_api_key'` with your actual API key in the example files.
-2. Run the examples using the `yarn start` command.
-
-Inside the `examples` folder, you'll find subfolders for each method, showcasing different ways to interact with each
-client.
-
-Feel free to explore these examples to learn how to use the library effectively and get a better understanding of the
-available functionality.
-
 ## Documentation
 
 You can find the documentation in this link: [POAP.js Documentation](https://sdk.poap.tech/)
