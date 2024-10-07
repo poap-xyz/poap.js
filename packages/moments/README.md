@@ -61,7 +61,7 @@ const input: CreateMomentInput = {
     },
     timeOut: 5000, // Optional: Set a timeout for the media processing
 };
-const moment: Moment = await client.createMoment(input);
+const moment: Moment = await client.createMomentAndUploadMedia(input);
 ```
 
 Explanations for each step:

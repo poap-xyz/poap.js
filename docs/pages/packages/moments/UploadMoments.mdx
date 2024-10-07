@@ -15,7 +15,7 @@ const fileBuffer = await fsPromises.readFile('path/to/poap-moment.png');
 const mimeType = mime.getType('path/to/poap-moment.png');
 
 // Upload it.
-const moment: Moment = await client.createMoment({
+const moment: Moment = await client.createMomentAndUploadMedia({
   /**
    * Moments are associated with a Drop.
    */
