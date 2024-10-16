@@ -884,7 +884,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@poap-xyz/drops@workspace:packages/drops"
   dependencies:
-    "@poap-xyz/providers": 0.5.5
+    "@poap-xyz/providers": 0.5.6
     "@poap-xyz/utils": 0.5.5
   languageName: unknown
   linkType: soft
@@ -917,7 +917,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@poap-xyz/providers@0.5.5, @poap-xyz/providers@workspace:packages/providers":
+"@poap-xyz/providers@0.5.6, @poap-xyz/providers@workspace:packages/providers":
   version: 0.0.0-use.local
   resolution: "@poap-xyz/providers@workspace:packages/providers"
   dependencies:
@@ -928,6 +928,17 @@ __metadata:
     lodash.chunk: ^4.2.0
   languageName: unknown
   linkType: soft
+
+"@poap-xyz/providers@npm:0.5.5":
+  version: 0.5.5
+  resolution: "@poap-xyz/providers@npm:0.5.5"
+  dependencies:
+    "@poap-xyz/utils": 0.5.5
+    axios: ^1.6.8
+    lodash.chunk: ^4.2.0
+  checksum: 7648e7cbcd68610591a9a5a2123271a80791224ba9fb5d1c4fc86318514c863e9888450183cfc35aa2a45f6fc09a9f9e87299771f78fda807e9e0062a1bb4fd1
+  languageName: node
+  linkType: hard
 
 "@poap-xyz/utils@0.5.5, @poap-xyz/utils@workspace:packages/utils":
   version: 0.0.0-use.local
