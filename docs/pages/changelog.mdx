@@ -15,3 +15,8 @@
 
 - Packages do not export input types anymore.
 - Drop properties are not exported anymore.
+
+## 0.6.0
+
+- `createMoment` does not upload media beforehand anymore. Use `createMomentAndUploadMedia` instead.
+- For compass requests, the fetch signal is not a parameter of the `PoapCompass.request` method anymore, it must be given through the new `options` parameter: `compass.request(url, { variables }, { signal })`.

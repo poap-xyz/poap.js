@@ -42,29 +42,32 @@ export class PoapCompass implements CompassProvider {
    * @name PoapCompass#fetchGraphQL
    * @param {string} query - The GraphQL query to fetch.
    * @param {{ readonly [variable: string]: unknown }} variables - The variables to include with the query.
-   * @param {AbortSignal} signal - When given, the request can be aborted with its controller.
+   * @param {RequestInit} options - Additional options to pass to the fetch call.
    * @returns {Promise<R>} A Promise that resolves with the result of the query.
    * @template R - The type of the result.
    */
   private async fetchGraphQL<R>(
     query: string,
     variables: { readonly [variable: string]: unknown },
-    signal?: AbortSignal,
+    options?: RequestInit,
   ): Promise<R> {
     let response: Response;
 
+    const headers: HeadersInit = {
+      ...options?.headers,
+      'Content-Type': 'application/json',
+      'x-api-key': this.apiKey,
+    };
+
     try {
       response = await fetch(this.baseUrl, {
-        signal,
         method: 'POST',
         body: JSON.stringify({
           query,
           variables,
         }),
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': this.apiKey,
-        },
+        ...options,
+        headers,
       });
     } catch (error: unknown) {
       throw new Error(`Network error, received error ${error}`);
@@ -174,22 +177,26 @@ export class PoapCompass implements CompassProvider {
   async request<D, V = { readonly [variable: string]: unknown }>(
     query: string,
     variables?: null | undefined | V,
-    signal?: AbortSignal,
+    options?: RequestInit,
   ): Promise<{ data: D }> {
-    return await this.fetchGraphQL<{ data: D }>(query, variables ?? {}, signal);
+    return await this.fetchGraphQL<{ data: D }>(
+      query,
+      variables ?? {},
+      options,
+    );
   }
 
   async batch<D, V = { readonly [variable: string]: unknown }>(
     query: string,
     variables: V[],
-    signal?: AbortSignal,
+    options?: RequestInit,
   ): Promise<{ data: D }[]> {
     const results: { data: D }[] = [];
     const chunks: V[][] = chunk(variables, this.batchSize);
 
     for (const chunk of chunks) {
       const responses = await Promise.all(
-        chunk.map((variables) => this.request<D, V>(query, variables, signal)),
+        chunk.map((variables) => this.request<D, V>(query, variables, options)),
       );
       results.push(...responses);
     }
