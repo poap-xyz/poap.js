@@ -884,7 +884,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@poap-xyz/drops@workspace:packages/drops"
   dependencies:
-    "@poap-xyz/providers": 0.5.6
+    "@poap-xyz/providers": 0.6.0
     "@poap-xyz/utils": 0.5.5
   languageName: unknown
   linkType: soft
@@ -917,7 +917,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@poap-xyz/providers@0.5.6, @poap-xyz/providers@workspace:packages/providers":
+"@poap-xyz/providers@0.6.0, @poap-xyz/providers@workspace:packages/providers":
   version: 0.0.0-use.local
   resolution: "@poap-xyz/providers@workspace:packages/providers"
   dependencies:
