@@ -11,7 +11,7 @@ export interface CompassProvider {
    * @name CompassProvider#request
    * @param {string} query - The query string to execute.
    * @param {null | undefined | { readonly [variable: string]: unknown }} [variables] - The variables to pass with the query.
-   * @param {AbortSignal} signal - When given, the request can be aborted with its controller.
+   * @param {RequestInit} [options] - Options to pass to the fetch call.
    * @returns {Promise<{ data: D }>} A Promise that resolves with the result of the query.
    * @template D - The type of the result's data.
    * @template V - The type of the query's variables.
@@ -19,7 +19,7 @@ export interface CompassProvider {
   request<D, V = { readonly [variable: string]: unknown }>(
     query: string,
     variables?: null | undefined | V,
-    signal?: AbortSignal,
+    options?: RequestInit,
   ): Promise<{ data: D }>;
 
   /**
@@ -31,7 +31,7 @@ export interface CompassProvider {
    * @name CompassProvider#batch
    * @param {string} query - The query string to execute.
    * @param {{ readonly [variable: string]: unknown }[]} variables - The variables to pass with the each query.
-   * @param {AbortSignal} [signal] - When given, the requests can be aborted with its controller.
+   * @param {RequestInit} [options] - Options to pass to the fetch call.
    * @returns {Promise<{ data: D }[]>} A Promise that resolves with the results of the queries.
    * @template D - The type of the result's data.
    * @template V - The type of the query's variables.
@@ -39,6 +39,6 @@ export interface CompassProvider {
   batch<D, V = { readonly [variable: string]: unknown }>(
     query: string,
     variables: V[],
-    signal?: AbortSignal,
+    options?: RequestInit,
   ): Promise<{ data: D }[]>;
 }
