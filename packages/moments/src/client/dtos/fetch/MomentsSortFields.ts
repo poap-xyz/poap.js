@@ -6,6 +6,5 @@
  */
 export enum MomentsSortFields {
   StartDate = 'start_date',
-  DropId = 'drop_id',
   Id = 'id',
 }

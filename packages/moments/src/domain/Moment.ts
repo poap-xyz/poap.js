@@ -21,9 +21,9 @@ export class Moment {
   public readonly createdOn: Date;
 
   /**
-   * The drop ID related to the moment.
+   * The drop IDs associated with the moment.
    */
-  public readonly dropId: number;
+  public readonly dropIds: number[];
 
   /**
    * The description of the moment.
@@ -40,7 +40,7 @@ export class Moment {
       response.id,
       response.author,
       new Date(response.created_on),
-      response.drop_id,
+      response.drops.map((drop) => drop.drop_id),
       response.description,
       response.cid,
     );
@@ -51,7 +51,7 @@ export class Moment {
       response.id,
       response.author,
       response.createdOn,
-      response.dropId,
+      response.dropIds || [],
       response.description,
       response.cid,
     );
@@ -61,15 +61,15 @@ export class Moment {
     id: string,
     author: string,
     createdOn: Date,
-    dropId: number,
     description?: string,
     cid?: string,
+    dropIds?: number[],
   ) {
     this.id = id;
     this.author = author;
     this.createdOn = createdOn;
-    this.dropId = dropId;
     this.description = description;
     this.cid = cid;
+    this.dropIds = dropIds || [];
   }
 }

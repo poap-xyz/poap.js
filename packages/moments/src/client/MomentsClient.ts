@@ -57,7 +57,7 @@ export class MomentsClient {
   public async createMoment(input: CreateMomentInput): Promise<Moment> {
     void input.onStepUpdate?.(CreateSteps.UPLOADING_MOMENT);
     const response = await this.poapMomentsApi.createMoment({
-      dropId: input.dropId,
+      dropIds: input.dropIds,
       author: input.author,
       description: input.description,
       mediaKeys: input.mediaKeys || [],
@@ -146,7 +146,6 @@ export class MomentsClient {
     to,
     author,
     idOrder,
-    dropIdOrder,
   }: FetchMomentsInput): Promise<PaginatedResult<Moment>> {
     const variables: MomentsQueryVariables = {
       limit,
@@ -155,10 +154,6 @@ export class MomentsClient {
         ...createOrderBy<MomentsSortFields>(
           MomentsSortFields.StartDate,
           createdOrder,
-        ),
-        ...createOrderBy<MomentsSortFields>(
-          MomentsSortFields.DropId,
-          dropIdOrder,
         ),
         ...createOrderBy<MomentsSortFields>(MomentsSortFields.Id, idOrder),
       },

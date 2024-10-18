@@ -1,6 +1,7 @@
 /** Object describing the input required to create a Moment */
 export interface CreateMomentInput {
-  dropId: number;
+  /** The IDs of the Drops to associate with the Moment */
+  dropIds: number[];
   /** The author of the Moment. An Ethereum address. */
   author: string;
   /** The media keys associated with the Moment */

@@ -14,7 +14,9 @@ export const PAGINATED_MOMENTS_QUERY = /* GraphQL */ `
     moments(limit: $limit, offset: $offset, order_by: $orderBy, where: $where) {
       author
       created_on
-      drop_id
+      drops {
+        drop_id
+      }
       id
       description
       cid

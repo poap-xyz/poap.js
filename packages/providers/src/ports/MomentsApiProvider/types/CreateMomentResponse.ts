@@ -10,10 +10,8 @@ export interface CreateMomentResponse {
    */
   createdOn: Date;
 
-  /**
-   * The drop ID related to the moment.
-   */
-  dropId: number;
+  /** The drop IDs associated to the moment. */
+  dropIds: number[];
 
   /** The description of the moment. */
   description?: string;

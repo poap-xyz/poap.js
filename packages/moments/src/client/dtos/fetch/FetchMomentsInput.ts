@@ -6,7 +6,6 @@ import { Order, PaginationInput } from '@poap-xyz/utils';
  * @property {number} limit - The maximum number of moments to fetch.
  * @property {number} offset - The number of moments to skip before starting to fetch.
  * @property {string} [createdOrder] - The order to use for sorting by creation time (optional).
- * @property {string} [dropIdOrder] - The order to use for sorting by drop ID (optional).
  * @property {string} [idOrder] - The order to use for sorting by moment ID (optional).
  * @property {string} [author] - The author of the moments to fetch (optional).
  * @property {string} [from] - The start date for filtering moments by creation time (optional).
@@ -16,7 +15,6 @@ import { Order, PaginationInput } from '@poap-xyz/utils';
  */
 export interface FetchMomentsInput extends PaginationInput {
   createdOrder?: Order;
-  dropIdOrder?: Order;
   idOrder?: Order;
   author?: string;
   from?: string;

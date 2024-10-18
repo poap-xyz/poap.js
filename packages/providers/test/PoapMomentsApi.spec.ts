@@ -107,7 +107,7 @@ describe('PoapMomentsApi', () => {
 
   describe('createMoment', () => {
     const createMomentInput: CreateMomentInput = {
-      dropId: 1,
+      dropIds: [1],
       author: '0x1234',
       mediaKeys: ['mock-media-key'],
       description: 'This is a test description',
@@ -118,7 +118,7 @@ describe('PoapMomentsApi', () => {
         id: '1',
         author: '0x1234',
         createdOn: '2023-01-01T00:00:00.000Z',
-        dropId: 1,
+        dropIds: [1],
         description: 'This is a test description',
       };
 

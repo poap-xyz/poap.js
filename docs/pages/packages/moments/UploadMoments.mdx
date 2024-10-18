@@ -17,9 +17,9 @@ const mimeType = mime.getType('path/to/poap-moment.png');
 // Upload it.
 const moment: Moment = await client.createMomentAndUploadMedia({
   /**
-   * Moments are associated with a Drop.
+   * Drops to be associated to the Moment.
    */
-  dropId: 110148,
+  dropIds: [110148],
 
   /**
    * Who is uploading the moment.
