@@ -1,6 +1,5 @@
 import { CreateMomentInput } from './types/CreateMomentInput';
 import { CreateMomentResponse } from './types/CreateMomentResponse';
-import { PatchMomentInput } from './types/PatchMomentInput';
 import { MediaStatus } from './types/MediaStatus';
 
 /**
@@ -56,14 +55,4 @@ export interface MomentsApiProvider {
    * @returns {Promise<MediaStatus>} - A Promise that resolves with the media processing status
    */
   fetchMediaStatus(mediaKey: string): Promise<MediaStatus>;
-
-  /**
-   * Updates a moment on the API.
-   * @async
-   * @function
-   * @name MomentsApiProvider#patchMoment
-   * @param {string} id - The Moment id.
-   * @param {PatchMomentInput} input - The input data for updating a moment.
-   */
-  patchMoment(id: string, input: PatchMomentInput): Promise<void>;
 }

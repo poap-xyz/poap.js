@@ -45,8 +45,7 @@ const client = new MomentsClient(
 );
 
 const input: CreateMomentInput = {
-    dropId: 110148,
-    tokenId: 6568008, // Optional: The Token ID related to the moment
+    dropIds: [110148],
     media: [{
         fileBinary: await fs.promises.readFile('src/assets/poap.png'),
         fileType: 'image/png',

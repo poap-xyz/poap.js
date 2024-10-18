@@ -20,3 +20,12 @@
 
 - `createMoment` does not upload media beforehand anymore. Use `createMomentAndUploadMedia` instead.
 - For compass requests, the fetch signal is not a parameter of the `PoapCompass.request` method anymore, it must be given through the new `options` parameter: `compass.request(url, { variables }, { signal })`.
+
+## 0.7.0
+
+- `dropId` has been changed to `dropIds` on the Moment type. It is now an array of 0 to multiple numerical IDs.
+  - This change is reflected in both the Moment creation input and the Moment response during creation or fetching.
+- The CID is no longer a property of the Moment type.
+- The token ID is no longer a property of the Moment type.
+- `patchMoment` is no longer a method of the Moments client.
+- It is no longer possible to order fetched Moments by token ID or drop ID.
