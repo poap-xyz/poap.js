@@ -61,7 +61,7 @@ describe('MomentsClient', () => {
       poapMomentsAPIMocked.createMoment.mockResolvedValue({
         id: MOMENT_ID,
         author: AUTHOR,
-        createdOn: new Date(),
+        createdOn: new Date().toISOString(),
         dropIds: DROP_IDS,
         description: DESCRIPTION,
       });
@@ -129,7 +129,7 @@ describe('MomentsClient', () => {
       poapMomentsAPIMocked.createMoment.mockResolvedValue({
         id: MOMENT_ID,
         author: AUTHOR,
-        createdOn: new Date(),
+        createdOn: new Date().toISOString(),
         dropIds: DROP_IDS,
       });
 

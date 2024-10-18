@@ -50,7 +50,7 @@ export class Moment {
     return new Moment(
       response.id,
       response.author,
-      response.createdOn,
+      new Date(response.createdOn),
       response.dropIds || [],
       response.description,
       response.cid,

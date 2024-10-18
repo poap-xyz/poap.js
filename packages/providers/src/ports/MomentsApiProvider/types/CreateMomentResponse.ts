@@ -5,10 +5,8 @@ export interface CreateMomentResponse {
   /** The author of the moment (for now only ETH accounts). */
   author: string;
 
-  /**
-   * When the moment was received on the API.
-   */
-  createdOn: Date;
+  /** When the moment was received on the API. */
+  createdOn: string;
 
   /** The drop IDs associated to the moment. */
   dropIds: number[];
