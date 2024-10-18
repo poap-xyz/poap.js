@@ -59,7 +59,6 @@ export class MomentsClient {
     const response = await this.poapMomentsApi.createMoment({
       dropId: input.dropId,
       author: input.author,
-      tokenId: input.tokenId,
       description: input.description,
       mediaKeys: input.mediaKeys || [],
     });
@@ -142,13 +141,11 @@ export class MomentsClient {
     offset,
     id,
     createdOrder,
-    token_id,
     drop_ids,
     from,
     to,
     author,
     idOrder,
-    tokenIdOrder,
     dropIdOrder,
   }: FetchMomentsInput): Promise<PaginatedResult<Moment>> {
     const variables: MomentsQueryVariables = {
@@ -160,17 +157,12 @@ export class MomentsClient {
           createdOrder,
         ),
         ...createOrderBy<MomentsSortFields>(
-          MomentsSortFields.TokenId,
-          tokenIdOrder,
-        ),
-        ...createOrderBy<MomentsSortFields>(
           MomentsSortFields.DropId,
           dropIdOrder,
         ),
         ...createOrderBy<MomentsSortFields>(MomentsSortFields.Id, idOrder),
       },
       where: {
-        ...createEqFilter('token_id', token_id),
         ...createInFilter('drop_id', drop_ids),
         ...createLikeFilter('author', author),
         ...createBetweenFilter('created_on', from, to),

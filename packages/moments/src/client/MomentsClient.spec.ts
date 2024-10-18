@@ -10,7 +10,6 @@ import { CreateAndUploadMomentInput } from './dtos/create/CreateAndUploadInput';
 describe('MomentsClient', () => {
   const MOMENT_ID = 'this-is-a-moment-id';
   const DROP_ID = 420;
-  const TOKEN_ID = 69;
   const AUTHOR = '0x7CE5368171cC3D988157d7dab3D313d7bd43de3e';
   const FILE_1 = Buffer.from('This is the file 1');
   const FILE_1_TYPE = 'image/png';
@@ -54,7 +53,6 @@ describe('MomentsClient', () => {
       );
       const inputs: CreateAndUploadMomentInput = {
         dropId: DROP_ID,
-        tokenId: TOKEN_ID,
         media: MEDIAS_TO_CREATE,
         author: AUTHOR,
         onStepUpdate,
@@ -65,7 +63,6 @@ describe('MomentsClient', () => {
         author: AUTHOR,
         createdOn: new Date(),
         dropId: DROP_ID,
-        tokenId: TOKEN_ID,
       });
       const mediaKeys: string[] = [];
       poapMomentsAPIMocked.getSignedUrl.mockImplementation(async () => {
@@ -79,7 +76,6 @@ describe('MomentsClient', () => {
 
       const EXPECTED_MOMENT_CREATE_INPUT = {
         dropId: DROP_ID,
-        tokenId: TOKEN_ID,
         author: AUTHOR,
         description: DESCRIPTION,
         mediaKeys,
@@ -92,7 +88,6 @@ describe('MomentsClient', () => {
       expect(moment.id).toBe(MOMENT_ID);
       expect(moment.author).toBe(AUTHOR);
       expect(moment.dropId).toBe(DROP_ID);
-      expect(moment.tokenId).toBe(TOKEN_ID);
       expect(poapMomentsAPIMocked.createMoment).toHaveBeenCalledWith(
         EXPECTED_MOMENT_CREATE_INPUT,
       );
@@ -125,7 +120,6 @@ describe('MomentsClient', () => {
       );
       const inputs: CreateMomentInput = {
         dropId: DROP_ID,
-        tokenId: TOKEN_ID,
         mediaKeys: MEDIA_KEYS,
         author: AUTHOR,
         onStepUpdate,
@@ -136,12 +130,10 @@ describe('MomentsClient', () => {
         author: AUTHOR,
         createdOn: new Date(),
         dropId: DROP_ID,
-        tokenId: TOKEN_ID,
       });
 
       const EXPECTED_MOMENT_CREATE_INPUT = {
         dropId: DROP_ID,
-        tokenId: TOKEN_ID,
         author: AUTHOR,
         description: DESCRIPTION,
         mediaKeys: MEDIA_KEYS,
@@ -154,7 +146,6 @@ describe('MomentsClient', () => {
       expect(moment.id).toBe(MOMENT_ID);
       expect(moment.author).toBe(AUTHOR);
       expect(moment.dropId).toBe(DROP_ID);
-      expect(moment.tokenId).toBe(TOKEN_ID);
       expect(poapMomentsAPIMocked.createMoment).toHaveBeenCalledWith(
         EXPECTED_MOMENT_CREATE_INPUT,
       );

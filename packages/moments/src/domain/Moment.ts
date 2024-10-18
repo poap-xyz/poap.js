@@ -26,11 +26,6 @@ export class Moment {
   public readonly dropId: number;
 
   /**
-   * The token ID related to the moment (optional).
-   */
-  public readonly tokenId?: number;
-
-  /**
    * The description of the moment.
    */
   public readonly description?: string;
@@ -46,7 +41,6 @@ export class Moment {
       response.author,
       new Date(response.created_on),
       response.drop_id,
-      response.token_id,
       response.description,
       response.cid,
     );
@@ -58,7 +52,6 @@ export class Moment {
       response.author,
       response.createdOn,
       response.dropId,
-      response.tokenId,
       response.description,
       response.cid,
     );
@@ -69,7 +62,6 @@ export class Moment {
     author: string,
     createdOn: Date,
     dropId: number,
-    tokenId?: number,
     description?: string,
     cid?: string,
   ) {
@@ -77,7 +69,6 @@ export class Moment {
     this.author = author;
     this.createdOn = createdOn;
     this.dropId = dropId;
-    this.tokenId = tokenId;
     this.description = description;
     this.cid = cid;
   }
