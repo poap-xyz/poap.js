@@ -63,6 +63,7 @@ describe('MomentsClient', () => {
         author: AUTHOR,
         createdOn: new Date(),
         dropIds: DROP_IDS,
+        description: DESCRIPTION,
       });
       const mediaKeys: string[] = [];
       poapMomentsAPIMocked.getSignedUrl.mockImplementation(async () => {

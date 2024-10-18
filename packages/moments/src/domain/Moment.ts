@@ -28,12 +28,12 @@ export class Moment {
   /**
    * The description of the moment.
    */
-  public readonly description?: string;
+  public readonly description: string | null;
 
   /**
    * The cid of the moment in Registry
    */
-  public readonly cid?: string;
+  public readonly cid: string | null;
 
   public static fromCompass(response: MomentResponse): Moment {
     return new Moment(
@@ -61,15 +61,15 @@ export class Moment {
     id: string,
     author: string,
     createdOn: Date,
-    description?: string,
-    cid?: string,
     dropIds?: number[],
+    description?: string | null,
+    cid?: string | null,
   ) {
     this.id = id;
     this.author = author;
     this.createdOn = createdOn;
-    this.description = description;
-    this.cid = cid;
     this.dropIds = dropIds || [];
+    this.description = description || null;
+    this.cid = cid || null;
   }
 }
