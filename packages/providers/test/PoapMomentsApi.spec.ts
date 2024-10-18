@@ -99,9 +99,9 @@ describe('PoapMomentsApi', () => {
         .onGet(`${BASE_URL}/media/${mediaKey}`)
         .reply(200, invalidMediaResponse);
 
-      await expect(
-        api.waitForMediaProcessing(mediaKey, 5000),
-      ).rejects.toThrowError(InvalidMediaError);
+      await expect(api.waitForMediaProcessing(mediaKey, 5000)).rejects.toThrow(
+        InvalidMediaError,
+      );
     });
   });
 
