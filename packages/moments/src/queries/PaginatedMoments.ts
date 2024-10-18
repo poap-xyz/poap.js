@@ -19,7 +19,6 @@ export const PAGINATED_MOMENTS_QUERY = /* GraphQL */ `
       }
       id
       description
-      cid
     }
   }
 `;
@@ -30,7 +29,6 @@ export interface MomentResponse {
   drops: { drop_id: number }[];
   id: string;
   description: string | null;
-  cid: string | null;
 }
 
 export interface MomentsQueryResponse {

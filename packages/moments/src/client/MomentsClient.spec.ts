@@ -4,7 +4,6 @@ import { MomentsClient } from './MomentsClient';
 import { CreateMomentInput } from './dtos/create/CreateInput';
 import { CreateSteps } from './dtos/create/CreateSteps';
 import { v4 } from 'uuid';
-import { PatchMomentInput } from './dtos/patch/PatchInput';
 import { CreateAndUploadMomentInput } from './dtos/create/CreateAndUploadInput';
 
 describe('MomentsClient', () => {
@@ -17,8 +16,6 @@ describe('MomentsClient', () => {
   const FILE_2_TYPE = 'image/jpeg';
   const MEDIA_UPLOAD_URL = 'this-is-a-media-upload-url';
   const DESCRIPTION = 'This is a description';
-  const MOMENT_CID =
-    '0001-7ce5368171cc3d988157d7dab3d313d7bd43de3e-365e5b83699adce0825021d011f1bf73bd5ef9369d06e49645afbea2ef34f54e0557c1d4742c8bd6d1f7a02be4aa483c03888af0aa143d5aa7351e2baaf931231c.moment';
   const MEDIAS_TO_CREATE = [
     {
       fileBinary: FILE_1,
@@ -154,27 +151,6 @@ describe('MomentsClient', () => {
       expect(onStepUpdate).toHaveBeenCalledWith(CreateSteps.UPLOADING_MOMENT);
       expect(onStepUpdate).toHaveBeenCalledWith(CreateSteps.FINISHED);
       expect(onStepUpdate).toHaveBeenCalledTimes(2);
-    });
-  });
-  describe('updateMoment', () => {
-    it('should update a moment', async () => {
-      // GIVEN
-      const client = new MomentsClient(
-        poapMomentsAPIMocked,
-        compassProviderMocked,
-      );
-      const input: PatchMomentInput = {
-        cid: MOMENT_CID,
-      };
-      poapMomentsAPIMocked.patchMoment.mockResolvedValue();
-
-      // WHEN
-      await client.patchMoment(MOMENT_ID, input);
-
-      // THEN
-      expect(poapMomentsAPIMocked.patchMoment).toHaveBeenCalledWith(MOMENT_ID, {
-        cid: MOMENT_CID,
-      });
     });
   });
 });

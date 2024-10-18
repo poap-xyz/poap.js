@@ -17,7 +17,6 @@ import {
 import { CreateMedia } from './dtos/create/CreateMedia';
 import { CreateMomentInput } from './dtos/create/CreateInput';
 import { CreateSteps } from './dtos/create/CreateSteps';
-import { PatchMomentInput } from './dtos/patch/PatchInput';
 import { FetchMomentsInput } from './dtos/fetch/FetchMomentsInput';
 import { MomentsSortFields } from './dtos/fetch/MomentsSortFields';
 import { CreateAndUploadMomentInput } from './dtos/create/CreateAndUploadInput';
@@ -180,9 +179,5 @@ export class MomentsClient {
     );
 
     return result;
-  }
-
-  public async patchMoment(id: string, input: PatchMomentInput): Promise<void> {
-    await this.poapMomentsApi.patchMoment(id, input);
   }
 }
