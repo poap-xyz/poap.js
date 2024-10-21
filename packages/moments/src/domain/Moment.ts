@@ -21,34 +21,22 @@ export class Moment {
   public readonly createdOn: Date;
 
   /**
-   * The drop ID related to the moment.
+   * The drop IDs associated with the moment.
    */
-  public readonly dropId: number;
-
-  /**
-   * The token ID related to the moment (optional).
-   */
-  public readonly tokenId?: number;
+  public readonly dropIds: number[];
 
   /**
    * The description of the moment.
    */
-  public readonly description?: string;
-
-  /**
-   * The cid of the moment in Registry
-   */
-  public readonly cid?: string;
+  public readonly description: string | null;
 
   public static fromCompass(response: MomentResponse): Moment {
     return new Moment(
       response.id,
       response.author,
       new Date(response.created_on),
-      response.drop_id,
-      response.token_id,
+      response.drops.map((drop) => drop.drop_id),
       response.description,
-      response.cid,
     );
   }
 
@@ -56,11 +44,9 @@ export class Moment {
     return new Moment(
       response.id,
       response.author,
-      response.createdOn,
-      response.dropId,
-      response.tokenId,
-      response.description,
-      response.cid,
+      new Date(response.createdOn),
+      response.dropIds || [],
+      response.description || null,
     );
   }
 
@@ -68,17 +54,13 @@ export class Moment {
     id: string,
     author: string,
     createdOn: Date,
-    dropId: number,
-    tokenId?: number,
-    description?: string,
-    cid?: string,
+    dropIds: number[],
+    description: string | null,
   ) {
     this.id = id;
     this.author = author;
     this.createdOn = createdOn;
-    this.dropId = dropId;
-    this.tokenId = tokenId;
-    this.description = description;
-    this.cid = cid;
+    this.dropIds = dropIds || [];
+    this.description = description || null;
   }
 }

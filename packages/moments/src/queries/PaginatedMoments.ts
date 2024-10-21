@@ -4,7 +4,7 @@ import {
   PaginatedVariables,
 } from '@poap-xyz/utils';
 
-export const PAGINATED_MOMENTS_QUERY = `
+export const PAGINATED_MOMENTS_QUERY = /* GraphQL */ `
   query PaginatedMoments(
     $limit: Int!
     $offset: Int!
@@ -14,11 +14,11 @@ export const PAGINATED_MOMENTS_QUERY = `
     moments(limit: $limit, offset: $offset, order_by: $orderBy, where: $where) {
       author
       created_on
-      drop_id
+      drops {
+        drop_id
+      }
       id
-      token_id
       description
-      cid
     }
   }
 `;
@@ -26,11 +26,9 @@ export const PAGINATED_MOMENTS_QUERY = `
 export interface MomentResponse {
   author: string;
   created_on: string;
-  drop_id: number;
+  drops: { drop_id: number }[];
   id: string;
-  token_id: number;
-  description?: string;
-  cid?: string;
+  description: string | null;
 }
 
 export interface MomentsQueryResponse {

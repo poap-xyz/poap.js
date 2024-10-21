@@ -17,7 +17,6 @@ import {
 import { CreateMedia } from './dtos/create/CreateMedia';
 import { CreateMomentInput } from './dtos/create/CreateInput';
 import { CreateSteps } from './dtos/create/CreateSteps';
-import { PatchMomentInput } from './dtos/patch/PatchInput';
 import { FetchMomentsInput } from './dtos/fetch/FetchMomentsInput';
 import { MomentsSortFields } from './dtos/fetch/MomentsSortFields';
 import { CreateAndUploadMomentInput } from './dtos/create/CreateAndUploadInput';
@@ -57,9 +56,8 @@ export class MomentsClient {
   public async createMoment(input: CreateMomentInput): Promise<Moment> {
     void input.onStepUpdate?.(CreateSteps.UPLOADING_MOMENT);
     const response = await this.poapMomentsApi.createMoment({
-      dropId: input.dropId,
+      dropIds: input.dropIds,
       author: input.author,
-      tokenId: input.tokenId,
       description: input.description,
       mediaKeys: input.mediaKeys || [],
     });
@@ -142,14 +140,11 @@ export class MomentsClient {
     offset,
     id,
     createdOrder,
-    token_id,
     drop_ids,
     from,
     to,
     author,
     idOrder,
-    tokenIdOrder,
-    dropIdOrder,
   }: FetchMomentsInput): Promise<PaginatedResult<Moment>> {
     const variables: MomentsQueryVariables = {
       limit,
@@ -159,18 +154,9 @@ export class MomentsClient {
           MomentsSortFields.StartDate,
           createdOrder,
         ),
-        ...createOrderBy<MomentsSortFields>(
-          MomentsSortFields.TokenId,
-          tokenIdOrder,
-        ),
-        ...createOrderBy<MomentsSortFields>(
-          MomentsSortFields.DropId,
-          dropIdOrder,
-        ),
         ...createOrderBy<MomentsSortFields>(MomentsSortFields.Id, idOrder),
       },
       where: {
-        ...createEqFilter('token_id', token_id),
         ...createInFilter('drop_id', drop_ids),
         ...createLikeFilter('author', author),
         ...createBetweenFilter('created_on', from, to),
@@ -193,9 +179,5 @@ export class MomentsClient {
     );
 
     return result;
-  }
-
-  public async patchMoment(id: string, input: PatchMomentInput): Promise<void> {
-    await this.poapMomentsApi.patchMoment(id, input);
   }
 }

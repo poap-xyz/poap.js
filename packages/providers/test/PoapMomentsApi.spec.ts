@@ -6,6 +6,7 @@ import { InvalidMediaError } from '../src/ports/MomentsApiProvider/errors/Invali
 import { mock, MockProxy } from 'jest-mock-extended';
 import { MediaStatus } from '../src/ports/MomentsApiProvider/types/MediaStatus';
 import { CreateMomentInput } from '../src/ports/MomentsApiProvider/types/CreateMomentInput';
+import { CreateMomentResponse } from '../src/ports/MomentsApiProvider/types/CreateMomentResponse';
 import { enableFetchMocks } from 'jest-fetch-mock';
 
 enableFetchMocks();
@@ -15,7 +16,7 @@ describe('PoapMomentsApi', () => {
 
   let api: PoapMomentsApi;
   let authenticationProviderMocked: MockProxy<AuthenticationProvider>;
-  let axiosMocked;
+  let axiosMocked: MockAdapter;
 
   beforeEach(() => {
     authenticationProviderMocked = mock();
@@ -98,28 +99,26 @@ describe('PoapMomentsApi', () => {
         .onGet(`${BASE_URL}/media/${mediaKey}`)
         .reply(200, invalidMediaResponse);
 
-      await expect(
-        api.waitForMediaProcessing(mediaKey, 5000),
-      ).rejects.toThrowError(InvalidMediaError);
+      await expect(api.waitForMediaProcessing(mediaKey, 5000)).rejects.toThrow(
+        InvalidMediaError,
+      );
     });
   });
 
   describe('createMoment', () => {
     const createMomentInput: CreateMomentInput = {
-      dropId: 1,
+      dropIds: [1],
       author: '0x1234',
       mediaKeys: ['mock-media-key'],
-      tokenId: 1000,
       description: 'This is a test description',
     };
 
     it('should create a moment successfully', async () => {
-      const mockResponse = {
+      const mockResponse: CreateMomentResponse = {
         id: '1',
         author: '0x1234',
         createdOn: '2023-01-01T00:00:00.000Z',
-        dropId: 1,
-        tokenId: 1000,
+        dropIds: [1],
         description: 'This is a test description',
       };
 
@@ -132,43 +131,6 @@ describe('PoapMomentsApi', () => {
     it('should throw error when AuthenticationProvider is not provided', async () => {
       api = new PoapMomentsApi({});
       await expect(api.createMoment(createMomentInput)).rejects.toThrow();
-    });
-  });
-
-  describe('patchMoment', () => {
-    const id = '1';
-    const patchMomentInput = {
-      cid: '0001-7ce5368171cc3d988157d7dab3d313d7bd43de3e-365e5b83699adce0825021d011f1bf73bd5ef9369d06e49645afbea2ef34f54e0557c1d4742c8bd6d1f7a02be4aa483c03888af0aa143d5aa7351e2baaf931231c.moment',
-    };
-  
-    it('should call fetch with correct parameters for PATCH request', async () => {
-      fetchMock.mockOnce(() =>
-      Promise.resolve({
-        ok: true,
-        status: 200,
-        body: JSON.stringify({}),
-      }),
-    );
-  
-      const result = await api.patchMoment(id, patchMomentInput);
-  
-      expect(result).toBe(undefined);
-      expect(fetch).toHaveBeenCalledWith(
-        `${BASE_URL}/moments/${id}`,
-        {
-          method: 'PATCH',
-          body: JSON.stringify(patchMomentInput),
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: expect.any(String),
-          },
-        }
-      );
-    });
-  
-    it('should throw error when AuthenticationProvider is not provided', async () => {
-      api = new PoapMomentsApi({});
-      await expect(api.patchMoment(id, patchMomentInput)).rejects.toThrow();
     });
   });
 });

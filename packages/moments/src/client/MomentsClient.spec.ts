@@ -4,13 +4,11 @@ import { MomentsClient } from './MomentsClient';
 import { CreateMomentInput } from './dtos/create/CreateInput';
 import { CreateSteps } from './dtos/create/CreateSteps';
 import { v4 } from 'uuid';
-import { PatchMomentInput } from './dtos/patch/PatchInput';
 import { CreateAndUploadMomentInput } from './dtos/create/CreateAndUploadInput';
 
 describe('MomentsClient', () => {
   const MOMENT_ID = 'this-is-a-moment-id';
-  const DROP_ID = 420;
-  const TOKEN_ID = 69;
+  const DROP_IDS = [420];
   const AUTHOR = '0x7CE5368171cC3D988157d7dab3D313d7bd43de3e';
   const FILE_1 = Buffer.from('This is the file 1');
   const FILE_1_TYPE = 'image/png';
@@ -18,8 +16,6 @@ describe('MomentsClient', () => {
   const FILE_2_TYPE = 'image/jpeg';
   const MEDIA_UPLOAD_URL = 'this-is-a-media-upload-url';
   const DESCRIPTION = 'This is a description';
-  const MOMENT_CID =
-    '0001-7ce5368171cc3d988157d7dab3d313d7bd43de3e-365e5b83699adce0825021d011f1bf73bd5ef9369d06e49645afbea2ef34f54e0557c1d4742c8bd6d1f7a02be4aa483c03888af0aa143d5aa7351e2baaf931231c.moment';
   const MEDIAS_TO_CREATE = [
     {
       fileBinary: FILE_1,
@@ -53,8 +49,7 @@ describe('MomentsClient', () => {
         compassProviderMocked,
       );
       const inputs: CreateAndUploadMomentInput = {
-        dropId: DROP_ID,
-        tokenId: TOKEN_ID,
+        dropIds: DROP_IDS,
         media: MEDIAS_TO_CREATE,
         author: AUTHOR,
         onStepUpdate,
@@ -63,9 +58,9 @@ describe('MomentsClient', () => {
       poapMomentsAPIMocked.createMoment.mockResolvedValue({
         id: MOMENT_ID,
         author: AUTHOR,
-        createdOn: new Date(),
-        dropId: DROP_ID,
-        tokenId: TOKEN_ID,
+        createdOn: new Date().toISOString(),
+        dropIds: DROP_IDS,
+        description: DESCRIPTION,
       });
       const mediaKeys: string[] = [];
       poapMomentsAPIMocked.getSignedUrl.mockImplementation(async () => {
@@ -78,8 +73,7 @@ describe('MomentsClient', () => {
       });
 
       const EXPECTED_MOMENT_CREATE_INPUT = {
-        dropId: DROP_ID,
-        tokenId: TOKEN_ID,
+        dropIds: DROP_IDS,
         author: AUTHOR,
         description: DESCRIPTION,
         mediaKeys,
@@ -91,8 +85,7 @@ describe('MomentsClient', () => {
       // THEN
       expect(moment.id).toBe(MOMENT_ID);
       expect(moment.author).toBe(AUTHOR);
-      expect(moment.dropId).toBe(DROP_ID);
-      expect(moment.tokenId).toBe(TOKEN_ID);
+      expect(moment.dropIds).toBe(DROP_IDS);
       expect(poapMomentsAPIMocked.createMoment).toHaveBeenCalledWith(
         EXPECTED_MOMENT_CREATE_INPUT,
       );
@@ -124,8 +117,7 @@ describe('MomentsClient', () => {
         compassProviderMocked,
       );
       const inputs: CreateMomentInput = {
-        dropId: DROP_ID,
-        tokenId: TOKEN_ID,
+        dropIds: DROP_IDS,
         mediaKeys: MEDIA_KEYS,
         author: AUTHOR,
         onStepUpdate,
@@ -134,14 +126,12 @@ describe('MomentsClient', () => {
       poapMomentsAPIMocked.createMoment.mockResolvedValue({
         id: MOMENT_ID,
         author: AUTHOR,
-        createdOn: new Date(),
-        dropId: DROP_ID,
-        tokenId: TOKEN_ID,
+        createdOn: new Date().toISOString(),
+        dropIds: DROP_IDS,
       });
 
       const EXPECTED_MOMENT_CREATE_INPUT = {
-        dropId: DROP_ID,
-        tokenId: TOKEN_ID,
+        dropIds: DROP_IDS,
         author: AUTHOR,
         description: DESCRIPTION,
         mediaKeys: MEDIA_KEYS,
@@ -153,8 +143,7 @@ describe('MomentsClient', () => {
       // THEN
       expect(moment.id).toBe(MOMENT_ID);
       expect(moment.author).toBe(AUTHOR);
-      expect(moment.dropId).toBe(DROP_ID);
-      expect(moment.tokenId).toBe(TOKEN_ID);
+      expect(moment.dropIds).toBe(DROP_IDS);
       expect(poapMomentsAPIMocked.createMoment).toHaveBeenCalledWith(
         EXPECTED_MOMENT_CREATE_INPUT,
       );
@@ -162,27 +151,6 @@ describe('MomentsClient', () => {
       expect(onStepUpdate).toHaveBeenCalledWith(CreateSteps.UPLOADING_MOMENT);
       expect(onStepUpdate).toHaveBeenCalledWith(CreateSteps.FINISHED);
       expect(onStepUpdate).toHaveBeenCalledTimes(2);
-    });
-  });
-  describe('updateMoment', () => {
-    it('should update a moment', async () => {
-      // GIVEN
-      const client = new MomentsClient(
-        poapMomentsAPIMocked,
-        compassProviderMocked,
-      );
-      const input: PatchMomentInput = {
-        cid: MOMENT_CID,
-      };
-      poapMomentsAPIMocked.patchMoment.mockResolvedValue();
-
-      // WHEN
-      await client.patchMoment(MOMENT_ID, input);
-
-      // THEN
-      expect(poapMomentsAPIMocked.patchMoment).toHaveBeenCalledWith(MOMENT_ID, {
-        cid: MOMENT_CID,
-      });
     });
   });
 });
