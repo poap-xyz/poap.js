@@ -2,7 +2,7 @@
 
 Please provide a short description of the changes in this pull request.
 
-Fixes # (issue)
+Closes # (issue)
 
 ## Type of change
 
