@@ -108,6 +108,36 @@ export class Drop {
     });
   }
 
+  public static fromSerializableObject(
+    serializableDrop: SerializableDrop,
+  ): Drop {
+    return new Drop({
+      id: serializableDrop.id,
+      fancyId: serializableDrop.fancyId,
+      name: serializableDrop.name,
+      description: serializableDrop.description,
+      city: serializableDrop.city,
+      country: serializableDrop.country,
+      channel: serializableDrop.channel,
+      platform: serializableDrop.platform,
+      locationType: serializableDrop.locationType,
+      dropUrl: serializableDrop.dropUrl,
+      imageUrl: serializableDrop.imageUrl,
+      originalImageUrl: serializableDrop.originalImageUrl,
+      animationUrl: serializableDrop.animationUrl,
+      year: serializableDrop.year,
+      timezone: serializableDrop.timezone,
+      private: serializableDrop.private,
+      startDate: new Date(serializableDrop.startDate),
+      createdDate: new Date(serializableDrop.createdDate),
+      expiryDate: new Date(serializableDrop.expiryDate),
+      endDate: new Date(serializableDrop.endDate),
+      poapCount: serializableDrop.poapCount,
+      transferCount: serializableDrop.transferCount,
+      emailReservationCount: serializableDrop.emailReservationCount,
+    });
+  }
+
   // eslint-disable-next-line max-statements
   constructor(properties: DropProperties) {
     this.id = properties.id;
@@ -168,7 +198,7 @@ export class Drop {
   }
 }
 
-interface SerializableDrop {
+export interface SerializableDrop {
   id: number;
   fancyId: string;
   name: string;
