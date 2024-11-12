@@ -7,7 +7,7 @@ export interface CreateMomentInput {
   /** The description of the moment. */
   description?: string;
   /** The IDs of the drops to associate to the moment. */
-  dropIds: number[];
+  dropIds?: number[];
   /** The amount of time to wait until media is processed. */
   timeOut?: number;
   /** Callback function to be called when the step changes. */
