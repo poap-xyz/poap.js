@@ -152,5 +152,41 @@ describe('MomentsClient', () => {
       expect(onStepUpdate).toHaveBeenCalledWith(CreateSteps.FINISHED);
       expect(onStepUpdate).toHaveBeenCalledTimes(2);
     });
+
+    it('should allow creation of a moment without any drops', async () => {
+      // GIVEN
+      const client = new MomentsClient(
+        poapMomentsAPIMocked,
+        compassProviderMocked,
+      );
+      const inputs: CreateMomentInput = {
+        mediaKeys: MEDIA_KEYS,
+        author: AUTHOR,
+        description: DESCRIPTION,
+      };
+      poapMomentsAPIMocked.createMoment.mockResolvedValue({
+        id: MOMENT_ID,
+        author: AUTHOR,
+        createdOn: new Date().toISOString(),
+        dropIds: [],
+      });
+
+      const EXPECTED_MOMENT_CREATE_INPUT = {
+        author: AUTHOR,
+        description: DESCRIPTION,
+        mediaKeys: MEDIA_KEYS,
+      };
+
+      // WHEN
+      const moment = await client.createMoment(inputs);
+
+      // THEN
+      expect(moment.id).toBe(MOMENT_ID);
+      expect(moment.author).toBe(AUTHOR);
+      expect(moment.dropIds).toEqual([]);
+      expect(poapMomentsAPIMocked.createMoment).toHaveBeenCalledWith(
+        EXPECTED_MOMENT_CREATE_INPUT,
+      );
+    });
   });
 });
