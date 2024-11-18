@@ -78,7 +78,7 @@ export class Drop {
           [gateway.type.toLowerCase()]: gateway.url,
         }),
         defaultImage,
-      ) ?? defaultImage
+      )
     );
   }
 
