@@ -72,7 +72,7 @@ export class Drop {
     }
 
     return (
-      response.drop_image?.gateways.reduce(
+      response.drop_image.gateways.reduce(
         (images, gateway) => ({
           ...images,
           [gateway.type.toLowerCase()]: gateway.url,
