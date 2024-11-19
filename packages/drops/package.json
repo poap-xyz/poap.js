@@ -29,7 +29,7 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@poap-xyz/providers": "0.7.2",
-    "@poap-xyz/utils": "0.7.2"
+    "@poap-xyz/providers": "0.7.3",
+    "@poap-xyz/utils": "0.7.3"
   }
 }

@@ -26,8 +26,8 @@
     "build": "rollup -c --bundleConfigAsCjs"
   },
   "dependencies": {
-    "@poap-xyz/providers": "0.7.2",
-    "@poap-xyz/utils": "0.7.2",
+    "@poap-xyz/providers": "0.7.3",
+    "@poap-xyz/utils": "0.7.3",
     "uuid": "^9.0.0"
   },
   "engines": {
