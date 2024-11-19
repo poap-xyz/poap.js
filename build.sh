@@ -12,8 +12,8 @@ for dir in "${DIRS[@]}"; do
   fi
 
   # Run the build command
-  if ! npm run build; then
-    echo "Error: Failed to run 'npm run build' in directory: packages/$dir"
+  if ! yarn build; then
+    echo "Error: Failed to run 'yarn build' in directory: packages/$dir"
     exit 1
   fi
 

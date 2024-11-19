@@ -14,8 +14,8 @@ for pkg in "${DIRS[@]}"; do
   fi
 
   # Run the build command
-  if ! npm run build; then
-    echo "Error: Failed to run 'npm run build' in directory: packages/$pkg"
+  if ! yarn build; then
+    echo "Error: Failed to run 'yarn build' in directory: packages/$pkg"
     exit 1
   fi
 
@@ -28,8 +28,8 @@ for pkg in "${DIRS[@]}"; do
     fi
 
     # Run the publish command
-    if ! npm publish --access public; then
-      echo "Error: Failed to run 'npm publish --access public' in directory: packages/$pkg"
+    if ! yarn npm publish --access public; then
+      echo "Error: Failed to run 'yarn npm publish --access public' in directory: packages/$pkg"
       exit 1
     fi
 
