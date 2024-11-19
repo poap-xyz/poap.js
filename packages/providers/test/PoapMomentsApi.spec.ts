@@ -132,5 +132,23 @@ describe('PoapMomentsApi', () => {
       api = new PoapMomentsApi({});
       await expect(api.createMoment(createMomentInput)).rejects.toThrow();
     });
+
+    it('should allow Moment creation without any drop', async () => {
+      const mockResponse: CreateMomentResponse = {
+        id: '1',
+        author: '0x1234',
+        createdOn: '2023-01-01T00:00:00.000Z',
+        dropIds: [],
+        description: 'This is a test description',
+      };
+
+      axiosMocked.onPost(`${BASE_URL}/moments`).reply(200, mockResponse);
+
+      const input = { ...createMomentInput };
+      delete input.dropIds;
+
+      const result = await api.createMoment(input);
+      expect(result).toEqual(mockResponse);
+    });
   });
 });
