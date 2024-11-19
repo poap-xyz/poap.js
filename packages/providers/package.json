@@ -1,6 +1,6 @@
 {
   "name": "@poap-xyz/providers",
-  "version": "0.7.0",
+  "version": "0.7.3",
   "description": "Providers module for the poap.js library",
   "main": "dist/cjs/index.cjs",
   "module": "dist/esm/index.mjs",
