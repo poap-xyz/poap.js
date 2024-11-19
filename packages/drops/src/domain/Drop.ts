@@ -1,5 +1,6 @@
 import { DropResponse as ProviderDropResponse } from '@poap-xyz/providers';
 import { DropResponse } from '../types/DropResponse';
+import { DropImage } from './DropImage';
 
 export class Drop {
   id: number;
@@ -60,23 +61,22 @@ export class Drop {
     });
   }
 
-  private static getDropImageFromCompass(response: DropResponse): {
-    crop: string;
-    original: string;
-  } {
-    const defaultImage = {
+  private static getDropImageFromCompass(response: DropResponse): DropImage {
+    const defaultImage: DropImage = {
       crop: response.image_url,
       original: response.image_url,
     };
 
-    return (
-      response.drop_image?.gateways.reduce(
-        (images, gateway) => ({
-          ...images,
-          [gateway.type.toLowerCase()]: gateway.url,
-        }),
-        defaultImage,
-      ) || defaultImage
+    if (!response.drop_image) {
+      return defaultImage;
+    }
+
+    return response.drop_image.gateways.reduce(
+      (images, gateway) => ({
+        ...images,
+        [gateway.type.toLowerCase()]: gateway.url,
+      }),
+      defaultImage,
     );
   }
 
