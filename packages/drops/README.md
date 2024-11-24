@@ -33,7 +33,7 @@ yarn add @poap-xyz/drops @poap-xyz/utils @poap-xyz/providers axios
   import { PoapCompass, PoapDropApi } from '@poap-xyz/providers';
 
   const client = new DropsClient(
-    new PoapCompass('you_api_key'),
+    new PoapCompass('your_api_key'),
     new PoapDropApi('your_api_key'),
   );
 ```
