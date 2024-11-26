@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-@poap-xyz/drops is a package to interact with POAP Drops.
+`@poap-xyz/drops` is a package to interact with POAP Drops.
 
 ## Features
 
@@ -40,16 +40,16 @@ yarn add @poap-xyz/drops @poap-xyz/utils @poap-xyz/providers axios
 
 ## Documentation
 
-For more detailed documentation, please visit [this link](https://documentation.poap.tech/docs).
+For more detailed documentation, please visit:
 
-## Examples
-
-For example scripts and usage, please check the [examples](https://github.com/poap-xyz/poap.js/tree/main/examples).
+- [`@poap-xyz/drops` documentation](https://sdk.poap.tech/packages/drops)
+- [POAP documentation](https://documentation.poap.tech/docs)
 
 ## Contributing
 
-We welcome contributions! Please see the `CONTRIBUTING.md` file for guidelines.
+We welcome contributions! Please see the [`CONTRIBUTING.md`](../../.github/CONTRIBUTING.md) file for
+guidelines on how to get involved.
 
 ## License
 
-@poap-xyz/drops is released under the [MIT License](https://opensource.org/licenses/MIT).
+`@poap-xyz/drops` is released under the [MIT License](https://opensource.org/licenses/MIT).

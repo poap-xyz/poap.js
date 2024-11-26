@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-@poap-xyz/frames is a package to help with the development of Farcaster Frames.
+`@poap-xyz/frames` is a package to help with the development of Farcaster Frames.
 
 ## Features
 
@@ -44,7 +44,7 @@ return (
 
 ### HTML render
 
-```javascript
+```typescript
 // /api/frame.ts
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const frame = new Frame({ ... });
@@ -52,14 +52,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 }
 ```
 
-## Examples
+## Documentation
 
-For example scripts and usage, please check the [examples](https://github.com/poap-xyz/poap.js/tree/main/examples).
+For more detailed documentation, please visit:
+
+- [`@poap-xyz/frames` documentation](https://sdk.poap.tech/packages/frames)
+- [POAP documentation](https://documentation.poap.tech/docs)
 
 ## Contributing
 
-We welcome contributions! Please see the `CONTRIBUTING.md` file for guidelines.
+We welcome contributions! Please see the [`CONTRIBUTING.md`](../../.github/CONTRIBUTING.md) file for
+guidelines on how to get involved.
 
 ## License
 
-@poap-xyz/frames is released under the [MIT License](https://opensource.org/licenses/MIT).
+`@poap-xyz/frames` is released under the [MIT License](https://opensource.org/licenses/MIT).
