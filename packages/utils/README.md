@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-@poap-xyz/utils is a package that contains auxiliar functions.
+`@poap-xyz/utils` is a package that contains auxiliar functions and common types.
 
 ## Features
 
@@ -25,16 +25,16 @@ yarn add @poap-xyz/utils
 
 ## Documentation
 
-For more detailed documentation, please visit [this link](https://documentation.poap.tech/docs).
+For more detailed documentation, please visit:
 
-## Examples
-
-For example scripts and usage, please check the [examples](https://github.com/poap-xyz/poap.js/tree/main/examples).
+- [`@poap-xyz/utils` documentation](https://sdk.poap.tech/packages/utils)
+- [POAP documentation](https://documentation.poap.tech/docs)
 
 ## Contributing
 
-We welcome contributions! Please see the `CONTRIBUTING.md` file for guidelines.
+We welcome contributions! Please see the [`CONTRIBUTING.md`](../../.github/CONTRIBUTING.md) file for
+guidelines on how to get involved.
 
 ## License
 
-@poap-xyz/utils is released under the [MIT License](https://opensource.org/licenses/MIT).
+`@poap-xyz/utils` is released under the [MIT License](https://opensource.org/licenses/MIT).
