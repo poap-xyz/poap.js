@@ -88,7 +88,7 @@ Contributions to the POAP Package Library are welcome. To contribute, please fol
 Please ensure that your code adheres to the project's code style and passes all tests before
 submitting a pull request.
 
-See [`CONTRIBUTING.md`](../.github/CONTRIBUTING.md) file for guidelines on how to get involved.
+See [`CONTRIBUTING.md`](./.github/CONTRIBUTING.md) file for guidelines on how to get involved.
 
 ## Active contributors
 
