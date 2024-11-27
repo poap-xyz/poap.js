@@ -5,7 +5,7 @@ source package-order.sh
 for pkg in "${DIRS[@]}"; do
   pkg_name=$(jq -r '.name' $pkg/package.json)
   current_version=$(jq -r '.version' $pkg/package.json)
-  remote_version=$(yarn npm info $pkg_name --fields version 2>/dev/null | jq -r '.version')
+  remote_version=$(yarn npm info $pkg_name --fields version --json 2>/dev/null | jq -r '.version')
 
   # Change to the directory
   if ! cd "$pkg"; then
