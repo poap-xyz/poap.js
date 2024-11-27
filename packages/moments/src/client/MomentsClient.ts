@@ -127,6 +127,10 @@ export class MomentsClient {
       media.fileBinary,
       url,
       media.fileType,
+      // FIXME the given function could return a promise but
+      // - moments api provider doesn't expect a fouth argument
+      // - poap moments api accepts a function that does not returns a promise
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
       onFileUploadProgress,
     );
 
