@@ -57,6 +57,7 @@ export function createAddressFilter(
     : {};
 }
 
+// eslint-disable-next-line complexity
 export function createNotNullAddressFilter(
   key: string,
   filterZeroAddress = true,

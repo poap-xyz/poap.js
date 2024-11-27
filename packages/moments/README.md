@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-@poap-xyz/moments is a package to interact with POAP Moments.
+`@poap-xyz/moments` is a package to interact with POAP Moments.
 
 ## Features
 
@@ -26,7 +26,7 @@ yarn add @poap-xyz/moments @poap-xyz/utils @poap-xyz/providers axio
 
 ## Usage
 
-```javascript
+```typescript
 import {MomentsClient, CreateMomentInput, Moment} from '@poap-xyz/moments';
 import {PoapCompass, PoapMomentsApi, AuthenticationProviderHttp} from '@poap-xyz/providers';
 import fs from 'fs';
@@ -75,16 +75,16 @@ Explanations for each step:
 
 ## Documentation
 
-For more detailed documentation, please visit [this link](https://documentation.poap.tech/docs).
+For more detailed documentation, please visit:
 
-## Examples
-
-For example scripts and usage, please check the [examples](https://github.com/poap-xyz/poap.js/tree/main/examples).
+- [`@poap-xyz/moments` documentation](https://sdk.poap.tech/packages/moments)
+- [POAP documentation](https://documentation.poap.tech/docs)
 
 ## Contributing
 
-We welcome contributions! Please see the `CONTRIBUTING.md` file for guidelines.
+We welcome contributions! Please see the [`CONTRIBUTING.md`](../../.github/CONTRIBUTING.md) file for
+guidelines on how to get involved.
 
 ## License
 
-@poap-xyz/moments is released under the [MIT License](https://opensource.org/licenses/MIT).
+`@poap-xyz/moments` is released under the [MIT License](https://opensource.org/licenses/MIT).

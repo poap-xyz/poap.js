@@ -1,4 +1,4 @@
-name: Run Tests
+name: Run checks
 
 on:
   pull_request:
@@ -24,6 +24,9 @@ jobs:
 
       - name: Build packages
         run: yarn build
+
+      - name: Run lint
+        run: yarn lint
 
       - name: Run tests
         run: yarn test
