@@ -25,13 +25,14 @@
   "scripts": {
     "build": "rollup -c --bundleConfigAsCjs"
   },
+  "engines": {
+    "node": ">=18"
+  },
+  "packageManager": "yarn@3.5.0",
   "dependencies": {
     "@poap-xyz/providers": "0.7.3",
     "@poap-xyz/utils": "0.7.3",
     "uuid": "^9.0.0"
-  },
-  "engines": {
-    "node": ">=18"
   },
   "devDependencies": {
     "@types/uuid": "^9.0.2"

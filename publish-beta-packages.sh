@@ -28,13 +28,13 @@ for pkg in "${DIRS[@]}"; do
   fi
 
   # Build the package
-  if ! npm run build; then
+  if ! yarn build; then
     echo "Error: Failed to build $pkg_name"
     exit 1
   fi
 
   # Publish the package with a "beta" tag
-  if ! npm publish --tag beta; then
+  if ! yarn npm publish --tag beta; then
     echo "Error: Failed to publish $pkg_name"
     exit 1
   fi

@@ -5,7 +5,7 @@ source package-order.sh
 for pkg in "${DIRS[@]}"; do
   pkg_name=$(jq -r '.name' $pkg/package.json)
   current_version=$(jq -r '.version' $pkg/package.json)
-  remote_version=$(npm view $pkg_name version 2>/dev/null)
+  remote_version=$(yarn npm info $pkg_name --fields version --json 2>/dev/null | jq -r '.version')
 
   # Change to the directory
   if ! cd "$pkg"; then
@@ -14,8 +14,8 @@ for pkg in "${DIRS[@]}"; do
   fi
 
   # Run the build command
-  if ! npm run build; then
-    echo "Error: Failed to run 'npm run build' in directory: packages/$pkg"
+  if ! yarn build; then
+    echo "Error: Failed to run 'yarn build' in directory: packages/$pkg"
     exit 1
   fi
 
@@ -28,8 +28,8 @@ for pkg in "${DIRS[@]}"; do
     fi
 
     # Run the publish command
-    if ! npm publish --access public; then
-      echo "Error: Failed to run 'npm publish --access public' in directory: packages/$pkg"
+    if ! yarn npm publish --access public; then
+      echo "Error: Failed to run 'yarn npm publish --access public' in directory: packages/$pkg"
       exit 1
     fi
 
