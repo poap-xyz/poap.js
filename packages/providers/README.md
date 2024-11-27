@@ -2,7 +2,8 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-@poap-xyz/providers is a package to use POAP providers that let you iteract with POAPs APIs. Also you can make your own provider by extending the interfaces.
+`@poap-xyz/providers` is a package to use POAP providers that let you iteract with POAPs APIs. Also
+you can make your own provider by extending the interfaces.
 
 ## Features
 
@@ -25,16 +26,16 @@ yarn add @poap-xyz/providers axios
 
 ## Documentation
 
-For more detailed documentation, please visit [this link](https://documentation.poap.tech/docs).
+For more detailed documentation, please visit:
 
-## Examples
-
-For example scripts and usage, please check the [examples](https://github.com/poap-xyz/poap.js/tree/main/examples).
+- [`@poap-xyz/providers` documentation](https://sdk.poap.tech/packages/providers)
+- [POAP documentation](https://documentation.poap.tech/docs)
 
 ## Contributing
 
-We welcome contributions! Please see the `CONTRIBUTING.md` file for guidelines.
+We welcome contributions! Please see the [`CONTRIBUTING.md`](../../.github/CONTRIBUTING.md) file for
+guidelines on how to get involved.
 
 ## License
 
-@poap-xyz/providers is released under the [MIT License](https://opensource.org/licenses/MIT).
+`@poap-xyz/providers` is released under the [MIT License](https://opensource.org/licenses/MIT).

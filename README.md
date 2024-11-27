@@ -14,8 +14,8 @@
 
 ![Build Status](https://github.com/poap-xyz/poap.js/actions/workflows/npm_publish.yml/badge.svg)
 
-The POAP.js is a collection of SDKs and utilities for interacting with the POAP ecosystem. The library provides a set of
-classes and methods to simplify working with it.
+The POAP.js is a collection of SDKs and utilities for interacting with the POAP ecosystem. The
+library provides a set of classes and methods to simplify working with it.
 
 ## Table of Contents
 
@@ -85,7 +85,10 @@ Contributions to the POAP Package Library are welcome. To contribute, please fol
 4. Create a pull request, describing the changes you made and why.
 5. Wait for a maintainer to review your pull request and provide feedback.
 
-Please ensure that your code adheres to the project's code style and passes all tests before submitting a pull request.
+Please ensure that your code adheres to the project's code style and passes all tests before
+submitting a pull request.
+
+See [`CONTRIBUTING.md`](../.github/CONTRIBUTING.md) file for guidelines on how to get involved.
 
 ## Active contributors
 
