@@ -21,7 +21,7 @@ npm install @poap-xyz/moments @poap-xyz/utils @poap-xyz/providers axios
 ### Yarn
 
 ```bash
-yarn add @poap-xyz/moments @poap-xyz/utils @poap-xyz/providers axio
+yarn add @poap-xyz/moments @poap-xyz/utils @poap-xyz/providers axios
 ```
 
 ## Usage
