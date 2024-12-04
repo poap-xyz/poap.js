@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-`@poap-xyz/utils` is a package that contains auxiliar functions and common types.
+`@poap-xyz/utils` is a package that contains auxiliary functions and common types.
 
 ## Features
 
