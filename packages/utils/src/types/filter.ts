@@ -36,6 +36,10 @@ export interface LteFilter<V = Value> {
   _lte: V;
 }
 
+export interface IsNullFilter {
+  _is_null: boolean;
+}
+
 export type AnyFilter = Partial<EqFilter> &
   Partial<NeqFilter> &
   Partial<LikeFilter> &
@@ -44,7 +48,8 @@ export type AnyFilter = Partial<EqFilter> &
   Partial<GtFilter> &
   Partial<GteFilter> &
   Partial<LtFilter> &
-  Partial<LteFilter>;
+  Partial<LteFilter> &
+  Partial<IsNullFilter>;
 
 export type FieldFilter<F = AnyFilter> = {
   [key: string]: FieldFilter<F> | F;
