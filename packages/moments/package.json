@@ -1,6 +1,6 @@
 {
   "name": "@poap-xyz/moments",
-  "version": "0.7.3",
+  "version": "0.7.4",
   "description": "Moments module for the poap.js library",
   "main": "dist/cjs/index.cjs",
   "module": "dist/esm/index.mjs",
@@ -30,8 +30,8 @@
   },
   "packageManager": "yarn@3.5.0",
   "dependencies": {
-    "@poap-xyz/providers": "0.7.3",
-    "@poap-xyz/utils": "0.7.3",
+    "@poap-xyz/providers": "0.7.4",
+    "@poap-xyz/utils": "0.7.4",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
