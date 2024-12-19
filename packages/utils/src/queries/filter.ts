@@ -10,6 +10,7 @@ import {
   LteFilter,
   NeqFilter,
   NinFilter,
+  IsNullFilter,
   Value,
 } from '../types/filter';
 import { ZERO_ADDRESS, DEAD_ADDRESS } from '../constants';
@@ -145,4 +146,11 @@ export function createBetweenFilter<V = Value>(
         betweenFilter,
       )
     : {};
+}
+
+export function createIsNullFilter(
+  key: string,
+  value: boolean,
+): FieldFilter<IsNullFilter> {
+  return createField<IsNullFilter>(key, { _is_null: value });
 }
