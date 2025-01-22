@@ -147,7 +147,7 @@ describe('PoapCompass', () => {
       );
     });
 
-    it('should throw an unknown error when the response is from an unknonw status code', async () => {
+    it('should throw an unknown error when the response is from an unknown status code', async () => {
       const query = 'query { test }';
       const variables = { key: 'value' };
 
