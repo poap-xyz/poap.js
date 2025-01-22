@@ -13,5 +13,5 @@ export function createField<V>(keys: string, value: V): Field<V> {
       [key]: prev,
     }),
     value,
-  ) as Field<V>; // casted becuse keys is assumed to not be empty
+  ) as Field<V>; // casted because keys is assumed to not be empty
 }
