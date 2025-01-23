@@ -1,6 +1,6 @@
 {
   "name": "@poap-xyz/frames",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Frames module for the poap.js library",
   "main": "dist/cjs/index.cjs",
   "module": "dist/esm/index.mjs",
@@ -9,7 +9,8 @@
   "exports": {
     "require": "./dist/cjs/index.cjs",
     "import": "./dist/esm/index.mjs",
-    "browser": "./dist/umd/index.js"
+    "browser": "./dist/umd/index.js",
+    "types": "./dist/cjs/index.d.ts"
   },
   "type": "module",
   "repository": {
