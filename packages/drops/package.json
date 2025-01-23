@@ -1,6 +1,6 @@
 {
   "name": "@poap-xyz/drops",
-  "version": "0.7.4",
+  "version": "0.7.5",
   "description": "Drops module for the poap.js library",
   "main": "dist/cjs/index.cjs",
   "module": "dist/esm/index.mjs",
@@ -9,7 +9,8 @@
   "exports": {
     "require": "./dist/cjs/index.cjs",
     "import": "./dist/esm/index.mjs",
-    "browser": "./dist/umd/index.js"
+    "browser": "./dist/umd/index.js",
+    "types": "./dist/cjs/index.d.ts"
   },
   "type": "module",
   "repository": {
@@ -30,7 +31,7 @@
   },
   "packageManager": "yarn@3.5.0",
   "dependencies": {
-    "@poap-xyz/providers": "0.7.4",
-    "@poap-xyz/utils": "0.7.4"
+    "@poap-xyz/providers": "0.7.5",
+    "@poap-xyz/utils": "0.7.5"
   }
 }

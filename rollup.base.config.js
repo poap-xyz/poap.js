@@ -7,12 +7,6 @@ import nodePolyfills from 'rollup-plugin-node-polyfills';
 
 const pkg = require(path.resolve(process.cwd(), 'package.json'));
 
-const replaceExtension = (filePath, newExtension) => {
-  const currentExtension = path.extname(filePath);
-  const fileNameWithoutExtension = filePath.slice(0, -currentExtension.length);
-  return `${fileNameWithoutExtension}.${newExtension}`;
-};
-
 const configs = [
   {
     context: 'window',
@@ -26,9 +20,7 @@ const configs = [
     },
     cache: false,
     plugins: [
-      typescript({
-        tsconfig: `./tsconfig.json`,
-      }),
+      typescript({ tsconfig: './tsconfig.json' }),
       nodeResolve({
         browser: true,
       }),
@@ -37,7 +29,7 @@ const configs = [
     ],
   },
   {
-    input: `./src/index.ts`,
+    input: './src/index.ts',
     output: [
       {
         file: pkg.main,
@@ -51,24 +43,10 @@ const configs = [
         sourcemap: true,
         exports: 'named',
       },
-      {
-        file: replaceExtension(pkg.typings, 'cts'),
-        format: 'cjs',
-        sourcemap: false,
-        exports: 'named',
-      },
-      {
-        file: replaceExtension(pkg.module, 'd.mts'),
-        format: 'esm',
-        sourcemap: false,
-        exports: 'named',
-      },
     ],
     external: ['axios'],
     plugins: [
-      typescript({
-        tsconfig: `./tsconfig.json`,
-      }),
+      typescript({ tsconfig: './tsconfig.json' }),
       nodeResolve({
         preferBuiltins: true,
         browser: false,
