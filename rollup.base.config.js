@@ -2,6 +2,7 @@ import typescript from 'rollup-plugin-typescript2';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
+import terser from '@rollup/plugin-terser';
 import path from 'path';
 import nodePolyfills from 'rollup-plugin-node-polyfills';
 
@@ -16,7 +17,6 @@ const configs = [
       file: pkg.browser,
       format: 'umd',
       exports: 'named',
-      sourcemap: true,
     },
     cache: false,
     plugins: [
@@ -26,6 +26,7 @@ const configs = [
       }),
       commonjs(),
       json(),
+      terser({ sourceMap: true }),
     ],
   },
   {
@@ -34,13 +35,11 @@ const configs = [
       {
         file: pkg.main,
         format: 'cjs',
-        sourcemap: true,
         exports: 'named',
       },
       {
         file: pkg.module,
         format: 'esm',
-        sourcemap: true,
         exports: 'named',
       },
     ],
@@ -54,6 +53,7 @@ const configs = [
       commonjs(),
       nodePolyfills(),
       json(),
+      terser({ sourceMap: true }),
     ],
   },
 ];

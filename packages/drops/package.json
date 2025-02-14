@@ -1,6 +1,6 @@
 {
   "name": "@poap-xyz/drops",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "Drops module for the poap.js library",
   "main": "dist/cjs/index.cjs",
   "module": "dist/esm/index.mjs",
@@ -31,7 +31,7 @@
   },
   "packageManager": "yarn@3.5.0",
   "dependencies": {
-    "@poap-xyz/providers": "0.8.0",
-    "@poap-xyz/utils": "0.8.0"
+    "@poap-xyz/providers": "0.8.1",
+    "@poap-xyz/utils": "0.8.1"
   }
 }
