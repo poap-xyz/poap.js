@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "skipLibCheck": true,
