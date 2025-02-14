@@ -1,6 +1,6 @@
 {
   "name": "@poap-xyz/providers",
-  "version": "0.7.5",
+  "version": "0.8.0",
   "description": "Providers module for the poap.js library",
   "main": "dist/cjs/index.cjs",
   "module": "dist/esm/index.mjs",
@@ -31,7 +31,7 @@
   },
   "packageManager": "yarn@3.5.0",
   "dependencies": {
-    "@poap-xyz/utils": "0.7.5",
+    "@poap-xyz/utils": "0.8.0",
     "axios": "^1.6.8",
     "lodash.chunk": "^4.2.0"
   },

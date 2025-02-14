@@ -1,8 +1,8 @@
 import { CompassProvider, DropApiProvider } from '@poap-xyz/providers';
 import {
   createBetweenFilter,
-  createBoolFilter,
   createInFilter,
+  createEqFilter,
   createLikeFilter,
   createOrderBy,
   isNumeric,
@@ -73,7 +73,7 @@ export class DropsClient {
       offset,
       orderBy: createOrderBy<DropsSortFields>(sortField, sortDir),
       where: {
-        ...createBoolFilter('private', isPrivate),
+        ...createEqFilter('private', isPrivate),
         ...createLikeFilter('name', name),
         ...createBetweenFilter('created_date', from, to),
         ...createInFilter('id', ids),
