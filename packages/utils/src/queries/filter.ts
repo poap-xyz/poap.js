@@ -67,6 +67,9 @@ export function createNotNullAddressFilter(
   if (filteredAddresses.length === 0) {
     return {};
   }
+  if (filteredAddresses.length === 1) {
+    return createField<NeqFilter<string>>(key, { _neq: filteredAddresses[0] });
+  }
   return createField<NinFilter<string>>(key, { _nin: filteredAddresses });
 }
 
