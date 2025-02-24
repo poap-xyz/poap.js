@@ -143,7 +143,7 @@ export class DropsClient {
    * @returns {Promise<Drop>} The newly created drop.
    */
   async create(input: CreateDropsInput): Promise<Drop> {
-    const repsonse = await this.dropApiProvider.createDrop({
+    const response = await this.dropApiProvider.createDrop({
       name: input.name,
       description: input.description,
       city: input.city,
@@ -171,7 +171,7 @@ export class DropsClient {
       requested_codes: input.requestedCodes,
       private_event: input.privateEvent,
     });
-    return Drop.fromProvider(repsonse);
+    return Drop.fromProvider(response);
   }
 
   /**
@@ -183,7 +183,7 @@ export class DropsClient {
    * @returns {Promise<Drop>} The updated drop.
    */
   async update(input: UpdateDropsInput): Promise<Drop> {
-    const repsonse = await this.dropApiProvider.updateDrop({
+    const response = await this.dropApiProvider.updateDrop({
       name: input.name,
       description: input.description,
       country: input.country,
@@ -197,6 +197,6 @@ export class DropsClient {
       event_template_id: input.eventTemplateId,
       secret_code: input.secretCode,
     });
-    return Drop.fromProvider(repsonse);
+    return Drop.fromProvider(response);
   }
 }
