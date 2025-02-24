@@ -2,7 +2,7 @@
 
 ## List Moments
 
-Fetching moments per page are done by giving an `offset` and a `limit`. This way
+Fetching moments per page is done by giving an `offset` and a `limit`. This way
 all the uploaded moments could be retrieved.
 
 ```typescript
@@ -50,7 +50,7 @@ const paginatedMoments: PaginatedResult<Moment> = await client.fetch({
 });
 
 if (paginatedMoments.items.length === 0) {
-  throw new Error('My moment does not exists');
+  throw new Error('My moment does not exist');
 }
 
 const moment: Moment = paginatedMoments.items[0];
