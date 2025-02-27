@@ -7,14 +7,13 @@
 >
 > This product is in development and is not intended to be used in a production environment.
 >
-> If you want to collaborate and leave us feedback, you can do it
-> so [here](https://github.com/poap-xyz/poap.js/discussions/19)
+> If you want to collaborate and leave us feedback, you can do so [here](https://github.com/poap-xyz/poap.js/discussions/19)
 
 # POAP.js
 
 ![Build Status](https://github.com/poap-xyz/poap.js/actions/workflows/npm_publish.yml/badge.svg)
 
-The POAP.js is a collection of SDKs and utilities for interacting with the POAP ecosystem. The
+POAP.js is a collection of SDKs and utilities for interacting with the POAP ecosystem. The
 library provides a set of classes and methods to simplify working with it.
 
 ## Table of Contents

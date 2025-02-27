@@ -121,12 +121,12 @@ export class PoapsClient {
   }
 
   /**
-   * Gets the Transaction associated with the mint.
-   * The Transaction could change in case of a bump.
+   * Gets the transaction associated with the mint.
+   * The transaction could change in case of a bump.
    * It returns null if the mint has no transaction associated.
    *
    * @param {string} qrHash - The qrHash of the mint.
-   * @returns {Promise<Transaction> | null} The Transaction associated with the mint. Null if no transaction is found.
+   * @returns {Promise<Transaction> | null} Returns the transaction associated with the mint. Null if no transaction is found.
    */
   public async getMintTransaction(qrHash: string): Promise<Transaction | null> {
     return await this.tokensApiProvider.getMintTransaction(qrHash);

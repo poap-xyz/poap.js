@@ -18,7 +18,7 @@ const paginatedMoments: PaginatedResult<Moment> = await client.fetch({
 
 ### By Drop
 
-The list can be filtered by one or more Drops by giving `drop_ids` list with the
+The list can be filtered by one or more Drops by giving `dropIds` list with the
 Drop IDs. Also, the list can be sorted by `id` or `created`.
 
 ```typescript
@@ -30,7 +30,7 @@ const dropId = 14;
 const paginatedMoments: PaginatedResult<Moment> = await client.fetch({
   offset: 0,
   limit: 10,
-  drop_ids: [dropId],
+  dropIds: [dropId],
   idOrder: Order.DESC,
 });
 ```

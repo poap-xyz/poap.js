@@ -13,8 +13,8 @@ const compass = new PoapCompass({
 ## Requests
 
 Query requests can be made by giving the query in string and optionally the variables to pass. All
-success requests are returned as an object with a `data` property which the structure differs
-depending on the query done. When the request fail, errors are thrown instead.
+successful requests are returned as an object with a `data` property where the structure differs
+depending on the query done. When the request fails, errors are thrown instead.
 
 ### Querying
 
@@ -72,7 +72,7 @@ try {
 ### Errors
 
 There are two types of errors, HTTP errors and requests errors. The former are thrown when there is
-an issue with the HTTP requests itself and the later when the query has some malformed or
+an issue with the HTTP requests itself and the latter when the query has some malformed or
 unavailable structure.
 
 #### HTTP errors

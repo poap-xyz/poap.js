@@ -9,14 +9,12 @@ information and metadata.
 ## Features
 
 - Fetch one or multiple POAP tokens at once.
-- Search over minted POAPs by their collector or the drop they belong to.
-- Mint POAPs synchronously or asynchronously mint processes.
+- Search for minted POAPs by their collector or the drop they belong to.
+- Mint POAPs using synchronous or asynchronous processes.
 - Reserve a POAP to an email address.
 - Obtain mint status, POAP indexed status, and more.
 
 ## Installation
-
-This package doesn't require any additional dependencies for installation.
 
 ### NPM
 
