@@ -11,7 +11,7 @@ import { Order, PaginationInput } from '@poap-xyz/utils';
  * @property {string} [from] - The start date for filtering moments by creation time (optional).
  * @property {string} [to] - The end date for filtering moments by creation time (optional).
  * @property {string} [id] - The moment ID to fetch (optional).
- * @property {number} [drop_id] - The drop ID to filter moments by (optional).
+ * @property {number[]} [dropIds] - The drop IDs to filter moments by (optional).
  */
 export interface FetchMomentsInput extends PaginationInput {
   createdOrder?: Order;
@@ -20,5 +20,5 @@ export interface FetchMomentsInput extends PaginationInput {
   from?: string;
   to?: string;
   id?: string;
-  drop_ids?: number[];
+  dropIds?: number[];
 }

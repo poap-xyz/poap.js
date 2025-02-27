@@ -964,7 +964,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@poap-xyz/providers@0.8.1, @poap-xyz/providers@workspace:packages/providers":
+"@poap-xyz/providers@npm:0.8.1":
+  version: 0.8.1
+  resolution: "@poap-xyz/providers@npm:0.8.1"
+  dependencies:
+    "@poap-xyz/utils": 0.8.1
+    axios: ^1.6.8
+    lodash.chunk: ^4.2.0
+  checksum: 1b23076cba0e73800ebfbca312426c3e7a6d3382a7715701dad6fdc1fb850d7caa2778d3299581605feae6be255b7fd4301fd260442c6afcd26f1a22aea1f223
+  languageName: node
+  linkType: hard
+
+"@poap-xyz/providers@workspace:packages/providers":
   version: 0.0.0-use.local
   resolution: "@poap-xyz/providers@workspace:packages/providers"
   dependencies:
@@ -976,7 +987,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@poap-xyz/utils@0.8.1, @poap-xyz/utils@workspace:packages/utils":
+"@poap-xyz/utils@npm:0.8.1":
+  version: 0.8.1
+  resolution: "@poap-xyz/utils@npm:0.8.1"
+  checksum: ffe1a1b5ff46c78d8dafd3dfafb43029ed46dd9676136ba91843595bc8826c05ced57659d755cd2565d25d054e1987a4ffdd4809a64a0c2d913abec809236594
+  languageName: node
+  linkType: hard
+
+"@poap-xyz/utils@workspace:packages/utils":
   version: 0.0.0-use.local
   resolution: "@poap-xyz/utils@workspace:packages/utils"
   languageName: unknown

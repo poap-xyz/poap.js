@@ -144,7 +144,7 @@ export class MomentsClient {
     offset,
     id,
     createdOrder,
-    drop_ids,
+    dropIds,
     from,
     to,
     author,
@@ -161,7 +161,7 @@ export class MomentsClient {
         ...createOrderBy<MomentsSortFields>(MomentsSortFields.Id, idOrder),
       },
       where: {
-        ...createInFilter('drop_id', drop_ids),
+        ...createInFilter('drop_id', dropIds),
         ...createLikeFilter('author', author),
         ...createBetweenFilter('created_on', from, to),
         ...createEqFilter('id', id),
