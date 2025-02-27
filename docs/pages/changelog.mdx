@@ -33,3 +33,10 @@
 ## 0.8.0
 
 - `createBoolFilter` in `@poap-xyz/utils` has been removed. Use `createEqFilter('...', true | false)` instead.
+
+## 0.8.2
+
+- Standardized camelCase usage across the codebase:
+  - Changed `drop_ids` to `dropIds` in `FetchMomentsInput` interface.
+  - Updated `MomentsClient.fetch` method to use the camelCase `dropIds` parameter.
+  - GraphQL field names still use snake_case (e.g., `drop_id`) for backend compatibility.
