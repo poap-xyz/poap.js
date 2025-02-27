@@ -24,7 +24,7 @@ import { CreateAndUploadMomentInput } from './dtos/create/CreateAndUploadInput';
 export class MomentsClient {
   constructor(
     private poapMomentsApi: PoapMomentsApi,
-    private CompassProvider: CompassProvider,
+    private compassProvider: CompassProvider,
   ) {}
 
   /** Uploads media files first, then creates the Moment. */
@@ -168,7 +168,7 @@ export class MomentsClient {
       },
     };
 
-    const response = await this.CompassProvider.request<
+    const response = await this.compassProvider.request<
       MomentsQueryResponse,
       MomentsQueryVariables
     >(PAGINATED_MOMENTS_QUERY, variables);

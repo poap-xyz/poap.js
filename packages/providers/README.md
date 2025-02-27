@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-`@poap-xyz/providers` is a package to use POAP providers that let you interact with POAPs APIs. Also
+`@poap-xyz/providers` is a package to use POAP providers that let you interact with POAP APIs. Also,
 you can make your own provider by extending the interfaces.
 
 ## Features

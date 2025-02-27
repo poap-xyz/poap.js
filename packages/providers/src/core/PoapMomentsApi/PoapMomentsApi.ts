@@ -18,9 +18,9 @@ export class PoapMomentsApi implements MomentsApiProvider {
 
   /**
    * @constructor
-   * * @param {Object} params - Object containing constructor parameters.
-   *  * @param {string} [params.baseUrl='https://moments.poap.xyz'] - The base URL for the POAP Moments API.
-   *  * @param {AuthenticationProvider} [params.authenticationProvider] - Optional authentication provider only used for write operations.ication provider only used for write operations
+   * @param {Object} params - Object containing constructor parameters.
+   * @param {string} [params.baseUrl='https://moments.poap.xyz'] - The base URL for the POAP Moments API.
+   * @param {AuthenticationProvider} [params.authenticationProvider] - Optional authentication provider only used for write operations.
    */
   constructor(params: {
     baseUrl?: string;
