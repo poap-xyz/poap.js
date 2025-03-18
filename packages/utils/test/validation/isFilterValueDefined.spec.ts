@@ -11,20 +11,20 @@ describe('isFilterValueDefined', () => {
     expect(isFilterValueDefined(false)).toBe(true);
   });
 
-  it('should accept all numbers except 0 and NaN', () => {
-    expect(isFilterValueDefined(0)).toBe(false);
+  it('should accept all numbers except NaN', () => {
     expect(isFilterValueDefined(NaN)).toBe(false);
+    expect(isFilterValueDefined(0)).toBe(true);
     expect(isFilterValueDefined(1)).toBe(true);
     expect(isFilterValueDefined(-1)).toBe(true);
   });
 
-  it('should accept all objects with at least one key', () => {
-    expect(isFilterValueDefined({})).toBe(false);
+  it('should accept all objects', () => {
+    expect(isFilterValueDefined({})).toBe(true);
     expect(isFilterValueDefined({ a: 1 })).toBe(true);
   });
 
-  it('should accept arrays with at least one element', () => {
-    expect(isFilterValueDefined([])).toBe(false);
+  it('should accept all arrays', () => {
+    expect(isFilterValueDefined([])).toBe(true);
     expect(isFilterValueDefined([1])).toBe(true);
   });
 
