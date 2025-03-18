@@ -11,20 +11,11 @@ export function isFilterValueDefined<V>(value?: V): value is NonNullable<V> {
 
   switch (typeof value) {
     case 'boolean':
+    case 'object':
       return true;
     case 'number':
-      return isNumberDefined(value);
-    case 'object':
-      return isObjectDefined(value);
+      return !isNaN(value);
     default:
       return !!value;
   }
-}
-
-function isNumberDefined(value: number): value is NonNullable<number> {
-  return !isNaN(value) && value !== 0;
-}
-
-function isObjectDefined<V>(value: V & object): boolean {
-  return Object.keys(value).length > 0;
 }
