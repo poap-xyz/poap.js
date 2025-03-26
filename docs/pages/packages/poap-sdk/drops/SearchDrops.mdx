@@ -8,8 +8,7 @@ search in the name and description.
 When searching for a whole word, use `fetch` method:
 
 ```typescript
-import { Drop } from '@poap-xyz/poap-sdk/drops';
-import { PaginatedResult } from '@poap-xyz/poap-sdk/utils';
+import { Drop, PaginatedResult } from '@poap-xyz/poap-sdk';
 
 const paginatedDrops: PaginatedResult<Drop> = await dropsClient.fetch({
   sortField: DropsSortFields.Name,
@@ -26,8 +25,7 @@ When given a generic search input, and to match any part of the words used in
 the name of the description, use `search` method:
 
 ```typescript
-import { Drop } from '@poap-xyz/poap-sdk/drops';
-import { PaginatedResult } from '@poap-xyz/poap-sdk/utils';
+import { Drop, PaginatedResult } from '@poap-xyz/poap-sdk';
 
 const paginatedDrops: PaginatedResult<Drop> = await dropsClient.search({
   limit: 3,

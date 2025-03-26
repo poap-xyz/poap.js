@@ -36,7 +36,7 @@ enum MyDropSortFields {
 You can then build the variable `$orderBy` with `createOrderBy`:
 
 ```typescript
-import { Order, OrderByVariables, createOrderBy } from '@poap-xyz/poap-sdk/utils';
+import { Order, OrderByVariables, createOrderBy } from '@poap-xyz/poap-sdk';
 
 const variables: OrderByVariables = {
   orderBy: createOrderBy<MyDropSortFields>(MyDropSortFields.NAME, Order.ASC),
@@ -56,7 +56,7 @@ import {
   FilterVariables,
   createLikeFilter,
   createBetweenFilter,
-} from '@poap-xyz/poap-sdk/utils';
+} from '@poap-xyz/poap-sdk';
 
 const variables: FilterVariables = {
   where: {

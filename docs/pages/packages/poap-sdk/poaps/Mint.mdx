@@ -9,7 +9,7 @@ If you prefer to send the minting to the server and then wait for the POAP to be
 minted, and eventually, once indexed, the token ID can be retrieved.
 
 ```typescript
-import { POAP } from '@poap-xyz/poap-sdk/poaps';
+import { POAP } from '@poap-xyz/poap-sdk';
 
 // Initiate the asynchronous mint process.
 await client.mintAsync({
@@ -38,7 +38,7 @@ const poap: POAP = (
 All the minting processes can be done automatically by `PoapsClient`.
 
 ```typescript
-import { POAP } from '@poap-xyz/poap-sdk/poaps';
+import { POAP } from '@poap-xyz/poap-sdk';
 
 const poap: POAP = await client.mintSync({
   mintCode: 'your_poap_code',
