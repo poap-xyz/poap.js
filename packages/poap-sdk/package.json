@@ -1,10 +1,10 @@
 {
   "name": "@poap-xyz/poap-sdk",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "description": "SDK for everything POAP",
-  "main": "dist/cjs/",
-  "module": "dist/esm/",
-  "typings": "dist/cjs/",
+  "main": "dist/cjs/index/index.cjs",
+  "module": "dist/esm/index/index.mjs",
+  "typings": "dist/cjs/index.d.ts",
   "exports": {
     "./*": {
       "require": "./dist/cjs/*/index.cjs",
@@ -12,8 +12,8 @@
       "types": "./dist/cjs/*/index.d.ts"
     },
     ".": {
-      "require": "./dist/cjs/index.cjs",
-      "import": "./dist/esm/index.mjs",
+      "require": "./dist/cjs/index/index.cjs",
+      "import": "./dist/esm/index/index.mjs",
       "types": "./dist/cjs/index.d.ts"
     }
   },

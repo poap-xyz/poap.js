@@ -25,13 +25,13 @@ const configs = [
     input,
     output: [
       {
-        dir: pkg.main,
+        dir: pkg.main.replace(/index.*/, ''),
         format: 'cjs',
         exports: 'named',
         entryFileNames: '[name]/index.cjs',
       },
       {
-        dir: pkg.module,
+        dir: pkg.module.replace(/index.*/, ''),
         format: 'esm',
         exports: 'named',
         entryFileNames: '[name]/index.mjs',
