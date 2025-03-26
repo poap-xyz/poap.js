@@ -24,20 +24,16 @@
     "downlevelIteration": true,
     "noImplicitAny": false,
     "paths": {
-      "moments": ["moments/src"],
-      "providers": ["providers/src/*"],
-      "drops": ["drops/src"],
-      "utils": ["utils/src"],
-      "poaps": ["poaps/src"],
-    },
+      "@poap-sdk/drops": ["./poap-sdk/src/drops"],
+      "@poap-sdk/moments": ["./poap-sdk/src/moments"],
+      "@poap-sdk/poaps": ["./poap-sdk/src/poaps"],
+      "@poap-sdk/providers": ["./poap-sdk/src/providers"],
+      "@poap-sdk/utils": ["./poap-sdk/src/utils"]
+    }
   },
   "exclude": ["node_modules", "dist"],
   "references": [
-    { "path": "./packages/moments" },
-    { "path": "./packages/drops" },
-    { "path": "./packages/providers" },
-    { "path": "./packages/utils" },
-    { "path": "./packages/poaps" },
-    { "path": "./packages/frames" },
-  ],
+    { "path": "./packages/poap-sdk" },
+    { "path": "./packages/frames" }
+  ]
 }
