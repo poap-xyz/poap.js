@@ -10,7 +10,7 @@ const config: DocsThemeConfig = {
   project: {
     link: 'https://github.com/poap-xyz/poap.js',
   },
-  docsRepositoryBase: 'https://github.com/poap-xyz/poap.js/tree/master/docs',
+  docsRepositoryBase: 'https://github.com/poap-xyz/poap.js/tree/main/docs',
   footer: {
     text: `POAP © 2023-${new Date().getFullYear()}`,
   },

@@ -17,11 +17,7 @@ const compat = new FlatCompat({
 
 export default [
   {
-    ignores: [
-      './dist/',
-      '**/dist/',
-      '**/node_modules/',
-    ],
+    ignores: ['./dist/', '**/dist/', '**/node_modules/'],
   },
   ...compat.extends(
     'plugin:@typescript-eslint/recommended',
@@ -82,11 +78,7 @@ export default [
 
       parserOptions: {
         project: [
-          './packages/moments/tsconfig.json',
-          './packages/drops/tsconfig.json',
-          './packages/providers/tsconfig.json',
-          './packages/utils/tsconfig.json',
-          './packages/poaps/tsconfig.json',
+          './packages/poap-sdk/tsconfig.json',
           './packages/frames/tsconfig.json',
           './tsconfig.json',
         ],

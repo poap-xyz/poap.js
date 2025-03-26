@@ -1,0 +1,85 @@
+# Fetch POAPs
+
+Once POAPs have been minted they can be fetched with `PoapsClient`.
+
+## Fetch single POAP
+
+To retrieve one POAP it can be done with its ID.
+
+```typescript
+import { POAP } from '@poap-xyz/poap-sdk/poaps';
+import { PaginatedResult } from '@poap-xyz/poap-sdk/utils';
+
+const poapId = 999;
+
+const paginatedPOAPs: PaginatedResult<POAP> = await client.fetch({
+  offset: 0,
+  limit: 1,
+  ids: [poapId],
+});
+
+if (paginatedPOAPs.items.length === 0) {
+  throw new Error('My POAP was not found');
+}
+
+const poap: POAP = paginatedPOAPs.items[0];
+```
+
+## List POAPs
+
+Paginated POAPs are fetched using `offset` and `limit`. They can also be sorted.
+
+```typescript
+import { POAP, PoapsSortFields } from '@poap-xyz/poap-sdk/poaps';
+import { Order, PaginatedResult } from '@poap-xyz/poap-sdk/utils';
+
+const paginatedPOAPs: PaginatedResult<POAP> = await client.fetch({
+  offset: 0,
+  limit: 10,
+  sortField: PoapsSortFields.MintedOn,
+  sortDir: Order.DESC,
+});
+```
+
+### By Collector
+
+By giving a collector's address, the list of POAPs owned by that address can be
+fetched.
+
+```typescript
+import { POAP, PoapsSortFields } from '@poap-xyz/poap-sdk/poaps';
+import { Order, PaginatedResult } from '@poap-xyz/poap-sdk/utils';
+
+// The address of the collector.
+const collectorAddress = '0xf6B6F07862A02C85628B3A9688beae07fEA9C863';
+
+const collectorPOAPs: PaginatedResult<POAP> = await client.fetch({
+  offset: 0,
+  limit: 10,
+  sortField: PoapsSortFields.MintedOn,
+  sortDir: Order.ASC,
+  collectorAddress,
+});
+```
+
+### By Drop
+
+Get all the POAPs associated to a Drop by giving the ID, and optional filter out
+the zero and dead addresses.
+
+```typescript
+import { POAP, PoapsSortFields } from '@poap-xyz/poap-sdk/poaps';
+import { Order, PaginatedResult } from '@poap-xyz/poap-sdk/utils';
+
+const dropId = 14;
+
+const dropPOAPs: PaginatedResult<POAP> = await client.fetch({
+  offset: 0,
+  limit: 10,
+  sortField: PoapsSortFields.MintedOn,
+  sortDir: Order.ASC,
+  filterZeroAddress: true,
+  filterDeadAddress: true,
+  dropId,
+});
+```

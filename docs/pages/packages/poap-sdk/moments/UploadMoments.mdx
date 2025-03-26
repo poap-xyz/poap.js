@@ -1,0 +1,44 @@
+# Upload Moments
+
+A moment can contain an image and/or text. With `MomentsClient` is easy to
+upload an image and create it as a moment associated with a Drop or a POAP.
+
+## From Node.js
+
+```typescript
+import mime from 'mime';
+import fsPromises from 'fs/promises';
+import { Moment } from '@poap-xyz/poap-sdk/moments';
+
+// Load the image of the moment.
+const fileBuffer = await fsPromises.readFile('path/to/poap-moment.png');
+const mimeType = mime.getType('path/to/poap-moment.png');
+
+// Upload it.
+const moment: Moment = await client.createMomentAndUploadMedia({
+  /**
+   * Drops to be associated to the Moment.
+   */
+  dropIds: [110148],
+
+  /**
+   * Who is uploading the moment.
+   */
+  author: '0x82AB2941Cf555CED5ad7Ed232a5B5f6083815FBC',
+
+  /**
+   * The list of images in the moment.
+   */
+  media: [
+    {
+      fileBinary: fileBuffer,
+      fileType: mimeType,
+    },
+  ],
+
+  /**
+   * Some text to describe the moment.
+   */
+  description: 'Look how much fun we were having!',
+});
+```
