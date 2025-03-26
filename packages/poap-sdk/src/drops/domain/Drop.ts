@@ -1,4 +1,4 @@
-import { DropResponse as ProviderDropResponse } from '@poap-xyz/poap-sdk/providers';
+import { DropResponse as ProviderDropResponse } from '@poap-xyz/poap-sdk';
 import { DropResponse } from '../types/DropResponse';
 import { DropImage } from './DropImage';
 

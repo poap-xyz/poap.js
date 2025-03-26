@@ -2,7 +2,7 @@ import {
   TokensApiProvider,
   Transaction,
   TransactionStatus,
-} from '@poap-xyz/poap-sdk/providers';
+} from '@poap-xyz/poap-sdk';
 import { FinishedWithError } from '../errors/FinishedWithError';
 import { RetryableTask } from './RetryableTask';
 

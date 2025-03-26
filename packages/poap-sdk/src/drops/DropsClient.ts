@@ -1,5 +1,6 @@
-import { CompassProvider, DropApiProvider } from '@poap-xyz/poap-sdk/providers';
 import {
+  CompassProvider,
+  DropApiProvider,
   createBetweenFilter,
   createInFilter,
   createEqFilter,
@@ -10,7 +11,7 @@ import {
   Order,
   PaginatedResult,
   toPOAPDate,
-} from '@poap-xyz/poap-sdk/utils';
+} from '@poap-xyz/poap-sdk';
 import { Drop } from './domain/Drop';
 import {
   PAGINATED_DROPS_QUERY,

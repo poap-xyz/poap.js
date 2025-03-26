@@ -3,7 +3,7 @@ import {
   AuthenticationProviderHttp,
   PoapCompass,
   PoapMomentsApi,
-} from '@poap-xyz/poap-sdk/providers';
+} from '@poap-xyz/poap-sdk';
 import { MomentsClient } from '../MomentsClient';
 import { GetMomentsDefaultClientOptions } from './options/GetMomentsDefaultClientOptions';
 
