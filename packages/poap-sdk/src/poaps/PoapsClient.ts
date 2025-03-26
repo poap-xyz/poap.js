@@ -2,8 +2,6 @@ import {
   CompassProvider,
   TokensApiProvider,
   Transaction,
-} from '@poap-xyz/poap-sdk/providers';
-import {
   createAddressFilter,
   createBetweenFilter,
   createEqFilter,
@@ -12,7 +10,7 @@ import {
   createOrderBy,
   nextCursor,
   PaginatedResult,
-} from '@poap-xyz/poap-sdk/utils';
+} from '@poap-xyz/poap-sdk';
 import { POAP } from './domain/POAP';
 import { POAPReservation } from './domain/POAPReservation';
 import {

@@ -1,8 +1,5 @@
 import { MockProxy, anyString, mock } from 'jest-mock-extended';
-import {
-  CompassProvider,
-  TokensApiProvider,
-} from '@poap-xyz/poap-sdk/providers';
+import { CompassProvider, TokensApiProvider } from '@poap-xyz/poap-sdk';
 import { PoapsClient } from '../../src/poaps/PoapsClient';
 
 describe('PoapsClient', () => {
