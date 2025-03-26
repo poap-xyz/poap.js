@@ -7,10 +7,18 @@
   "typings": "dist/cjs/index.d.ts",
   "browser": "dist/umd/index.js",
   "exports": {
-    "require": "./dist/cjs/index.cjs",
-    "import": "./dist/esm/index.mjs",
-    "browser": "./dist/umd/index.js",
-    "types": "./dist/cjs/index.d.ts"
+    "./*": {
+      "require": "./dist/cjs/*/index.cjs",
+      "import": "./dist/esm/*/index.mjs",
+      "browser": "./dist/umd/*/index.js",
+      "types": "./dist/cjs/*/index.d.ts"
+    },
+    ".": {
+      "require": "./dist/cjs/index.cjs",
+      "import": "./dist/esm/index.mjs",
+      "browser": "./dist/umd/index.js",
+      "types": "./dist/cjs/index.d.ts"
+    }
   },
   "type": "module",
   "repository": {
