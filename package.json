@@ -50,6 +50,7 @@
     "rollup-plugin-typescript2": "^0.36.0",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
+    "tsc-alias": "^1.8.11",
     "typescript": "^5.3.3"
   },
   "workspaces": [

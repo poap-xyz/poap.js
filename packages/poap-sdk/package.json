@@ -1,6 +1,6 @@
 {
   "name": "@poap-xyz/poap-sdk",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "SDK for everything POAP",
   "main": "dist/cjs/index.cjs",
   "module": "dist/esm/index.mjs",
@@ -11,13 +11,13 @@
       "require": "./dist/cjs/*/index.cjs",
       "import": "./dist/esm/*/index.mjs",
       "browser": "./dist/umd/*/index.js",
-      "types": "./dist/cjs/*/index.d.ts"
+      "types": "./dist/esm/*/index.d.ts"
     },
     ".": {
       "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs",
       "browser": "./dist/umd/index.js",
-      "types": "./dist/cjs/index.d.ts"
+      "types": "./dist/esm/index.d.ts"
     }
   },
   "type": "module",
@@ -32,7 +32,7 @@
   },
   "homepage": "https://github.com/poap-xyz/poap.js#readme",
   "scripts": {
-    "build": "rollup -c --bundleConfigAsCjs"
+    "build": "rollup -c --bundleConfigAsCjs && tsc-alias --dir dist/esm"
   },
   "engines": {
     "node": ">=18"
