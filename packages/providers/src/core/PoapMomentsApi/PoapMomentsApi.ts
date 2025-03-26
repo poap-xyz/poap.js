@@ -1,4 +1,3 @@
-import axios, { AxiosError } from 'axios';
 import { InvalidMediaError } from '../../ports/MomentsApiProvider/errors/InvalidMediaError';
 import { CreateMomentResponse } from '../../ports/MomentsApiProvider/types/CreateMomentResponse';
 import { CreateMomentInput } from '../../ports/MomentsApiProvider/types/CreateMomentInput';
@@ -35,17 +34,13 @@ export class PoapMomentsApi implements MomentsApiProvider {
    * @returns {Promise<{ url: string; key: string }>} - A Promise that resolves to an object containing the signed URL and the media key
    */
   public async getSignedUrl(): Promise<{ url: string; key: string }> {
-    const response = await axios.post(
-      `${this.baseUrl}/moments/media-upload-url`,
-      undefined,
-      {
-        headers: {
-          Authorization: await this.getAuthorizationToken(),
-        },
+    const response = await fetch(`${this.baseUrl}/moments/media-upload-url`, {
+      method: 'POST',
+      headers: {
+        Authorization: await this.getAuthorizationToken(),
       },
-    );
-
-    return response.data;
+    });
+    return await response.json();
   }
 
   /**
@@ -53,24 +48,17 @@ export class PoapMomentsApi implements MomentsApiProvider {
    * @param {Uint8Array} fileBinary - The file to be uploaded as a binary array
    * @param {string} fileType - The file type
    * @param {string} signedUrl - The signed URL for uploading the file
-   * @param {(progress: number) => void} [onProgress] - Optional callback function to be called when the upload progress changes - progress is a number between 0 and 1
    * @returns {Promise<void>} - A Promise that resolves when the file has been uploaded
    */
   public async uploadFile(
     fileBinary: Uint8Array,
     signedUrl: string,
     fileType: string,
-    onProgress?: (progress: number) => void,
   ): Promise<void> {
-    await axios.put(signedUrl, fileBinary, {
-      headers: {
-        'Content-Type': fileType,
-      },
-      onUploadProgress: (progressEvent) => {
-        if (onProgress) {
-          onProgress(progressEvent.progress || 0);
-        }
-      },
+    await fetch(signedUrl, {
+      body: fileBinary,
+      method: 'PUT',
+      headers: { 'Content-Type': fileType },
     });
   }
 
@@ -80,16 +68,15 @@ export class PoapMomentsApi implements MomentsApiProvider {
    * @returns {Promise<MediaStatus>} - A Promise that resolves with the media processing status
    */
   public async fetchMediaStatus(mediaKey: string): Promise<MediaStatus> {
-    try {
-      const response = await axios.get(`${this.baseUrl}/media/${mediaKey}`);
-      return response.data.status;
-    } catch (error) {
-      if (error instanceof AxiosError && error.response?.status === 404) {
-        return MediaStatus.IN_PROCESS;
-      }
-
-      throw error;
+    const response = await fetch(`${this.baseUrl}/media/${mediaKey}`);
+    if (response.status === 404) {
+      return MediaStatus.IN_PROCESS;
     }
+    if (!response.ok) {
+      throw new Error('Failed to fetch media status');
+    }
+    const data = await response.json();
+    return data.status;
   }
 
   /**
@@ -140,15 +127,16 @@ export class PoapMomentsApi implements MomentsApiProvider {
   public async createMoment(
     input: CreateMomentInput,
   ): Promise<CreateMomentResponse> {
-    try {
-      const response = await axios.post(`${this.baseUrl}/moments`, input, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: await this.getAuthorizationToken(),
-        },
-      });
-      return response.data;
-    } catch (error) {
+    const response = await fetch(`${this.baseUrl}/moments`, {
+      method: 'POST',
+      body: JSON.stringify(input),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: await this.getAuthorizationToken(),
+      },
+    });
+
+    if (response.status === 409) {
       /**
        * 409 Conflict error is thrown when:
        *  - Some Media file was not found
@@ -156,12 +144,11 @@ export class PoapMomentsApi implements MomentsApiProvider {
        *  - Some Media is on an invalid status
        *  - Some Media is already attached to a Moment
        */
-      if (error instanceof AxiosError && error.response?.status === 409) {
-        throw new InvalidMediaError(error.response.data.message);
-      }
-
-      throw error;
+      const data = await response.json();
+      throw new InvalidMediaError(data.message);
     }
+
+    return await response.json();
   }
 
   private async getAuthorizationToken(): Promise<string> {

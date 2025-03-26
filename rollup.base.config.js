@@ -43,7 +43,6 @@ const configs = [
         exports: 'named',
       },
     ],
-    external: ['axios'],
     plugins: [
       typescript({ tsconfig: './tsconfig.json' }),
       nodeResolve({

@@ -15,13 +15,13 @@ you can make your own provider by extending the interfaces.
 ### NPM
 
 ```bash
-npm install @poap-xyz/providers axios
+npm install @poap-xyz/providers
 ```
 
 ### Yarn
 
 ```bash
-yarn add @poap-xyz/providers axios
+yarn add @poap-xyz/providers
 ```
 
 ## Documentation

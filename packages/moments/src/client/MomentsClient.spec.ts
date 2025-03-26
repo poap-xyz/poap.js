@@ -1,4 +1,4 @@
-import { anyFunction, mock, MockProxy } from 'jest-mock-extended';
+import { mock, MockProxy } from 'jest-mock-extended';
 import { PoapCompass, PoapMomentsApi } from '@poap-xyz/providers';
 import { MomentsClient } from './MomentsClient';
 import { CreateMomentInput } from './dtos/create/CreateInput';
@@ -94,13 +94,11 @@ describe('MomentsClient', () => {
         FILE_1,
         MEDIA_UPLOAD_URL,
         FILE_1_TYPE,
-        anyFunction(),
       );
       expect(poapMomentsAPIMocked.uploadFile).toHaveBeenCalledWith(
         FILE_2,
         MEDIA_UPLOAD_URL,
         FILE_2_TYPE,
-        anyFunction(),
       );
       expect(onStepUpdate).toHaveBeenCalledWith(CreateSteps.UPLOADING_MEDIA);
       expect(onStepUpdate).toHaveBeenCalledWith(CreateSteps.PROCESSING_MEDIA);

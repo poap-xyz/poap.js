@@ -66,7 +66,6 @@ export class MomentsClient {
     return Moment.fromCreated(response);
   }
 
-  // eslint-disable-next-line max-statements
   public async uploadMediaList(
     mediaArray: CreateMedia[],
     onStepUpdate?: (step: CreateSteps) => void | Promise<void>,
@@ -79,15 +78,7 @@ export class MomentsClient {
     let progress = 0;
 
     for (const media of mediaArray) {
-      const mediaOnFileUploadProgress = (mediaProgress: number): void => {
-        const totalProgress = progressPerMedia * mediaProgress + progress;
-        void onFileUploadProgress?.(totalProgress);
-      };
-      const key = await this.uploadMedia(
-        media,
-        mediaOnFileUploadProgress,
-        timeOut,
-      );
+      const key = await this.uploadMedia(media, timeOut);
       mediaKeys.push(key);
       progress += progressPerMedia;
       void onFileUploadProgress?.(progress);
@@ -118,21 +109,11 @@ export class MomentsClient {
 
   private async uploadMedia(
     media: CreateMedia,
-    onFileUploadProgress?: (progress: number) => void | Promise<void>,
     timeOut?: number,
   ): Promise<string> {
     const { url, key } = await this.poapMomentsApi.getSignedUrl();
 
-    await this.poapMomentsApi.uploadFile(
-      media.fileBinary,
-      url,
-      media.fileType,
-      // FIXME the given function could return a promise but
-      // - moments api provider doesn't expect a fouth argument
-      // - poap moments api accepts a function that does not returns a promise
-      // eslint-disable-next-line @typescript-eslint/no-misused-promises
-      onFileUploadProgress,
-    );
+    await this.poapMomentsApi.uploadFile(media.fileBinary, url, media.fileType);
 
     await this.poapMomentsApi.waitForMediaProcessing(key, timeOut);
 

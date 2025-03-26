@@ -1,13 +1,11 @@
 import { AuthenticationProvider } from '../src/ports/AuthenticationProvider/AuthenticationProvider';
 import { PoapMomentsApi } from '../src/core/PoapMomentsApi/PoapMomentsApi';
-import MockAdapter from 'axios-mock-adapter';
-import axios from 'axios';
 import { InvalidMediaError } from '../src/ports/MomentsApiProvider/errors/InvalidMediaError';
 import { mock, MockProxy } from 'jest-mock-extended';
 import { MediaStatus } from '../src/ports/MomentsApiProvider/types/MediaStatus';
 import { CreateMomentInput } from '../src/ports/MomentsApiProvider/types/CreateMomentInput';
 import { CreateMomentResponse } from '../src/ports/MomentsApiProvider/types/CreateMomentResponse';
-import { enableFetchMocks } from 'jest-fetch-mock';
+import fetchMock, { enableFetchMocks } from 'jest-fetch-mock';
 
 enableFetchMocks();
 
@@ -16,28 +14,20 @@ describe('PoapMomentsApi', () => {
 
   let api: PoapMomentsApi;
   let authenticationProviderMocked: MockProxy<AuthenticationProvider>;
-  let axiosMocked: MockAdapter;
 
   beforeEach(() => {
     authenticationProviderMocked = mock();
-    axiosMocked = new MockAdapter(axios);
+    fetchMock.resetMocks();
     api = new PoapMomentsApi({
       baseUrl: BASE_URL,
       authenticationProvider: authenticationProviderMocked,
     });
   });
 
-  afterEach(() => {
-    axiosMocked.reset();
-  });
-
   describe('getSignedUrl', () => {
     it('should fetch a signed URL', async () => {
       const mockResponse = { url: 'mock-signed-url', key: 'mock-key' };
-
-      axiosMocked
-        .onPost(`${BASE_URL}/moments/media-upload-url`)
-        .reply(200, mockResponse);
+      fetchMock.mockResponseOnce(JSON.stringify(mockResponse));
 
       const result = await api.getSignedUrl();
       expect(result).toEqual(mockResponse);
@@ -55,7 +45,7 @@ describe('PoapMomentsApi', () => {
       const signedUrl = 'https://mock-signed-url';
       const fileType = 'image/png';
 
-      axiosMocked.onPut(signedUrl).reply(200);
+      fetchMock.mockResponseOnce('', { status: 200 });
 
       await expect(
         api.uploadFile(file, signedUrl, fileType),
@@ -67,10 +57,7 @@ describe('PoapMomentsApi', () => {
     it('should fetch the media status', async () => {
       const mediaKey = 'mock-media-key';
       const mockResponse = { status: MediaStatus.PROCESSED };
-
-      axiosMocked
-        .onGet(`${BASE_URL}/media/${mediaKey}`)
-        .reply(200, mockResponse);
+      fetchMock.mockResponseOnce(JSON.stringify(mockResponse));
 
       const result = await api.fetchMediaStatus(mediaKey);
       expect(result).toEqual(mockResponse.status);
@@ -81,10 +68,7 @@ describe('PoapMomentsApi', () => {
     it('should wait for media processing without throwing an error', async () => {
       const mediaKey = 'mock-media-key';
       const mockResponse = { status: MediaStatus.PROCESSED };
-
-      axiosMocked
-        .onGet(`${BASE_URL}/media/${mediaKey}`)
-        .reply(200, mockResponse);
+      fetchMock.mockResponseOnce(JSON.stringify(mockResponse));
 
       await expect(
         api.waitForMediaProcessing(mediaKey, 5000),
@@ -94,10 +78,7 @@ describe('PoapMomentsApi', () => {
     it('should throw InvalidMediaFileError when media status is INVALID', async () => {
       const mediaKey = 'mock-media-key';
       const invalidMediaResponse = { status: MediaStatus.INVALID };
-
-      axiosMocked
-        .onGet(`${BASE_URL}/media/${mediaKey}`)
-        .reply(200, invalidMediaResponse);
+      fetchMock.mockResponseOnce(JSON.stringify(invalidMediaResponse));
 
       await expect(api.waitForMediaProcessing(mediaKey, 5000)).rejects.toThrow(
         InvalidMediaError,
@@ -121,8 +102,7 @@ describe('PoapMomentsApi', () => {
         dropIds: [1],
         description: 'This is a test description',
       };
-
-      axiosMocked.onPost(`${BASE_URL}/moments`).reply(200, mockResponse);
+      fetchMock.mockResponseOnce(JSON.stringify(mockResponse));
 
       const result = await api.createMoment(createMomentInput);
       expect(result).toEqual(mockResponse);
@@ -141,8 +121,7 @@ describe('PoapMomentsApi', () => {
         dropIds: [],
         description: 'This is a test description',
       };
-
-      axiosMocked.onPost(`${BASE_URL}/moments`).reply(200, mockResponse);
+      fetchMock.mockResponseOnce(JSON.stringify(mockResponse));
 
       const input = { ...createMomentInput };
       delete input.dropIds;
