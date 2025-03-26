@@ -1,4 +1,4 @@
-import { TokensApiProvider } from '@poap-sdk/providers';
+import { TokensApiProvider } from '@poap-xyz/poap-sdk/providers';
 
 const MAX_RETRIES = 20;
 const INITIAL_DELAY = 1000;

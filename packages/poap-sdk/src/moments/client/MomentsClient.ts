@@ -1,4 +1,4 @@
-import { CompassProvider, PoapMomentsApi } from '@poap-sdk/providers';
+import { CompassProvider, PoapMomentsApi } from '@poap-xyz/poap-sdk/providers';
 import {
   createBetweenFilter,
   createEqFilter,
@@ -7,7 +7,7 @@ import {
   createOrderBy,
   nextCursor,
   PaginatedResult,
-} from '@poap-sdk/utils';
+} from '@poap-xyz/poap-sdk/utils';
 import { Moment } from '../domain/Moment';
 import {
   MomentsQueryResponse,

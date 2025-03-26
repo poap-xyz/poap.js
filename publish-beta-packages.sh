@@ -34,7 +34,7 @@ for pkg in "${DIRS[@]}"; do
   fi
 
   # Publish the package with a "beta" tag
-  if ! yarn npm publish --tag beta; then
+  if ! yarn npm publish --tag beta --access public; then
     echo "Error: Failed to publish $pkg_name"
     exit 1
   fi
