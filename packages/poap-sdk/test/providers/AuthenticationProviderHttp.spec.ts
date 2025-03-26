@@ -1,5 +1,5 @@
 import { mock } from 'node:test';
-import { AuthenticationProviderHttp } from '../src/core/AuthenticationProviderHttp/AuthenticationProviderHttp';
+import { AuthenticationProviderHttp } from '../../src/providers/core/AuthenticationProviderHttp/AuthenticationProviderHttp';
 import { jest } from '@jest/globals';
 
 describe('AuthenticationProviderHttp', () => {

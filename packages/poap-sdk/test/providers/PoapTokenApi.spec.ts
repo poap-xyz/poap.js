@@ -1,13 +1,13 @@
 import {
   Transaction,
   TransactionStatus,
-} from '../src/ports/TokensApiProvider/types/Transaction';
-import {MintCodeInput } from '../src/ports/TokensApiProvider/types/MintCodeInput';
+} from '../../src/providers/ports/TokensApiProvider/types/Transaction';
+import { MintCodeInput } from '../../src/providers/ports/TokensApiProvider/types/MintCodeInput';
 import {
   GetMintCodeResponse,
   PostMintCodeResponse,
-} from '../src/ports/TokensApiProvider/types/MintCodeResponse';
-import { PoapTokenApi } from '../src/core/PoapTokenApi/PoapTokenApi';
+} from '../../src/providers/ports/TokensApiProvider/types/MintCodeResponse';
+import { PoapTokenApi } from '../../src/providers/core/PoapTokenApi/PoapTokenApi';
 import { mock } from 'node:test';
 
 describe('PoapTokenApi', () => {

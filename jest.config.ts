@@ -17,4 +17,7 @@ export default {
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.ts?$',
   moduleFileExtensions: ['ts', 'js', 'json', 'node'],
   clearMocks: true,
+  moduleNameMapper: {
+    '^@poap-sdk/(.*)$': '<rootDir>/packages/poap-sdk/src/$1',
+  },
 };

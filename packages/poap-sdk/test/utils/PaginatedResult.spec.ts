@@ -1,4 +1,4 @@
-import { PaginatedResult } from './../src/types/pagination';
+import { PaginatedResult } from '../../src/utils/types/pagination';
 
 describe('PaginatedResult', () => {
   const nextCursor = 'next-page-cursor';

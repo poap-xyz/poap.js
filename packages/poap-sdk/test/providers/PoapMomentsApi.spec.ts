@@ -1,10 +1,10 @@
-import { AuthenticationProvider } from '../src/ports/AuthenticationProvider/AuthenticationProvider';
-import { PoapMomentsApi } from '../src/core/PoapMomentsApi/PoapMomentsApi';
-import { InvalidMediaError } from '../src/ports/MomentsApiProvider/errors/InvalidMediaError';
+import { AuthenticationProvider } from '../../src/providers/ports/AuthenticationProvider/AuthenticationProvider';
+import { PoapMomentsApi } from '../../src/providers/core/PoapMomentsApi/PoapMomentsApi';
+import { InvalidMediaError } from '../../src/providers/ports/MomentsApiProvider/errors/InvalidMediaError';
 import { mock, MockProxy } from 'jest-mock-extended';
-import { MediaStatus } from '../src/ports/MomentsApiProvider/types/MediaStatus';
-import { CreateMomentInput } from '../src/ports/MomentsApiProvider/types/CreateMomentInput';
-import { CreateMomentResponse } from '../src/ports/MomentsApiProvider/types/CreateMomentResponse';
+import { MediaStatus } from '../../src/providers/ports/MomentsApiProvider/types/MediaStatus';
+import { CreateMomentInput } from '../../src/providers/ports/MomentsApiProvider/types/CreateMomentInput';
+import { CreateMomentResponse } from '../../src/providers/ports/MomentsApiProvider/types/CreateMomentResponse';
 import fetchMock, { enableFetchMocks } from 'jest-fetch-mock';
 
 enableFetchMocks();

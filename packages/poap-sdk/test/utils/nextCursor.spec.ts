@@ -1,4 +1,4 @@
-import { nextCursor } from '../src/functions/nextCursor';
+import { nextCursor } from '../../src/utils/functions/nextCursor';
 
 describe('nextCursor', () => {
   it('should return null when endIndex is less than the sum of offset and limit', () => {

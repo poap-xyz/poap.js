@@ -1,9 +1,9 @@
-import { PoapDropApi } from '../src/core/PoapDropApi/PoapDropApi';
+import { PoapDropApi } from '../../src/providers/core/PoapDropApi/PoapDropApi';
 import {
   CreateDropInput,
   UpdateDropInput,
-} from '../src/ports/DropApiProvider/types/DropInput';
-import { DropResponse } from '../src/ports/DropApiProvider/types/DropResponse';
+} from '../../src/providers/ports/DropApiProvider/types/DropInput';
+import { DropResponse } from '../../src/providers/ports/DropApiProvider/types/DropResponse';
 import { mock } from 'node:test';
 
 describe('PoapDropApi', () => {

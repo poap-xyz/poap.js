@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-`@poap-xyz/sdk` is a package to interact with everything POAP.
+`@poap-xyz/poap-sdk` is a package to interact with everything POAP.
 
 ## Features
 

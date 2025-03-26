@@ -1,4 +1,4 @@
-import { isFilterValueDefined } from '../../src/validation/isFilterValueDefined';
+import { isFilterValueDefined } from '../../../src/utils/validation/isFilterValueDefined';
 
 describe('isFilterValueDefined', () => {
   it('should accept a string if it is not empty', () => {

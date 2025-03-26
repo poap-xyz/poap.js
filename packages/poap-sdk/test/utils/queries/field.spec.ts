@@ -1,4 +1,4 @@
-import { createField } from '../../src/queries/field';
+import { createField } from '../../../src/utils/queries/field';
 
 describe('field', () => {
   describe('createField', () => {

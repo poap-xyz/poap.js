@@ -1,9 +1,9 @@
 import { enableFetchMocks } from 'jest-fetch-mock';
-import { PoapCompass } from '../src/core/PoapCompass/PoapCompass';
-import { CompassRequestError } from '../src/ports/CompassProvider/errors/CompassRequestError';
-import { CompassMissingDataError } from '../src/ports/CompassProvider/errors/CompassMissingDataError';
-import { CompassBadRequestError } from '../src/ports/CompassProvider/errors/CompassBadRequestError';
-import { CompassUnauthorizedError } from '../src/ports/CompassProvider/errors/CompassUnauthorizedError';
+import { PoapCompass } from '../../src/providers/core/PoapCompass/PoapCompass';
+import { CompassRequestError } from '../../src/providers/ports/CompassProvider/errors/CompassRequestError';
+import { CompassMissingDataError } from '../../src/providers/ports/CompassProvider/errors/CompassMissingDataError';
+import { CompassBadRequestError } from '../../src/providers/ports/CompassProvider/errors/CompassBadRequestError';
+import { CompassUnauthorizedError } from '../../src/providers/ports/CompassProvider/errors/CompassUnauthorizedError';
 
 enableFetchMocks();
 
