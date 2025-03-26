@@ -15,13 +15,13 @@
 ### NPM
 
 ```bash
-npm install @poap-xyz/moments @poap-xyz/utils @poap-xyz/providers axios
+npm install @poap-xyz/moments @poap-xyz/utils @poap-xyz/providers
 ```
 
 ### Yarn
 
 ```bash
-yarn add @poap-xyz/moments @poap-xyz/utils @poap-xyz/providers axios
+yarn add @poap-xyz/moments @poap-xyz/utils @poap-xyz/providers
 ```
 
 ## Usage

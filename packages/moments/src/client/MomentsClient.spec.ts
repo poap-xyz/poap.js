@@ -94,13 +94,11 @@ describe('MomentsClient', () => {
         FILE_1,
         MEDIA_UPLOAD_URL,
         FILE_1_TYPE,
-        anyFunction(),
       );
       expect(poapMomentsAPIMocked.uploadFile).toHaveBeenCalledWith(
         FILE_2,
         MEDIA_UPLOAD_URL,
         FILE_2_TYPE,
-        anyFunction(),
       );
       expect(onStepUpdate).toHaveBeenCalledWith(CreateSteps.UPLOADING_MEDIA);
       expect(onStepUpdate).toHaveBeenCalledWith(CreateSteps.PROCESSING_MEDIA);
