@@ -6,7 +6,7 @@ that another email is sent in their place or the collector knows already how to
 mint it afterwards.
 
 ```typescript
-import { POAPReservation } from '@poap-xyz/poap-sdk/poaps';
+import { POAPReservation } from '@poap-xyz/poap-sdk';
 
 const emailReservation: POAPReservation = await client.emailReservation({
   mintCode: 'your_poap_code',
@@ -15,4 +15,4 @@ const emailReservation: POAPReservation = await client.emailReservation({
 });
 ```
 
-This method can throw [custom errors](Errors) that need to handled.
+This method can throw [custom errors](./Errors) that need to handled.
