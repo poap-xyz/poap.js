@@ -20,7 +20,3 @@ to `http://localhost:3000`.
 
 We welcome contributions! Please see the [`CONTRIBUTING.md`](../.github/CONTRIBUTING.md) file for
 guidelines on how to get involved.
-
-## License
-
-@poap-xyz/poap-sdk is released under the [MIT License](https://opensource.org/licenses/MIT).
