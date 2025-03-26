@@ -1,4 +1,4 @@
-import { TokensApiProvider } from '@poap-sdk/providers';
+import { TokensApiProvider } from '@poap-xyz/poap-sdk/providers';
 import { RetryableTask } from './RetryableTask';
 import { PoapMintStatus } from '../types/PoapMintStatus';
 

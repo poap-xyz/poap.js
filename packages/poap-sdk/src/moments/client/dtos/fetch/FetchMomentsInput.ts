@@ -1,4 +1,4 @@
-import { Order, PaginationInput } from '@poap-sdk/utils';
+import { Order, PaginationInput } from '@poap-xyz/poap-sdk/utils';
 
 /**
  * Interface representing the input needed to fetch moments.

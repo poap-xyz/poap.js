@@ -2,7 +2,7 @@ import {
   FilterVariables,
   OrderByVariables,
   PaginatedVariables,
-} from '@poap-sdk/utils';
+} from '@poap-xyz/poap-sdk/utils';
 import { DropResponse } from '../types/DropResponse';
 
 export const PAGINATED_DROPS_QUERY = `

@@ -2,7 +2,7 @@ import {
   FilterVariables,
   OrderByVariables,
   PaginatedVariables,
-} from '@poap-sdk/utils';
+} from '@poap-xyz/poap-sdk/utils';
 
 export const PAGINATED_MOMENTS_QUERY = /* GraphQL */ `
   query PaginatedMoments(
