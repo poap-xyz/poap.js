@@ -4,8 +4,12 @@ When retrieving Drops we have to paginate using `offset` and `limit`. But beside
 results and filter them by many options.
 
 ```typescript
-import { Drop, DropsSortFields } from '@poap-xyz/poap-sdk/drops';
-import { Order, PaginatedResult } from '@poap-xyz/poap-sdk/utils';
+import {
+  Drop,
+  DropsSortFields,
+  Order,
+  PaginatedResult,
+} from '@poap-xyz/poap-sdk';
 
 const paginatedDrops: PaginatedResult<Drop> = await client.fetch({
   offset: 0,
@@ -20,8 +24,7 @@ const paginatedDrops: PaginatedResult<Drop> = await client.fetch({
 By giving the Drop ID we want to find, we can filter the pagination to contain the Drop or not.
 
 ```typescript
-import { Drop } from '@poap-xyz/poap-sdk/drops';
-import { PaginatedResult } from '@poap-xyz/poap-sdk/utils';
+import { Drop, PaginatedResult } from '@poap-xyz/poap-sdk';
 
 const dropId = 14;
 
