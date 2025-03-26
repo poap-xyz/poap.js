@@ -8,7 +8,7 @@ upload an image and create it as a moment associated with a Drop or a POAP.
 ```typescript
 import mime from 'mime';
 import fsPromises from 'fs/promises';
-import { Moment } from '@poap-xyz/poap-sdk/moments';
+import { Moment } from '@poap-xyz/poap-sdk';
 
 // Load the image of the moment.
 const fileBuffer = await fsPromises.readFile('path/to/poap-moment.png');
