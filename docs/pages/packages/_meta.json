@@ -1,8 +1,4 @@
 {
-  "poaps": "POAPs",
-  "drops": "Drops",
-  "moments": "Moments",
-  "providers": "Providers",
-  "frames": "Frames",
-  "utils": "Utils"
+  "poap-sdk": "POAP SDK",
+  "frames": "Frames"
 }

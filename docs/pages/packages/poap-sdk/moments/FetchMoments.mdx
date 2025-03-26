@@ -6,8 +6,8 @@ Fetching moments per page is done by giving an `offset` and a `limit`. This way
 all the uploaded moments could be retrieved.
 
 ```typescript
-import { Moment } from '@poap-xyz/moments';
-import { Order, PaginatedResult } from '@poap-xyz/utils';
+import { Moment } from '@poap-xyz/poap-sdk/moments';
+import { Order, PaginatedResult } from '@poap-xyz/poap-sdk/utils';
 
 const paginatedMoments: PaginatedResult<Moment> = await client.fetch({
   offset: 0,
@@ -22,8 +22,8 @@ The list can be filtered by one or more Drops by giving `dropIds` list with the
 Drop IDs. Also, the list can be sorted by `id` or `created`.
 
 ```typescript
-import { Moment } from '@poap-xyz/moments';
-import { Order, PaginatedResult } from '@poap-xyz/utils';
+import { Moment } from '@poap-xyz/poap-sdk/moments';
+import { Order, PaginatedResult } from '@poap-xyz/poap-sdk/utils';
 
 const dropId = 14;
 
@@ -38,8 +38,8 @@ const paginatedMoments: PaginatedResult<Moment> = await client.fetch({
 ## Fetch single Moment
 
 ```typescript
-import { Moment } from '@poap-xyz/moments';
-import { PaginatedResult } from '@poap-xyz/utils';
+import { Moment } from '@poap-xyz/poap-sdk/moments';
+import { PaginatedResult } from '@poap-xyz/poap-sdk/utils';
 
 const momentId = '7284219b-1bc7-43b8-ab27-44749bdd91e1';
 

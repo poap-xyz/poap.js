@@ -23,4 +23,4 @@ guidelines on how to get involved.
 
 ## License
 
-@poap-xyz/drops is released under the [MIT License](https://opensource.org/licenses/MIT).
+@poap-xyz/poap-sdk is released under the [MIT License](https://opensource.org/licenses/MIT).

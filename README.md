@@ -30,9 +30,37 @@ library provides a set of classes and methods to simplify working with it.
 
 ## Features
 
-- Handle moments creation and management
-- TypeScript support with strong typing
-- Easy integration with the POAP ecosystem
+### POAPs
+
+- Fetch one or multiple POAP tokens at once.
+- Search for minted POAPs by their collector or the drop they belong to.
+- Mint POAPs using synchronous or asynchronous processes.
+- Reserve a POAP to an email address.
+- Obtain mint status, POAP indexed status, and more.
+
+### Drops 
+
+- Create a Drop
+- Update a Drop attributes
+- Fetch a single Drop
+- Fetch multiple Drops
+- Search Drops
+
+### Moments
+
+- Create a Moment attached to a Drop or a specific POAP
+- Fetch multiple Moments
+- Fetch a single Moment
+
+### Providers
+
+- Interfaces to interact with POAP APIs
+- POAP custom Providers so you can use without implementing one.
+
+### Utils
+
+- PaginatedResult: A paginated interface that makes it easier to manage paginated results
+- SecureFetch: A wrapper for headers that inserts the authentication with POAP.
 
 ## Development
 
@@ -88,83 +116,6 @@ Please ensure that your code adheres to the project's code style and passes all 
 submitting a pull request.
 
 See [`CONTRIBUTING.md`](./.github/CONTRIBUTING.md) file for guidelines on how to get involved.
-
-## Active contributors
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tr>
-    <td align="center">
-      <a href="https://github.com/rlajous">
-          <img src="https://avatars.githubusercontent.com/u/40175251?s=96&v=4" width="100px;" alt=""/>
-          <br />
-          <sub>
-          <b>Rodrigo Manuel Navarro Lajous</b>
-          </sub>
-      </a>
-      <br />
-      <a href="#" title="Code">💻</a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/alavarello">
-            <img src="https://avatars.githubusercontent.com/u/19600590?v=4" width="100px;" alt=""/>
-            <br />
-            <sub>
-            <b>Agustin Lavarello</b>
-            </sub>
-        </a>
-        <br />
-        <a href="#" title="Code">💻</a>
-    </td>
-    <!-- <td align="center">
-      <a href="https://github.com/jm42">
-          <img src="https://avatars.githubusercontent.com/u/3297150?v=4" width="100px;" alt=""/>
-          <br />
-          <sub>
-          <b>Juan</b>
-          </sub>
-      </a>
-      <br />
-      <a href="#" title="Code">💻</a>
-    </td> -->
-    <td align="center">
-        <a href="https://github.com/nacho9900">
-            <img src="https://avatars2.githubusercontent.com/u/20389479?v=4" width="100px;" alt=""/>
-            <br />
-            <sub>
-            <b>Ignacio Negro Caino</b>
-            </sub>
-        </a>
-        <br />
-        <a href="#" title="Code">💻</a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/fermartin17">
-            <img src="https://avatars.githubusercontent.com/u/29874071?s=400&u=a94953c5866546f0f7228fda74943ff1b53af621&v=4" width="100px;" alt=""/>
-            <br />
-            <sub>
-            <b>Fernando Martin</b>
-            </sub>
-        </a>
-        <br />
-        <a href="#" title="Code">💻</a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/reobin">
-            <img src="https://avatars.githubusercontent.com/u/5920450?v=4" width="100px;" alt=""/>
-            <br />
-            <sub>
-            <b>Robin Gagnon</b>
-            </sub>
-        </a>
-        <br />
-        <a href="#" title="Code">💻</a>
-    </td>
-  </tr>
-</table>
 
 ## License
 
