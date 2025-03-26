@@ -1,4 +1,4 @@
-import { anyFunction, mock, MockProxy } from 'jest-mock-extended';
+import { mock, MockProxy } from 'jest-mock-extended';
 import { PoapCompass, PoapMomentsApi } from '@poap-xyz/providers';
 import { MomentsClient } from './MomentsClient';
 import { CreateMomentInput } from './dtos/create/CreateInput';
