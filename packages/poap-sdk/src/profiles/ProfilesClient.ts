@@ -9,11 +9,11 @@ export class ProfilesClient {
   constructor(private profileApiProvider: ProfilesApiProvider) {}
 
   /**
-   * @param address The ETH address or ENS.
+   * @param query The ETH address or ENS.
    * @returns The profile, or null if not found.
    */
-  async fetch(address: string): Promise<Profile | null> {
-    const response = await this.profileApiProvider.getProfile(address);
+  async fetch(query: string): Promise<Profile | null> {
+    const response = await this.profileApiProvider.getProfile(query);
     if (!response) {
       return null;
     }
@@ -32,12 +32,12 @@ export class ProfilesClient {
    * console.log(profiles.get('test.eth')?.address); // '0x1234...'
    * console.log(profiles.get(address2)?.ens); // undefined
    *
-   * @param addresses The ETH addresses or ENS.
+   * @param queries The ETH addresses or ENS.
    * @returns A map of input addresses (ETH address or ENS) to profiles. All
    * map keys are lowercased.
    */
-  async fetchBulk(addresses: string[]): Promise<Map<string, Profile>> {
-    const profiles = await this.profileApiProvider.getBulkProfiles(addresses);
+  async fetchBulk(queries: string[]): Promise<Map<string, Profile>> {
+    const profiles = await this.profileApiProvider.getBulkProfiles(queries);
     if (!profiles.length) {
       return new Map();
     }

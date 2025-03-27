@@ -16,34 +16,34 @@ export class PoapProfilesApi implements ProfilesApiProvider {
 
   /**
    * Get a profile by address or ENS.
-   * @param address ETH address or ENS
+   * @param query ETH address or ENS
    * @returns The response from the API.
    */
-  async getProfile(address: string): Promise<ProfileResponse | null> {
+  async getProfile(query: string): Promise<ProfileResponse | null> {
     try {
-      return await this.request<ProfileResponse>(`/profile/${address}`);
+      return await this.request<ProfileResponse>(`/profile/${query}`);
     } catch {
       return null;
     }
   }
 
   /**
-   * Get a list of profiles by addresses or ENS. Will make multiple requests if
+   * Get a list of profiles by ETH address or ENS. Will make multiple requests if
    * the list is too big.
-   * @param addresses List of ETH addresses or ENS
+   * @param queries ETH addresses or ENS
    * @returns The list of responses from the API.
    */
-  async getBulkProfiles(addresses: string[]): Promise<ProfileResponse[]> {
-    if (addresses.length === 0) {
+  async getBulkProfiles(queries: string[]): Promise<ProfileResponse[]> {
+    if (queries.length === 0) {
       return [];
     }
 
-    if (addresses.length === 1) {
-      const profile = await this.getProfile(addresses[0]);
+    if (queries.length === 1) {
+      const profile = await this.getProfile(queries[0]);
       return profile ? [profile] : [];
     }
 
-    const batchResult = await this.batchBulkProfilesRequest(addresses);
+    const batchResult = await this.batchBulkProfilesRequest(queries);
     return batchResult.reduce(
       (profiles, response) => profiles.concat(response.profiles),
       [] as ProfileResponse[],
@@ -51,17 +51,17 @@ export class PoapProfilesApi implements ProfilesApiProvider {
   }
 
   private async batchBulkProfilesRequest(
-    addresses: string[],
+    queries: string[],
   ): Promise<BulkProfilesResponse[]> {
     const results: BulkProfilesResponse[] = [];
-    const requests = chunk(addresses, REQUEST_PARAM_COUNT_LIMIT);
+    const requests = chunk(queries, REQUEST_PARAM_COUNT_LIMIT);
     const chunks = chunk(requests, BATCH_REQUEST_SIZE);
 
     for (const chunk of chunks) {
       const responses = await Promise.allSettled(
-        chunk.map((addresses) =>
+        chunk.map((queries) =>
           this.request<BulkProfilesResponse>(
-            `/bulk/profile/${addresses.join(',')}`,
+            `/bulk/profile/${queries.join(',')}`,
           ),
         ),
       );
