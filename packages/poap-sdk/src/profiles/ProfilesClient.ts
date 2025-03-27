@@ -48,8 +48,8 @@ export class ProfilesClient {
         profileResponse,
         this.profileApiProvider.apiUrl,
       );
-      profiles.set(profile.address, profile);
-      profiles.set(profile.ens, profile);
+      profiles.set(profile.address.toLowerCase(), profile);
+      profiles.set(profile.ens.toLowerCase(), profile);
     }
     return profiles;
   }
