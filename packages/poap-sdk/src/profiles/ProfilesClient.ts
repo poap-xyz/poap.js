@@ -37,20 +37,20 @@ export class ProfilesClient {
    * map keys are lowercased.
    */
   async fetchBulk(addresses: string[]): Promise<Map<string, Profile>> {
-    const response = await this.profileApiProvider.getBulkProfiles(addresses);
-    if (!response.profiles.length) {
+    const profiles = await this.profileApiProvider.getBulkProfiles(addresses);
+    if (!profiles.length) {
       return new Map();
     }
 
-    const profiles = new Map<string, Profile>();
-    for (const profileResponse of response.profiles) {
+    const map = new Map<string, Profile>();
+    for (const profileResponse of profiles) {
       const profile = Profile.fromResponse(
         profileResponse,
         this.profileApiProvider.apiUrl,
       );
-      profiles.set(profile.address.toLowerCase(), profile);
-      profiles.set(profile.ens.toLowerCase(), profile);
+      map.set(profile.address.toLowerCase(), profile);
+      map.set(profile.ens.toLowerCase(), profile);
     }
-    return profiles;
+    return map;
   }
 }

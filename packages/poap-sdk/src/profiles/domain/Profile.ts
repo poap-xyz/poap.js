@@ -1,4 +1,4 @@
-import { ProfileResponse } from '../../providers/ports/ProfilesApiProvider';
+import { ProfileResponse } from '../../providers/ports/ProfilesApiProvider/types/ProfileResponse';
 
 export class Profile {
   constructor(
