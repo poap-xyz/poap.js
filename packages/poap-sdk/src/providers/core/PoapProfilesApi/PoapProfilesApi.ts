@@ -38,6 +38,10 @@ export class PoapProfilesApi implements ProfilesApiProvider {
 
   private async request<T>(path: string): Promise<T> {
     const response = await fetch(`${this.apiUrl}${path}`);
+    if (!response.ok) {
+      const { message } = await response.json();
+      throw new Error(`Failed to fetch ${this.apiUrl}${path} | ${message}`);
+    }
     return await response.json();
   }
 }
