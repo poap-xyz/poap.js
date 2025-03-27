@@ -31,6 +31,7 @@ export class ProfilesClient {
    * console.log(profiles.get(address1)?.ens); // 'test.eth'
    * console.log(profiles.get('test.eth')?.address); // '0x1234...'
    * console.log(profiles.get(address2)?.ens); // undefined
+   * ```
    *
    * @param queries The ETH addresses or ENS.
    * @returns A map of input addresses (ETH address or ENS) to profiles. All

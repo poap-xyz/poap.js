@@ -21,7 +21,9 @@ export class PoapProfilesApi implements ProfilesApiProvider {
    */
   async getProfile(query: string): Promise<ProfileResponse | null> {
     try {
-      return await this.request<ProfileResponse>(`/profile/${query}`);
+      return await this.request<ProfileResponse>(
+        `/profile/${encodeURIComponent(query)}`,
+      );
     } catch {
       return null;
     }
@@ -61,7 +63,7 @@ export class PoapProfilesApi implements ProfilesApiProvider {
       const responses = await Promise.allSettled(
         chunk.map((queries) =>
           this.request<BulkProfilesResponse>(
-            `/bulk/profile/${queries.join(',')}`,
+            `/bulk/profile/${queries.map((query) => encodeURIComponent(query)).join(',')}`,
           ),
         ),
       );
@@ -85,9 +87,13 @@ export class PoapProfilesApi implements ProfilesApiProvider {
   }
 
   private async handleError(response: Response): Promise<never> {
-    const body = await response.json();
-    throw new Error(
-      `Failed to fetch ${response.url} | ${body?.message || 'Unexpected error'}`,
-    );
+    try {
+      const body = await response.json();
+      throw new Error(
+        `Failed to fetch ${response.url} | ${body?.message || 'Unexpected error'}`,
+      );
+    } catch {
+      throw new Error(`Failed to fetch ${response.url} | Unexpected error`);
+    }
   }
 }
