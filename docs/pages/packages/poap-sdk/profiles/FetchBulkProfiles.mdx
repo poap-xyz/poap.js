@@ -1,0 +1,41 @@
+# Fetch Bulk Profiles
+
+## Usage
+
+Provided a list of queries (ENS or ETH address), a list of multiple profiles
+can be fetched at once. The result is a map of queries to profiles, for easy
+matching between the input and the output.
+
+```ts
+const profileApi = new PoapProfilesApi();
+const profilesClient = new ProfilesClient(profileApi);
+const profilesMap = await profilesClient.fetchBulk(['poap.eth', '0x0011...']);
+
+console.log(profilesMap.get('poap.eth')); // { address: '0x0000...', ... }
+console.log(profilesMap.get('0x0000...')); // { address: '0x0000...', ... }
+console.log(profilesMap.get('0x0011')); // undefined
+```
+
+## Result
+
+The result will be composed of a map of queries to profiles. Both the ENS and
+ETH address can be used as keys.
+
+Profiles that were not found will not be included in the result.
+
+```json
+{
+  "poap.eth": {
+    "address": "0x0000...",
+    "ens": "poap.eth",
+    "avatar": "https://...",
+    "header": "https://...",
+  },
+  "0x0000...": {
+    "address": "0x0000...",
+    "ens": "poap.eth",
+    "avatar": "https://...",
+    "header": "https://...",
+  }
+}
+```
