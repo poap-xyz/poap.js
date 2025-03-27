@@ -28,6 +28,11 @@
 - Fetch multiple Moments
 - Fetch a single Moment
 
+### Profiles
+
+- Fetch a Profile by ETH address or ENS. Get back info like ENS, avatar, and header.
+- Fetch multiple Profiles in bulk
+
 ### Providers
 
 - Interfaces to interact with POAP APIs
