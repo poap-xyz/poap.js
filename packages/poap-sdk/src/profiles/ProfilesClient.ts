@@ -10,10 +10,11 @@ export class ProfilesClient {
 
   /**
    * @param query The ETH address or ENS.
+   * @param options Options to pass to the fetch call.
    * @returns The profile, or null if not found.
    */
-  async fetch(query: string): Promise<Profile | null> {
-    const response = await this.profileApiProvider.getProfile(query);
+  async fetch(query: string, options?: RequestInit): Promise<Profile | null> {
+    const response = await this.profileApiProvider.getProfile(query, options);
     if (!response) {
       return null;
     }
@@ -34,11 +35,18 @@ export class ProfilesClient {
    * ```
    *
    * @param queries The ETH addresses or ENS.
+   * @param options Options to pass to the fetch call.
    * @returns A map of input addresses (ETH address or ENS) to profiles. All
    * map keys are lowercased.
    */
-  async fetchBulk(queries: string[]): Promise<Map<string, Profile>> {
-    const profiles = await this.profileApiProvider.getBulkProfiles(queries);
+  async fetchBulk(
+    queries: string[],
+    options?: RequestInit,
+  ): Promise<Map<string, Profile>> {
+    const profiles = await this.profileApiProvider.getBulkProfiles(
+      queries,
+      options,
+    );
     if (!profiles.length) {
       return new Map();
     }
