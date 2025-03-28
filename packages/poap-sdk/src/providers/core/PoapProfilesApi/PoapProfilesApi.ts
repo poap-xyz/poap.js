@@ -4,7 +4,7 @@ import { ProfileResponse } from '../../ports/ProfilesApiProvider/types/ProfileRe
 import { ProfilesApiProvider } from '../../ports/ProfilesApiProvider/';
 
 const DEFAULT_PROFILES_API_URL = 'https://profiles.poap.tech';
-const REQUEST_PARAM_COUNT_LIMIT = 100;
+const REQUEST_PARAM_COUNT_LIMIT = 50;
 const BATCH_REQUEST_SIZE = 5;
 
 export class PoapProfilesApi implements ProfilesApiProvider {
