@@ -17,12 +17,17 @@ export class PoapProfilesApi implements ProfilesApiProvider {
   /**
    * Get a profile by address or ENS.
    * @param query ETH address or ENS
+   * @param options Options to pass to the fetch call.
    * @returns The response from the API.
    */
-  async getProfile(query: string): Promise<ProfileResponse | null> {
+  async getProfile(
+    query: string,
+    options?: RequestInit,
+  ): Promise<ProfileResponse | null> {
     try {
       return await this.request<ProfileResponse>(
         `/profile/${encodeURIComponent(query)}`,
+        options,
       );
     } catch {
       return null;
@@ -33,19 +38,23 @@ export class PoapProfilesApi implements ProfilesApiProvider {
    * Get a list of profiles by ETH address or ENS. Will make multiple requests if
    * the list is too big.
    * @param queries ETH addresses or ENS
+   * @param options Options to pass to the fetch call.
    * @returns The list of responses from the API.
    */
-  async getBulkProfiles(queries: string[]): Promise<ProfileResponse[]> {
+  async getBulkProfiles(
+    queries: string[],
+    options?: RequestInit,
+  ): Promise<ProfileResponse[]> {
     if (queries.length === 0) {
       return [];
     }
 
     if (queries.length === 1) {
-      const profile = await this.getProfile(queries[0]);
+      const profile = await this.getProfile(queries[0], options);
       return profile ? [profile] : [];
     }
 
-    const batchResult = await this.batchBulkProfilesRequest(queries);
+    const batchResult = await this.batchBulkProfilesRequest(queries, options);
     return batchResult.reduce(
       (profiles, response) => profiles.concat(response.profiles),
       [] as ProfileResponse[],
@@ -54,6 +63,7 @@ export class PoapProfilesApi implements ProfilesApiProvider {
 
   private async batchBulkProfilesRequest(
     queries: string[],
+    options?: RequestInit,
   ): Promise<BulkProfilesResponse[]> {
     const results: BulkProfilesResponse[] = [];
     const requests = chunk(queries, REQUEST_PARAM_COUNT_LIMIT);
@@ -64,6 +74,7 @@ export class PoapProfilesApi implements ProfilesApiProvider {
         chunk.map((queries) =>
           this.request<BulkProfilesResponse>(
             `/bulk/profile/${queries.map((query) => encodeURIComponent(query)).join(',')}`,
+            options,
           ),
         ),
       );
@@ -78,8 +89,8 @@ export class PoapProfilesApi implements ProfilesApiProvider {
     return results;
   }
 
-  private async request<T>(path: string): Promise<T> {
-    const response = await fetch(`${this.apiUrl}${path}`);
+  private async request<T>(path: string, options?: RequestInit): Promise<T> {
+    const response = await fetch(`${this.apiUrl}${path}`, options);
     if (!response.ok) {
       await this.handleError(response);
     }
