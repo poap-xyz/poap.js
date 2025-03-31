@@ -114,7 +114,7 @@ describe('MomentsClient', () => {
         poapMomentsAPIMocked,
         compassProviderMocked,
       );
-      const inputs: CreateMomentInput = {
+      const inputs: CreateAndUploadMomentInput = {
         dropIds: DROP_IDS,
         mediaKeys: MEDIA_KEYS,
         author: AUTHOR,
@@ -136,7 +136,7 @@ describe('MomentsClient', () => {
       };
 
       // WHEN
-      const moment = await client.createMoment(inputs);
+      const moment = await client.createMomentAndUploadMedia(inputs);
 
       // THEN
       expect(moment.id).toBe(MOMENT_ID);
@@ -157,7 +157,7 @@ describe('MomentsClient', () => {
         poapMomentsAPIMocked,
         compassProviderMocked,
       );
-      const inputs: CreateMomentInput = {
+      const inputs: CreateAndUploadMomentInput = {
         mediaKeys: MEDIA_KEYS,
         author: AUTHOR,
         description: DESCRIPTION,
@@ -176,7 +176,7 @@ describe('MomentsClient', () => {
       };
 
       // WHEN
-      const moment = await client.createMoment(inputs);
+      const moment = await client.createMomentAndUploadMedia(inputs);
 
       // THEN
       expect(moment.id).toBe(MOMENT_ID);
