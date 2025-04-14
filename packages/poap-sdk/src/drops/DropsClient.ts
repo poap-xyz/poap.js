@@ -54,9 +54,13 @@ export class DropsClient {
    * @async
    * @method
    * @param {FetchDropsInput} input - The input for fetching drops.
+   * @param {RequestInit} options - Additional options to pass to the fetch call.
    * @returns {Promise<PaginatedResult<Drop>>} A paginated result of drops.
    */
-  async fetch(input: FetchDropsInput): Promise<PaginatedResult<Drop>> {
+  async fetch(
+    input: FetchDropsInput,
+    options?: RequestInit,
+  ): Promise<PaginatedResult<Drop>> {
     const {
       limit,
       offset,
@@ -84,7 +88,7 @@ export class DropsClient {
     const { data } = await this.compassProvider.request<
       PaginatedDropsResponse,
       PaginatedDropsVariables
-    >(PAGINATED_DROPS_QUERY, variables);
+    >(PAGINATED_DROPS_QUERY, variables, options);
 
     const drops = data.drops.map(
       (drop: DropResponse): Drop => Drop.fromCompass(drop),
@@ -102,9 +106,13 @@ export class DropsClient {
    * @async
    * @method
    * @param {SearchDropsInput} input - The input for searching drops.
+   * @param {RequestInit} options - Additional options to pass to the fetch call.
    * @returns {Promise<PaginatedResult<Drop>>} A paginated result of drops.
    */
-  async search(input: SearchDropsInput): Promise<PaginatedResult<Drop>> {
+  async search(
+    input: SearchDropsInput,
+    options?: RequestInit,
+  ): Promise<PaginatedResult<Drop>> {
     const { search, offset, limit } = input;
 
     if (!search) {
@@ -123,7 +131,7 @@ export class DropsClient {
     const { data } = await this.compassProvider.request<
       SearchDropsResponse,
       SearchDropsVariables
-    >(SEARCH_DROPS_QUERY, variables);
+    >(SEARCH_DROPS_QUERY, variables, options);
 
     const drops = data.search_drops.map(
       (drop: DropResponse): Drop => Drop.fromCompass(drop),
