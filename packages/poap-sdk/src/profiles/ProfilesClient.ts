@@ -47,14 +47,15 @@ export class ProfilesClient {
       queries,
       options,
     );
-    if (!profiles.length) {
-      return new Map();
-    }
 
     const map = new Map<string, Profile>();
-    for (const profileResponse of profiles) {
+    for (const response of profiles) {
+      if (map.has(response.address.toLowerCase())) {
+        continue;
+      }
+
       const profile = Profile.fromResponse(
-        profileResponse,
+        response,
         this.profileApiProvider.apiUrl,
       );
       map.set(profile.address.toLowerCase(), profile);
