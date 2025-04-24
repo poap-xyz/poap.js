@@ -51,7 +51,7 @@ export class PoapCollectionsApi implements CollectionsApiProvider {
   }
 
   /**
-   * Applies a update to an existing collection in the POAP Collections API.
+   * Applies an update to an existing collection in the POAP Collections API.
    *
    * @public
    * @async
