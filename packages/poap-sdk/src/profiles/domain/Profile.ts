@@ -10,6 +10,16 @@ export class Profile {
     public fresh: number,
   ) {}
 
+  public toSerializable(): SerializableProfile {
+    return {
+      address: this.address,
+      ens: this.ens,
+      avatar: this.avatar,
+      header: this.header,
+      fresh: this.fresh,
+    };
+  }
+
   public static fromResponse(
     response: ProfileResponse,
     apiUrl: string,
@@ -22,4 +32,22 @@ export class Profile {
       response.fresh,
     );
   }
+
+  public static fromSerializable(serializable: SerializableProfile): Profile {
+    return new Profile(
+      serializable.address,
+      serializable.ens,
+      serializable.avatar,
+      serializable.header,
+      serializable.fresh,
+    );
+  }
 }
+
+export type SerializableProfile = {
+  address: string;
+  ens: string;
+  avatar: string | null;
+  header: string | null;
+  fresh: number;
+};
