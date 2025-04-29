@@ -11,7 +11,13 @@ export class Profile {
   ) {}
 
   public toSerializable(): SerializableProfile {
-    return { ...this };
+    return {
+      address: this.address,
+      ens: this.ens,
+      avatar: this.avatar,
+      header: this.header,
+      fresh: this.fresh,
+    };
   }
 
   public static fromResponse(
