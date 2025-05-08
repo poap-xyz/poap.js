@@ -1,12 +1,13 @@
 import { Order, PaginationInput } from '@poap-xyz/poap-sdk';
 import { DropsSortFields } from './DropsSortFields';
 
-export interface FetchDropsInput extends PaginationInput {
-  name?: string;
+export type FetchDropsInput = PaginationInput & {
   sortField?: DropsSortFields;
   sortDir?: Order;
+  /** Drop event date range to happen from or after the given date. */
   from?: string;
+  /** Drop event date range to happen up to or before the given date. */
   to?: string;
+  /** List of drop IDs to filter the drops. */
   ids?: number[];
-  isPrivate?: boolean;
-}
+};
