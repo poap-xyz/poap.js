@@ -68,7 +68,7 @@ export class DropsClient {
       orderBy: createOrderBy<DropsSortFields>(sortField, sortDir),
       where: {
         ...(isDateRangeDefined && {
-          _or: [
+          _and: [
             createBetweenFilter('start_date', from, to),
             createBetweenFilter('end_date', from, to),
           ],
