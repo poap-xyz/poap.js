@@ -3,8 +3,6 @@ import {
   DropApiProvider,
   createBetweenFilter,
   createInFilter,
-  createEqFilter,
-  createLikeFilter,
   createOrderBy,
   isNumeric,
   nextCursor,
@@ -12,6 +10,7 @@ import {
   PaginatedResult,
   toPOAPDate,
 } from '@poap-xyz/poap-sdk';
+import { isFilterValueDefined } from '../utils/validation/isFilterValueDefined';
 import { Drop } from './domain/Drop';
 import {
   PAGINATED_DROPS_QUERY,
@@ -50,37 +49,30 @@ export class DropsClient {
 
   /**
    * Fetches drops based on the specified input.
-   *
-   * @async
-   * @method
-   * @param {FetchDropsInput} input - The input for fetching drops.
-   * @param {RequestInit} options - Additional options to pass to the fetch call.
-   * @returns {Promise<PaginatedResult<Drop>>} A paginated result of drops.
+   * @param input The input for fetching drops.
+   * @param options Additional options to pass to the fetch call.
+   * @returns A paginated result of drops.
    */
   async fetch(
     input: FetchDropsInput,
     options?: RequestInit,
   ): Promise<PaginatedResult<Drop>> {
-    const {
-      limit,
-      offset,
-      name,
-      sortField,
-      sortDir,
-      from,
-      to,
-      ids,
-      isPrivate,
-    } = input;
+    const { limit, offset, sortField, sortDir, from, to, ids } = input;
+
+    const isDateRangeDefined =
+      isFilterValueDefined(from) || isFilterValueDefined(to);
 
     const variables: PaginatedDropsVariables = {
       limit,
       offset,
       orderBy: createOrderBy<DropsSortFields>(sortField, sortDir),
       where: {
-        ...createEqFilter('private', isPrivate),
-        ...createLikeFilter('name', name),
-        ...createBetweenFilter('created_date', from, to),
+        ...(isDateRangeDefined && {
+          _or: [
+            createBetweenFilter('start_date', from, to),
+            createBetweenFilter('end_date', from, to),
+          ],
+        }),
         ...createInFilter('id', ids),
       },
     };

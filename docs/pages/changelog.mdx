@@ -40,3 +40,11 @@
   - Changed `drop_ids` to `dropIds` in `FetchMomentsInput` interface.
   - Updated `MomentsClient.fetch` method to use the camelCase `dropIds` parameter.
   - GraphQL field names still use snake_case (e.g., `drop_id`) for backend compatibility.
+
+## 0.11.0
+
+- `DropsClient.fetch` property changes:
+	- `name` is removed as a filter. Use `DropsClient.search` instead.
+	- `isPrivate` is removed as a filter.
+	- `from` and `to` date range now filters based on the drop event start and
+	end dates, instead of the drop creation date.
