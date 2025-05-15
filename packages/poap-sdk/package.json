@@ -1,6 +1,6 @@
 {
   "name": "@poap-xyz/poap-sdk",
-  "version": "0.11.0",
+  "version": "0.11.1",
   "description": "SDK for everything POAP",
   "main": "dist/cjs/index/index.cjs",
   "module": "dist/esm/index/index.mjs",
@@ -43,5 +43,10 @@
     "@types/lodash.chunk": "^4.2.0",
     "@types/uuid": "^9.0.2",
     "jest-fetch-mock": "^3.0.3"
+  },
+  "config": {
+    "build": {
+      "enableSubmodules": true
+    }
   }
 }

@@ -12,7 +12,6 @@
     "importHelpers": true,
     "strict": true,
     "declaration": true,
-    "declarationDir": ".",
     "outDir": "./dist",
     "target": "es2018",
     "lib": ["es2018", "dom", "esnext"],

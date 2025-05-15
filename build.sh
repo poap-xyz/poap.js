@@ -11,13 +11,15 @@ for dir in "${DIRS[@]}"; do
     exit 1
   fi
 
-  printf "\nBuilding package: $dir\n"
+  printf "Building package: $dir\n"
 
   # Run the build command
   if ! yarn build; then
     echo "Error: Failed to run 'yarn build' in directory: packages/$dir"
     exit 1
   fi
+
+  echo
 
   # Change back to the original directory
   if ! cd - > /dev/null; then
