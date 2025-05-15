@@ -2,7 +2,7 @@
   "name": "poap.js",
   "version": "0.0.1",
   "description": "SDK for everything POAP",
-  "main": "index.ts",
+  "type": "module",
   "scripts": {
     "build": "bash ./build.sh",
     "lint": "eslint 'packages/**/src/**/*.ts' --fix",
@@ -24,9 +24,8 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.15.0",
-    "@rollup/plugin-commonjs": "^25.0.7",
-    "@rollup/plugin-json": "^6.1.0",
-    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-commonjs": "^28.0.3",
+    "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-terser": "^0.4.4",
     "@types/jest": "^29.5.11",
     "@types/node": "^20.11.10",
@@ -42,7 +41,7 @@
     "jest-fetch-mock": "^3.0.3",
     "jest-mock-extended": "^3.0.5",
     "prettier": "^3.2.4",
-    "rollup": "^4.9.6",
+    "rollup": "^4.40.2",
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-node-globals": "^1.4.0",
     "rollup-plugin-node-polyfills": "^0.2.1",
@@ -50,7 +49,8 @@
     "rollup-plugin-typescript2": "^0.36.0",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5.3.3"
+    "tslib": "^2.8.1",
+    "typescript": "^5.8.3"
   },
   "workspaces": [
     "packages/*"
