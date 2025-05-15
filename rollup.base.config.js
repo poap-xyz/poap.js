@@ -50,6 +50,7 @@ const configs = [
         format: 'cjs',
         exports: 'named',
         entryFileNames: '[name]/index.cjs',
+        chunkFileNames: 'index/[name].cjs',
         interop: 'auto',
       },
       {
@@ -57,6 +58,7 @@ const configs = [
         format: 'esm',
         exports: 'named',
         entryFileNames: '[name]/index.mjs',
+        chunkFileNames: 'index/[name].cjs',
         interop: 'auto',
       },
     ],
@@ -89,6 +91,7 @@ if (enableBrowser && !enableSubmodules) {
       format: 'umd',
       exports: 'named',
       entryFileNames: '[name]/index.js',
+      chunkFileNames: 'index/[name].js',
     },
     cache: false,
     plugins: [
