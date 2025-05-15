@@ -1,4 +1,4 @@
-import { AuthenticationProvider } from '@poap-xyz/poap-sdk/providers';
+import { AuthenticationProvider } from '@poap-xyz/poap-sdk';
 
 interface MomentsBaseOptions {
   /**

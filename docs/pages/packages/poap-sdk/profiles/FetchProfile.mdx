@@ -1,0 +1,25 @@
+# Fetch Profile
+
+## Usage
+
+A profile can be fetched by its ENS or ETH address.
+
+```ts
+const profileApi = new PoapProfilesApi();
+const profilesClient = new ProfilesClient(profileApi);
+const profile = await profilesClient.fetch('poap.eth');
+```
+
+## Result
+
+A profile not found will return `null`. Otherwise:
+
+```json
+{
+  "address": "0x0000...",
+  "ens": "poap.eth",
+  "avatar": "https://...", // nullable
+  "header": "https://...", // nullable
+  "fresh": 1743098615 // UNIX timestamp of whtn it was last cached
+}
+```

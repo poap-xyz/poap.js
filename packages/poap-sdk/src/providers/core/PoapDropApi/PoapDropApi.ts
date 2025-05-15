@@ -29,7 +29,7 @@ export class PoapDropApi implements DropApiProvider {
   }
 
   /**
-   * Creates a new drop on the POAP Drop API.
+   * Creates a new drop via the POAP Drop API.
    *
    * @async
    * @function
@@ -56,7 +56,7 @@ export class PoapDropApi implements DropApiProvider {
   }
 
   /**
-   * Updates an existing drop on the POAP Drop API.
+   * Updates an existing drop via the POAP Drop API.
    *
    * @async
    * @function

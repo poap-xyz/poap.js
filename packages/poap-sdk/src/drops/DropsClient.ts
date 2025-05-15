@@ -1,16 +1,16 @@
-import { CompassProvider, DropApiProvider } from '@poap-xyz/poap-sdk/providers';
 import {
+  CompassProvider,
+  DropApiProvider,
   createBetweenFilter,
   createInFilter,
-  createEqFilter,
-  createLikeFilter,
   createOrderBy,
   isNumeric,
   nextCursor,
   Order,
   PaginatedResult,
   toPOAPDate,
-} from '@poap-xyz/poap-sdk/utils';
+} from '@poap-xyz/poap-sdk';
+import { isFilterValueDefined } from '../utils/validation/isFilterValueDefined';
 import { Drop } from './domain/Drop';
 import {
   PAGINATED_DROPS_QUERY,
@@ -49,33 +49,30 @@ export class DropsClient {
 
   /**
    * Fetches drops based on the specified input.
-   *
-   * @async
-   * @method
-   * @param {FetchDropsInput} input - The input for fetching drops.
-   * @returns {Promise<PaginatedResult<Drop>>} A paginated result of drops.
+   * @param input The input for fetching drops.
+   * @param options Additional options to pass to the fetch call.
+   * @returns A paginated result of drops.
    */
-  async fetch(input: FetchDropsInput): Promise<PaginatedResult<Drop>> {
-    const {
-      limit,
-      offset,
-      name,
-      sortField,
-      sortDir,
-      from,
-      to,
-      ids,
-      isPrivate,
-    } = input;
+  async fetch(
+    input: FetchDropsInput,
+    options?: RequestInit,
+  ): Promise<PaginatedResult<Drop>> {
+    const { limit, offset, sortField, sortDir, from, to, ids } = input;
+
+    const isDateRangeDefined =
+      isFilterValueDefined(from) || isFilterValueDefined(to);
 
     const variables: PaginatedDropsVariables = {
       limit,
       offset,
       orderBy: createOrderBy<DropsSortFields>(sortField, sortDir),
       where: {
-        ...createEqFilter('private', isPrivate),
-        ...createLikeFilter('name', name),
-        ...createBetweenFilter('created_date', from, to),
+        ...(isDateRangeDefined && {
+          _and: [
+            createBetweenFilter('start_date', from, to),
+            createBetweenFilter('end_date', from, to),
+          ],
+        }),
         ...createInFilter('id', ids),
       },
     };
@@ -83,7 +80,7 @@ export class DropsClient {
     const { data } = await this.compassProvider.request<
       PaginatedDropsResponse,
       PaginatedDropsVariables
-    >(PAGINATED_DROPS_QUERY, variables);
+    >(PAGINATED_DROPS_QUERY, variables, options);
 
     const drops = data.drops.map(
       (drop: DropResponse): Drop => Drop.fromCompass(drop),
@@ -101,9 +98,13 @@ export class DropsClient {
    * @async
    * @method
    * @param {SearchDropsInput} input - The input for searching drops.
+   * @param {RequestInit} options - Additional options to pass to the fetch call.
    * @returns {Promise<PaginatedResult<Drop>>} A paginated result of drops.
    */
-  async search(input: SearchDropsInput): Promise<PaginatedResult<Drop>> {
+  async search(
+    input: SearchDropsInput,
+    options?: RequestInit,
+  ): Promise<PaginatedResult<Drop>> {
     const { search, offset, limit } = input;
 
     if (!search) {
@@ -122,7 +123,7 @@ export class DropsClient {
     const { data } = await this.compassProvider.request<
       SearchDropsResponse,
       SearchDropsVariables
-    >(SEARCH_DROPS_QUERY, variables);
+    >(SEARCH_DROPS_QUERY, variables, options);
 
     const drops = data.search_drops.map(
       (drop: DropResponse): Drop => Drop.fromCompass(drop),

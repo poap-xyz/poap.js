@@ -23,11 +23,7 @@
     "downlevelIteration": true,
     "noImplicitAny": false,
     "paths": {
-      "@poap-xyz/poap-sdk/drops": ["./poap-sdk/src/drops"],
-      "@poap-xyz/poap-sdk/moments": ["./poap-sdk/src/moments"],
-      "@poap-xyz/poap-sdk/poaps": ["./poap-sdk/src/poaps"],
-      "@poap-xyz/poap-sdk/providers": ["./poap-sdk/src/providers"],
-      "@poap-xyz/poap-sdk/utils": ["./poap-sdk/src/utils"]
+      "@poap-xyz/poap-sdk": ["./poap-sdk/src"]
     }
   },
   "exclude": ["node_modules", "dist"],
