@@ -1,16 +1,3 @@
-import {
-  CompassProvider,
-  TokensApiProvider,
-  Transaction,
-  createAddressFilter,
-  createBetweenFilter,
-  createEqFilter,
-  createInFilter,
-  createNotNullAddressFilter,
-  createOrderBy,
-  nextCursor,
-  PaginatedResult,
-} from '@poap-xyz/poap-sdk';
 import { POAP } from './domain/POAP';
 import { POAPReservation } from './domain/POAPReservation';
 import {
@@ -27,6 +14,8 @@ import { CodeAlreadyMintedError } from './errors/CodeAlreadyMintedError';
 import { CodeExpiredError } from './errors/CodeExpiredError';
 import { MintChecker } from './utils/MintChecker';
 import { PoapIndexed } from './utils/PoapIndexed';
+import { CompassProvider, TokensApiProvider, Transaction } from '../providers';
+import { createAddressFilter, createBetweenFilter, createEqFilter, createInFilter, createNotNullAddressFilter, createOrderBy, nextCursor, PaginatedResult } from '../utils';
 
 /**
  * Represents a client for interacting with POAPs.

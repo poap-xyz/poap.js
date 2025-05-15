@@ -1,4 +1,4 @@
-import { Order, PaginationInput } from '@poap-xyz/poap-sdk';
+import { Order, PaginationInput } from '../../utils';
 import { DropsSortFields } from './DropsSortFields';
 
 export type FetchDropsInput = PaginationInput & {

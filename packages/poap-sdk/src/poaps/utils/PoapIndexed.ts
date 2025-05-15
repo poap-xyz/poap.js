@@ -1,6 +1,6 @@
-import { TokensApiProvider } from '@poap-xyz/poap-sdk';
 import { RetryableTask } from './RetryableTask';
 import { PoapMintStatus } from '../types/PoapMintStatus';
+import { TokensApiProvider } from '../../providers';
 
 /**
  * @class PoapIndexed

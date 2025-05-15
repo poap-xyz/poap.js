@@ -1,4 +1,4 @@
-import { Order, Chain, PaginationInput } from '@poap-xyz/poap-sdk';
+import { Chain, Order, PaginationInput } from '../../utils';
 import { PoapsSortFields } from './PoapsSortFields';
 
 /**

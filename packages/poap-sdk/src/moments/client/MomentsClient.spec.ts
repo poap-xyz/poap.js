@@ -1,10 +1,10 @@
 import { mock, MockProxy } from 'jest-mock-extended';
-import { PoapCompass, PoapMomentsApi } from '@poap-xyz/poap-sdk';
 import { MomentsClient } from './MomentsClient';
 import { CreateMomentInput } from './dtos/create/CreateInput';
 import { CreateSteps } from './dtos/create/CreateSteps';
 import { v4 } from 'uuid';
 import { CreateAndUploadMomentInput } from './dtos/create/CreateAndUploadInput';
+import { PoapCompass, PoapMomentsApi } from '../../providers';
 
 describe('MomentsClient', () => {
   const MOMENT_ID = 'this-is-a-moment-id';
