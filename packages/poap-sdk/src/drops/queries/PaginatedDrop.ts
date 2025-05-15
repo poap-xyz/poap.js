@@ -1,8 +1,4 @@
-import {
-  FilterVariables,
-  OrderByVariables,
-  PaginatedVariables,
-} from '@poap-xyz/poap-sdk';
+import { FilterVariables, OrderByVariables, PaginatedVariables } from '../../utils';
 import { DropResponse } from '../types/DropResponse';
 
 export const PAGINATED_DROPS_QUERY = `

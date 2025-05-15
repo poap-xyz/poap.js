@@ -1,4 +1,4 @@
-import { CreateMomentResponse } from '@poap-xyz/poap-sdk';
+import { CreateMomentResponse } from '../../providers';
 import { MomentResponse } from '../queries/PaginatedMoments';
 
 /**

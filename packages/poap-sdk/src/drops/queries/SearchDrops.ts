@@ -1,4 +1,4 @@
-import { Order, PaginatedVariables } from '@poap-xyz/poap-sdk';
+import { Order, PaginatedVariables } from '../../utils';
 import { DropResponse } from '../types/DropResponse';
 
 export const SEARCH_DROPS_QUERY = `

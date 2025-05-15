@@ -1,8 +1,4 @@
-import {
-  FilterVariables,
-  OrderByVariables,
-  PaginatedVariables,
-} from '@poap-xyz/poap-sdk';
+import { FilterVariables, OrderByVariables, PaginatedVariables } from '../../utils';
 
 export const PAGINATED_POAPS_QUERY = `
   query PaginatedPoaps(

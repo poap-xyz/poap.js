@@ -1,15 +1,3 @@
-import {
-  CompassProvider,
-  DropApiProvider,
-  createBetweenFilter,
-  createInFilter,
-  createOrderBy,
-  isNumeric,
-  nextCursor,
-  Order,
-  PaginatedResult,
-  toPOAPDate,
-} from '@poap-xyz/poap-sdk';
 import { isFilterValueDefined } from '../utils/validation/isFilterValueDefined';
 import { Drop } from './domain/Drop';
 import {
@@ -28,6 +16,8 @@ import { CreateDropsInput } from './types/CreateDropsInput';
 import { UpdateDropsInput } from './types/UpdateDropsInput';
 import { FetchDropsInput } from './types/FetchDropsInput';
 import { SearchDropsInput } from './types/SearchDropsInput';
+import { CompassProvider, DropApiProvider } from '../providers';
+import { createBetweenFilter, createInFilter, createOrderBy, isNumeric, nextCursor, Order, PaginatedResult, toPOAPDate } from '../utils';
 
 /**
  * Represents a client for working with POAP drops.

@@ -1,14 +1,3 @@
-import {
-  CompassProvider,
-  PoapMomentsApi,
-  createBetweenFilter,
-  createEqFilter,
-  createInFilter,
-  createLikeFilter,
-  createOrderBy,
-  nextCursor,
-  PaginatedResult,
-} from '@poap-xyz/poap-sdk';
 import { Moment } from '../domain/Moment';
 import {
   MomentsQueryResponse,
@@ -21,6 +10,8 @@ import { CreateSteps } from './dtos/create/CreateSteps';
 import { FetchMomentsInput } from './dtos/fetch/FetchMomentsInput';
 import { MomentsSortFields } from './dtos/fetch/MomentsSortFields';
 import { CreateAndUploadMomentInput } from './dtos/create/CreateAndUploadInput';
+import { CompassProvider, PoapMomentsApi } from '../../providers';
+import { createBetweenFilter, createEqFilter, createInFilter, createLikeFilter, createOrderBy, nextCursor, PaginatedResult } from '../../utils';
 
 export class MomentsClient {
   constructor(

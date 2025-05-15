@@ -1,8 +1,4 @@
-import {
-  TokensApiProvider,
-  Transaction,
-  TransactionStatus,
-} from '@poap-xyz/poap-sdk';
+import { TokensApiProvider, Transaction, TransactionStatus } from '../../providers';
 import { FinishedWithError } from '../errors/FinishedWithError';
 import { RetryableTask } from './RetryableTask';
 
