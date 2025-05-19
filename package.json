@@ -8,7 +8,7 @@
     "lint": "eslint 'packages/**/src/**/*.ts' --fix",
     "format": "prettier --write 'packages/**/src/**/*.ts'",
     "publish": "bash ./publish-update-packages.sh",
-    "publish-beta": "bash ./publish-beta-packages.sh",
+    "publish-beta-package": "bash ./scripts/publish-beta-package.sh",
     "test": "jest"
   },
   "repository": {
