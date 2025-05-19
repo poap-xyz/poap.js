@@ -10,12 +10,25 @@ import { PoapsSortFields } from './types/PoapsSortFields';
 import { PoapMintStatus } from './types/PoapMintStatus';
 import { WalletMintInput } from './types/WalletMintInput';
 import { EmailReservationInput } from './types/EmailReservationInput';
-import { CodeAlreadyMintedError } from './errors/CodeAlreadyMintedError';
-import { CodeExpiredError } from './errors/CodeExpiredError';
 import { MintChecker } from './utils/MintChecker';
 import { PoapIndexed } from './utils/PoapIndexed';
-import { CompassProvider, TokensApiProvider, Transaction } from '../providers';
-import { createAddressFilter, createBetweenFilter, createEqFilter, createInFilter, createNotNullAddressFilter, createOrderBy, nextCursor, PaginatedResult } from '../utils';
+import {
+  CompassProvider,
+  MintCodeAlreadyUsedError,
+  MintCodeExpiredError,
+  TokensApiProvider,
+  Transaction,
+} from '../providers';
+import {
+  createAddressFilter,
+  createBetweenFilter,
+  createEqFilter,
+  createInFilter,
+  createNotNullAddressFilter,
+  createOrderBy,
+  nextCursor,
+  PaginatedResult,
+} from '../utils';
 
 /**
  * Represents a client for interacting with POAPs.
@@ -224,17 +237,17 @@ export class PoapsClient {
    * @async
    * @param {string} mintCode - The POAP code for which to get the secret.
    * @returns {Promise<string>} The associated secret code.
-   * @throws {CodeAlreadyMintedError} Thrown when the POAP code has already been minted.
-   * @throws {CodeExpiredError} Thrown when the POAP code is expired.
+   * @throws {MintCodeAlreadyUsedError} Thrown when the POAP code has already been minted.
+   * @throws {MintCodeExpiredError} Thrown when the POAP code is expired.
    */
   private async getSecretCode(mintCode: string): Promise<string> {
     const getCodeResponse = await this.getMintCode(mintCode);
 
     if (getCodeResponse.minted) {
-      throw new CodeAlreadyMintedError(mintCode);
+      throw new MintCodeAlreadyUsedError(mintCode);
     }
     if (!getCodeResponse.isActive) {
-      throw new CodeExpiredError(mintCode);
+      throw new MintCodeExpiredError(mintCode);
     }
 
     return getCodeResponse.secretCode;
