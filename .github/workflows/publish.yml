@@ -1,20 +1,19 @@
-name: Publish Tag to NPM
+name: Publish Packages
 
 on:
   push:
-    tags:
-      - '[0-9]+.[0-9]+.[0-9]+-beta-v[0-9]+'
-permissions:
-  actions: write
+    branches:
+      - main
 
 jobs:
-  build_and_publish_beta_tag:
+  build_and_publish_production_release:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
+          ref: ${{ github.head_ref }}
           fetch-depth: 0
 
       - name: Set up Node.js
@@ -23,15 +22,14 @@ jobs:
           node-version: '18.x'
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Set Git config
-        run: |
-          git config user.name "GitHub Action"
-          git config user.email "action@github.com"
-
       - name: Install dependencies
         run: yarn install --immutable
 
+      - name: Authentication
+        run: |
+          echo npmAuthToken: "$NODE_AUTH_TOKEN" >> ./.yarnrc.yml
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       - name: Check package versions and publish
-        run: yarn publish-beta $GITHUB_REF_NAME
-    env:
-      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: yarn publish
