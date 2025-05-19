@@ -15,12 +15,17 @@ fi
 pkg_name=$(echo "$1" | cut -d '@' -f1)
 pkg_version=$(echo "$1" | cut -d '@' -f2)
 
-echo "New BETA package $pkg_name@$pkg_version.."
-
 if [ -z "$pkg_name" ]; then
   echo "Error: Please provide a package name" 1>&2
   exit 1
 fi
+
+if [[ "$pkg_version" != *beta* ]]; then
+  echo "Error: Please provide a package BETA version" 1>&2
+  exit 1
+fi
+
+echo "New BETA package $pkg_name@$pkg_version.."
 
 if ! cd "packages/$pkg_name" 1>/dev/null 2>/dev/null; then
   echo "Error: Package $pkg_name not found" 1>&2
