@@ -1,4 +1,8 @@
-import { TokensApiProvider, Transaction, TransactionStatus } from '../../providers';
+import {
+  TokensApiProvider,
+  Transaction,
+  TransactionStatus,
+} from '../../providers';
 import { FinishedWithError } from '../errors/FinishedWithError';
 import { RetryableTask } from './RetryableTask';
 
@@ -37,11 +41,11 @@ export class MintChecker extends RetryableTask {
       if (this.shouldRetry(transaction)) {
         await this.backoffAndRetry(() => this.checkMintStatus());
       } else {
-        this.handleErrorStatus(transaction, this.mintCode);
+        this.handleErrorStatus(transaction);
       }
-    } catch (e) {
-      if (e instanceof FinishedWithError) {
-        throw e;
+    } catch (error: unknown) {
+      if (error instanceof FinishedWithError) {
+        throw error;
       }
 
       await this.backoffAndRetry(() => this.checkMintStatus());
@@ -68,14 +72,10 @@ export class MintChecker extends RetryableTask {
    * @param mintCode
    * @throws {FinishedWithError} Throws an error if the minting process finished with an error.
    */
-  private handleErrorStatus(
-    transaction: Transaction | null,
-    mintCode: string,
-  ): void {
+  private handleErrorStatus(transaction: Transaction | null): void {
     if (transaction?.status === TransactionStatus.failed) {
       throw new FinishedWithError(
         'The Transaction associated with this mint failed',
-        mintCode,
       );
     }
   }

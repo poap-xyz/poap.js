@@ -48,3 +48,7 @@
 	- `isPrivate` is removed as a filter.
 	- `from` and `to` date range now filters based on the drop event start and
 	end dates, instead of the drop creation date.
+
+## 0.12.0
+
+- `PoapsClient.mintAsync`, `mintSync` and `emailReservation` will throw different errors for mint codes already used or expired, and a new error for mint codes not found. See [POAPs errors](./packages/poap-sdk/poaps/Errors).
