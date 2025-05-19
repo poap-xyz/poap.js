@@ -41,7 +41,7 @@ describe('PoapMomentsApi', () => {
 
   describe('uploadFile', () => {
     it('should upload a file to the signed URL', async () => {
-      const file = Buffer.from('test-file');
+      const file = Uint8Array.from('test-file');
       const signedUrl = 'https://mock-signed-url';
       const fileType = 'image/png';
 

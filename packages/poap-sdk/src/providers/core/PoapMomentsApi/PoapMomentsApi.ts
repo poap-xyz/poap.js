@@ -51,7 +51,7 @@ export class PoapMomentsApi implements MomentsApiProvider {
    * @returns {Promise<void>} - A Promise that resolves when the file has been uploaded
    */
   public async uploadFile(
-    fileBinary: Buffer,
+    fileBinary: Uint8Array,
     signedUrl: string,
     fileType: string,
   ): Promise<void> {

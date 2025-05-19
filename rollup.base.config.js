@@ -3,7 +3,6 @@ import typescript from 'rollup-plugin-typescript2';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import terser from '@rollup/plugin-terser';
-import nodePolyfills from 'rollup-plugin-node-polyfills';
 
 // This is possible because of `--bundleConfigAsCjs`
 const pkg = require(path.resolve(process.cwd(), 'package.json'));
@@ -69,7 +68,6 @@ if (enableBrowser) {
       nodeResolve({
         browser: true,
       }),
-      nodePolyfills(),
       typescript({
         tsconfig: path.resolve(process.cwd(), 'tsconfig.json'),
       }),

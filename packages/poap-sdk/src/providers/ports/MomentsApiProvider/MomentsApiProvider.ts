@@ -36,7 +36,11 @@ export interface MomentsApiProvider {
    * @param {string} signedUrl - The signed URL for uploading the file
    * @returns {Promise<void>} A Promise that resolves when the file has been uploaded
    */
-  uploadFile(file: Buffer, signedUrl: string, fileType: string): Promise<void>;
+  uploadFile(
+    file: Uint8Array,
+    signedUrl: string,
+    fileType: string,
+  ): Promise<void>;
 
   /**
    * Wait for the media to finish processing.
