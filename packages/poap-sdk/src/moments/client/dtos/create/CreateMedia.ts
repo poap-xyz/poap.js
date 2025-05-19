@@ -1,4 +1,4 @@
 export interface CreateMedia {
-  fileBinary: Buffer;
+  fileBinary: Uint8Array;
   fileType: string;
 }
