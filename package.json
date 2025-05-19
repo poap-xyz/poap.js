@@ -4,10 +4,10 @@
   "description": "SDK for everything POAP",
   "type": "module",
   "scripts": {
-    "build": "bash ./build.sh",
+    "build": "bash ./scripts/build-packages.sh",
     "lint": "eslint 'packages/**/src/**/*.ts' --fix",
     "format": "prettier --write 'packages/**/src/**/*.ts'",
-    "publish": "bash ./publish-update-packages.sh",
+    "publish": "bash ./scripts/publish-packages.sh",
     "publish-beta-package": "bash ./scripts/publish-beta-package.sh",
     "test": "jest"
   },
