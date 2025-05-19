@@ -11,8 +11,6 @@
 
 # POAP.js
 
-![Build Status](https://github.com/poap-xyz/poap.js/actions/workflows/npm_publish.yml/badge.svg)
-
 POAP.js is a collection of SDKs and utilities for interacting with the POAP ecosystem. The
 library provides a set of classes and methods to simplify working with it.
 
@@ -72,10 +70,11 @@ To start developing the POAP Package Library, follow these steps:
 git clone https://github.com/poap-xyz/poap.js.git
 ```
 
-2. Have yarn installed:
+2. Use node and yarn:
 
 ```bash
-npm install -g yarn
+nvm use
+corepack enable
 ```
 
 3. Install dependencies:
