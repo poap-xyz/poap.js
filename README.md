@@ -20,10 +20,8 @@ library provides a set of classes and methods to simplify working with it.
   - [Table of Contents](#table-of-contents)
   - [Features](#features)
   - [Development](#development)
-  - [Examples](#examples)
   - [Documentation](#documentation)
   - [Contributing](#contributing)
-  - [Active contributors](#active-contributors)
   - [License](#license)
 
 ## Features
