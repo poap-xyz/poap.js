@@ -1,3 +1,4 @@
+import { BulkProfilesResponse } from './types/BulkProfilesResponse';
 import { ProfileResponse } from './types/ProfileResponse';
 
 export interface ProfilesApiProvider {
@@ -17,10 +18,10 @@ export interface ProfilesApiProvider {
    * the list is too big.
    * @param queries ETH addresses or ENS
    * @param options Options to pass to the fetch call.
-   * @returns The list of responses from the API.
+   * @returns The list of responses from the API and errors (if any).
    */
   getBulkProfiles(
     queries: string[],
     options?: RequestInit,
-  ): Promise<ProfileResponse[]>;
+  ): Promise<BulkProfilesResponse>;
 }
