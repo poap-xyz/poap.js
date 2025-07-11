@@ -1,9 +1,7 @@
 import { ProfilesApiProvider } from '../providers';
 import { Profile } from './domain/Profile';
 import { FetchBulkProfilesResponse } from './dtos/FetchBulkProfilesResponse';
-import { ProfileError } from './domain/ProfileError';
-import { ProfileResponse } from '../providers/ports/ProfilesApiProvider/types/ProfileResponse';
-import { ProfilesBulkError } from '../providers/ports/ProfilesApiProvider/types/ProfilesBulkError';
+import { ProfilesMapper } from './utils/ProfilesMapper';
 
 export class ProfilesClient {
   /**
@@ -53,37 +51,11 @@ export class ProfilesClient {
     );
 
     return {
-      profiles: this.createProfilesMap(profiles),
-      errors: this.createErrorsMap(errors || []),
-    };
-  }
-
-  private createProfilesMap(profiles: ProfileResponse[]): Map<string, Profile> {
-    const profilesMap = new Map<string, Profile>();
-    for (const response of profiles) {
-      if (profilesMap.has(response.address)) {
-        continue;
-      }
-
-      const profile = Profile.fromResponse(
-        response,
+      profiles: ProfilesMapper.createProfilesMap(
+        profiles,
         this.profileApiProvider.apiUrl,
-      );
-      profilesMap.set(profile.address, profile);
-      if (profile.ens) {
-        profilesMap.set(profile.ens, profile);
-      }
-    }
-    return profilesMap;
-  }
-
-  private createErrorsMap(
-    errors: ProfilesBulkError[],
-  ): Map<string, ProfileError> {
-    const errorsMap = new Map<string, ProfileError>();
-    for (const error of errors) {
-      errorsMap.set(error.id, { message: error.message });
-    }
-    return errorsMap;
+      ),
+      errors: ProfilesMapper.createErrorsMap(errors || []),
+    };
   }
 }
