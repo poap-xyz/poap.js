@@ -24,13 +24,12 @@ export class ProfilesMapper {
     processedAddresses: Set<string>,
     apiUrl: string,
   ): void {
-    const lowercasedAddress = response.address.toLowerCase();
-    if (processedAddresses.has(lowercasedAddress)) {
+    if (processedAddresses.has(response.address)) {
       return;
     }
 
     const profile = Profile.fromResponse(response, apiUrl);
-    processedAddresses.add(lowercasedAddress);
+    processedAddresses.add(response.address);
     profilesMap.set(profile.address, profile);
     if (profile.ens) {
       profilesMap.set(profile.ens, profile);
