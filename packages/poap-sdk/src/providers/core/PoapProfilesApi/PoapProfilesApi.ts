@@ -55,7 +55,7 @@ export class PoapProfilesApi implements ProfilesApiProvider {
     }
 
     const batchResult = await this.batchBulkProfilesRequest(queries, options);
-    return batchResult.reduce(
+    return batchResult.reduce<BulkProfilesResponse>(
       (acc, response) => {
         acc.profiles.push(...response.profiles);
         if (response.errors) {
@@ -63,7 +63,7 @@ export class PoapProfilesApi implements ProfilesApiProvider {
         }
         return acc;
       },
-      { profiles: [], errors: [] } as BulkProfilesResponse,
+      { profiles: [], errors: [] },
     );
   }
 
