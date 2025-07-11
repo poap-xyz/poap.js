@@ -12,24 +12,24 @@ export class ProfilesMapper {
   ): Map<string, Profile> {
     const profilesMap = new Map<string, Profile>();
     const processedAddresses = new Set<string>();
+    
     for (const response of profiles) {
+      if (processedAddresses.has(response.address)) {
+        continue;
+      }
       this.addProfileToMap(response, profilesMap, processedAddresses, apiUrl);
+      processedAddresses.add(response.address);
     }
+    
     return profilesMap;
   }
 
   private static addProfileToMap(
     response: ProfileResponse,
     profilesMap: Map<string, Profile>,
-    processedAddresses: Set<string>,
     apiUrl: string,
   ): void {
-    if (processedAddresses.has(response.address)) {
-      return;
-    }
-
     const profile = Profile.fromResponse(response, apiUrl);
-    processedAddresses.add(response.address);
     profilesMap.set(profile.address, profile);
     if (profile.ens) {
       profilesMap.set(profile.ens, profile);
