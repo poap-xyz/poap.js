@@ -34,7 +34,7 @@ export class ProfilesClient {
    * console.log(profiles.get(address1)?.ens); // 'test.eth'
    * console.log(profiles.get('test.eth')?.address); // '0x1234...'
    * console.log(profiles.get(address2)?.ens); // undefined
-   * console.log(errors.get(address2)?.message); // 'Profile not found'
+   * console.log(errors.get(address2)?.message); // 'Failed to resolve data from the blockchain'
    * ```
    *
    * @param queries The ETH addresses or ENS.
