@@ -12,15 +12,15 @@ export class ProfilesMapper {
   ): Map<string, Profile> {
     const profilesMap = new Map<string, Profile>();
     const processedAddresses = new Set<string>();
-    
+
     for (const response of profiles) {
       if (processedAddresses.has(response.address)) {
         continue;
       }
-      this.addProfileToMap(response, profilesMap, processedAddresses, apiUrl);
+      this.addProfileToMap(response, profilesMap, apiUrl);
       processedAddresses.add(response.address);
     }
-    
+
     return profilesMap;
   }
 
