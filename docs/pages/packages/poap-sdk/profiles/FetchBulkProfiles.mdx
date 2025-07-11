@@ -51,7 +51,7 @@ Profiles that are not found for a given query are simply not included in this ma
 
 ### `errors`
 
-A `Map` where keys are the queries that failed and values are `ProfileError` objects. This is for actual processing errors, such as a failure to resolve data from the blockchain, not for profiles that are simply not found.
+A `Map` where keys are the queries that failed and values are `ProfileError` objects. This is for actual processing errors, such as a failure to resolve data from the blockchain, not for profiles that are simply not found. You can use this map to implement a retry strategy for the queries that failed.
 
 Here is an example of the returned object structure for the usage example above:
 
