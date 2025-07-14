@@ -3,39 +3,90 @@
 ## Usage
 
 Provided a list of queries (ENS or ETH address), a list of multiple profiles
-can be fetched at once. The result is a map of queries to profiles, for easy
-matching between the input and the output.
+can be fetched at once. The result is an object containing a map of queries to
+profiles and a map of queries to errors, for easy matching between the input
+and the output.
 
 ```ts
 const profileApi = new PoapProfilesApi();
 const profilesClient = new ProfilesClient(profileApi);
-const profilesMap = await profilesClient.fetchBulk(['poap.eth', '0x0011...']);
 
-console.log(profilesMap.get('poap.eth')); // { address: '0x0000...', ... }
-console.log(profilesMap.get('0x0000...')); // { address: '0x0000...', ... }
-console.log(profilesMap.get('0x0011')); // undefined
+const queries = [
+  'poap.eth',                                     // Query by ENS
+  '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',   // Query by address (vitalik.eth)
+  'nonexistent-profile.eth',                      // This profile does not exist
+  '0xfailing-address'                             // This query will cause an error
+];
+
+// Fetch profiles in bulk
+const { profiles, errors } = await profilesClient.fetchBulk(queries);
+
+// You can retrieve found profiles from the `profiles` map using the original query.
+const poapProfile = profiles.get('poap.eth');
+console.log(`poap.eth address: ${poapProfile.address}`);
+
+// The map also includes the resolved address as a key.
+const vitalikProfile = profiles.get('0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045');
+console.log(`vitalik.eth ENS from address: ${vitalikProfile.ens}`);
+
+// Queries for profiles that were not found are simply omitted from the `profiles` map.
+console.log(profiles.get('nonexistent-profile.eth')); // undefined
+
+// Queries that result in an actual error will be in the `errors` map.
+const lookupError = errors.get('0xfailing-address');
+if (lookupError) {
+  console.log(`Error for '0xfailing-address': ${lookupError.message}`);
+}
 ```
 
 ## Result
 
-The result will be composed of a map of queries to profiles. Both the ENS and
-ETH address can be used as keys.
+The `fetchBulk` method returns an object with two properties: `profiles` and `errors`.
 
-Profiles that were not found will not be included in the result.
+### `profiles`
+
+A `Map` where keys are the original queries (both ENS and resolved addresses) for **successfully found** profiles. The values are the corresponding `Profile` objects. This dual-keying allows for easy retrieval of a profile using either its ENS name or its address.
+
+Profiles that are not found for a given query are simply not included in this map.
+
+### `errors`
+
+A `Map` where keys are the queries that failed and values are `ProfileError` objects. This is for actual processing errors, such as a failure to resolve data from the blockchain, not for profiles that are simply not found. You can use this map to implement a retry strategy for the queries that failed.
+
+Here is an example of the returned object structure for the usage example above:
 
 ```json
 {
-  "poap.eth": {
-    "address": "0x0000...",
-    "ens": "poap.eth",
-    "avatar": "https://...",
-    "header": "https://...",
+  "profiles": {
+    "poap.eth": {
+      "address": "0xf6B6F07862A02C85628B3A9688beae07fEA9C863",
+      "ens": "poap.eth",
+      "avatar": "...",
+      "header": "..."
+    },
+    "0xf6B6F07862A02C85628B3A9688beae07fEA9C863": {
+      "address": "0xf6B6F07862A02C85628B3A9688beae07fEA9C863",
+      "ens": "poap.eth",
+      "avatar": "...",
+      "header": "..."
+    },
+    "vitalik.eth": {
+      "address": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+      "ens": "vitalik.eth",
+      "avatar": "...",
+      "header": "..."
+    },
+    "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045": {
+      "address": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+      "ens": "vitalik.eth",
+      "avatar": "...",
+      "header": "..."
+    }
   },
-  "0x0000...": {
-    "address": "0x0000...",
-    "ens": "poap.eth",
-    "avatar": "https://...",
-    "header": "https://...",
+  "errors": {
+    "0xfailing-address": {
+      "message": "Failed to resolve data from the blockchain"
+    }
   }
 }
 ```

@@ -1,5 +1,7 @@
 import { ProfilesApiProvider } from '../providers';
 import { Profile } from './domain/Profile';
+import { FetchBulkProfilesResponse } from './dtos/FetchBulkProfilesResponse';
+import { ProfilesMapper } from './utils/ProfilesMapper';
 
 export class ProfilesClient {
   /**
@@ -28,39 +30,36 @@ export class ProfilesClient {
    * ```typescript
    * const address1 = '0x1234...';
    * const address2 = '0x5678...';
-   * const profiles = await profilesClient.fetchBulk([address1, address2]);
+   * const { profiles, errors } = await profilesClient.fetchBulk([address1, address2]);
    * console.log(profiles.get(address1)?.ens); // 'test.eth'
    * console.log(profiles.get('test.eth')?.address); // '0x1234...'
    * console.log(profiles.get(address2)?.ens); // undefined
+   * console.log(errors.get(address2)?.message); // 'Failed to resolve data from the blockchain'
    * ```
+   *
+   * Note: If a query fails due to a technical issue, it will be in the `errors` map.
+   * You can use this to implement a retry strategy for failed queries.
+   * Profiles which do not exist will not be included in the `profiles` map nor result in an error.
    *
    * @param queries The ETH addresses or ENS.
    * @param options Options to pass to the fetch call.
-   * @returns A map of input addresses (ETH address or ENS) to profiles. All
-   * map keys are lowercased.
+   * @returns A map of input addresses (ETH address or ENS) to profiles, and a map of failed queries to errors.
    */
   async fetchBulk(
     queries: string[],
     options?: RequestInit,
-  ): Promise<Map<string, Profile>> {
-    const profiles = await this.profileApiProvider.getBulkProfiles(
+  ): Promise<FetchBulkProfilesResponse> {
+    const { profiles, errors } = await this.profileApiProvider.getBulkProfiles(
       queries,
       options,
     );
 
-    const map = new Map<string, Profile>();
-    for (const response of profiles) {
-      if (map.has(response.address.toLowerCase())) {
-        continue;
-      }
-
-      const profile = Profile.fromResponse(
-        response,
+    return {
+      profiles: ProfilesMapper.createProfilesMap(
+        profiles,
         this.profileApiProvider.apiUrl,
-      );
-      map.set(profile.address.toLowerCase(), profile);
-      map.set(profile.ens.toLowerCase(), profile);
-    }
-    return map;
+      ),
+      errors: ProfilesMapper.createErrorsMap(errors || []),
+    };
   }
 }

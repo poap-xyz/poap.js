@@ -39,25 +39,31 @@ export class PoapProfilesApi implements ProfilesApiProvider {
    * the list is too big.
    * @param queries ETH addresses or ENS
    * @param options Options to pass to the fetch call.
-   * @returns The list of responses from the API.
+   * @returns The list of responses from the API and errors (if any).
    */
   async getBulkProfiles(
     queries: string[],
     options?: RequestInit,
-  ): Promise<ProfileResponse[]> {
+  ): Promise<BulkProfilesResponse> {
     if (queries.length === 0) {
-      return [];
+      return { profiles: [] };
     }
 
     if (queries.length === 1) {
       const profile = await this.getProfile(queries[0], options);
-      return profile ? [profile] : [];
+      return { profiles: profile ? [profile] : [] };
     }
 
     const batchResult = await this.batchBulkProfilesRequest(queries, options);
-    return batchResult.reduce(
-      (profiles, response) => profiles.concat(response.profiles),
-      [] as ProfileResponse[],
+    return batchResult.reduce<BulkProfilesResponse>(
+      (acc, response) => {
+        acc.profiles.push(...response.profiles);
+        if (response.errors) {
+          acc.errors = (acc.errors || []).concat(response.errors);
+        }
+        return acc;
+      },
+      { profiles: [], errors: [] },
     );
   }
 
