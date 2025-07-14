@@ -48,3 +48,7 @@
 	- `isPrivate` is removed as a filter.
 	- `from` and `to` date range now filters based on the drop event start and
 	end dates, instead of the drop creation date.
+
+## 0.12.0
+
+- **BREAKING CHANGE**: `ProfilesClient.fetchBulk` now returns an object with `profiles` and `errors` maps instead of just a map of profiles. This enables a retry strategy for unresolved profiles.
