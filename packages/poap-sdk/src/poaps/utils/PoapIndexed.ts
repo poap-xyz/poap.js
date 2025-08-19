@@ -6,7 +6,7 @@ import { TokensApiProvider } from '../../providers';
  * @class PoapIndexed
  * @extends {RetryableTask}
  *
- * Represents a utility class designed to periodically check if a POAP  token is indexed on our database.
+ * Represents a utility class designed to periodically check if a POAP token is indexed on our database.
  * This class extends `RetryableTask` to utilize its backoff retry mechanism in case the token hasn't been indexed yet.
  */
 export class PoapIndexed extends RetryableTask {
