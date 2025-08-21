@@ -77,11 +77,7 @@ export default [
       sourceType: 'script',
 
       parserOptions: {
-        project: [
-          './packages/poap-sdk/tsconfig.json',
-          './packages/frames/tsconfig.json',
-          './tsconfig.json',
-        ],
+        project: ['./packages/poap-sdk/tsconfig.json', './tsconfig.json'],
       },
     },
   },
