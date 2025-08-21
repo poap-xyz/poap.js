@@ -927,14 +927,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@poap-xyz/frames@workspace:packages/frames":
-  version: 0.0.0-use.local
-  resolution: "@poap-xyz/frames@workspace:packages/frames"
-  dependencies:
-    next-seo: "npm:^6.4.0"
-  languageName: unknown
-  linkType: soft
-
 "@poap-xyz/poap-sdk@workspace:packages/poap-sdk":
   version: 0.0.0-use.local
   resolution: "@poap-xyz/poap-sdk@workspace:packages/poap-sdk"
@@ -4939,17 +4931,6 @@ __metadata:
   version: 0.6.3
   resolution: "negotiator@npm:0.6.3"
   checksum: 10/2723fb822a17ad55c93a588a4bc44d53b22855bf4be5499916ca0cab1e7165409d0b288ba2577d7b029f10ce18cf2ed8e703e5af31c984e1e2304277ef979837
-  languageName: node
-  linkType: hard
-
-"next-seo@npm:^6.4.0":
-  version: 6.5.0
-  resolution: "next-seo@npm:6.5.0"
-  peerDependencies:
-    next: ^8.1.1-canary.54 || >=9.0.0
-    react: ">=16.0.0"
-    react-dom: ">=16.0.0"
-  checksum: 10/e86e9056305379a03aeb9b4368db79870ed91dbb0e2463574f34ec2557e8257c614c006d83c5a5f19c7f91916ed6da91700de06ba491ff86ae647ab8988b354e
   languageName: node
   linkType: hard
 

@@ -1,4 +1,3 @@
 workspace=(
   "poap-sdk"
-  "frames"
 )
