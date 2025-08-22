@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
+    "declaration": true,
+    "declarationMap": true,
+    "declarationDir": "./dist/types",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "skipLibCheck": true,
@@ -8,11 +11,13 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "sourceMap": true,
-    "baseUrl": "./packages",
+    "baseUrl": ".",
     "importHelpers": true,
     "strict": true,
     "declaration": true,
     "outDir": "./dist",
+    "rootDir": "./src",
+    "composite": true,
     "target": "es2018",
     "lib": ["es2018", "dom", "esnext"],
     "module": "es6",
@@ -21,13 +26,8 @@
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "downlevelIteration": true,
-    "noImplicitAny": false,
-    "paths": {
-      "@poap-xyz/poap-sdk": ["./poap-sdk/src"]
-    }
+    "noImplicitAny": false
   },
   "exclude": ["node_modules", "dist"],
-  "references": [
-    { "path": "./packages/poap-sdk" },
-  ]
+  "include": ["./src/**/*.ts"]
 }

@@ -18,6 +18,6 @@ export default {
   moduleFileExtensions: ['ts', 'js', 'json', 'node'],
   clearMocks: true,
   moduleNameMapper: {
-    '^@poap-xyz/poap-sdk$': '<rootDir>/packages/poap-sdk/src',
+    '^@poap-xyz/poap-sdk$': '<rootDir>/src',
   },
 };
