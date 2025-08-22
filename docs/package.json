@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/poap-xyz/poap.js.git"
+    "url": "git+https://github.com/poap-xyz/poap-sdk.git"
   },
   "author": "POAP",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/poap-xyz/poap.js/issues"
+    "url": "https://github.com/poap-xyz/poap-sdk/issues"
   },
-  "homepage": "https://github.com/poap-xyz/poap.js",
+  "homepage": "https://github.com/poap-xyz/poap-sdk",
   "dependencies": {
     "next": "^14.1.0",
     "nextra": "^2.13.2",
