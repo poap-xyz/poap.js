@@ -8,15 +8,15 @@ const SITE_ROOT = 'https://sdk.poap.tech';
 const config: DocsThemeConfig = {
   logo: <Image src={'/poap-logo.svg'} alt="POAP" width={40} height={40} />,
   project: {
-    link: 'https://github.com/poap-xyz/poap.js',
+    link: 'https://github.com/poap-xyz/poap-sdk',
   },
-  docsRepositoryBase: 'https://github.com/poap-xyz/poap.js/tree/main/docs',
+  docsRepositoryBase: 'https://github.com/poap-xyz/poap-sdk/tree/main/docs',
   footer: {
     text: `POAP © 2023-${new Date().getFullYear()}`,
   },
   useNextSeoProps() {
     return {
-      titleTemplate: '%s – POAP.js',
+      titleTemplate: '%s – POAP SDK',
     };
   },
   head: function Head() {
@@ -54,7 +54,7 @@ const config: DocsThemeConfig = {
         <meta property="twitter:image" content={SITE_ROOT + '/poap-logo.svg'} />
         <meta property="og:image" content={SITE_ROOT + '/poap-logo.svg'} />
         <meta property="og:locale" content="en_IE" />
-        <meta property="og:site_name" content="POAP.js" />
+        <meta property="og:site_name" content="POAP SDK" />
       </>
     );
   },

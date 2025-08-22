@@ -1,5 +1,6 @@
 {
   "index": "Introduction",
-  "packages": "Packages",
+  "features": "Features",
+  "modules": "Modules",
   "changelog": "Changelog"
 }
