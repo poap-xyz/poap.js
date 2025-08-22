@@ -70,14 +70,14 @@ export default [
     },
   },
   {
-    files: ['packages/*/src/**/*.ts'],
+    files: ['src/**/*.ts'],
 
     languageOptions: {
       ecmaVersion: 5,
       sourceType: 'script',
 
       parserOptions: {
-        project: ['./packages/poap-sdk/tsconfig.json', './tsconfig.json'],
+        project: ['./tsconfig.json'],
       },
     },
   },

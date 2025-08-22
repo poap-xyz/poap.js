@@ -14,6 +14,20 @@
 POAP.js is a collection of SDKs and utilities for interacting with the POAP ecosystem. The
 library provides a set of classes and methods to simplify working with it.
 
+## Installation
+
+### NPM
+
+```bash
+npm install @poap-xyz/poap-sdk
+```
+
+### Yarn
+
+```bash
+yarn add @poap-xyz/poap-sdk
+```
+
 ## Table of Contents
 
 - [POAP.js](#poapjs)

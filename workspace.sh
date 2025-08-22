@@ -1,3 +1,0 @@
-workspace=(
-  "poap-sdk"
-)
