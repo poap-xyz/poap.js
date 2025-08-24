@@ -1,15 +1,7 @@
 import { Chain, Order, PaginationInput } from '../../utils';
 import { PoapsSortFields } from './PoapsSortFields';
 
-/**
- * Represents the input fields for fetching POAPs.
- * This interface extends `PaginationInput` to provide pagination capability.
- *
- * @export
- * @interface FetchPoapsInput
- * @extends {PaginationInput}
- */
-export interface FetchPoapsInput extends PaginationInput {
+export interface BaseFetchPoapsInput {
   /** Optional filter for the name of a POAP. */
   name?: string;
   /** Optional filter for the blockchain chain of a POAP. */
@@ -24,12 +16,15 @@ export interface FetchPoapsInput extends PaginationInput {
   collectorAddress?: string;
   /** Optional filter for a specific drop ID. */
   dropId?: number;
+  /** Filter to include/exclude POAPs with zero addresses. Defaults to true. */
+  filterZeroAddress?: boolean;
+  /** Filter out dead addresses? Defaults to true. */
+  filterDeadAddress?: boolean;
+}
+
+export interface FetchPoapsInput extends BaseFetchPoapsInput, PaginationInput {
   /** Field by which to sort the results. */
   sortField?: PoapsSortFields;
   /** Direction in which to sort the results. */
   sortDir?: Order;
-  /** Filter to include/exclude POAPs with zero addresses. */
-  filterZeroAddress?: boolean;
-  /** Filter out dead addresses? */
-  filterDeadAddress?: boolean;
 }

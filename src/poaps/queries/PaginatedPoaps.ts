@@ -4,7 +4,7 @@ import {
   PaginatedVariables,
 } from '../../utils';
 
-export const PAGINATED_POAPS_QUERY = `
+export const PAGINATED_POAPS_QUERY = /* GraphQL */ `
   query PaginatedPoaps(
     $limit: Int!
     $offset: Int!
@@ -55,3 +55,19 @@ export interface PaginatedPoapsResponse {
 export type PaginatedPoapsVariables = FilterVariables &
   OrderByVariables &
   PaginatedVariables;
+
+export const POAPS_COUNT_QUERY = /* GraphQL */ `
+  query PoapsCount($where: poaps_bool_exp) {
+    poaps_aggregate(where: $where) {
+      aggregate {
+        count
+      }
+    }
+  }
+`;
+
+export interface PoapsCountResponse {
+  poaps_aggregate: { aggregate: { count: number } };
+}
+
+export type PoapsCountVariables = FilterVariables;

@@ -4,8 +4,11 @@ import {
   PAGINATED_POAPS_QUERY,
   PaginatedPoapsResponse,
   PaginatedPoapsVariables,
+  POAPS_COUNT_QUERY,
+  PoapsCountResponse,
+  PoapsCountVariables,
 } from './queries/PaginatedPoaps';
-import { FetchPoapsInput } from './types/FetchPoapsInput';
+import { BaseFetchPoapsInput, FetchPoapsInput } from './types/FetchPoapsInput';
 import { PoapsSortFields } from './types/PoapsSortFields';
 import { PoapMintStatus } from './types/PoapMintStatus';
 import { WalletMintInput } from './types/WalletMintInput';
@@ -22,8 +25,10 @@ import {
   createInFilter,
   createNotNullAddressFilter,
   createOrderBy,
+  FilterVariables,
   nextCursor,
   PaginatedResult,
+  PaginationInput,
 } from '../utils';
 
 /**
@@ -50,26 +55,60 @@ export class PoapsClient {
    * @param {FetchPoapsInput} input - Criteria for fetching POAP tokens.
    * @returns {Promise<PaginatedResult<POAP>>} A paginated list of POAP tokens.
    */
-  async fetch(input: FetchPoapsInput): Promise<PaginatedResult<POAP>> {
-    const {
+  async fetch(
+    input: FetchPoapsInput & PaginationInput,
+  ): Promise<PaginatedResult<POAP>> {
+    const { limit, offset, sortField, sortDir } = input;
+
+    const variables: PaginatedPoapsVariables = {
+      ...this.buildPoapsQueryVariables(input),
       limit,
       offset,
+      orderBy: createOrderBy<PoapsSortFields>(sortField, sortDir),
+    };
+
+    const { data } = await this.compassProvider.request<
+      PaginatedPoapsResponse,
+      PaginatedPoapsVariables
+    >(PAGINATED_POAPS_QUERY, variables);
+
+    const poaps = data.poaps.map((poap) => POAP.fromCompass(poap));
+
+    return new PaginatedResult<POAP>(
+      poaps,
+      nextCursor(poaps.length, limit, offset),
+    );
+  }
+
+  /**
+   * @param input Criteria for fetching the number of POAPs.
+   * @returns The number of POAPs matching the criteria.
+   */
+  async fetchCount(input?: BaseFetchPoapsInput): Promise<number> {
+    const variables: PoapsCountVariables = this.buildPoapsQueryVariables(input);
+
+    const { data } = await this.compassProvider.request<
+      PoapsCountResponse,
+      PoapsCountVariables
+    >(POAPS_COUNT_QUERY, variables);
+
+    return data.poaps_aggregate.aggregate.count;
+  }
+
+  private buildPoapsQueryVariables(
+    input?: BaseFetchPoapsInput,
+  ): FilterVariables {
+    const {
       chain,
       collectorAddress,
       mintedDateFrom,
       mintedDateTo,
       ids,
       dropId,
-      sortField,
-      sortDir,
       filterZeroAddress = true,
       filterDeadAddress = true,
-    } = input;
-
-    const variables: PaginatedPoapsVariables = {
-      limit,
-      offset,
-      orderBy: createOrderBy<PoapsSortFields>(sortField, sortDir),
+    } = input || {};
+    return {
       where: {
         ...createAddressFilter('collector_address', collectorAddress),
         ...(collectorAddress == undefined
@@ -85,18 +124,6 @@ export class PoapsClient {
         ...createInFilter('id', ids),
       },
     };
-
-    const { data } = await this.compassProvider.request<
-      PaginatedPoapsResponse,
-      PaginatedPoapsVariables
-    >(PAGINATED_POAPS_QUERY, variables);
-
-    const poaps = data.poaps.map((poap) => POAP.fromCompass(poap));
-
-    return new PaginatedResult<POAP>(
-      poaps,
-      nextCursor(poaps.length, limit, offset),
-    );
   }
 
   /**
