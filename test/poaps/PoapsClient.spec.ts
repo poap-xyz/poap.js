@@ -185,4 +185,144 @@ describe('PoapsClient', () => {
       });
     });
   });
+
+  describe('fetchCount', () => {
+    it('request all tokens count except zero address and dead address when no filter is given', async () => {
+      // Given
+      compassProviderMock.request.mockResolvedValue({
+        data: {
+          poaps_aggregate: { aggregate: { count: 0 } },
+        },
+      });
+
+      // When
+      await poapsClient.fetchCount();
+
+      // Then
+      expect(compassProviderMock.request).toHaveBeenCalledWith(anyString(), {
+        where: {
+          collector_address: {
+            _nin: [
+              '0x0000000000000000000000000000000000000000',
+              '0x000000000000000000000000000000000000dead',
+            ],
+          },
+        },
+      });
+    });
+
+    it('request all tokens count including zero address and dead address when those filters are given on false', async () => {
+      // Given
+      compassProviderMock.request.mockResolvedValue({
+        data: {
+          poaps_aggregate: { aggregate: { count: 0 } },
+        },
+      });
+
+      // When
+      await poapsClient.fetchCount({
+        filterZeroAddress: false,
+        filterDeadAddress: false,
+      });
+
+      // Then
+      expect(compassProviderMock.request).toHaveBeenCalledWith(anyString(), {
+        where: {},
+      });
+    });
+
+    it('request all tokens count except dead address but include zero address when filter is given on false', async () => {
+      // Given
+      compassProviderMock.request.mockResolvedValue({
+        data: {
+          poaps_aggregate: { aggregate: { count: 0 } },
+        },
+      });
+
+      // When
+      await poapsClient.fetchCount({
+        filterZeroAddress: false,
+      });
+
+      // Then
+      expect(compassProviderMock.request).toHaveBeenCalledWith(anyString(), {
+        where: {
+          collector_address: {
+            _neq: '0x000000000000000000000000000000000000dead',
+          },
+        },
+      });
+    });
+
+    it('request all tokens count except zero address but include dead address when filter is given on false', async () => {
+      // Given
+      compassProviderMock.request.mockResolvedValue({
+        data: {
+          poaps_aggregate: { aggregate: { count: 0 } },
+        },
+      });
+
+      // When
+      await poapsClient.fetchCount({
+        filterDeadAddress: false,
+      });
+
+      // Then
+      expect(compassProviderMock.request).toHaveBeenCalledWith(anyString(), {
+        where: {
+          collector_address: {
+            _neq: '0x0000000000000000000000000000000000000000',
+          },
+        },
+      });
+    });
+
+    it('request tokens count for collector when collectorAddress filter is given', async () => {
+      // Given
+      compassProviderMock.request.mockResolvedValue({
+        data: {
+          poaps_aggregate: { aggregate: { count: 0 } },
+        },
+      });
+
+      // When
+      await poapsClient.fetchCount({
+        collectorAddress: '0xf6b6f07862a02c85628b3a9688beae07fea9c863',
+      });
+
+      // Then
+      expect(compassProviderMock.request).toHaveBeenCalledWith(anyString(), {
+        where: {
+          collector_address: {
+            _eq: '0xf6b6f07862a02c85628b3a9688beae07fea9c863',
+          },
+        },
+      });
+    });
+
+    it('request tokens count for collector when collectorAddress filter is given without null address filter even when given', async () => {
+      // Given
+      compassProviderMock.request.mockResolvedValue({
+        data: {
+          poaps_aggregate: { aggregate: { count: 0 } },
+        },
+      });
+
+      // When
+      await poapsClient.fetchCount({
+        collectorAddress: '0xf6b6f07862a02c85628b3a9688beae07fea9c863',
+        filterZeroAddress: true,
+        filterDeadAddress: true,
+      });
+
+      // Then
+      expect(compassProviderMock.request).toHaveBeenCalledWith(anyString(), {
+        where: {
+          collector_address: {
+            _eq: '0xf6b6f07862a02c85628b3a9688beae07fea9c863',
+          },
+        },
+      });
+    });
+  });
 });
