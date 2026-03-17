@@ -51,7 +51,7 @@
     "@jest/globals": "^30.3.0",
     "@rollup/plugin-commonjs": "^28.0.9",
     "@rollup/plugin-node-resolve": "^16.0.3",
-    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-terser": "^1.0.0",
     "@types/jest": "^30.0.0",
     "@types/lodash.chunk": "^4.2.9",
     "@types/node": "^25.4.0",
